@@ -22,12 +22,12 @@ Con esto podemos:
 
 Requisitos previos:
 ``` bash
-instalar node js y yarn 
+instalar git, node js y yarn 
 ```
 Clone el repositorio:
 
 ``` bash
-git clone 
+git clone https://gitlab.com/Ethereum-Ignus/ignus-intranet.git
 ```
 
 Instale  las dependencias con yarn o npm :
@@ -44,7 +44,7 @@ npm install
 
 
 
-ISi desea generar componentes angulares con Angular-cli, DEBE instalarlo `@angular/cli` en el contexto global de npm. 
+Si desea generar componentes angulares con Angular-cli, DEBE instalarlo `@angular/cli` en el contexto global de npm. 
 Siga la [Angular-cli documentation](https://github.com/angular/angular-cli) si ha instalado una versión anterior de `angular-cli`.
 
 ``` bash
@@ -53,7 +53,7 @@ npm install -g @angular/cli
 
 ## Construir para desarrollo
 
-- **en la ventana del terminal** -> npm start  
+- **En la ventana del terminal** -> npm start  
 
 Listo tenemos la aplicación Angular + Electron en un entorno de desarrollo local con recarga instantanea
 
@@ -61,9 +61,9 @@ El código de la aplicación es administrado por main.ts. En esta muestra, la ap
 El componente angular contiene un ejemplo de importación lib nativa de Electron y NodeJS. 
 Puede desactivar "Herramientas de desarrollador" haciendo un comentario win.webContents.openDevTools();en main.ts.
 
-## Included Commands
+## Comandos Incluidos 
 
-|Command|Description|
+|Comando|Descripcion|
 |--|--|
 |`npm run ng:serve:web`| Ejecuta la aplicación en el navegador |
 |`npm run build`| Crea la aplicación. Sus archivos creados están en la carpeta / dist. |
