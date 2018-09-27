@@ -29,6 +29,11 @@ Clone el repositorio:
 ``` bash
 git clone https://gitlab.com/Ethereum-Ignus/ignus-intranet.git
 ```
+Cambie la direccion del directorio:
+
+``` bash
+cd ignus-intranet
+```
 
 Instale  las dependencias con yarn o npm :
 
@@ -57,9 +62,9 @@ npm install -g @angular/cli
 
 Listo tenemos la aplicación Angular + Electron en un entorno de desarrollo local con recarga instantanea
 
-El código de la aplicación es administrado por main.ts. En esta muestra, la aplicación se ejecuta con una simple aplicación angular ( http: // localhost: 4200 ) y una ventana electrónica. 
+El código de la aplicación es administrado por `main.ts` En esta muestra, la aplicación se ejecuta con una simple aplicación angular ( `http: // localhost: 4200` ) y una ventana electrónica. 
 El componente angular contiene un ejemplo de importación lib nativa de Electron y NodeJS. 
-Puede desactivar "Herramientas de desarrollador" haciendo un comentario win.webContents.openDevTools();en main.ts.
+Puede desactivar "Herramientas de desarrollador" haciendo un comentario `win.webContents.openDevTools();`en main.ts.
 
 ## Comandos Incluidos 
 
