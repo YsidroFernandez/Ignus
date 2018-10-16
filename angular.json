@@ -25,9 +25,12 @@
               "src/favicon.512x512.png"
             ],
             "styles": [
-              "src/styles.scss"
+              "node_modules/font-awesome/css/font-awesome.css",
+              "src/styles/app.scss"
             ],
-            "scripts": []
+            "scripts": [
+             "node_modules/chart.js/dist/Chart.js"
+            ]
           },
           "configurations": {
             "dev": {
@@ -81,9 +84,9 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-electron:build"
+            "browserTarget": "test-ng4:build"
           }
         },
         "test": {

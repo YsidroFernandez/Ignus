@@ -37,6 +37,25 @@
     "e2e": "npm run postinstall:web && ng e2e"
   },
   "dependencies": {
+    "@angular/animations": "^6.0.0",
+        "@angular/common": "^6.0.0",
+        "@angular/compiler": "^6.0.0",
+        "@angular/core": "^6.0.0",
+        "@angular/forms": "^6.0.0",
+        "@angular/http": "^6.0.0",
+        "@angular/platform-browser": "^6.0.0",
+        "@angular/platform-browser-dynamic": "^6.0.0",
+        "@angular/router": "^6.0.0",
+        "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+        "@ngx-translate/core": "^10.0.1",
+        "@ngx-translate/http-loader": "^3.0.1",
+        "chart.js": "^2.7.2",
+        "core-js": "^2.5.5",
+        "font-awesome": "^4.7.0",
+        "ng2-charts": "^1.6.0",
+        "rxjs": "^6.1.0",
+        "yarn": "^1.6.0",
+        "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.6.3",

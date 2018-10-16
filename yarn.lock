@@ -111,6 +111,12 @@
     "@angular-devkit/core" "0.7.2"
     rxjs "^6.0.0"
 
+"@angular/animations@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.1.9.tgz#1d87469e6f6b89a8713570dfbe97700ea85bd007"
+  dependencies:
+    tslib "^1.9.0"
+
 "@angular/cli@6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-6.1.2.tgz#febc2635173ff7d6e3dc6744b4df49459e6f13d6"
@@ -126,9 +132,9 @@
     symbol-observable "^1.2.0"
     yargs-parser "^10.0.0"
 
-"@angular/common@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-6.1.2.tgz#6e3bd4b16975dbb4ba67e2fc7589d0a036e5df12"
+"@angular/common@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-6.1.9.tgz#638fa8e8e30626116ea9ea36e6f2f00fed971f77"
   dependencies:
     tslib "^1.9.0"
 
@@ -141,27 +147,27 @@
     reflect-metadata "^0.1.2"
     tsickle "^0.32.1"
 
-"@angular/compiler@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.1.2.tgz#56fada04cb7dc77a5d3f0b786be713130293d468"
+"@angular/compiler@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.1.9.tgz#3696659f752b5e239f5186cea72cf17965b59cb8"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-6.1.2.tgz#412dd32a91ec1d5d6db508babbb36e9799235d8d"
+"@angular/core@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-6.1.9.tgz#a21a35de551c95f276ecbb1f314949cc69326950"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/forms@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.1.2.tgz#554459c415c010500640a08d7268bca304c5b491"
+"@angular/forms@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.1.9.tgz#d9d8591f4c74270e53e3184eb45e19ba490fdf32"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/http@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-6.1.2.tgz#2e0e376686f4bf51ef043856b26679e88d7a92b9"
+"@angular/http@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-6.1.9.tgz#241f35207d62f86bc155feb124a1e73515d66fb6"
   dependencies:
     tslib "^1.9.0"
 
@@ -169,23 +175,27 @@
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-6.1.2.tgz#221d0b50d68ec10c7b47166a11750070f5a193bd"
 
-"@angular/platform-browser-dynamic@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-6.1.2.tgz#76d813e6ab577ce1ffdb31e88d37df9a5177f55c"
+"@angular/platform-browser-dynamic@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-6.1.9.tgz#e00f1a4948b4c299b17c9561d83f7ea588117818"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/platform-browser@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-6.1.2.tgz#9a2a498e27e2bcd0fc8d6c696340c258f8b3e322"
+"@angular/platform-browser@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-6.1.9.tgz#6c832e528c660ad880a16531754e65b9b97d4f9f"
   dependencies:
     tslib "^1.9.0"
 
-"@angular/router@6.1.2":
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.1.2.tgz#5e9e12225b41940fe346675caf1ed15033738abc"
+"@angular/router@^6.0.0":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.1.9.tgz#29869e53442703c53a943ce375cbb0a0f36927fb"
   dependencies:
     tslib "^1.9.0"
+
+"@ng-bootstrap/ng-bootstrap@^2.0.0":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-2.2.2.tgz#07c64badd48b563140eb5a6327b5516bf2226834"
 
 "@ngtools/webpack@6.0.3":
   version "6.0.3"
@@ -195,13 +205,13 @@
     tree-kill "^1.0.0"
     webpack-sources "^1.1.0"
 
-"@ngx-translate/core@10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-10.0.1.tgz#9f3a3ed077e847dd0d2951a664da6ee348a06d22"
+"@ngx-translate/core@^10.0.1":
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-10.0.2.tgz#5eeb78f47845b476a1e892fb2fb153dbbaf72850"
   dependencies:
     tslib "^1.9.0"
 
-"@ngx-translate/http-loader@3.0.1":
+"@ngx-translate/http-loader@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-3.0.1.tgz#20b0f98bc6c25321129d3e3302ab3cc489c0a42a"
   dependencies:
@@ -1428,6 +1438,26 @@ chalk@~2.2.2:
     escape-string-regexp "^1.0.5"
     supports-color "^4.0.0"
 
+chart.js@^2.6.0, chart.js@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-2.7.2.tgz#3c9fde4dc5b95608211bdefeda7e5d33dffa5714"
+  dependencies:
+    chartjs-color "^2.1.0"
+    moment "^2.10.2"
+
+chartjs-color-string@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color-string/-/chartjs-color-string-0.5.0.tgz#8d3752d8581d86687c35bfe2cb80ac5213ceb8c1"
+  dependencies:
+    color-name "^1.0.0"
+
+chartjs-color@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/chartjs-color/-/chartjs-color-2.2.0.tgz#84a2fb755787ed85c39dd6dd8c7b1d88429baeae"
+  dependencies:
+    chartjs-color-string "^0.5.0"
+    color-convert "^0.5.3"
+
 chokidar@^1.4.1, chokidar@^1.4.2, chokidar@^1.5.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
@@ -1582,19 +1612,23 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
+color-convert@^0.5.3, color-convert@~0.5.0:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
+
 color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
   dependencies:
     color-name "1.1.3"
 
-color-convert@~0.5.0:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
-
 color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
+
+color-name@^1.0.0:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
 
 colors@1.1.2:
   version "1.1.2"
@@ -1787,11 +1821,7 @@ copy-webpack-plugin@^4.5.1:
     p-limit "^1.0.0"
     serialize-javascript "^1.4.0"
 
-core-js@2.5.6:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.6.tgz#0fe6d45bf3cac3ac364a9d72de7576f4eb221b9d"
-
-core-js@^2.2.0, core-js@^2.4.0, core-js@^2.4.1:
+core-js@^2.2.0, core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.5:
   version "2.5.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.7.tgz#f972608ff0cead68b841a16a932d0b183791814e"
 
@@ -1992,7 +2022,7 @@ debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debuglog@*, debuglog@^1.0.1:
+debuglog@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/debuglog/-/debuglog-1.0.1.tgz#aa24ffb9ac3df9a2351837cfb2d279360cd78492"
 
@@ -2946,6 +2976,10 @@ follow-redirects@^1.0.0:
   dependencies:
     debug "=3.1.0"
 
+font-awesome@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+
 for-in@^0.1.3:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
@@ -3716,7 +3750,7 @@ import-local@^2.0.0:
     pkg-dir "^3.0.0"
     resolve-cwd "^2.0.0"
 
-imurmurhash@*, imurmurhash@^0.1.4:
+imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
 
@@ -4616,10 +4650,6 @@ lockfile@~1.0.3:
   dependencies:
     signal-exit "^3.0.2"
 
-lodash._baseindexof@*:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/lodash._baseindexof/-/lodash._baseindexof-3.1.0.tgz#fe52b53a1c6761e42618d654e4a25789ed61822c"
-
 lodash._baseuniq@~4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash._baseuniq/-/lodash._baseuniq-4.6.0.tgz#0ebb44e456814af7905c6212fa2c9b2d51b841e8"
@@ -4627,27 +4657,9 @@ lodash._baseuniq@~4.6.0:
     lodash._createset "~4.0.0"
     lodash._root "~3.0.0"
 
-lodash._bindcallback@*:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/lodash._bindcallback/-/lodash._bindcallback-3.0.1.tgz#e531c27644cf8b57a99e17ed95b35c748789392e"
-
-lodash._cacheindexof@*:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/lodash._cacheindexof/-/lodash._cacheindexof-3.0.2.tgz#3dc69ac82498d2ee5e3ce56091bafd2adc7bde92"
-
-lodash._createcache@*:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/lodash._createcache/-/lodash._createcache-3.1.2.tgz#56d6a064017625e79ebca6b8018e17440bdcf093"
-  dependencies:
-    lodash._getnative "^3.0.0"
-
 lodash._createset@~4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/lodash._createset/-/lodash._createset-4.0.3.tgz#0f4659fbb09d75194fa9e2b88a6644d363c9fe26"
-
-lodash._getnative@*, lodash._getnative@^3.0.0:
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
 
 lodash._root@~3.0.0:
   version "3.0.1"
@@ -4668,10 +4680,6 @@ lodash.debounce@^4.0.8:
 lodash.mergewith@^4.6.0:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.mergewith/-/lodash.mergewith-4.6.1.tgz#639057e726c3afbdb3e7d42741caa8d6e4335927"
-
-lodash.restparam@*:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/lodash.restparam/-/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
 
 lodash.tail@^4.1.1:
   version "4.1.1"
@@ -5060,7 +5068,7 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment@2.x.x:
+moment@2.x.x, moment@^2.10.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
@@ -5137,6 +5145,12 @@ neo-async@^2.5.0:
 netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
+
+ng2-charts@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/ng2-charts/-/ng2-charts-1.6.0.tgz#108a2133ff62a8623895240fadbddbea2951f29d"
+  dependencies:
+    chart.js "^2.6.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -6539,7 +6553,7 @@ readable-stream@~2.0.5, readable-stream@~2.0.6:
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readdir-scoped-modules@*, readdir-scoped-modules@^1.0.0:
+readdir-scoped-modules@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/readdir-scoped-modules/-/readdir-scoped-modules-1.0.2.tgz#9fafa37d286be5d92cbaebdee030dc9b5f406747"
   dependencies:
@@ -6854,13 +6868,7 @@ rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
 
-rxjs@6.2.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.2.2.tgz#eb75fa3c186ff5289907d06483a77884586e1cf9"
-  dependencies:
-    tslib "^1.9.0"
-
-rxjs@^6.0.0:
+rxjs@^6.0.0, rxjs@^6.1.0:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.3.3.tgz#3c6a7fa420e844a81390fb1158a9ec614f4bad55"
   dependencies:
@@ -8228,7 +8236,7 @@ uws@~9.14.0:
   version "9.14.0"
   resolved "https://registry.yarnpkg.com/uws/-/uws-9.14.0.tgz#fac8386befc33a7a3705cbd58dc47b430ca4dd95"
 
-validate-npm-package-license@*, validate-npm-package-license@^3.0.1:
+validate-npm-package-license@^3.0.1:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/validate-npm-package-license/-/validate-npm-package-license-3.0.4.tgz#fc91f6b9c7ba15c857f4cb2c5defeec39d4f410a"
   dependencies:
@@ -8710,6 +8718,10 @@ yargs@^7.0.0:
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
 
+yarn@^1.6.0:
+  version "1.10.1"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.10.1.tgz#b792ba28f050ae94cd7e719dbca80639d70da76f"
+
 yauzl@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
@@ -8724,6 +8736,6 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@0.8.26:
+zone.js@^0.8.26:
   version "0.8.26"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.26.tgz#7bdd72f7668c5a7ad6b118148b4ea39c59d08d2d"
