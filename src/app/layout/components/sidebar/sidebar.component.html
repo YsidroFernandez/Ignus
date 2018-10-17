@@ -3,11 +3,7 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
-        </a>
-        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>{{ 'Charts' | translate }}</span>
-        </a>
+        </a>        
         <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>
@@ -60,7 +56,28 @@
             <i class="fa fa-file-o"></i>&nbsp;
             <span>{{ 'Blank Page' | translate }}</span>
         </a>
-        
+        <!-- <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+            <span>{{ 'Reports' | translate }}</span>
+        </a> -->
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClassReport('pages')">
+                <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+                <span>{{ 'Reportes' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenuReport === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'transacciones' | translate }}</span>
+                        </a>
+                    </li>                    
+                </ul>
+            </li>
+        </div>
+
 
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
