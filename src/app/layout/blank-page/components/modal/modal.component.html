@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-3">
+            <div align="left" class="card-header">Operaciones</div>
+            <!-- Large modal -->
+ <div class="row">
+        <div class="col-xl-4 text-xs-center">
+            <div >
+                <div align="left" class="card-body">
+                    <label >Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+            <div >
+                <div class="card-body">
+                    <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+            <div >
+                <div >
+                      <div class="card-body">
+                <button class="btn btn-success" (click)="open(content)">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+             
+          
+                <ng-template #content let-c="close" let-d="dismiss">
+                   <form method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Gestion Inmuebles</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                    
+                    </div>
+                   
+                     <div class="form-group">
+                    <label>Tipos</label>
+                    <select [(ngModel)]="selectedInmueble.tipo" class="form-control">
+                        <option *ngFor="let Inmueble of Inmuebles" [value]="selectedInmueble.id"">Seleccione:</option>
+                        <option>Casa</option>
+                        <option>Edificio</option>
+                        <option>Terreno</option>
+                       
+                    </select>
+                </div>
+                     <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
+                    </div> 
+                     <fieldset class="form-group">
+                    <label>Descripcion</label>
+                    <textarea [(ngModel)]="selectedInmueble.descripcion"class="form-control" name="descripcion" ng-model="descripcion"rows="3"></textarea>
+                </fieldset>
+                 <fieldset class="form-group">
+                    <label>Ubicacion</label>
+                    <textarea [(ngModel)]="selectedInmueble.ubicacion"class="form-control" name="ubicacion" ng-model="ubicacion"rows="3"></textarea>
+                </fieldset>
+                 <div class="form-group">
+                        <label for="id">Precio</label>
+                        <input [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                     <div class="col-sm-10 col-sm-offset-2">
+                   <button type="submit" class="btn btn-success" (click)="addOrEdit()">Guardar</button>
+                </div>
+                   <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+                </div>
+            </form>
+
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

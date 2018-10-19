@@ -1,0 +1,147 @@
+
+
+<div ng-app="crudApp" ng-controller="crudController">
+
+<div class="container" ng-init="fetchData()">
+        <div class="container" ng-init="fetchData()">
+            <br />
+                <h3  align="center">Inmuebles</h3>
+            <br />
+            <div class="alert alert-success alert-dismissible" *ngIf="msg" >
+                <a href="#" class="close" data-dismiss="alert" (click)="closeAlert()" aria-label="close">&times;</a>
+                {{msg}}
+            </div>
+            <div align="right">
+               <div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-3">
+           
+            <!-- Large modal -->
+
+<app-modal></app-modal>
+        </div>
+    </div>
+</div>
+
+            </div>
+            <br />
+            <div class="table-responsive" style="overflow-x: unset;">
+                <table datatable="ng" dt-options="vm.dtOptions" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Tipos</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Ubicación</th>
+                            <th>Precio</th>
+                            <th>Detalles</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Inmueble of Inmuebles">
+                            <td>{{Inmueble.id}}</td>
+                            <td>{{Inmueble.tipo}}</td>
+                            <td>{{Inmueble.nombre}}</td>
+                            <td>{{Inmueble.descripcion}}</td>
+                            <td>{{Inmueble.ubicacion}}</td>
+                            <td>{{Inmueble.precio}}</td>
+                            <td><button type="button" ng-click="fetchSingleData(name.id)" class="btn btn-primary">Detalles</button></td>
+                            <td><button (click)="OpenForEdit(Inmueble)" [class.active]="Inmueble == selectedInmueble" type="button" ng-click="fetchSingleData(name.id)" class="btn btn-warning btn-xs">Editar</button></td>
+                            <td><button (click)="deletes()" type="button"  class="btn btn-danger btn-xs">Eliminar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+             <form method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Gestion Inmuebles</h4>
+                </div>
+                <div class="modal-body">
+                    <div>
+                    
+                    </div>
+                   
+                     <div class="form-group">
+                    <label>Tipos</label>
+                    <select  class="form-control">
+                        <option>Seleccione:</option>
+                        <option [(ngModel)]="selectedInmueble.tipo">Casa</option>
+                        <option [(ngModel)]="selectedInmueble.tipo">Edificio</option>
+                        <option [(ngModel)]="selectedInmueble.tipo">Terreno</option>
+                       
+                    </select>
+                </div>
+                     <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
+                    </div> 
+                     <fieldset class="form-group">
+                    <label>Descripcion</label>
+                    <textarea [(ngModel)]="selectedInmueble.descripcion"class="form-control" name="descripcion" ng-model="descripcion"rows="3"></textarea>
+                </fieldset>
+                 <fieldset class="form-group">
+                    <label>Ubicacion</label>
+                    <textarea [(ngModel)]="selectedInmueble.ubicacion"class="form-control" name="ubicacion" ng-model="ubicacion"rows="3"></textarea>
+                </fieldset>
+                 <div class="form-group">
+                        <label for="id">Precio</label>
+                        <input [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                     <div class="col-sm-10 col-sm-offset-2">
+                   <button type="submit" class="btn btn-success" (click)="addOrEdit()">Guardar</button>
+                </div>
+                   <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+                </div>
+            </form>
+
+        </div>
+   
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+
+ open(content) {
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+    }
+
+
+</script>
