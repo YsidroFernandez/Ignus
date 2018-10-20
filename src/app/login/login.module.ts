@@ -8,4 +8,10 @@ import { LoginComponent } from './login.component';
     imports: [CommonModule, LoginRoutingModule],
     declarations: [LoginComponent]
 })
-export class LoginModule {}
+export class LoginModule {
+
+    
+}
+//https://mattlewis92.github.io/angular-calendar/#/kitchen-sink
+//https://github.com/mattlewis92/angular-calendar/tree/master/projects/angular-calendar
+//https://mattlewis92.github.io/angular-calendar/docs/components/CalendarMonthViewComponent.html#source

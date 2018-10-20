@@ -1,20 +1,50 @@
 <div class="login-page" [@routerTransition]>
+    
     <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/ignus1.png" width="250px" class="user-avatar" /> 
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="Email">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="Password">
-                    </div>
+            <img src="./../../assets/images/logoignus.png" width="150px" height="150px" class="user-avatar" /> 
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-sm-6 col-sm-offset-3 form-box">
+            <div class="form-top">
+                <div class="form-top-left">
+                    <h2 class="text-center">Login</h2>
                 </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()"> Log in </a>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
-            </form>
+                <div class="form-top-right">
+                    <i class="fa fa-lock"></i>
+                </div>
+            </div>
+            <div class="form-bottom">
+                <form role="form" action="" method="post" class="login-form">
+                    <div class="form-group">
+                        <label class="sr-only" for="form-username">Username</label>
+                        <input type="text" name="form-username" placeholder="Username..." class="form-username form-control"
+                            id="form-username">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="form-password">Password</label>
+                        <input type="password" name="form-password" placeholder="Password..." class="form-password form-control"
+                            id="form-password">
+                    </div>
+                    <button type="submit" class="btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">Sign in!</button>
+                </form>
+            </div>
         </div>
     </div>
+    <!--div class="row">
+                            <div class="col-sm-6 col-sm-offset-3 social-login">
+                                <h3>...or login with:</h3>
+                                <div class="social-login-buttons">
+                                    <a class="btn btn-link-2" href="#">
+                                        <i class="fa fa-facebook"></i> Facebook
+                                    </a>
+                                    <a class="btn btn-link-2" href="#">
+                                        <i class="fa fa-twitter"></i> Twitter
+                                    </a>
+                                    <a class="btn btn-link-2" href="#">
+                                        <i class="fa fa-google-plus"></i> Google Plus
+                                    </a>
+                                </div>
+                            </div>
+                        </div-->
 </div>
