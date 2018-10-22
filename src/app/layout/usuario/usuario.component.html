@@ -2,29 +2,66 @@
     <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
         <div class="container">
         
-             <div class="card mb-3">
-                <div class="col-xl-4 text-xs-center">
+             
+            <div class="card mb-3">
+  <div class="col-xl-4 text-xs-center">
                     
-                        <div align="left" class="card-body">
-                            <label >Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+    <div align="left" class="card-body">
+        <label >Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+    </div>
+                 
+  </div>
+  <div class="col-xl-4 text-xs-center">
+      <div class="card-body">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-xl-4 text-xs-center">
+      <div class="card-body">
+        <button class="btn btn-success" (click)="open(content)">Agregar</button>
+        <ng-template #content let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crear Usuario</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         <!--<div class="form-group">
+                            <label for="id">Cedúla de Identidad</label>
+                            <input  type="text" name="ced" ng-model="ced" class="form-control" />
+                          </div>-->
+                          <div class="form-group">
+                            <label for="tipos">Nombres</label>
+                            <input  type="text" [(ngModel)]="selectedUsuario.nombre" class="form-control" />
+                         </div>
+                        <div class="form-group">
+                            <label for="nombre">Apellidos</label>
+                            <input  type="text" [(ngModel)]="selectedUsuario.apellido" class="form-control" />
+                        </div> 
+                        <div class="form-group">
+                          <label for="descripcion">Usuario</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.username" class="form-control" />
                         </div>
-                    
-                </div>
-                <div class="col-xl-4 text-xs-center">
-                    <div class="card-body">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                        </form>
+                         <div class="form-group">
+                          <label for="descripcion">Rol</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.rol" class="form-control" />
+                        </div>
                     </div>
-                </div>
-                <div class="col-xl-4 text-xs-center">
-                     <div class="card-body">
-                     <button class="btn btn-success" (click)="open(content)">Agregar</button>
+                    <div class="modal-footer">
+                      
+                        <button type="button" class="btn btn-success" (click)="c('Close click')">Crear</button>
                     </div>
-                </div>
-             </div>
+          </ng-template>
+      </div>
+    </div>
 
+
+
+</div>
 
             <div class="card mb-3">
                 <div class="card-header">Usuarios Registrados</div>
@@ -35,39 +72,86 @@
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Nombre de Usuario</th>
+                        <th> Rol </th>
                         <th colspan="4">Acciones</th>
                     </tr>
                     </thead> 
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Pedro Gabriel</td>
-                        <td>Leal</td>
-                        <td>@PedroGabriel</td>
-                        <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
-                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
-                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                    <tr *ngFor="let usuario of usuarioArray" (click)=openForEdit(usuario)>
+                        <th scope="row">{{ usuario.id}}</th>
+                        <td>{{ usuario.nombre}}</td>
+                        <td>{{ usuario.apellido}}</td> 
+                        <td>{{ usuario.username}}</td>
+                        <td>{{ usuario.rol}}</td>
+                        <td><button type="button"  class="btn btn-primary" (click)="open(ver)"><fa-icon [icon]="faEye"></fa-icon></button>
+                            <button  type="button"  class="btn btn-warning" (click)="open(editar)"><fa-icon [icon]="faEdit"></fa-icon></button>
+                            <button  type="button"  class="btn btn-danger" (click)="delete()"><fa-icon [icon]="faTrash"></fa-icon></button></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jesus</td>
-                        <td>Elias</td>
-                        <td>@JElias</td>
-                          <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
-                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
-                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Athenas</td>
-                        <td >Verica</td>
-                        <td>@Athenas</td>
-                          <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
-                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
-                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
-                    </tr>
+                   
                     </tbody>
                 </table>
             </div>
         </div>
 </div>
+<ng-template #ver let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Usuario </h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         
+                          <div class="form-group">
+                            <label for="tipos">Nombres</label>
+                            <input  type="text"  [(ngModel)]="selectedUsuario.nombre" class="form-control" />
+                         </div>
+                        <div class="form-group">
+                            <label for="nombre">Apellidos</label>
+                            <input  type="text" [(ngModel)]="selectedUsuario.apellido" class="form-control" />
+                        </div> 
+                        <div class="form-group">
+                          <label for="descripcion">Usuario</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.username" class="form-control" />
+                        </div>
+                         <div class="form-group">
+                          <label for="descripcion">Rol</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.rol" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+                    </div>
+          </ng-template>
+
+<ng-template #editar let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Usuario </h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                         
+                          <div class="form-group">
+                            <label for="tipos">Nombres</label>
+                            <input  type="text"  [(ngModel)]="selectedUsuario.nombre" class="form-control" />
+                         </div>
+                        <div class="form-group">
+                            <label for="nombre">Apellidos</label>
+                            <input  type="text" [(ngModel)]="selectedUsuario.apellido" class="form-control" />
+                        </div> 
+                        <div class="form-group">
+                          <label for="descripcion">Usuario</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.username" class="form-control" />
+                        </div>
+                         <div class="form-group">
+                          <label for="descripcion">Rol</label>
+                          <input  type="text" [(ngModel)]="selectedUsuario.rol" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        
+                        <button type="button" class="btn btn-warning" (click)="c('Close click')">Editar</button>
+                    </div>
+          </ng-template>
