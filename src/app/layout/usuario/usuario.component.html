@@ -1,0 +1,73 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
+        <div class="container">
+        
+             <div class="card mb-3">
+                <div class="col-xl-4 text-xs-center">
+                    
+                        <div align="left" class="card-body">
+                            <label >Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+                        </div>
+                    
+                </div>
+                <div class="col-xl-4 text-xs-center">
+                    <div class="card-body">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-4 text-xs-center">
+                     <div class="card-body">
+                     <button class="btn btn-success" (click)="open(content)">Agregar</button>
+                    </div>
+                </div>
+             </div>
+
+
+            <div class="card mb-3">
+                <div class="card-header">Usuarios Registrados</div>
+                <table class="card-body table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Nombre de Usuario</th>
+                        <th colspan="4">Acciones</th>
+                    </tr>
+                    </thead> 
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Pedro Gabriel</td>
+                        <td>Leal</td>
+                        <td>@PedroGabriel</td>
+                        <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
+                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
+                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jesus</td>
+                        <td>Elias</td>
+                        <td>@JElias</td>
+                          <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
+                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
+                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Athenas</td>
+                        <td >Verica</td>
+                        <td>@Athenas</td>
+                          <td><button type="button"  class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button>
+                            <button  type="button"  class="btn btn-warning "><fa-icon [icon]="faEdit"></fa-icon></button>
+                            <button  type="button"  class="btn btn-danger "><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
