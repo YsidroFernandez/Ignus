@@ -56,9 +56,22 @@
             <i class="fa fa-file-o"></i>&nbsp;
             <span>{{ 'Inmueble' | translate }}</span>
         </a>
+
          <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-user"></i>&nbsp;
             <span>{{ 'Usuario' | translate }}</span>
+
+            </a>
+       
+        <a [routerLink]="['/inmueble']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-th-list"></i>&nbsp;
+            <span>{{ 'Inmuebles' | translate }}</span>
+        </a>
+        <a [routerLink]="['/incidencias']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-edit"></i>&nbsp;
+            <span>{{ 'Incidencias' | translate }}</span>
+
+
         </a>
         <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
           <i class="fa fa-calendar"></i>&nbsp;

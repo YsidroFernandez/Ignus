@@ -1,0 +1,229 @@
+<div ng-app="crudApp" ng-controller="crudController">
+
+<div class="container" ng-init="fetchData()">
+        <div class="container" ng-init="fetchData()">
+            <br />
+                <h3  align="center">Incidencias</h3>
+            <br />
+           <div class="alert alert-success alert-dismissible" *ngIf="msg" >
+                 <button type="button" class="close" aria-label="Close" (close)="closeAlert(alert)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                {{msg}}
+            </div>
+            <div align="right">
+               <div class="row">
+    <div class="col-sm-12">
+        <div class="card mb-3">
+           
+            <!-- Large modal -->
+<div class="row">
+        <div class="col-xl-4 text-xs-center">
+            <div >
+                <div align="left" class="card-body">
+                    <label >Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 text-xs-center">
+            <div >
+                <div class="card-body">
+                    <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+                </div>
+            </div>
+        </div>
+       <div class="col-xl-4 text-xs-center">
+            <div >
+                <div >
+                      <div class="card-body">
+                <button class="btn btn-success" (click)="open(content)">Agregar</button>
+ <ng-template #content let-c="close" let-d="dismiss">
+ 	
+                    <div class="modal-header">
+                    <h4 class="modal-title">Gestion Incidencias</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                    
+                    </div>
+
+                     <div class="form-group">
+                    <label for="descripcion">Fecha de Nacimiento</label>
+                    <input [(ngModel)]="selectedIncidencia.fecha" type="text" placeholder="dd-mm-yyyy"  class="form-control" />
+                    
+                  </div>
+                   
+             
+                     <div class="form-group">
+                            <label for="tipos">Motivo</label>
+                            <input [(ngModel)]="selectedIncidencia.motivo"  type="text"   class="form-control" />
+                         </div>
+
+                         <div class="form-group">
+                    <label>Clientes</label>
+                    <select [(ngModel)]="selectedIncidencia.cliente"  class="form-control">
+                        <option *ngFor="let cli of cliente" [value]="cli.Name">
+                            {{cli.Name}}
+                        </option>                      
+                    </select>
+                </div>
+
+
+                </div>
+
+                
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-success" (click)="c('Close click')">Crear</button>
+                </div>
+
+               
+          </ng-template>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+</div>
+
+            </div>
+            <br />
+            <div class="table-responsive" style="overflow-x: unset;">
+                <table datatable="ng" dt-options="vm.dtOptions" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha</th>
+                            <th>Motivo</th>
+                            <th>cliente</th>
+                            <th>Detalles</th>
+                            <th>Editar</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Incidencia of IncidenciaArray"  (click)=openForEdit(Incidencia)>
+                            <td>{{Incidencia.id}}</td>
+                            <td>{{Incidencia.fecha}}</td>
+                            <td>{{Incidencia.motivo}}</td>
+                            <td>{{Incidencia.cliente}}</td>
+                                                     
+                            <td><button type="button" (click)="open(ver)" class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button></td>
+                            <td><button (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" class="btn btn-warning btn-xs"><fa-icon [icon]="faEdit"></fa-icon></button></td>
+                            <td><button (click)="delete()" type="button"  class="btn btn-danger btn-xs"><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+   
+</div>
+
+<ng-template #editar let-c="close" let-d="dismiss">
+
+
+                    <div class="modal-header">
+                    <h4 class="modal-title">Gestion Incidencias</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                    
+                    </div>
+
+                     <div class="form-group">
+                            <br>
+                                <label id="label-inc-visit" class="control-la col-md-1"> Fecha: </label>
+                                <div id="comb-inc-visit" class="col-md-6">
+                                    <div class="input-group date form_datetime-component">
+                                        <input type="text2" class="form-control" readonly="" size="16">
+                             
+                                                <span class="input-group-btn">
+                                                <button type="button" class="btn btn-vclaro date-set"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                   
+             
+                     <div class="form-group">
+                            <label for="tipos">Motivo</label>
+                            <input [(ngModel)]="selectedIncidencia.motivo"  type="text"   class="form-control" />
+                         </div>
+
+                         <div class="form-group">
+                    <label>Clientes</label>
+                    <select [(ngModel)]="selectedIncidencia.cliente"  class="form-control">
+                        <option *ngFor="let cli of cliente" [value]="cli.Name">
+                            {{cli.Name}}
+                        </option>                      
+                    </select>
+                </div>
+
+
+                </div>
+
+               <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" (click)="c('Close click')">Editar</button>
+                </div>
+</ng-template>
+
+<ng-template #ver let-c="close" let-d="dismiss">
+
+
+                    <div class="modal-header">
+                    <h4 class="modal-title">Gestion Incidencias</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                    
+                    </div>
+
+                     <div class="form-group">
+                            <br>
+                                <label id="label-inc-visit" class="control-la col-md-1"> Fecha: </label>
+                                <div id="comb-inc-visit" class="col-md-6">
+                                    <div class="input-group date form_datetime-component">
+                                        <input type="text2" class="form-control" readonly="" size="16">
+                             
+                                                <span class="input-group-btn">
+                                                <button type="button" class="btn btn-vclaro date-set"><i class="fa fa-calendar"></i></button>
+                                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                   
+             
+                     <div class="form-group">
+                            <label for="tipos">Motivo</label>
+                            <input disabled="" [(ngModel)]="selectedIncidencia.motivo"  type="text"   class="form-control" />
+                         </div>
+
+                         <div class="form-group">
+                    <label>Clientes</label>
+                    <select disabled="" [(ngModel)]="selectedIncidencia.cliente"  class="form-control">
+                        <option  *ngFor="let cli of cliente" [value]="cli.Name">
+                            {{cli.Name}}
+                        </option>                      
+                    </select>
+                </div>
+
+
+                </div>
+
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">cerrar</button>
+                </div>
+</ng-template>

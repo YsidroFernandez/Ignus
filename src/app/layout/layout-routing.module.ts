@@ -15,6 +15,8 @@ const routes: Routes = [
             // { path: 'grid', loadChildren: './grid/grid.module#GridModule' },
             // { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
+            { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
+            { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
             { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
