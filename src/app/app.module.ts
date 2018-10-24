@@ -9,6 +9,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import exporting from 'highcharts/modules/exporting.src.js';
+export function highchartsModules() {
+    return [ exporting ];
+}
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
@@ -23,6 +28,7 @@ export const createTranslateLoader = (http: HttpClient) => {
 
 @NgModule({
     imports: [
+        ChartModule,
         CommonModule,
         BrowserModule,
         BrowserAnimationsModule,
@@ -37,7 +43,9 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppRoutingModule
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [ 
+        AuthGuard,
+        { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
