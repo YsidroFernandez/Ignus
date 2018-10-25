@@ -56,6 +56,14 @@
             <i class="fa fa-file-o"></i>&nbsp;
             <span>{{ 'Blank Page' | translate }}</span>
         </a>
+         <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-user"></i>&nbsp;
+            <span>{{ 'Usuario' | translate }}</span>
+        </a>
+        <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span>{{ 'Agenda' | translate }}</span>
+        </a>
         <!-- <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
             <span>{{ 'Reports' | translate }}</span>
