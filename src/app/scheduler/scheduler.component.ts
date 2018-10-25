@@ -23,7 +23,7 @@ const colors: any = {
 @Component({
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
-  styleUrls: ['./scheduler.component.css']
+  styleUrls: ['./scheduler.component.scss']
 })
 export class SchedulerComponent implements OnInit {
 
