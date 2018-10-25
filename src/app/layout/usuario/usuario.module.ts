@@ -15,8 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     providers: [
     NgbActiveModal,
   ]
-    
+
 })
 export class UsuarioModule {
 
-} 
+}
