@@ -16,6 +16,7 @@ const routes: Routes = [
             // { path: 'components', loadChildren: './bs-component/bs-component.module#BsComponentModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
+            { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
         ]}
 ];

@@ -60,6 +60,10 @@
             <i class="fa fa-user"></i>&nbsp;
             <span>{{ 'Usuario' | translate }}</span>
         </a>
+        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+          <i class="fa fa-calendar"></i>&nbsp;
+          <span>{{ 'Citas' | translate }}</span>
+      </a>
         <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-calendar"></i>&nbsp;
             <span>{{ 'Agenda' | translate }}</span>
@@ -81,7 +85,7 @@
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'transacciones' | translate }}</span>
                         </a>
-                    </li>                    
+                    </li>
                 </ul>
             </li>
         </div>
