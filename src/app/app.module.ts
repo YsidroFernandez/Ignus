@@ -13,18 +13,14 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import exporting from 'highcharts/modules/exporting.src.js';
+
 export function highchartsModules() {
     return [ exporting ];
 }
 
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
-    /* for development
-    return new TranslateHttpLoader(
-        http,
-        '/start-angular/SB-Admin-BS4-Angular-6/master/dist/assets/i18n/',
-        '.json'
-    ); */
+
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 };
 
@@ -45,10 +41,10 @@ export const createTranslateLoader = (http: HttpClient) => {
             }
         }),
         AppRoutingModule,
-        
+
     ],
     declarations: [AppComponent],
-    providers: [ 
+    providers: [
         AuthGuard,
         { provide: HIGHCHARTS_MODULES, useFactory: highchartsModules }],
     bootstrap: [AppComponent]

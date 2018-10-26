@@ -3,7 +3,7 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
-        </a>        
+        </a>
         <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>
@@ -60,6 +60,10 @@
             <i class="fa fa-user"></i>&nbsp;
             <span>{{ 'Usuario' | translate }}</span>
         </a>
+        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+          <i class="fa fa-calendar"></i>&nbsp;
+          <span>{{ 'Citas' | translate }}</span>
+      </a>
         <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-calendar"></i>&nbsp;
             <span>{{ 'Agenda' | translate }}</span>
@@ -81,7 +85,7 @@
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'transacciones' | translate }}</span>
                         </a>
-                    </li>                    
+                    </li>
                 </ul>
             </li>
         </div>
