@@ -1,4 +1,4 @@
-$topnav-background-color: #222;
+$topnav-background-color: #676a6c;
 .sidebar {
     border-radius: 0;
     position: fixed;
@@ -27,18 +27,18 @@ $topnav-background-color: #222;
             background: $topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #999;
+            color: #41ccc7;
             text-decoration: none;
             .fa {
                 margin-right: 10px;
             }
         }
         a:hover {
-            background: darken($topnav-background-color, 5%);
+            background: darken($topnav-background-color, 10%);
             color: #fff;
         }
         a.router-link-active {
-            background: darken($topnav-background-color, 5%);
+            background: darken($topnav-background-color, 10%);
             color: #fff;
         }
         .header-fields {
@@ -59,7 +59,7 @@ $topnav-background-color: #222;
             height: 50px;
             margin-bottom: 0;
             a {
-                color: #999;
+                color: #41ccc7;
                 text-decoration: none;
                 font-weight: 400;
                 background: $topnav-background-color;
@@ -78,7 +78,7 @@ $topnav-background-color: #222;
             }
         }
         .panel-title:hover {
-            background: darken($topnav-background-color, 5%);
+            background: darken($topnav-background-color, 10%);
         }
         .panel-collapse {
             border-radious: 0;
@@ -89,14 +89,14 @@ $topnav-background-color: #222;
                     background-color: $topnav-background-color;
                     border: 0 solid transparent;
                     a {
-                        color: #999;
+                        color: #41ccc7;
                     }
                     a:hover {
                         color: #fff;
                     }
                 }
                 .list-group-item:hover {
-                    background: darken($topnav-background-color, 5%);
+                    background: darken($topnav-background-color, 10%);
                 }
             }
         }
@@ -166,16 +166,16 @@ $topnav-background-color: #222;
     cursor: pointer;
     padding: 12px;
     bottom: 0;
-    color: #999;
-    background: #212529;
+    color: #41ccc7;
+    background: #4b4b4b;
     i {
         font-size: 23px;
     }
     &:hover {
-        background: darken($topnav-background-color, 5%);
+        background: darken($topnav-background-color, 10%);
         color: #fff;
     }
-    border-top: 1px solid #999;
+    border-top: 1px solid #41ccc7;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
     -ms-transition: all 0.2s ease-in-out;
