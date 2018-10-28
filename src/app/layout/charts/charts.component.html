@@ -5,16 +5,26 @@
             <div class="card-header" style="position: relative; text-align: -webkit-center">
                 Reportes de Transacciones
             </div>
-
-            <div class="card-body">
-              
-                <div [chart]="chart" id="graficaLineal" style="width: 100%; height: 500px; margin: 0 auto"></div>
+            <div class="row mb-3 text-xs-center">
+                <div class="col col-sm-6 text-right">
+                    <label>Selecciones el tipo de reporte estadistico</label>
+                </div>
+                <div class="col col-sm-6">
+                    <div class="col col-sm-4">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+                    <div class="col col-sm-2"></div>
+                </div>
             </div>
-            <!-- <div class="card-body">
-                <canvas baseChart height="150px" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
-                    (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-                </canvas>
-            </div> -->
+            <div class="card-body">
+                <div [chart]="chart" id="graficaLineal" class="chart"></div>
+            </div>
         </div>
     </div>
 </div>

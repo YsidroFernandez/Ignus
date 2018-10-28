@@ -13,23 +13,7 @@ export class ChartsComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }
-    // chart = new Chart({
-    //     chart: {
-    //       type: 'line'
-    //     },
-    //     title: {
-    //       text: 'Linechart'
-    //     },
-    //     credits: {
-    //       enabled: false
-    //     },
-    //     series: [
-    //       {
-    //         name: 'Line 1',
-    //         data: [1, 2, 3]
-    //       }
-    //     ]
-    //   });  
+   
 
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
@@ -46,9 +30,9 @@ export class ChartsComponent implements OnInit {
         title: {
             text: 'Porcentaje de Visitas por Transsaciones'
         },
-        subtitle: {
-            text: 'No leer'		// Subtitulo (Opcional)
-        },
+        // subtitle: {
+            // text: ''		// Subtitulo (Opcional)
+        // },
         // plotArea: {
         // 	shadow: null,
         // 	borderWidth: null,
