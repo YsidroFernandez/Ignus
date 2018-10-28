@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+      <div style="display: block;">
+      <canvas baseChart width="300" height="100"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+      </div>
+      <br>
+      <br>
+    </div>
+    <div class="col-md-12" style="margin-bottom: 10px">
+        <h3>Transacciones Mensuales</h3>
+      <table class="table table-responsive table-condensed">
+        <tr>
+          <th *ngFor="let label of lineChartLabels">{{label}}</th>
+        </tr>
+        <tr *ngFor="let d of lineChartData">
+          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+        </tr>
+      </table>
+      
+      <!-- <button class="btn btn-primary btn-block" (click)="randomize()">CLICK</button> -->
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+
+  <div class="row">
+  <div class="col-md-6">
+    <h3>Ingresos Mensaules</h3>
+    <canvas baseChart
+                [data]="graphicRevenueData"
+                [labels]="graphicLabels"
+                [options]="lineChartOptions"
+                [chartType]="lineType"
+                (chartHover)="hovered($event)"
+                (chartClick)="click($event)"></canvas>
+  </div>
+  <div class="col-md-6">
+    <h3>Transacciones Por Inmuebles</h3>
+    <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+  </div>
+  <div class="col-md-12 text-center" style="margin-top: 10px;height: 50%">
+    <button class="btn btn-primary" (click)="randomizeType()" style="display: inline-block">Cambiar Representación</button>
+  </div>
+  </div>
