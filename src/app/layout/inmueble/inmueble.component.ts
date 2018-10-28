@@ -80,6 +80,8 @@ this.tipSelect= 4;
     }
 
 
+
+
     addOrEdit() {
 
       /*if(this.selectedInmueble.id === 0){
@@ -100,4 +102,9 @@ this.tipSelect= 4;
         this.msg = 'Campo Eliminado Exitosamente';
       }
       }
+      closeAlert(): void{
+      this.msg = '';
+      }
+    }
+
       }

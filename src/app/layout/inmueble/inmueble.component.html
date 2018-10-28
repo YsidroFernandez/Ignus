@@ -6,8 +6,8 @@
             <br />
                 <h3  align="center">Inmuebles</h3>
             <br />
-            <div class="alert alert-success alert-dismissible" *ngIf="msg" >
-                 <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <div class="alert alert-success alert-dismissible" *ngIf="msg"  >
+                 <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 {{msg}}
@@ -31,7 +31,8 @@
                 <div class="card-body">
                     <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                 <button style="background: #1AB394; border-radius: 80px;font-size:24px" (click)="open(content)"><i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+</button>
             </form>
                 </div>
             </div>
@@ -40,7 +41,8 @@
             <div >
                 <div >
                       <div class="card-body">
-                <button class="btn btn-success" (click)="open(content)">Agregar</button>
+                <button style="background: #1AB394; border-radius: 80px;font-size:24px" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+</button>
  <ng-template #content let-c="close" let-d="dismiss">
                     <div class="modal-header">
                     <h4 class="modal-title">Gestion Inmuebles</h4>
@@ -105,9 +107,9 @@
                             <th>Descripción</th>
                             <th>Ubicación</th>
                             <th>Precio</th>
-                            <th>Detalles</th>
-                            <th>Editar</th>
-                            <th>Eliminar</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -118,16 +120,16 @@
                             <td>{{Inmueble.descripcion}}</td>
                             <td>{{Inmueble.ubicacion}}</td>
                             <td>{{Inmueble.precio}}</td>
-                            <td><button type="button" (click)="open(ver)" class="btn btn-primary"><fa-icon [icon]="faEye"></fa-icon></button></td>
-                            <td><button  type="button"  class="btn btn-warning" (click)="open(editar)" class="btn btn-warning btn-xs"><fa-icon [icon]="faEdit"></fa-icon></button></td>
-                            <td><button (click)="delete()" type="button"  class="btn btn-danger btn-xs"><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                            <td ><button aling="center" type="button" (click)="open(ver)" style="background: #1AB394; border-radius: 20px"><fa-icon style="color: white" [icon]="faEye"></fa-icon></button></td>
+                            <td><button aling="center" type="button"  style="background: #1AB394; border-radius: 20px" (click)="open(editar)" ><fa-icon style="color: white" [icon]="faEdit"></fa-icon></button></td>
+                            <td><button aling="center" (click)="delete()" type="button"  style="background: #1AB394; border-radius: 20px"><fa-icon style="color: white" [icon]="faTrash"></fa-icon></button></td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
+                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+                </div>
             </div>
-   
-   
-
 </div>
 
 <ng-template #editar let-c="close" let-d="dismiss">
