@@ -22,7 +22,7 @@
         <div class="col-xl-4 text-xs-center">
             <div >
                 <div align="left" class="card-body">
-                    <label >Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+                    <label >Mostrar<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
 </button>
  <ng-template #content let-c="close" let-d="dismiss">
                     <div class="modal-header">
-                    <h4 class="modal-title">Gestion Inmuebles</h4>
+                    <h4 class="modal-title">Inmuebles</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,7 +82,7 @@
 
                 </div>
                 <div class="modal-footer">
-                   <button type="button" class="btn btn-success" (click)="c('Close click')">Crear</button>
+                   <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
           </ng-template>
 
@@ -172,7 +172,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" (click)="c('Close click')">Editar</button>
+                    <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')"><fa-icon style="color: white" [icon]="faEdit"></fa-icon></button>
                 </div>
 
 </ng-template>
@@ -216,8 +216,8 @@
                     </div>
 
                 </div>
-                <div class="modal-footer">
+               <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" (click)="c('Close click')">cerrar</button>
-                </div>
+                </div>-->
 
 </ng-template>
