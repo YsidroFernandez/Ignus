@@ -131,6 +131,30 @@
                 </ul>
             </li>
         </div>
+         <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClassConf('pages')">
+                <i class="fa fa-cog"></i>&nbsp;
+                <span>{{ 'Configuración' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenuConf === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/agency']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Inmobiliaria' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/promedio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Funciones' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/post-servicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Roles' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
 
 
         <div class="header-fields">

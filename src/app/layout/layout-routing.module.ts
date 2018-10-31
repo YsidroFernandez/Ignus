@@ -21,6 +21,7 @@ const routes: Routes = [
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
+            { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
             { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
         ]}
