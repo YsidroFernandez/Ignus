@@ -1,22 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.scss'],
+    selector: 'app-estadistico',
+    templateUrl: './estadistico.component.html',
+    styleUrls: ['./estadistico.component.scss'],
     animations: [routerTransition()]
     
 })
-export class ChartsComponent implements OnInit {
-
+export class EstadisticoComponent implements OnInit {
     
+    public report = '';
+    tipos: any =   [
+        {
+        id:1,
+        name: "circular"
+        },
+        {
+        id:2,
+        name:"barra"
+        },
+        {
+        id:3,
+        name:"lineal"
+        }        
+    ];
     constructor() {
         let now = moment().format(); 
-    console.log('hello world', now);
+    console.log('hello world', this.tipos);
      }
 
     ngOnInit() {
@@ -27,6 +41,13 @@ export class ChartsComponent implements OnInit {
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
+
+    buscar (data) 
+    {
+        console.log(data);
+    }
+
+    
 
     chart = new Chart({
         chart: {
@@ -53,6 +74,12 @@ export class ChartsComponent implements OnInit {
             }
         },
         plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            },
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',

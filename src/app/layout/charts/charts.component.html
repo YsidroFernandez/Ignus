@@ -5,21 +5,76 @@
             <div class="card-header" style="position: relative; text-align: -webkit-center">
                 Reportes de Transacciones
             </div>
-            <div class="row mb-3 text-xs-center">
-                <div class="col col-sm-6 text-right">
-                    <label>Selecciones el tipo de reporte estadistico</label>
-                </div>
-                <div class="col col-sm-6">
-                    <div class="col col-sm-4">
+            <div class="row mb-3">
+                <div class="col col-sm-3 text-center">
+                    <label>Reporte estadistico</label>
+                    <div class="input-group">
                         <select class="form-control">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Ventas de inmuebles</option>
+                            <option value="2">Alquiler de inmuebles</option>
+                            <option value="3">Solicitudes de Inmuebles</option>
+                            <option value="4">Promociones de Inmuebles</option>
+                            <option value="5">Devolución de Inmuebles por Garantia</option>                            
                         </select>
                     </div>
-                    <div class="col col-sm-2"></div>
+                </div>
+                <div class="col col-sm-3 text-center">
+                    <label>Tipo de grafica</label>
+                    <div class="input-group">
+                        <select class="form-control">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Circular</option>
+                            <option value="2">Barra</option>
+                            <option value="3">Lineal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-sm-2">
+                    <div class="form-group text-center">
+                        <label for="descripcion">Fecha Inicio</label>
+                        <!--  min="{{fechaActual}}" max="2030-12-31" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY"
+                                         monthNames="{{monthNames}}" dayNames="{{ dayNames }}" -->
+                        <div class="input-group">
+                            <input type="text" placeholder="dd-mm-yyyy" name="fecha_inicio" class="form-control" />
+                            <span class="input-group-btn">
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-2">
+                    <div class="form-group text-center">
+                        <label for="descripcion">Fecha Fin</label>
+                        <!--  min="{{fechaActual}}" max="2030-12-31" displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY"
+                                 monthNames="{{monthNames}}" dayNames="{{ dayNames }}" -->
+                        <div class="input-group">
+                            <input type="text" placeholder="dd-mm-yyyy" name="fecha_fin" class="form-control" />
+                            <span class="input-group-btn">
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+<!-- 
+                    <div class="form-group">
+                        <label for="descripcion">Fecha de Nacimiento</label>
+                        <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob"
+                            ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+                        <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                            <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                        </button>
+                    </div> -->
+                </div>
+                <div class="col col-sm-2">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" style="position: relative; top: 30px;">
+                           Generar
+                        </button>
+                    </span>
                 </div>
             </div>
             <div class="card-body">

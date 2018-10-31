@@ -105,6 +105,5 @@ this.tipSelect= 4;
       closeAlert(): void{
       this.msg = '';
       }
-    }
+}
 
-      }

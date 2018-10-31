@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.scss'],
+    selector: 'app-promedio',
+    templateUrl: './promedio.component.html',
+    styleUrls: ['./promedio.component.scss'],
     animations: [routerTransition()]
     
 })
-export class ChartsComponent implements OnInit {
+export class PromedioComponent implements OnInit {
 
     
     constructor() {
@@ -28,6 +28,8 @@ export class ChartsComponent implements OnInit {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
 
+    
+
     chart = new Chart({
         chart: {
             renderTo: 'graficaCircular',
@@ -37,7 +39,7 @@ export class ChartsComponent implements OnInit {
             type: 'pie'
         },
         title: {
-            text: 'Porcentaje de Visitas por Transsaciones'
+            text: ''
         },
         // subtitle: {
             // text: ''		// Subtitulo (Opcional)
@@ -53,6 +55,12 @@ export class ChartsComponent implements OnInit {
             }
         },
         plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            },
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
