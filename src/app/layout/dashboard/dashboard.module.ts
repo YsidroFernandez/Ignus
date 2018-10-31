@@ -7,23 +7,31 @@ import { DashboardComponent } from './dashboard.component';
 import {
     TimelineComponent,
     NotificationComponent,
-    ChatComponent
+    ChatComponent,
 } from './components';
 import { StatModule } from '../../shared';
-
+import { IndicadoresComponent } from './components/indicadores/indicadores.component';
+import { PageHeaderModule } from '../../shared';
+import { ChartModule } from 'angular-highcharts';
+import { ChartsModule } from 'ng2-charts'; // <- HERE
 @NgModule({
     imports: [
         CommonModule,
         NgbCarouselModule.forRoot(),
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
-        StatModule
+        StatModule,
+        PageHeaderModule,
+        ChartModule,
+        ChartsModule,
     ],
     declarations: [
         DashboardComponent,
         TimelineComponent,
         NotificationComponent,
-        ChatComponent
+        ChatComponent,
+        IndicadoresComponent,
+        
     ]
 })
 export class DashboardModule {}

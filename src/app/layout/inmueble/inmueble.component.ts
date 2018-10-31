@@ -107,3 +107,7 @@ this.tipSelect= 4;
       }
 }
 
+<<<<<<< HEAD
+=======
+      
+>>>>>>> b2ffc737861ac48fd4cdac0bb0797385ce6f6df6
