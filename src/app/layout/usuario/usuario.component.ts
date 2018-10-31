@@ -104,6 +104,7 @@ export class UsuarioComponent implements OnInit {
 
 
     open(content) {
+      console.log("aqui");
         this.modalService.open(content).result.then((result) => {
 
         this.closeResult = `Closed with: ${result}`;

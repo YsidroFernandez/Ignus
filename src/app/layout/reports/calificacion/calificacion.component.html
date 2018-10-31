@@ -1,0 +1,65 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Calificación de Empleado'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12">
+            <div class="card-header" style="position: relative; text-align: -webkit-center">
+                Calificación de Empleado
+            </div>
+
+            <div class="row">
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                        <label for="descripcion">Fecha Inicio</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="mm-yyyy" name="fecha_inicio" class="form-control" />
+                            <span class="input-group-btn">
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                        <label for="descripcion">Fecha Fin</label>
+                        <div class="input-group">
+                            <input type="text" placeholder="mm-yyyy" name="fecha_fin" class="form-control" />
+                            <span class="input-group-btn">
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-3 text-center">
+                    <label>Empleado</label>
+                    <div class="form-group input-group">
+                        <select class="form-control">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Erick</option>
+                            <option value="2">Juan</option>
+                            <option value="3">Pedro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col col-sm-3 text-center">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                            Generar
+                        </button>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div [chart]="chart" id="graficaLineal" class="chart"></div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
