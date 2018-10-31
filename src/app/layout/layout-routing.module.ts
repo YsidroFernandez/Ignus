@@ -25,11 +25,8 @@ const routes: Routes = [
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
-<<<<<<< HEAD
             { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
-=======
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
->>>>>>> ea940a17e345c1f85beca27c2f5309c3d62ac28d
             { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
             { path: 'solicitud', loadChildren: './../solicitud/solicitud.module#SolicitudModule' },
