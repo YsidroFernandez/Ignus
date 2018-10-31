@@ -2,16 +2,71 @@
   <app-page-header [heading]="'Citas'" [icon]="'fa-edit'"></app-page-header>
   <div class="container">
     <div class="card mb-3">
+      <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-7">
+          <h3>
+            Editar Cita
 
-      <div class="col-xl-4 text-xs-center">
-        <button class="btn btn-primary pull-right" (click)="open(Crear)">
-          Crear Cita
-        </button></div>
+            <div class="clearfix"></div>
+          </h3>
+        </div>
+        <div class="col-2 text-xs-center">
+          <button class="btn btn-primary pull-right" (click)="open(Crear)">
+            Crear Cita
+          </button></div>
+      </div>
+      <div class="col-1"></div>
     </div>
+
+    <table class="table table-bordered">
+
+      <thead>
+        <tr>
+          <th>Titulo</th>
+          <th>Próxima citas</th>
+          <th>Citas sin finalizar</th>
+          <th>Empieza el</th>
+          <th>Termina el</th>
+          <th>Retirar</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let event of events; let index = index">
+          <td>
+            <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
+          </td>
+          <td>
+            <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
+          </td>
+          <td>
+            <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
+          </td>
+          <td>
+            <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
+              [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+              placeholder="Not set">
+          </td>
+          <td>
+            <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end" (ngModelChange)="refresh.next()"
+              [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+              placeholder="Not set">
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="events.splice(index, 1); refresh.next()">
+              Borrar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+
+
     <div class="card mb-3">
       <div class="col-xl-4 text-xs-center">
-
-
         <ng-template #modalContent let-close="close">
           <div class="modal-header">
             <h5 class="modal-title">Incidencia ocurrida </h5>
@@ -33,108 +88,6 @@
             <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
           </div>
         </ng-template>
-
-        <div class="row text-center">
-
-          <div class="col-md-4">
-
-            <div class="btn-group">
-              <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="activeDayIsOpen = false">
-                Anterior
-              </div>
-              <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                Hoy
-              </div>
-              <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
-                Próximo
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-          </div>
-          <div class="col-md-4">
-            <div class="btn-group">
-              <div class="btn btn-primary" (click)="view = CalendarView.Month" [class.active]="view === CalendarView.Month">
-                Mes
-              </div>
-              <div class="btn btn-primary" (click)="view = CalendarView.Week" [class.active]="view === CalendarView.Week">
-                Semana
-              </div>
-              <div class="btn btn-primary" (click)="view = CalendarView.Day" [class.active]="view === CalendarView.Day">
-                Día
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div [ngSwitch]="view">
-          <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-            [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event)"
-            (eventTimesChanged)="eventTimesChanged($event)">
-          </mwl-calendar-month-view>
-          <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-            (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-          </mwl-calendar-week-view>
-          <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
-            (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-          </mwl-calendar-day-view>
-        </div>
-
-        <br><br><br>
-
-        <h3>
-          Editar Cita
-
-          <div class="clearfix"></div>
-        </h3>
-
-        <table class="table table-bordered">
-
-          <thead>
-            <tr>
-              <th>Titulo</th>
-              <th>Próxima citas</th>
-              <th>Citas sin finalizar</th>
-              <th>Empieza el</th>
-              <th>Termina el</th>
-              <th>Retirar</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let event of events; let index = index">
-              <td>
-                <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
-              </td>
-              <td>
-                <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
-              </td>
-              <td>
-                <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
-              </td>
-              <td>
-                <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
-                  [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                  placeholder="Not set">
-              </td>
-              <td>
-                <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end" (ngModelChange)="refresh.next()"
-                  [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                  placeholder="Not set">
-              </td>
-              <td>
-                <button class="btn btn-danger" (click)="events.splice(index, 1); refresh.next()">
-                  Borrar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-
-        </table>
-
-
       </div>
     </div>
   </div>
@@ -181,4 +134,50 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
   </div>
+
+  <br><br><br>
+
+
+  <table class="table table-bordered">
+
+    <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Próxima citas</th>
+        <th>Citas sin finalizar</th>
+        <th>Empieza el</th>
+        <th>Termina el</th>
+        <th>Retirar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events; let index = index">
+        <td>
+          <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
+        </td>
+        <td>
+          <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
+        </td>
+        <td>
+          <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
+        </td>
+        <td>
+          <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
+            [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+            placeholder="Not set">
+        </td>
+        <td>
+          <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end" (ngModelChange)="refresh.next()"
+            [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+            placeholder="Not set">
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="events.splice(index, 1); refresh.next()">
+            Borrar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
 </ng-template>

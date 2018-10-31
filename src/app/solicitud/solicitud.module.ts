@@ -3,24 +3,23 @@ import { CommonModule } from '@angular/common';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { VisitaRoutingModule } from './visita-routing.module';
-import { VisitaComponent } from './visita.component';
-import { PageHeaderModule } from './../../shared';
+import { SolicitudRoutingModule } from './solicitud-routing.module';
+import { SolicitudComponent } from './solicitud.component';
+import { PageHeaderModule } from './../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RegistrarVisitaComponent } from './registrar/registrar-visita.component';
 
 
 @NgModule({
-    imports: [CommonModule, VisitaRoutingModule,
+    imports: [CommonModule, SolicitudRoutingModule,
        PageHeaderModule,
        FontAwesomeModule, NgbModule.forRoot(),
         FormsModule, ReactiveFormsModule],
-    declarations: [VisitaComponent, RegistrarVisitaComponent],
+    declarations: [SolicitudComponent],
     providers: [
     NgbActiveModal,
   ]
 
 })
-export class VisitaModule {
+export class SolicitudModule {
 
 }

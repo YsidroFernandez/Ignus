@@ -32,8 +32,10 @@ const routes: Routes = [
 >>>>>>> ea940a17e345c1f85beca27c2f5309c3d62ac28d
             { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
-        ]}
-];
+            { path: 'solicitud', loadChildren: './../solicitud/solicitud.module#SolicitudModule' },
+            { path: 'registrosolicitud', loadChildren: './../registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
+    ]}
+    ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
