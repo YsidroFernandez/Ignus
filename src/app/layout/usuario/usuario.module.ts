@@ -10,7 +10,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
-    imports: [CommonModule, UsuarioRoutingModule, PageHeaderModule, FontAwesomeModule, NgbModule.forRoot(), FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, UsuarioRoutingModule,
+       PageHeaderModule,
+       FontAwesomeModule, NgbModule.forRoot(),
+        FormsModule, ReactiveFormsModule],
     declarations: [UsuarioComponent],
     providers: [
     NgbActiveModal,
