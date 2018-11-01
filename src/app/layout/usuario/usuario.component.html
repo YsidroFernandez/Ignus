@@ -1,18 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-        <!-- <div class="col-xl-4 text-xs-center">                    
-            <div align="left" class="card-body">
-     
-            </div>
-            </div> -->
-        <!-- <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
-                    <form class="form-inline my-2 my-lg-0">
 
-                    </form>
-                </div>
-            </div> -->
         <div class="card-header" style="text-align: -webkit-center;">Usuarios Registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
@@ -28,12 +17,12 @@
                     <div class="input-group">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
-                            <button class="btn btn-outline-success" type="submit">Buscar</button>
+                          <button style="background: #1AB394; border-radius: 80px;font-size:24px" ><i style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
                         </span>
                     </div>
                 </div>
                 <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
-                    <button class="btn btn-success" (click)="open(content)" style="position: relative; right: 5px;">Agregar</button>
+                  <button style="background: #1AB394; border-radius: 80px;font-size:24px" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -54,13 +43,13 @@
                             <td>{{ usuario.correo}}</td>
                             <td>{{ usuario.estado}}</td>
                             <td>
-                                <button type="button" class="btn btn-primary btn-sm" (click)="open(ver)">
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(ver)">
                                     <fa-icon [icon]="faEye"></fa-icon>
                                 </button>
-                                <button type="button" class="btn btn-warning btn-sm" (click)="open(editar)">
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)">
                                     <fa-icon [icon]="faEdit"></fa-icon>
                                 </button>
-                                <button type="button" class="btn btn-danger btn-sm" (click)="delete()">
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
                             </td>
@@ -135,7 +124,7 @@
                         </div>
                         <div class="modal-footer">
 
-                            <button type="button" class="btn btn-success" (click)="c('Close click')">Crear</button>
+                          <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </ng-template>
                 </div>
@@ -247,6 +236,6 @@
     </div>
     <div class="modal-footer">
 
-        <button type="button" class="btn btn-warning" (click)="c('Close click')">{{submitType}}</button>
+      <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')"><fa-icon style="color: white" [icon]="faEdit"></fa-icon></button>
     </div>
 </ng-template>
