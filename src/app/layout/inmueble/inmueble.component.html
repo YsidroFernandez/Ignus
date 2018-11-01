@@ -42,19 +42,19 @@
                       <div class="card-body">
                 <button style="background: #1AB394; border-radius: 80px;font-size:24px" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
 </button>
- <ng-template #content let-c="close" let-d="dismiss">
-                    <div class="modal-header">
+ <ng-template  #content let-c="close" let-d="dismiss">
+                    <div  class="modal-header">
                     <h4 class="modal-title">Inmuebles</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
                 <div class="modal-body">
-                    <div>
-                    
-                    </div>
-                   
-                   <div class="form-group">
+                     <div class="row">
+        <div class="col-xl-6 text-xs-center">
+            
+                <div class="card-body">
+                     <div class="form-group">
                     <label>Tipos</label>
                     <select [(ngModel)]="selectedInmueble.tipo"  class="form-control">
                         <option *ngFor="let tip of tipo" [value]="tip.Name">
@@ -62,22 +62,56 @@
                         </option>                      
                     </select>
                 </div>
-                     <div class="form-group">
+                </div>
+            
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            
+                <div class="card-body">
+                    <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
-                    </div> 
+                    </div>
+                </div>
+            
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            
+                <div class="card-body">
                      <fieldset class="form-group">
                     <label>Descripcion</label>
                     <textarea [(ngModel)]="selectedInmueble.descripcion" class="form-control" name="descripcion" ng-model="descripcion"rows="3"></textarea>
                 </fieldset>
-                 <fieldset class="form-group">
+                </div>
+           
+        </div>
+         <div class="col-xl-6 text-xs-center">
+            
+                <div class="card-body">
+                     <fieldset class="form-group">
                     <label>Ubicacion</label>
                     <textarea [(ngModel)]="selectedInmueble.ubicacion" class="form-control" name="ubicacion" ng-model="ubicacion"rows="3"></textarea>
                 </fieldset>
-                 <div class="form-group">
+                </div>
+           
+        </div>
+
+
+           
+        </div>
+        <div class="col-xl-6 text-xs-center">
+            
+               <div class="form-group">
                         <label for="id">Precio</label>
                         <input [(ngModel)]="selectedInmueble.precio"  type="text" name="precio" ng-model="precio" class="form-control" />
                     </div>
+    </div>
+                   
+                  
+                      
+                    
+                
+                 
 
                 </div>
                 <div class="modal-footer">

@@ -68,9 +68,10 @@ $topnav-background-color: #41ccc7;
     }
 
     .form-group {
-        padding: 8px 0;
+        
+        padding: 8px 0px;
         input::-webkit-input-placeholder {
-            color: rgba(255, 255, 255, 0.6) !important;
+            color: grey !important;
         }
 
         input:-moz-placeholder {
@@ -150,7 +151,7 @@ $topnav-background-color: #41ccc7;
 
 padding: 0 20px;
         vertical-align: middle;
-        background: #23a9ad;
+        background: rgb(4, 54, 87);
         border: 0;
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
@@ -195,6 +196,13 @@ padding: 0 20px;
         font-weight: 100;
         color: rgb(255, 255, 255);
         line-height: 50px;
+    }
+    a {
+    margin-top: 4px;
+        font-size: 18px;
+       padding: 2px 100px;
+        color: rgb(255, 255, 255);
+        
     }
     
     h3 {
@@ -282,15 +290,14 @@ padding: 0 20px;
     .form-top {
         overflow: hidden;
         padding: 0 25px 15px 25px;
-        background: rgb(68, 68, 68);
-        background: rgb(4, 54, 87);
-        -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+        background: #17A185;
+        -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 60px 60px 0 0;
         text-align: left;
     }
     
     .form-top-left {
         float: left;
-        width: 75%;
+        width: 90%;
         padding-top: 25px;
     }
     
@@ -299,8 +306,8 @@ padding: 0 20px;
     
     .form-top-right {
         float: left;
-        width: 25%;
-        padding-top: 5px;
+        width: 0%;
+        padding-top: 200px;
         font-size: 66px;
         color: #fff;
         line-height: 100px;
@@ -310,9 +317,8 @@ padding: 0 20px;
     
     .form-bottom {
         padding: 25px 25px 30px 25px;
-        background: #444;
-        background: rgba(0, 0, 0, 0.3);
-        -moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+        background: #1AB394;
+        -moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 60px 60px;
         text-align: left;
     }
     
