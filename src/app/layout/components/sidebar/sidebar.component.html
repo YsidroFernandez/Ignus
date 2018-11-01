@@ -3,89 +3,110 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
-        </a>        
-        <!-- <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-table"></i>&nbsp;
-            <span>{{ 'Tables' | translate }}</span>
-        </a> -->
-        <!-- <a [routerLink]="['/forms']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-edit"></i>&nbsp;
-            <span>{{ 'Forms' | translate }}</span>
-        </a> -->
-        <!-- <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-desktop"></i>&nbsp;
-            <span>{{ 'Bootstrap Element' | translate }}</span>
-        </a> -->
-        <!-- <a [routerLink]="['/grid']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-wrench"></i>&nbsp;
-            <span>{{ 'Bootstrap Grid' | translate }}</span>
-        </a> -->
-        <!-- <a [routerLink]="['/components']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-th-list"></i>&nbsp;
-            <span>{{ 'Component' | translate }}</span>
-        </a> -->
-        <!-- <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages')">
+        </a>
+
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClassReport('pages1')">
                 <i class="fa fa-plus"></i>&nbsp;
-                <span>{{ 'Menu' | translate }}</span>
+                <span>{{ 'Registro de Información' | translate }}</span>
             </a>
-            <li class="nested" [class.expand]="showMenu === 'pages'">
+            <li class="nested" [class.expand]="showMenuReport === 'pages1'">
                 <ul class="submenu">
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
+                        <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>{{ 'Usuarios' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
+                        <a [routerLink]="['/inmueble']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-building"></i>&nbsp;
+                            <span>{{ 'Inmuebles' | translate }}</span>
+                        </a>
+                    </li>
+                     <!-- <li>
+                        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-th-list"></i>&nbsp;
+                            <span>{{ 'Inmuebles' | translate }}</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages2')">
+                <i class="fa fa-address-book"></i>&nbsp;
+                <span>{{ 'Solicitud' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages2'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/prueba']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>{{ 'Registro de Solicitud' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Submenu' | translate }}</span>
+                        <a [routerLink]="['/prueba2']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-building"></i>&nbsp;
+                            <span>{{ 'Atención de Solicitud' | translate }}</span>
                         </a>
                     </li>
                 </ul>
             </li>
-        </div> -->
-        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-file-o"></i>&nbsp;
-            <span>{{ 'Inmueble' | translate }}</span>
+        </div>
+        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span>{{ 'Citas' | translate }}</span>
         </a>
-
-         <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-user"></i>&nbsp;
-            <span>{{ 'Usuario' | translate }}</span>
-
+        <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-calendar"></i>&nbsp;
+            <span>{{ 'Agenda' | translate }}</span>
+        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages3')">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span>{{ 'Visita' | translate }}</span>
             </a>
-       
-        <a [routerLink]="['/inmueble']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-th-list"></i>&nbsp;
-            <span>{{ 'Inmuebles' | translate }}</span>
-        </a>
+            <li class="nested" [class.expand]="showMenu === 'pages3'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/prueba3']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-calendr-edit"></i>&nbsp;
+                            <span>{{ 'Informes de Visita' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pages4')">
+                <i class="fa fa-address-book"></i>&nbsp;
+                <span>{{ 'Transacciones' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pages4'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/prueba4']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>{{ 'Registro' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/prueba5']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-building"></i>&nbsp;
+                            <span>{{ 'Reserva' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
         <a [routerLink]="['/incidencias']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-edit"></i>&nbsp;
             <span>{{ 'Incidencias' | translate }}</span>
 
 
         </a>
-        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-          <i class="fa fa-calendar"></i>&nbsp;
-          <span>{{ 'Citas' | translate }}</span>
-      </a>
-        <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span>{{ 'Agenda' | translate }}</span>
-        </a>
-        <!-- <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-            <span>{{ 'Reports' | translate }}</span>
-        </a> -->
-
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClassReport('pages')">
                 <i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
@@ -94,7 +115,8 @@
             <li class="nested" [class.expand]="showMenuReport === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'transacciones' | translate }}</span>
                         </a>

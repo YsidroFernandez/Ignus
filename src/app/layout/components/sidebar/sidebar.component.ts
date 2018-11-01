@@ -40,6 +40,7 @@ export class SidebarComponent {
     addExpandClass(element: any) {
         if (element === this.showMenu) {
             this.showMenu = '0';
+            console.log()
         } else {
             this.showMenu = element;
         }
@@ -48,8 +49,10 @@ export class SidebarComponent {
     addExpandClassReport(element: any) {
         if (element === this.showMenuReport) {
             this.showMenuReport = '0';
+            console.log('pagina actual')
         } else {
             this.showMenuReport = element;
+            console.log(element);
         }
     }
 
