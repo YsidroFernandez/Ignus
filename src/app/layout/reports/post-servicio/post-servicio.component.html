@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col col-xl-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Reportes Estadisticos
+                Reportes Post-Servicio
             </div>
 
             <div class="row">
@@ -84,33 +84,32 @@
                     </div>
                 </div>
                 <div class="col col-sm-3 text-center">
-                        <label>Grafica</label>
-                        <div class="form-group input-group">
-                            <select class="form-control" >
-                                <option value="" selected="">Seleccionar</option>
-                                <!-- <option [ngValue]="values[0]">Seleccionar</option> -->
-                                <!-- <option [ngValue]="values[1]">Circular</option>
+                    <label>Grafica</label>
+                    <div class="form-group input-group">
+                        <select class="form-control">
+                            <option value="" selected="">Seleccionar</option>
+                            <!-- <option [ngValue]="values[0]">Seleccionar</option> -->
+                            <!-- <option [ngValue]="values[1]">Circular</option>
                                 <option [ngValue]="values[2]">Barra</option>
                                 <option [ngValue]="values[3]">Lineal</option> -->
-                                <!-- <option *ngFor="let list of tipos" [ngValue]="list.name">{{list.name}}</option> -->
-                            </select>
-                        </div>
+                            <!-- <option *ngFor="let list of tipos" [ngValue]="list.name">{{list.name}}</option> -->
+                        </select>
+                    </div>
                 </div>
 
-                    <div class="col col-sm-3">
-                        <span class="input-group-btn">
-                            <!-- <button style="position: relative; top: 30px;  left: 50px; background: #1AB394; border-radius: 100%;font-size:24px" (click)="open(content)"><i style="color: white;" class="fa fa-search" aria-hidden="true"></i>
+                <div class="col col-sm-3">
+                    <span class="input-group-btn">
+                        <!-- <button style="position: relative; top: 30px;  left: 50px; background: #1AB394; border-radius: 100%;font-size:24px" (click)="open(content)"><i style="color: white;" class="fa fa-search" aria-hidden="true"></i>
                             </button> -->
-                            <button class="btn btn-success" type="button" (click)="buscar()"
-                                style="position: relative; top: 30px;  left: 50px;  background: #1AB394;">
-                                Generar
-                            </button>
-                        </span>
-                    </div>                
+                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  left: 50px;  background: #1AB394;">
+                            Generar
+                        </button>
+                    </span>
                 </div>
-           
+            </div>
+
             <div class="card-body">
-                <div [chart]="chart"  class="chart"></div>
+                <div [chart]="chart" class="chart"></div>
             </div>
         </div>
     </div>

@@ -5,13 +5,13 @@ import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-estadistico',
-    templateUrl: './estadistico.component.html',
-    styleUrls: ['./estadistico.component.scss'],
+    selector: 'app-post-servicio',
+    templateUrl: './post-servicio.component.html',
+    styleUrls: ['./post-servicio.component.scss'],
     animations: [routerTransition()]
     
 })
-export class EstadisticoComponent implements OnInit {
+export class PostServicioComponent implements OnInit {
     
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];

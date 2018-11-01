@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
-import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
@@ -9,90 +9,83 @@ import * as moment from 'moment';
     templateUrl: './promedio.component.html',
     styleUrls: ['./promedio.component.scss'],
     animations: [routerTransition()]
-    
+
 })
 export class PromedioComponent implements OnInit {
 
-    
+    public chart: any;
     constructor() {
-        let now = moment().format(); 
-    console.log('hello world', now);
-     }
+        let now = moment().format();
+        console.log('hello world', now);
+    }
 
     ngOnInit() {
-        
-     }
-   
+
+    }
+
 
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
 
-    
+    buscar() {
 
-    chart = new Chart({
-        chart: {
-            renderTo: 'graficaCircular',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: ''
-        },
-        // subtitle: {
-            // text: ''		// Subtitulo (Opcional)
-        // },
-        // plotArea: {
-        // 	shadow: null,
-        // 	borderWidth: null,
-        // 	backgroundColor: null
-        // },
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: true
+        this.chart = new Chart({
+            chart: {
+                renderTo: 'graficaCircular',
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
             },
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+            title: {
+                text: 'Promedio de compra de inmueble por promociones'
+            },
+            // subtitle: {
+            // text: ''		// Subtitulo (Opcional)
+            // },
+            // plotArea: {
+            // 	shadow: null,
+            // 	borderWidth: null,
+            // 	backgroundColor: null
+            // },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.point.name + '</b>: ' + this.y + ' $';
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
                     },
-                }, showInLegend: true
-            }
-        },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            data: [
-                ['España', 35.38],
-                ['México', 21.0],
-                ['Colombia', 9.45],
-                ['Perú', 5.74],
-                ['Argentina', 5.14],
-                ['Chile', 4.89],
-                ['Venezuela', 3.04],
-                ['Ecuador', 2.53],
-                ['Bolivia', 1.66],
-                ['Rep. Dominicana', 1.12],
-                ['Guatemala', 1.08],
-                ['Costa Rica', 1.07],
-                ['Estados Unidos', 1.03],
-                ['+81 paises', 6.87]
-            ]
-        }]
-    });
+                    enableMouseTracking: true
+                },
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function () {
+                            return '<b>' + this.point.name + '</b>: ' + this.y + ' $';
+                        },
+                    }, showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    ['Terreno', 870300],
+                    ['Apartamento', 1200500],
+                    ['Vivienda multifamiliar', 10407090],
+                    ['Quitan', 234500],
+                    ['Mansión', 6034000]
+                    
+                ]
+            }]
+        });
+    }
 }
