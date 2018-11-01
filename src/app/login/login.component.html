@@ -1,13 +1,16 @@
 <div class="login-page" [@routerTransition]>
     
-    <div class="row justify-content-md-center">
+    <!--<div class="row justify-content-md-center">
             <img src="./../../assets/images/ignus3.png" width="250px" height="200px"  /> 
-    </div>
+    </div>-->
 
     <div class="row justify-content-md-center">
-        <div class="col-sm-6 col-sm-offset-3 form-box">
+        <div class="col-sm-4 col-sm-offset-3 form-box">
             <div class="form-top">
                 <div class="form-top-left">
+                    <div class="row justify-content-md-center">
+            <img src="./../../assets/images/ignus4.png" width="250px" height="200px"  /> 
+    </div>
                     <h2 class="text-center">Login</h2>
                 </div>
                 <div class="form-top-right">
@@ -17,16 +20,17 @@
             <div class="form-bottom">
                 <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
-                        <label class="sr-only" for="username">Username</label>
+                        <label class="sr-only" for="username">Usuario</label>
                         <input type="text" name="username" placeholder="Username..." class="form-username form-control" [(ngModel)]="usuario.username" #username="ngModel" required id="username">
                             <div *ngIf="f.submitted && !username.valid">Username is required</div>
                     </div>
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                        <label class="sr-only" for="password" >Password</label>
+                        <label class="sr-only" for="password" >Contraseña</label>
                         <input type="password" name="password" placeholder="Password..." class="form-password form-control" [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
                             <div *ngIf="f.submitted && !password.valid">Password is required</div>
                     </div>
                     <button type="submit" class="btn" [routerLink]="['/dashboard']" ng-disabled="!usuario.username || !usuario.password">Sign in!</button>
+                    <a class="" href="">Forgot your password?</a>
                 </form>
             </div>
         </div>

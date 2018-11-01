@@ -1,0 +1,50 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Servicio mas solicitado'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12">
+            <div class="card-header" style="position: relative; text-align: -webkit-center">
+                Servicio mas solicitado
+            </div>
+
+            <div class="row mb-3">
+                <!-- <div class="col col-sm-4 text-center">
+                    <label>Tipo de Servicio</label>
+                    <div class="form-group input-group">
+                        <select class="form-control">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Venta</option>
+                            <option value="2">Comprar</option>
+                            <option value="3">Alquiler</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="col col-sm-3 text-center"></div>
+
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                        <label for="descripcion">Seleccione una fecha </label>
+                        <div class="input-group">
+                            <input type="text" placeholder="mm-yyyy" name="fecha_servicio" class="form-control" />
+                            <span class="input-group-btn">
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col col-sm-6 text-center">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  left: 50px; background: #1AB394;">
+                            Generar
+                        </button>
+                    </span>
+                </div>
+            </div>       
+            <div class="card-body">
+                <div [chart]="chart" id="graficaLineal" class="chart"></div>
+            </div>     
+        </div>        
+    </div>
+</div>

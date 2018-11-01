@@ -25,6 +25,7 @@ export class IncidenciasComponent implements OnInit {
             if(this.selectedIncidencia.id === 0){
         this.selectedIncidencia.id = this.IncidenciaArray.length + 1;
         this.IncidenciaArray.push(this.selectedIncidencia);
+        this.msg = 'Campo Agregado Exitosamente';
         }
          this.selectedIncidencia = new Incidencia();
         }, (reason) => {
@@ -92,6 +93,9 @@ export class IncidenciasComponent implements OnInit {
         this.IncidenciaArray.splice(i, 1);
         this.msg = 'Campo Eliminado Exitosamente';
       }
+      }
+       closeAlert(): void{
+      this.msg = '';
       }
 
 }

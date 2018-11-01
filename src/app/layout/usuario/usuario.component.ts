@@ -5,7 +5,6 @@ import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
 import { Usuario } from './models/usuario';
 
 

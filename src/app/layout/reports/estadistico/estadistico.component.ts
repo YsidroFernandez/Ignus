@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-charts',
-    templateUrl: './charts.component.html',
-    styleUrls: ['./charts.component.scss'],
+    selector: 'app-estadistico',
+    templateUrl: './estadistico.component.html',
+    styleUrls: ['./estadistico.component.scss'],
     animations: [routerTransition()]
     
 })
-export class ChartsComponent implements OnInit {
-
+export class EstadisticoComponent implements OnInit {
     
+    values = ['circular', 'barra', 'lineal'];
+    defaultValue = this.values[0];
+    tipos: any =   [ {id:1, name: "circular"}, {id:2, name:"barra"}, {id:3, name:"lineal"}];
+  
+    public chart: any;
     constructor() {
         let now = moment().format(); 
-    console.log('hello world', now);
+    console.log('hello world', this.tipos);
      }
 
     ngOnInit() {
@@ -28,7 +32,22 @@ export class ChartsComponent implements OnInit {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
 
-    chart = new Chart({
+    buscar () 
+    {
+        
+    // if(){
+
+    // } else if()
+    // {
+
+    // }else if()
+    // {
+
+    // }
+
+    
+
+    this.chart = new Chart({
         chart: {
             renderTo: 'graficaCircular',
             plotBackgroundColor: null,
@@ -49,19 +68,25 @@ export class ChartsComponent implements OnInit {
         // },
         tooltip: {
             formatter: function () {
-                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+                return '<b>' + this.point.name + '</b>: ' + this.y + ' $';
             }
         },
         plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            },
             pie: {
                 allowPointSelect: true,
                 cursor: 'pointer',
                 dataLabels: {
-                    enabled: false,
+                    enabled: true,
                     color: '#000000',
                     connectorColor: '#000000',
                     formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+                        return '<b>' + this.point.name + '</b>: ' + this.y + ' $';
                     },
                 }, showInLegend: true
             }
@@ -70,21 +95,12 @@ export class ChartsComponent implements OnInit {
             type: 'pie',
             name: 'Browser share',
             data: [
-                ['España', 35.38],
-                ['México', 21.0],
-                ['Colombia', 9.45],
-                ['Perú', 5.74],
-                ['Argentina', 5.14],
-                ['Chile', 4.89],
-                ['Venezuela', 3.04],
-                ['Ecuador', 2.53],
-                ['Bolivia', 1.66],
-                ['Rep. Dominicana', 1.12],
-                ['Guatemala', 1.08],
-                ['Costa Rica', 1.07],
-                ['Estados Unidos', 1.03],
-                ['+81 paises', 6.87]
+                ['Verificación de documento', 100],
+                ['Evaluación estructural', 150],
+                ['Acesoria', 1000],
+                ['Ingreso por venta al cliente', 6500]
             ]
         }]
     });
+}
 }

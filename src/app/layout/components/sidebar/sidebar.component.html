@@ -115,10 +115,17 @@
             <li class="nested" [class.expand]="showMenuReport === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/charts']" [routerLinkActive]="['router-link-active']" class="list-group-item"
-                            href="javascript:void(0)">
+                        <a [routerLink]="['/estadistico']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'transacciones' | translate }}</span>
+                            <span>{{ 'Estadistico' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/promedio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Mas Solicitado' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/post-servicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Post-Servicio' | translate }}</span>
                         </a>
                     </li>
                 </ul>

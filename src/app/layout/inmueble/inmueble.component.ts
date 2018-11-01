@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-
 import { Inmueble } from './modelo/inmueble';
-
 import { tipos } from './modelo/tipos';
 
 import { routerTransition } from '../../router.animations';
@@ -105,6 +102,6 @@ this.tipSelect= 4;
       closeAlert(): void{
       this.msg = '';
       }
-    }
+}
 
       
