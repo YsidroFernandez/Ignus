@@ -41,13 +41,13 @@
             <li class="nested" [class.expand]="showMenu === 'pages2'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/prueba']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/registrosolicitud']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                             <i class="fa fa-user"></i>&nbsp;
                             <span>{{ 'Registro de Solicitud' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/prueba2']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/solicitud']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                             <i class="fa fa-building"></i>&nbsp;
                             <span>{{ 'Atención de Solicitud' | translate }}</span>
                         </a>
@@ -55,14 +55,30 @@
                 </ul>
             </li>
         </div>
-        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span>{{ 'Citas' | translate }}</span>
-        </a>
-        <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-calendar"></i>&nbsp;
-            <span>{{ 'Agenda' | translate }}</span>
-        </a>
+        <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClass('pagesagenda')">
+                <i class="fa fa-address-book"></i>&nbsp;
+                <span>{{ 'Agenda' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenu === 'pagesagenda'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/citas']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span>{{ 'Citas' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/scheduler']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span>{{ 'Agenda' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+        
+        
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages3')">
                 <i class="fa fa-calendar"></i>&nbsp;

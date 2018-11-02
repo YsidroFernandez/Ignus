@@ -28,8 +28,10 @@ const routes: Routes = [
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
             { path: 'citas', loadChildren: './../citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
-        ]}
-];
+            { path: 'solicitud', loadChildren: './../solicitud/solicitud.module#SolicitudModule' },
+            { path: 'registrosolicitud', loadChildren: './../registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
+    ]}
+    ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
