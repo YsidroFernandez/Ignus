@@ -13,6 +13,8 @@ const routes: Routes = [
             { path: 'promedio', loadChildren: './reports/promedio/promedio.module#PromedioModule' },
             { path: 'post-servicio', loadChildren: './reports/post-servicio/post-servicio.module#PostServicioModule' },
             { path: 'reclamo', loadChildren: './reports/reclamo/reclamo.module#ReclamoModule' },
+            { path: 'calificacion', loadChildren: './reports/calificacion/calificacion.module#CalificacionModule' },
+            { path: 'solicitudes', loadChildren: './reports/solicitudes/solicitudes.module#SolicitudesModule' },
             // { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
             // { path: 'forms', loadChildren: './form/form.module#FormModule' },
             // { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
