@@ -1,10 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+
+
+
+const httpOptionsDefault = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'accessToken':localStorage.getItem('accessToken'),
+  })
+};
 
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+
+
+
 export class GlobalService {
 
   apiBaseUrl:String='';
@@ -13,12 +28,13 @@ export class GlobalService {
   tipo:String;
 
   constructor(public http: HttpClient) {
-    this.apiBaseUrl = 'http://localhost:3000/api/';
+    this.apiBaseUrl = 'http://ignus-backend-jafp2000.c9users.io';
   }
 
-  getModel(tipo: String){
+  
+  getModel(tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.get(this.apiBaseUrl + "" + tipo).subscribe(data =>{
+      this.http.get(this.apiBaseUrl + "" + tipo,httpOptions).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);
@@ -27,29 +43,19 @@ export class GlobalService {
   }
 
 
-  getModel_Id(id: String, tipo: String){
+  getModel_Id(id: String, tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.get(this.apiBaseUrl + "" + tipo + '/' + id).subscribe(data =>{
+      this.http.get(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe(data =>{
         resolve(data);
       }, err =>{
-        console.log({id: id,tipo: tipo});
+        console.log({id: id,tipo: tipo, httpOptions: httpOptions});
       })
     })
   }
 
-  addModel(model,tipo: String){
+  addModel(model,tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.post(this.apiBaseUrl + "" + tipo,model).subscribe(data =>{
-        resolve(data);
-      }, err =>{
-        console.log(err);
-      })
-    })
-  }
-
-  updateModel(id, model, tipo: String){
-    return new Promise(resolve =>{
-      this.http.put(this.apiBaseUrl + "" + tipo  + '/' + id, model).subscribe(data =>{
+      this.http.post(this.apiBaseUrl + "" + tipo,model,httpOptions).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);
@@ -57,9 +63,19 @@ export class GlobalService {
     })
   }
 
-  removeModel(id,tipo: String){
+  updateModel(id, model, tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.delete(this.apiBaseUrl + "" + tipo + '/' + id).subscribe(data =>{
+      this.http.put(this.apiBaseUrl + "" + tipo  + '/' + id, model,httpOptions).subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+      })
+    })
+  }
+
+  removeModel(id,tipo: String,httpOptions=httpOptionsDefault){
+    return new Promise(resolve =>{
+      this.http.delete(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);
