@@ -15,6 +15,7 @@ const routes: Routes = [
             { path: 'reclamo', loadChildren: './reports/reclamo/reclamo.module#ReclamoModule' },
             { path: 'calificacion', loadChildren: './reports/calificacion/calificacion.module#CalificacionModule' },
             { path: 'solicitudes', loadChildren: './reports/solicitudes/solicitudes.module#SolicitudesModule' },
+            { path: 'cita', loadChildren: './reports/cita/cita.module#CitaModule' },
             // { path: 'tables', loadChildren: './tables/tables.module#TablesModule' },
             // { path: 'forms', loadChildren: './form/form.module#FormModule' },
             // { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
