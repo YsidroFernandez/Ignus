@@ -23,8 +23,9 @@
                     </div>
                 </div>
                 <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;" (click)="registrar()">
+                        <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -71,7 +72,9 @@
             </div>
         </div>
 
-        <div class="card mb-3">
+
+
+        <!-- <div class="card mb-3">
             <div class="col-xl-4 text-xs-center">
                 <div class="card-body">
                     <ng-template #content let-c="close" let-d="dismiss">
@@ -182,15 +185,132 @@
                         </div>
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                                (click)="newOpen(contents)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </ng-template>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
+    <!-- <div class="card mb-3">
+        <div class="col-xl-4 text-xs-center">
+            <div class="card-body">
+                <ng-template #contents let-c="close" let-d="dismiss">
+                    <div class="modal-header">
+                        <h4 class="modal-title ">Crear Informe de Visita</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="modal-body">
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Nombre Evaluador</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Apellido Evaluador</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <label for="descripcion">Fecha</label>
+
+                                    <div class="input-group">
+
+                                        <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker"
+                                            class="form-control" />
+                                        <span class="input-group-btn">
+                                            <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="descripcion">Horas</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Ciudad</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Estado</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Parroquia</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Municipio</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Dirección</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">N° de casa/Apartamento</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Telefono local</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Telefono personal</label>
+                                        <input type="text" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                            (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div> -->
 </div>
-<ng-template #ver let-c="close" let-d="dismiss">
+<!-- <ng-template #ver let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> Usuario </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -224,9 +344,9 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
     </div>
-</ng-template>
+</ng-template> -->
 
-<ng-template #editar let-c="close" let-d="dismiss">
+<!-- <ng-template #editar let-c="close" let-d="dismiss">
 
     <div class="modal-header">
         <h4 class="modal-title"> Visita </h4>
@@ -272,4 +392,4 @@
             <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
         </button>
     </div>
-</ng-template>
+</ng-template> -->

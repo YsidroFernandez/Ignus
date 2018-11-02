@@ -1,21 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 //import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter";
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
-    selector: 'app-visita',
-    templateUrl: './visita.component.html',
-    styleUrls: ['./visita.component.scss'],
+    selector: 'app-registrar-visita',
+    templateUrl: './registrar-visita.component.html',   
     animations: [routerTransition()],
     providers: []
 })
-export class VisitaComponent implements OnInit {
+export class RegistrarVisitaComponent implements OnInit {
 
     faEye = faEye;
     faEdit = faEdit;
@@ -25,15 +23,27 @@ export class VisitaComponent implements OnInit {
     closeResult: string;
     submitType: string = 'Guardar';
     selectedRow: number;
-    constructor(private modalService: NgbModal,
-                 public router: Router) {
+    constructor(private modalService: NgbModal) {
 
     }
     ngOnInit() {
 
     }
 
-    registrar() {
-        this.router.navigate(['/visita/add']);
+    onEdit(index: number) {
+        // Change submitType to Update.
+        this.submitType = 'Actualizar';
+        // Display Usuario entry section.
+        this.showNew = true;
+    }
+
+    open(content) {
+        this.modalService.open(content).result.then(() => { });
+    }
+
+    newOpen(contents) {
+        this.modalService.open(contents).result.then(() => { });
+            
+
     }
 }

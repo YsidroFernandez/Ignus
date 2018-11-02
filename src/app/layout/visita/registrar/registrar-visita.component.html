@@ -1,0 +1,111 @@
+<app-page-header [heading]="'Registrar Informe de Visitas'" [icon]="'fa-edit'"></app-page-header>
+<!-- <div class="container"> -->
+    <div class="card-header" style="text-align: -webkit-center;">Registrar Informe de Visitas Registradas</div>
+
+    <div class="col-xl-12 text-xs-center">
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Nombre Evaluador</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Apellido Evaluador</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <label for="descripcion">Fecha</label>
+
+                <div class="input-group">
+
+                    <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+                    <span class="input-group-btn">
+                        <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                            <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="descripcion">Horas</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Ciudad</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Estado</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Parroquia</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Municipio</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Dirección</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">N° de casa/Apartamento</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Telefono local</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Telefono personal</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="save()"><i
+                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+       
+
+
+    </div>
+
+
+
+<!-- </div> -->
