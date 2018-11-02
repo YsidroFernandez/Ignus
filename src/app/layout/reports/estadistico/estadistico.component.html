@@ -1,17 +1,18 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Reportes Estadistico'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <app-page-header [heading]="'Reportes por Ordenes de Servicio'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
         <div class="col col-xl-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Reportes Estadisticos
+                Reportes por Ordenes de Servicio
             </div>
-
+            <!-- <form role="form" #graficoForm="ngForm" id="form"> -->
             <div class="row">
+
                 <div class="col col-sm-3 text-center">
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Inicio</label>
                         <div class="input-group">
-                            <input type="text" placeholder="dd-mm-yyyy" name="fecha_inicio" class="form-control" />
+                            <input type="text" placeholder="mm-yyyy" name="fecha_inicio" class="form-control" />
                             <span class="input-group-btn">
                                 <button class="input-group-addon" (click)="dob.toggle()" type="button">
                                     <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
@@ -24,7 +25,7 @@
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Fin</label>
                         <div class="input-group">
-                            <input type="text" placeholder="dd-mm-yyyy" name="fecha_fin" class="form-control" />
+                            <input type="text" placeholder="mm-yyyy" name="fecha_fin" class="form-control" />
                             <span class="input-group-btn">
                                 <button class="input-group-addon" (click)="dob.toggle()" type="button">
                                     <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
@@ -41,25 +42,12 @@
                             <option value="0">Seleccionar</option>
                             <option value="1">Venta</option>
                             <option value="2">Compra</option>
-                            <option value="2">Alquiler</option>
+                            <option value="3">Alquiler</option>
+                            <option value="4">Todos los Servicios</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col col-sm-3 text-center">
-                    <label>Orden Especifica</label>
-                    <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">0001</option>
-                            <option value="2">0002</option>
-                            <option value="3">0003</option>
-                        </select>
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
                 <div class="col col-sm-3 text-center">
                     <label>Empleado</label>
                     <div class="form-group input-group">
@@ -70,47 +58,56 @@
                             <option value="3">Pepito</option>
                         </select>
                     </div>
+                    <!-- <label>Orden Especifica</label>
+                        <div class="form-group input-group">
+                            <select class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option value="1">0001</option>
+                                <option value="2">0002</option>
+                                <option value="3">0003</option>
+                            </select>
+                        </div> -->
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col col-sm-3 text-center">
+
                 </div>
 
                 <div class="col col-sm-3 text-center">
-                    <label>Cliente</label>
+                    <label>Grafica</label>
                     <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">Erick</option>
-                            <option value="2">Juan</option>
-                            <option value="3">Pedro</option>
+                        <select class="form-control" [(ngModel)]="selectedValue">
+                            <option value="0" selected="">Seleccionar</option>
+                            <option *ngFor="let list of tipos" [value]="list.value">{{list.name}}</option>
                         </select>
                     </div>
-                </div>
-                <div class="col col-sm-3 text-center">
-                        <label>Grafica</label>
+                    <!-- <label>Cliente</label>
                         <div class="form-group input-group">
-                            <select class="form-control" >
-                                <option value="" selected="">Seleccionar</option>
-                                <!-- <option [ngValue]="values[0]">Seleccionar</option> -->
-                                <!-- <option [ngValue]="values[1]">Circular</option>
-                                <option [ngValue]="values[2]">Barra</option>
-                                <option [ngValue]="values[3]">Lineal</option> -->
-                                <!-- <option *ngFor="let list of tipos" [ngValue]="list.name">{{list.name}}</option> -->
+                            <select class="form-control">
+                                <option value="0">Seleccionar</option>
+                                <option value="1">Erick</option>
+                                <option value="2">Juan</option>
+                                <option value="3">Pedro</option>
                             </select>
-                        </div>
+                        </div> -->
                 </div>
 
-                    <div class="col col-sm-3">
-                        <span class="input-group-btn">
-                            <!-- <button style="position: relative; top: 30px;  left: 50px; background: #1AB394; border-radius: 100%;font-size:24px" (click)="open(content)"><i style="color: white;" class="fa fa-search" aria-hidden="true"></i>
-                            </button> -->
-                            <button class="btn btn-success" type="button" (click)="buscar()"
-                                style="position: relative; top: 30px;  left: 50px;  background: #1AB394;">
-                                Generar
-                            </button>
-                        </span>
-                    </div>                
+                <div class="col col-sm-3 text-center">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" type="button" (click)="buscar(selectedValue)" style="position: relative; top: 30px;  left: 50px;  background: #1AB394;">
+                            Generar
+                        </button>
+                    </span>
                 </div>
-           
+
+                <div class="col col-sm-3">
+                </div>
+
+            </div>
             <div class="card-body">
-                <div [chart]="chart"  class="chart"></div>
+                <div [chart]="chart" class="chart"></div>
             </div>
         </div>
     </div>

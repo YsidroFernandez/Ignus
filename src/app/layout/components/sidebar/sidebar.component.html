@@ -87,7 +87,7 @@
             <li class="nested" [class.expand]="showMenu === 'pages3'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/prueba3']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                        <a [routerLink]="['/visita']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                             <i class="fa fa-calendr-edit"></i>&nbsp;
                             <span>{{ 'Informes de Visita' | translate }}</span>
                         </a>
@@ -133,15 +133,31 @@
                     <li>
                         <a [routerLink]="['/estadistico']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Estadistico' | translate }}</span>
+                            <span>{{ 'Estadístico' | translate }}</span>
                         </a>
                         <a [routerLink]="['/promedio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
-                            <span>{{ 'Mas Solicitado' | translate }}</span>
+                            <span>{{ 'Más Solicitado' | translate }}</span>
                         </a>
                         <a [routerLink]="['/post-servicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Post-Servicio' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/reclamo']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Reclamo' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/calificacion']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Calificación' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/solicitudes']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Solicitudes' | translate }}</span>
+                        </a>
+                        <a [routerLink]="['/cita']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Cita' | translate }}</span>
                         </a>
                     </li>
                 </ul>

@@ -1,9 +1,9 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Servicio mas solicitado'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <app-page-header [heading]="'Reclamo mas frecuente'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
         <div class="col col-xl-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Servicio mas solicitado
+                Reclamo mas frecuente
             </div>
 
             <div class="row mb-3">
@@ -35,6 +35,19 @@
                 </div>
 
                 <div class="col col-sm-3 text-center">
+                    <label>Tipo de reclamo</label>
+                    <div class="form-group input-group">
+                        <select class="form-control">
+                            <option value="0">Seleccionar</option>
+                            <option value="1">Servicio de agua defectuoso</option>
+                            <option value="2">Daño en estructura</option>
+                            <option value="3">Sistema de luz en malas condiciones</option>
+                         
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col col-sm-3 text-center">
                     <label>Grafica</label>
                     <div class="form-group input-group">
                         <select class="form-control" [(ngModel)]="selectedValue">
@@ -42,6 +55,16 @@
                             <option *ngFor="let list of tipos" [value]="list.value">{{list.name}}</option>
                         </select>
                     </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-3 text-center">
+                </div>
+
+                <div class="col col-sm-3 text-center">
+                </div>
+
+                <div class="col col-sm-3 text-center">
                 </div>
 
                 <div class="col col-sm-3 text-center">
@@ -51,9 +74,9 @@
                         </button>
                     </span>
                 </div>
-                <div class="card-body">
-                    <div [chart]="chart" id="graficaLineal" class="chart"></div>
-                </div>
+            </div>
+            <div class="card-body">
+                <div [chart]="chart" id="graficaLineal" class="chart"></div>
             </div>
         </div>
     </div>
