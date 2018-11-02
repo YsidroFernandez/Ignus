@@ -5,13 +5,13 @@ import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 
 @Component({
-    selector: 'app-promedio',
-    templateUrl: './promedio.component.html',
-    styleUrls: ['./promedio.component.scss'],
+    selector: 'app-reclamo',
+    templateUrl: './reclamo.component.html',
+    styleUrls: ['./reclamo.component.scss'],
     animations: [routerTransition()]
 
 })
-export class PromedioComponent implements OnInit {
+export class ReclamoComponent implements OnInit {
     selectedValue: string = "";
    
     // defaultValue = this.values[0];
@@ -79,7 +79,7 @@ export class PromedioComponent implements OnInit {
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                        ['Verificación de documento', 100],
+                        ['Servicio de agua defectuoso', 100],
                         ['Evaluación estructural', 150],
                         ['Acesoria', 1000],
                         ['Ingreso por venta al cliente', 6500]
@@ -92,7 +92,7 @@ export class PromedioComponent implements OnInit {
                     type: 'column'
                 },
                 title: {
-                    text: 'Reporte por ordenes de servicio'
+                    text: 'Reclamo mas frecuente'
                 },               
                 xAxis: {
                     categories: ['Ene', 'Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
@@ -100,12 +100,12 @@ export class PromedioComponent implements OnInit {
                 },
                 yAxis: {
                     title: {
-                        text: 'Porcentaje de servicio solicitado'
+                        text: 'Reclamo mas frecuente'
                     }
             
                 },
                 legend: {
-                    enabled: false
+                    enabled: true
                 },
                 plotOptions: {
                     series: {
@@ -124,43 +124,43 @@ export class PromedioComponent implements OnInit {
             
                 "series": [
                     {
-                        "name": "Servicio",
+                        "name": "Reclamo",
                         // "colorByPoint": true,
                         "data": [
                             {
-                                "name": "Venta ",
+                                "name": "Daño en estructura ",
                                 "y": 62.74,
-                                "drilldown": "Venta"
+                                "drilldown": "Daño en estructura"
                             },
                             {
-                                "name": "Alquiler ",
+                                "name": "Servicio de agua defectuoso ",
                                 "y": 10.57,
-                                "drilldown": "Alquiler"
+                                "drilldown": "Servicio de agua defectuoso"
                             },
                             {
-                                "name": "Venta ",
-                                "y": 7.23,
-                                "drilldown": "Venta"
+                                "name": "Sistema de luz en malas condiciones ",
+                                "y": 80.52,
+                                "drilldown": "Sistema de luz en malas condiciones"
                             },
                             {
-                                "name": "Compra ",
-                                "y": 5.58,
-                                "drilldown": "Compra"
+                                "name": "Daño en estructura ",
+                                "y": 60.80,
+                                "drilldown": "Daño en estructura"
                             },
                             {
-                                "name": "Compra ",
+                                "name": "Servicio de agua defectuoso ",
                                 "y": 4.02,
-                                "drilldown": "Compra"
+                                "drilldown": "Servicio de agua defectuoso"
                             },
                             {
-                                "name": "Alquiler ",
-                                "y": 1.92,
-                                "drilldown": "Alquiler"
+                                "name": "Sistema de luz en malas condiciones ",
+                                "y": 17.23,
+                                "drilldown": "Sistema de luz en malas condiciones"
                             },
                             {
-                                "name": "Alquiler ",
-                                "y": 7.62,
-                                "drilldown": "Alquiler"
+                                "name": "Sistema de luz en malas condiciones ",
+                                "y": 40.52,
+                                "drilldown": "Sistema de luz en malas condiciones"
                             }
                         ]
                     }
@@ -168,8 +168,8 @@ export class PromedioComponent implements OnInit {
                 "drilldown": {
                     "series": [
                         {
-                            "name": "Venta",
-                            "id": "Venta",
+                            "name": "Servicio de agua defectuoso",
+                            "id": "Servicio de agua defectuoso",
                             "data": [
                                 [
                                     "v65.0",

@@ -111,20 +111,17 @@
                                             <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
                                         </div>
                                     </div>
-                                </div>
-                                <!-- <div class="input-group">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                                <span class="input-group-btn">
-                                    <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                            style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
-                                </span>
-                            </div> -->
+                                </div>                              
                                 <div class="row mb-3">
                                     <div class="col col-sm-6">
                                             <label for="descripcion">Fecha de Nacimiento</label>
+<<<<<<< HEAD
+                                         <div class="input-group">                                            
+=======
 
                                         <div class="input-group">
-                                            
+
+>>>>>>> 19d6143b2269e458df78dda6dba79254799cd67c
                                             <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob"
                                                 ngbDatepicker #dob="ngbDatepicker" class="form-control" />
                                             <span class="input-group-btn">
@@ -169,58 +166,7 @@
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                        </div>
-
-                        <!-- <div class="modal-body">
-
-                            <div class="form-group">
-                                <label for="tipos">Nombres</label>
-                                <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="nombre">Apellidos</label>
-                                <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Username</label>
-                                <input type="text" [(ngModel)]="regModel.username" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Cargo</label>
-                                <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Fecha de Nacimiento</label>
-                                <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob"
-                                    ngbDatepicker #dob="ngbDatepicker" class="form-control" />
-                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
-                                </button>
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Correo</label>
-                                <input type="text" [(ngModel)]="regModel.correo" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Contraseña</label>
-                                <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
-                            </div>
-                            <div class="form-group">
-                                <label for="descripcion">Estado</label>
-                                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                                        ngbDropdownToggle>{{regModel.estado}}</button>
-                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                        <button type="button" class="dropdown-item" *ngFor="let estado of estados"
-                                            (click)="onChangeEstado(estado)">{{estado}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-
-                          <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                        </div> -->
+                        </div>                       
                     </ng-template>
                 </div>
             </div>
@@ -235,42 +181,61 @@
         </button>
     </div>
     <div class="modal-body">
-
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="tipos">Nombres</label>
             <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
-        </div>
-        <div class="form-group">
+        </div></div>
+
+
+        <div class="col col-sm-6">
+          <div class="form-group">
             <label for="nombre">Apellidos</label>
             <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
-        </div>
-        <div class="form-group">
+        </div></div></div>
+
+<div class="row mb-3">
+        <div class="col col-sm-6">
+          <div class="form-group">
             <label for="descripcion">Username</label>
             <input type="text" [(ngModel)]="regModel.username" class="form-control" />
-        </div>
+        </div></div>
+
+
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Cargo</label>
             <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
-        </div>
+        </div></div></div>
+
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Fecha de Nacimiento</label>
             <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
                 class="form-control" />
+        </div></div>
 
-        </div>
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Correo</label>
             <input type="text" [(ngModel)]="regModel.correo" class="form-control" />
-        </div>
+        </div></div></div>
+
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Contraseña</label>
             <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
-        </div>
+        </div></div>
+
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Estado</label>
             <input type="text" [(ngModel)]="regModel.estado" class="form-control" />
-        </div>
-    </div>
+        </div></div></div>
+      </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
     </div>
@@ -286,22 +251,34 @@
     </div>
     <div class="modal-body">
 
+      <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="tipos">Nombres</label>
             <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
-        </div>
+        </div></div>
+
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="nombre">Apellidos</label>
             <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
-        </div>
+        </div></div></div>
+
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Username</label>
             <input type="text" [(ngModel)]="regModel.username" class="form-control" />
-        </div>
+        </div></div>
+
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Cargo</label>
             <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
-        </div>
+        </div></div></div>
+
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Fecha de Nacimiento</label>
             <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
@@ -309,15 +286,21 @@
             <button class="input-group-addon" (click)="dob.toggle()" type="button">
                 <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
             </button>
-        </div>
+        </div></div>
+
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Correo</label>
             <input type="text" [(ngModel)]="regModel.correo" class="form-control" />
-        </div>
+        </div></div></div>
+
+        <div class="row mb-3">
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Contraseña</label>
             <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
-        </div>
+        </div></div>
+        <div class="col col-sm-6">
         <div class="form-group">
             <label for="descripcion">Estado</label>
             <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
@@ -328,7 +311,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div></div></div>
     <div class="modal-footer">
 
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
