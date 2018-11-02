@@ -37,11 +37,10 @@ constructor(private modalService: NgbModal) {
 enviar() { 
   
   
-  var select = document.getElementById("tiposolicitud")
-  var options = document.getElementsByTagName("option")
+  var select = document.getElementById("tiposolicitud");
+  var options = document.getElementsByTagName("option");
 
-  this.solicitud2.tipo = options[select.value-1].text
-  solicitud.push(this.solicitud2)
+  // this.solicitud2.tipo = options[this.select].text = solicitud.push(this.solicitud2);
   alert("Agregado con exito")
   this.limpiar()
 }
