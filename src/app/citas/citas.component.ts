@@ -7,6 +7,7 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { calendariocita } from '../../environments/environment';
 
 const colors: any = {
   red: {
@@ -71,47 +72,7 @@ export class CitasComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'Un evento de 3 días.',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'Un evento sin fecha de finalización.',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'Un evento largo que abarca 2 meses.',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'Un evento arrastrable y de tamaño variable.',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    }
-  ];
-
+  events: CalendarEvent[] = calendariocita
   activeDayIsOpen: boolean = true;
 
   closeResult: string;
@@ -169,11 +130,12 @@ export class CitasComponent implements OnInit {
   }
 
   addEvent(): void {
-    this.events.push({
+    calendariocita.push({
       title: 'Nueva cita',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
+      actions: this.actions,
       draggable: true,
       resizable: {
         beforeStart: true,

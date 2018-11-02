@@ -1,0 +1,312 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Solicitudes'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
+
+        <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
+        <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Correo</th>
+                            <th>Tipo</th>
+                            <th>descripcion</th>
+                            <th> Estado </th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="onEdit(i)">
+                            <td>{{ solicitud.correo}}</td>
+                            <td>{{ solicitud.tipo}}</td>
+                            <td>{{ solicitud.descripcion}}</td>
+                            <td>{{ solicitud.estado}}</td>
+                            <td>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(ver)">
+                                    <fa-icon [icon]="faEye"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="aceptar(i)">
+                                    <fa-icon [icon]="faCheck"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="delete(i)">
+                                    <fa-icon [icon]="faCancel"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-8">
+                </div>
+                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="col-xl-4 text-xs-center">
+                <div class="card-body">
+                    <ng-template #content  let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                            <h4 class="modal-title ">Solicitud</h4>
+                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="modal-body">
+                               
+                                <div class="row mb-3">
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label class="ng-tns-c12-9" for="correo">Correo</label>
+                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text"  [(ngModel)]="solicitud2.correo" #correo="ngModel" required>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="descripcion">Tipo</label>
+                                                    <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                                        <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                                            name="country" ngbDropdownToggle>{{solicitud2.tipo}}</button>
+                                                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                                            <button type="button" class="dropdown-item" *ngFor="let tipo of tipos"
+                                                                (click)="onChangetipo(tipo)">{{tipo}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
+                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion" #descripcion="ngModel" required>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                                <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+                                                    <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.foto" #fotos="ngModel" required>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    
+                                        
+                                                    
+                                <div class="row mb-3">
+                                    
+                                        
+                                    <div class="col col-sm-6">
+                                            <label for="descripcion">Fecha</label>
+
+                                        <div class="input-group">
+                                            
+                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="solicitud2.fecha"
+                                                ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+                                            <span class="input-group-btn">
+                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                            
+                                </div>
+    
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Estado</label>
+                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                                    name="country" ngbDropdownToggle>{{solicitud2.estado}}</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                                    <button type="button" class="dropdown-item" *ngFor="let estado of estados"
+                                                        (click)="onChangeEstado(estado)">{{estado}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                                (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>
+
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #ver let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title"> Solicitud </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+            <div class="row mb-3">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label class="ng-tns-c12-9" for="correo">Correo</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text"  [(ngModel)]="solicitud2.correo" #correo="ngModel" required>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Tipo</label>
+                                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                    <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                        name="country" ngbDropdownToggle>{{solicitud2.tipo}}</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                        <button type="button" class="dropdown-item" *ngFor="let tipo of tipos"
+                                            (click)="onChangetipo(tipo)">{{tipo}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion" #descripcion="ngModel" required>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+                                <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.foto" #fotos="ngModel" required>
+                            </div>
+                        </div>
+                </div>
+                
+                    
+                                
+            <div class="row mb-3">
+                
+                    
+                <div class="col col-sm-6">
+                        <label for="descripcion">Fecha</label>
+
+                    <div class="input-group">
+                        
+                        <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="solicitud2.fecha"
+                            ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+                        <span class="input-group-btn">
+                            <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                            </button>
+                        </span>
+                    </div>
+                </div>
+        
+            </div>
+
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="descripcion">Estado</label>
+                        <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                            <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                name="country" ngbDropdownToggle>{{solicitud2.estado}}</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                <button type="button" class="dropdown-item" *ngFor="let estado of estados"
+                                    (click)="onChangeEstado(estado)">{{estado}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>
+
+<ng-template #editar let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <h4 class="modal-title"> Solicitud </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <label for="tipos">Nombres</label>
+            <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="nombre">Apellidos</label>
+            <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Username</label>
+            <input type="text" [(ngModel)]="regModel.username" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Cargo</label>
+            <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Fecha de Nacimiento</label>
+            <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
+                class="form-control" dateFormat="dd-MMM-yyyy" />
+            <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+            </button>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Correo</label>
+            <input type="text" [(ngModel)]="regModel.correo" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Contraseña</label>
+            <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Estado</label>
+            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
+                    ngbDropdownToggle>{{regModel.estado}}</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                    <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
+            <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+        </button>
+    </div>
+</ng-template>
