@@ -95,4 +95,44 @@ export var solicitud = [
     }
   ];
 
+export var actividadescliente = [
+  {
+    start: subDays(startOfDay(new Date()), 1),
+    end: addDays(new Date(), 1),
+    title: 'Cita en 3 dias.',
+    color: colors.red,
+    actions: actions,
+    allDay: true,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true
+    },
+    draggable: true
+  },
+  {
+    start: startOfDay(new Date()),
+    title: 'Visita al inmmuble.',
+    color: colors.yellow,
+    actions: actions
+  },
+  {
+    start: subDays(endOfMonth(new Date()), 3),
+    end: addDays(endOfMonth(new Date()), 3),
+    title: 'Cita para la reserva del inmmueble',
+    color: colors.blue,
+    allDay: true
+  },
+  {
+    start: addHours(startOfDay(new Date()), 2),
+    end: new Date(),
+    title: 'Cita para leer terminos y garantias del contrato',
+    color: colors.yellow,
+    actions: actions,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true
+    },
+    draggable: true
+  }
+];
 

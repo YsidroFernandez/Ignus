@@ -6,6 +6,51 @@
         </a>
 
         <div class="nested-menu">
+            <a class="list-group-item" (click)="addExpandClassReport('pages')">
+                <i class="fa fa-user-circle-o"></i>&nbsp;
+                <span>{{ 'Mi cuenta' | translate }}</span>
+            </a>
+            <li class="nested" [class.expand]="showMenuReport === 'pages'">
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-plus"></i>&nbsp;
+                            <span>{{ 'Realizar solicitud' | translate }}</span>
+                        </a>                  
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>{{ 'Perfil' | translate }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/actividad']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span>{{ 'Actividades' | translate }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-star"></i>&nbsp;
+                            <span>{{ 'Valoracion' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-list-alt"></i>&nbsp;
+                            <span>{{ 'Atencion al cliente' | translate }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </div>
+
+        <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClassReport('pages1')">
                 <i class="fa fa-plus"></i>&nbsp;
                 <span>{{ 'Registro de Información' | translate }}</span>

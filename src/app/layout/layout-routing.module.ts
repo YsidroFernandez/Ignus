@@ -31,6 +31,10 @@ const routes: Routes = [
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
             { path: 'solicitud', loadChildren: './../solicitud/solicitud.module#SolicitudModule' },
             { path: 'registrosolicitud', loadChildren: './../registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
+            
+            //cliente
+            { path: 'solicitudservicio', loadChildren: './cliente/solicitud-servicio/solicitud-servicio.module#SolicitudServicioModule'},
+            { path: 'actividad', loadChildren: './cliente/actividad/actividad.module#ActividadModule' },
     ]}
     ];
 
