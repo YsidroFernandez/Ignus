@@ -93,9 +93,9 @@ this.tipSelect= 4;
 
       }
 
-       delete(i) {
+       delete(index: number) {
        if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.Inmuebles.splice(i, 1);
+        this.Inmuebles.splice(index, 1);
         this.msg = 'Campo Eliminado Exitosamente';
       }
       }
