@@ -6,19 +6,63 @@
       <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo Solicitud</label>
         <select class="form-control" name="horas" id="tiposolicitud" required>
           <option value="1">Compra</option>
-          <option value="2">Venta</option>
-          <option value="3">Alquiler</option>
-          <option value="4">Arrendamiento</option>
+          <option value="2">Alquiler</option>
         </select>
       </div>
     </div>
-    
+
     <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+                <div class="form-group">
+                    <label for="tipos">Cedula</label>
+                    <input type="text" class="form-control" />
+                </div>
+    </div>
+
+     <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Inmueble</label>
+        <select class="form-control" name="horas" id="tiposolicitud" required>
+          <option value="1">Casa</option>
+          <option value="2">Edificio</option>
+          <option value="3">Terreno</option>
+          <option value="4">Parcela</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Estado</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Municipio</label>
+                    <input type="text" class="form-control" />
+                </div>
+    </div> 
+        
+     <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Parroquia</label>
+        <select class="form-control" name="horas" id="tiposolicitud" required>
+          <option value="1">Concepción</option>
+          <option value="2">Catedral</option>
+          <option value="3">Juan de Villegas</option>
+          <option value="4">Unión</option>
+          <option value="5">Tamaca</option>
+          <option value="6">El Cují</option>
+        </select>
+      </div>
+    </div>
+
+
+    
+   <!-- <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Recaudo</label>
         <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.foto" #fotos="ngModel"
           required>
       </div>
-    </div>
+    </div> -->
 
     <div class="col col-sm-6">
       <div class="form-group">
@@ -26,15 +70,11 @@
         <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion"
           #descripcion="ngModel" required cols="30" rows="4"></textarea>
       </div>
-    </div>
+    </div>   
   </div>
 
 
-
-
   <div class="row">
-    <div class="col-3">
-    </div>
     <div class="col-6">
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar</button>

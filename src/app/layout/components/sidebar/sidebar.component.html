@@ -13,15 +13,32 @@
             <li class="nested" [class.expand]="showMenuReport === 'pages'">
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                        <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Realizar solicitud' | translate }}</span>
-                        </a>                  
+                        </a>    
+                        <ul class="submenu">
+                            <li>
+                             <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-plus"></i>&nbsp;
+                            <span>{{ 'Ofrecer Inmueble' | translate }}</span>
+                        </a> 
+                        </li>
+                        <li>
+                             <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-plus"></i>&nbsp;
+                            <span>{{ 'Buscar Inmueble' | translate }}</span>
+                        </a> 
+                        </li>
+                        </ul>
+                        
                     </li>
 
                     <li>
-                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                        <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-user"></i>&nbsp;
                             <span>{{ 'Perfil' | translate }}</span>
                         </a>
@@ -33,15 +50,20 @@
                             <span>{{ 'Actividades' | translate }}</span>
                         </a>
                     </li>
-
                     <li>
-                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                        <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-bell"></i>&nbsp;
+                            <span>{{ 'Notificaciones' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-star"></i>&nbsp;
                             <span>{{ 'Valoracion' | translate }}</span>
                         </a>
                     </li>
                     <li>
-                        <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                        <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-list-alt"></i>&nbsp;
                             <span>{{ 'Atencion al cliente' | translate }}</span>
                         </a>
