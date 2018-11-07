@@ -1,325 +1,320 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Inmuebles'" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
+  <app-page-header [heading]="'Inmuebles'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
 
-        <div class="card-header" style="text-align: -webkit-center;">Inmuebles Registrados</div>
-         <br />
-         <div class="alert alert-success alert-dismissible" *ngIf="msg">
-          <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
-              <span aria-hidden="true">&times;</span>
-           </button>
-           {{msg}}
+    <div class="card-header" style="text-align: -webkit-center;">Inmuebles Registrados</div>
+    <br />
+    <div class="alert alert-success alert-dismissible" *ngIf="msg">
+      <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{msg}}
+    </div>
+
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+
+          <label>Mostrar
+            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select> entradas</label>
         </div>
-      
-           <div class="card mb-3">
-           <div class="row mb-3">
-           <div class="col col-sm-4" style="position: relative; top: 15px;">
-            
-         <label>Mostrar<select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"class="">
-            <option value="10">10</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-         </select> entradas</label>
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+
+          <div class="input-group">
+
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+              <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+            </button>
+          </div>
+
         </div>
-      <div class="col col-sm-4" style="position: relative; top: 15px;">
-    
-      <div class="input-group">
-
-   <input class="form-control mr-sm-2" type="text" placeholder="Buscar..."  aria-label="Search">
-    <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i style="color: white" class="fa fa-search"aria-hidden="true"></i>
-   </button>
-</div>
-   
-    </div>
-       <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-</div>
-  <ng-template #content let-c="close" let-d="dismiss">
- <div class="modal-header">
-  <h4 class="modal-title">Inmuebles</h4>
-  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
- <span aria-hidden="true">&times;</span>
-</button>
- </div>
- <div class="modal-body">
-  <div class="row">
- <div class="col-xl-6 text-xs-center">
- <div class="card-body">
-  <div class="form-group">
- <label>Tipos</label>
- <select [(ngModel)]="selectedInmueble.tipo"
- class="form-control">
-<option *ngFor="let tip of tipo" [value]="tip.Name">
-    {{tip.Name}}
- </option>
- </select>
-    </div>
-   </div>
-  </div>
-   <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-     <div class="form-group">
-   <label for="nombre">Nombre</label>
-   <input [(ngModel)]="selectedInmueble.nombre" type="text"
-name="nombre" ng-model="nombre" class="form-control" />
-     </div>
-   </div>
-  </div>
-</div>
- <div class="row">
-  <div class="col-xl-6 text-xs-center">
-   <div class="card-body">
-    <fieldset class="form-group">
-     <label>Descripcion</label>
-     <textarea [(ngModel)]="selectedInmueble.descripcion"
-  class="form-control" name="descripcion"
-  ng-model="descripcion" rows="3"></textarea>
-     </fieldset>
-    </div>
-   </div>
- <div class="col-xl-6 text-xs-center">
- <div class="card-body">
- <fieldset class="form-group">
-  <label>Ubicacion</label>
-  <textarea [(ngModel)]="selectedInmueble.ubicacion"
-    class="form-control" name="ubicacion" ng-model="ubicacion"
-  rows="3"></textarea>
-    </fieldset>
-    </div>
-   </div>
-  </div>
-<div class="row">
-  <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-  <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
-  <input class="form-control ng-untouched ng-pristine ng-valid" type="file"   required>
-  </div>
-  </div>
- </div>
- <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-        <div class="form-group">
- <label for="id">Precio</label>
- <input [(ngModel)]="selectedInmueble.precio" type="text"
-   name="precio" ng-model="precio" class="form-control" />
-     </div>
-  </div>
- </div>
- </div>
- </div>   
- <div class="modal-footer">
-   <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"  (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button> </div>
- </ng-template>
-                                               
-                <br />
-                <div class="card-body  table-responsive">
-                    <table class="card-body table table-hover">
-                        <thead>
-                            <tr>
-                              
-                                <th>Tipos</th>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Ubicación</th>
-                                <th>Precio</th>
-                                <th align="center" colspan="4">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let Inmueble of Inmuebles" (click)=openForEdit(Inmueble)>
-                             
-                                <td>{{Inmueble.tipo}}</td>
-                                <td>{{Inmueble.nombre}}</td>
-                                <td>{{Inmueble.descripcion}}</td>
-                                <td>{{Inmueble.ubicacion}}</td>
-                                <td>{{Inmueble.precio}}</td>
-                                <td><button aling="center" type="button" (click)="open(ver)" style="background: #1AB394; border-radius: 20px">
-                                        <fa-icon style="color: white" [icon]="faEye"></fa-icon>
-                                    </button></td>
-                                <td><button aling="center" type="button" style="background: #1AB394; border-radius: 20px"
-                                        (click)="open(editar)">
-                                        <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
-                                    </button></td>
-                                <td><button aling="center" (click)="delete()" type="button" style="background: #1AB394; border-radius: 20px">
-                                        <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
-                                    </button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col col-sm-8">
-                </div>
-                    <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
-                        <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-                    </div>
-                  </div>
-               </div>
-             </div>
-            <ng-template #editar let-c="close" let-d="dismiss">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Gestion Inmuebles</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                 </div>
-                <div class="modal-body">
-           <div class="row">
+        <div class="col col-sm-4 text-right">
+          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content)">
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Inmuebles</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
             <div class="col-xl-6 text-xs-center">
-                <div class="card-body">
-                   <div class="form-group">
-                        <label>Tipos</label>
-                           <select [(ngModel)]="selectedInmueble.tipo"
-                              class="form-control">
-                             <option *ngFor="let tip of tipo" [value]="tip.Name">
-                                   {{tip.Name}}
-                              </option>
-                             </select>
-                         </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Tipos</label>
+                  <select [(ngModel)]="selectedInmueble.tipo" class="form-control">
+                    <option *ngFor="let tip of tipo" [value]="tip.Name">
+                      {{tip.Name}}
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
-     <div class="col-xl-6 text-xs-center">
-   <div class="card-body">
- <div class="form-group">
- <label for="nombre">Nombre</label>
-  <input [(ngModel)]="selectedInmueble.nombre" type="text"
-  name="nombre" ng-model="nombre" class="form-control" />
- </div>
-</div>
- </div>
- </div>
- <div class="row">
-<div class="col-xl-6 text-xs-center">
-<div class="card-body">
-<fieldset class="form-group">
- <label>Descripcion</label>
- <textarea [(ngModel)]="selectedInmueble.descripcion"
- class="form-control" name="descripcion"
- ng-model="descripcion" rows="3"></textarea>
-   </fieldset>
- </div>
-</div>
-                                                    
- <div class="col-xl-6 text-xs-center">
- <div class="card-body">
-  <fieldset class="form-group">
-<label>Ubicacion</label>
- <textarea [(ngModel)]="selectedInmueble.ubicacion"
-   class="form-control" name="ubicacion" ng-model="ubicacion"
-  rows="3"></textarea>
- </fieldset>
-  </div>
- </div>
- </div>
-
-<div class="row">
-  <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-  <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
-  <input class="form-control ng-untouched ng-pristine ng-valid" type="file"   required>
-  </div>
-  </div>
- </div>
- <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-        <div class="form-group">
- <label for="id">Precio</label>
- <input [(ngModel)]="selectedInmueble.precio" type="text"
-   name="precio" ng-model="precio" class="form-control" />
-     </div>
-  </div>
- </div>
- </div>
-                                                 </div> 
-                <div class="modal-footer">
-                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning"
-                        (click)="c('Close click')">
-                        <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
-                    </button>
-                </div>
-
-            </ng-template>
-             <ng-template #ver let-c="close" let-d="dismiss">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Gestion Inmuebles</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                 </div>
-                <div class="modal-body">
-           <div class="row">
             <div class="col-xl-6 text-xs-center">
-                <div class="card-body">
-                   <div class="form-group">
-                        <label>Tipos</label>
-                           <select disabled="" [(ngModel)]="selectedInmueble.tipo"
-                              class="form-control">
-                             <option *ngFor="let tip of tipo" [value]="tip.Name">
-                                   {{tip.Name}}
-                              </option>
-                             </select>
-                         </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="nombre">Nombre</label>
+                  <input [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
+                </div>
               </div>
             </div>
-     <div class="col-xl-6 text-xs-center">
-   <div class="card-body">
- <div class="form-group">
- <label for="nombre">Nombre</label>
-  <input disabled="" [(ngModel)]="selectedInmueble.nombre" type="text"
-  name="nombre" ng-model="nombre" class="form-control" />
- </div>
-</div>
- </div>
- </div>
- <div class="row">
-<div class="col-xl-6 text-xs-center">
-<div class="card-body">
-<fieldset class="form-group">
- <label>Descripcion</label>
- <textarea disabled="" [(ngModel)]="selectedInmueble.descripcion"
- class="form-control" name="descripcion"
- ng-model="descripcion" rows="3"></textarea>
-   </fieldset>
- </div>
-</div>
-                                                    
- <div class="col-xl-6 text-xs-center">
- <div class="card-body">
-  <fieldset class="form-group">
-<label>Ubicacion</label>
- <textarea disabled="" [(ngModel)]="selectedInmueble.ubicacion"
-   class="form-control" name="ubicacion" ng-model="ubicacion"
-  rows="3"></textarea>
- </fieldset>
-  </div>
- </div>
- </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <fieldset class="form-group">
+                  <label>Descripcion</label>
+                  <textarea [(ngModel)]="selectedInmueble.descripcion" class="form-control" name="descripcion" ng-model="descripcion" rows="3"></textarea>
+                </fieldset>
+              </div>
+            </div>
+            <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <fieldset class="form-group">
+                  <label>Ubicacion</label>
+                  <textarea [(ngModel)]="selectedInmueble.ubicacion" class="form-control" name="ubicacion" ng-model="ubicacion" rows="3"></textarea>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+                  <input class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="id">Precio</label>
+                  <input [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </ng-template>
 
-<div class="row">
-  <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-  <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
-  <input disabled="" class="form-control ng-untouched ng-pristine ng-valid" type="file"   required>
-  </div>
-  </div>
- </div>
- <div class="col-xl-6 text-xs-center">
-    <div class="card-body">
-        <div class="form-group">
- <label for="id">Precio</label>
- <input disabled="" [(ngModel)]="selectedInmueble.precio" type="text"
-   name="precio" ng-model="precio" class="form-control" />
-     </div>
-  </div>
- </div>
- </div>
-  </div> 
+      <br />
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
 
-            </ng-template>
-            
-           
+              <th>Tipos</th>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th>Ubicación</th>
+              <th>Precio</th>
+              <th align="center" colspan="4">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Inmueble of Inmuebles" (click)=openForEdit(Inmueble)>
+
+              <td>{{Inmueble.tipo}}</td>
+              <td>{{Inmueble.nombre}}</td>
+              <td>{{Inmueble.descripcion}}</td>
+              <td>{{Inmueble.ubicacion}}</td>
+              <td>{{Inmueble.precio}}</td>
+              <td>
+                <button aling="center" type="button" (click)="open(ver)" style="background: #1AB394; border-radius: 20px">
+                  <fa-icon style="color: white" [icon]="faEye"></fa-icon>
+                </button>
+              </td>
+              <td>
+                <button aling="center" type="button" style="background: #1AB394; border-radius: 20px" (click)="open(editar)">
+                  <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+                </button>
+              </td>
+              <td>
+                <button aling="center" (click)="delete()" type="button" style="background: #1AB394; border-radius: 20px">
+                  <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mb-3">
+        <div class="col col-sm-8">
+        </div>
+        <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #editar let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Gestion Inmuebles</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label>Tipos</label>
+              <select [(ngModel)]="selectedInmueble.tipo" class="form-control">
+                <option *ngFor="let tip of tipo" [value]="tip.Name">
+                  {{tip.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <fieldset class="form-group">
+              <label>Descripcion</label>
+              <textarea [(ngModel)]="selectedInmueble.descripcion" class="form-control" name="descripcion" ng-model="descripcion" rows="3"></textarea>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <fieldset class="form-group">
+              <label>Ubicacion</label>
+              <textarea [(ngModel)]="selectedInmueble.ubicacion" class="form-control" name="ubicacion" ng-model="ubicacion" rows="3"></textarea>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+              <input class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="id">Precio</label>
+              <input [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
+        <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+      </button>
+    </div>
+
+  </ng-template>
+  <ng-template #ver let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+      <h4 class="modal-title">Gestion Inmuebles</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label>Tipos</label>
+              <select disabled="" [(ngModel)]="selectedInmueble.tipo" class="form-control">
+                <option *ngFor="let tip of tipo" [value]="tip.Name">
+                  {{tip.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input disabled="" [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <fieldset class="form-group">
+              <label>Descripcion</label>
+              <textarea disabled="" [(ngModel)]="selectedInmueble.descripcion" class="form-control" name="descripcion" ng-model="descripcion"
+                rows="3"></textarea>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <fieldset class="form-group">
+              <label>Ubicacion</label>
+              <textarea disabled="" [(ngModel)]="selectedInmueble.ubicacion" class="form-control" name="ubicacion" ng-model="ubicacion"
+                rows="3"></textarea>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label class="ng-tns-c12-9" for="descripcion">Fotos</label>
+              <input disabled="" class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 text-xs-center">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="id">Precio</label>
+              <input disabled="" [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </ng-template>
