@@ -25,6 +25,10 @@ const routes: Routes = [
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
+
+            //transacciones
+            { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
+
             { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
             { path: 'role', loadChildren: './role/role.module#RoleModule' },
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
@@ -32,10 +36,11 @@ const routes: Routes = [
             { path: 'scheduler', loadChildren: './../scheduler/scheduler.module#SchedulerModule' },
             { path: 'solicitud', loadChildren: './../solicitud/solicitud.module#SolicitudModule' },
             { path: 'registrosolicitud', loadChildren: './../registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
-            
+
             //cliente
             { path: 'solicitudservicio', loadChildren: './cliente/solicitud-servicio/solicitud-servicio.module#SolicitudServicioModule'},
             { path: 'actividad', loadChildren: './cliente/actividad/actividad.module#ActividadModule' },
+            { path: 'perfil', loadChildren: './cliente/perfil/perfil.module#PerfilModule' },
     ]}
     ];
 
