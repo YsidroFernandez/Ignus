@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
 
 
   login() {
+    console.log("login");
     //Header del httpRequest 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -58,12 +59,18 @@ export class LoginComponent implements OnInit {
            this.presentToast("Usuario y Contraseña Incorectos");
            
         }
+      },err=>{
+        console.log(err);
       })
     }
     else {
       this.presentToast("Por favor ingresa usuario y contraseña para iniciar sesión");
     }
 
+
+    // this.router.navigate(['/dashboard']);
+    //       console.log('entré');
+    //       localStorage.setItem('isLoggedin', 'true');
   }
 
 

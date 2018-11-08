@@ -4,8 +4,8 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHeaderModule } from './../../shared';
 
-import { AgencyRoutingModule } from './agency-routing.module';
-import { AgencyComponent } from './agency.component';
+import { RoleRoutingModule } from './role-routing.module';
+import { RoleComponent } from './role.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   
 @NgModule({
@@ -13,12 +13,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
    
     CommonModule, FontAwesomeModule,
     PageHeaderModule,
-    AgencyRoutingModule,NgbModule.forRoot(), 
+    RoleRoutingModule,NgbModule.forRoot(), 
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [AgencyComponent],
-  providers: [ 
+  declarations: [RoleComponent],
+  providers: [
     NgbActiveModal,
   ]
 })
-export class AgencyModule { }
+export class RoleModule { }

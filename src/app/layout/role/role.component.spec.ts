@@ -2,27 +2,27 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { AgencyComponent } from './agency.component'
-import { AgencyModule } from './agency.module'
+import { RoleComponent } from './role.component'
+import { RoleModule } from './role.module'
 
-describe('AgencyComponent', () => {
-  let component: AgencyComponent
-  let fixture: ComponentFixture<AgencyComponent>
+describe('RoleComponent', () => {
+  let component: RoleComponent
+  let fixture: ComponentFixture<RoleComponent>
 
   beforeEach(
     async(() => {
       TestBed.configureTestingModule({
         imports: [
-          AgencyModule,
+          RoleModule,
           BrowserAnimationsModule,
           RouterTestingModule,
          ],
       }).compileComponents()
     })
-  ) 
+  )
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgencyComponent)
+    fixture = TestBed.createComponent(RoleComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
@@ -38,21 +38,21 @@ describe('AgencyComponent', () => {
 
 // import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { AgencyComponent } from './agency.component';
+// import { RoleComponent } from './role.component';
 
-// describe('AgencyComponent', () => {
-//   let component: AgencyComponent;
-//   let fixture: ComponentFixture<AgencyComponent>;
+// describe('RoleComponent', () => {
+//   let component: RoleComponent;
+//   let fixture: ComponentFixture<RoleComponent>;
 
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       declarations: [ AgencyComponent ]
+//       declarations: [ RoleComponent ]
 //     })
 //     .compileComponents();
 //   }));
 
 //   beforeEach(() => {
-//     fixture = TestBed.createComponent(AgencyComponent);
+//     fixture = TestBed.createComponent(RoleComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });
