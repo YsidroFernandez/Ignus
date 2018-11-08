@@ -12,6 +12,14 @@
             </a>
             <li class="nested" [class.expand]="showMenuReport === 'pages'">
                 <ul class="submenu">
+
+                    <li>
+                        <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                            <i class="fa fa-user"></i>&nbsp;
+                            <span>{{ 'Perfil' | translate }}</span>
+                        </a>
+                    </li>
+
                     <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
@@ -22,26 +30,19 @@
                             <li>
                              <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-plus"></i>&nbsp;
+                            <i class="fa fa-calendar"></i>&nbsp;
                             <span>{{ 'Ofrecer Inmueble' | translate }}</span>
                         </a>
                         </li>
                         <li>
                              <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-plus"></i>&nbsp;
+                            <i class="fa fa-calendar"></i>&nbsp;
                             <span>{{ 'Buscar Inmueble' | translate }}</span>
                         </a>
                         </li>
                         </ul>
 
-                    </li>
-
-                    <li>
-                        <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
-                            <i class="fa fa-user"></i>&nbsp;
-                            <span>{{ 'Perfil' | translate }}</span>
-                        </a>
                     </li>
 
                     <li>
@@ -53,7 +54,7 @@
                     <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-bell"></i>&nbsp;
-                            <span>{{ 'Notificaciones' | translate }}</span>
+                            <span>{{ 'Seguimiento' | translate }}</span>
                         </a>
                     </li>
                     <li>
@@ -67,6 +68,23 @@
                             <i class="fa fa-list-alt"></i>&nbsp;
                             <span>{{ 'Atencion al cliente' | translate }}</span>
                         </a>
+
+                          <ul class="submenu">
+                            <li>
+                             <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-user-circle-o"></i>&nbsp;
+                            <span>{{ 'Recalamos' | translate }}</span>
+                        </a>
+                        </li>
+                        <li>
+                             <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-user-circle-o"></i>&nbsp;
+                            <span>{{ 'Sugerencias' | translate }}</span>
+                        </a>
+                        </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
@@ -118,6 +136,22 @@
                             <i class="fa fa-building"></i>&nbsp;
                             <span>{{ 'Atención de Solicitud' | translate }}</span>
                         </a>
+                        <ul class="submenu">
+                            <li>
+                             <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-user-circle-o"></i>&nbsp;
+                            <span>{{ 'Reclamos' | translate }}</span>
+                        </a>
+                        </li>
+                        <li>
+                             <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span>{{ 'Sugerencias' | translate }}</span>
+                        </a>
+                        </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
