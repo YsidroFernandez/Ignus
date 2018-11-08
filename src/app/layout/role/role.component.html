@@ -1,0 +1,62 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Datos de la Agencia'" [icon]="'fa-edit'"></app-page-header>
+
+  <div class="row">
+      <div class="col-lg-6">
+
+          <form role="form">
+              <fieldset class="form-group">
+                  <label>Nombre de la Agencia</label>
+                  <input  placeholder="Nombre" class="form-control">
+                 
+              </fieldset>
+
+              <fieldset class="form-group">
+                  <label>Rif</label>
+                  <input class="form-control" placeholder="Rif">
+              </fieldset>
+
+              <div class="form-group">
+              
+                  <label>Dirección</label>
+                  <input class="form-control" placeholder="Dirección">
+            
+              </div>
+
+              
+             
+
+              
+
+             
+              
+                  <button type="button" disabled class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Guardar</button>
+                  <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Editar</button>
+               
+
+            
+
+          </form>
+
+      </div>
+      <div class="col-lg-6">
+         
+
+          <form role="form">
+
+            <fieldset class="form-group">
+              <label>Misión</label>
+              <textarea class="form-control" rows="3"></textarea>
+          </fieldset>
+          <fieldset class="form-group">
+            <label>Visión</label>
+            <textarea class="form-control" rows="3"></textarea>
+        </fieldset>
+
+                </form>
+          
+
+      </div>
+  </div>
+  <!-- /.row -->
+</div>

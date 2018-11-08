@@ -6,8 +6,13 @@ import { HttpHeaders } from '@angular/common/http';
 
 const httpOptionsDefault = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    
     'accessToken':localStorage.getItem('accessToken'),
+    
+    //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
+     'Content-Type': 'application/json',
+     
+
   })
 };
 
