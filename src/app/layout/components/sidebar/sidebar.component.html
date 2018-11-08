@@ -17,24 +17,24 @@
                             href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Realizar solicitud' | translate }}</span>
-                        </a>    
+                        </a>
                         <ul class="submenu">
                             <li>
                              <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Ofrecer Inmueble' | translate }}</span>
-                        </a> 
+                        </a>
                         </li>
                         <li>
                              <a [routerLink]="['/solicitudservicio']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Buscar Inmueble' | translate }}</span>
-                        </a> 
+                        </a>
                         </li>
                         </ul>
-                        
+
                     </li>
 
                     <li>
@@ -144,8 +144,8 @@
                 </ul>
             </li>
         </div>
-        
-        
+
+
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages3')">
                 <i class="fa fa-calendar"></i>&nbsp;
@@ -181,6 +181,12 @@
                             <span>{{ 'Reserva' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                      <a [routerLink]="['/recaudo']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                          <i class="fa fa-building"></i>&nbsp;
+                          <span>{{ 'Recaudo' | translate }}</span>
+                      </a>
+                  </li>
                 </ul>
             </li>
         </div>
