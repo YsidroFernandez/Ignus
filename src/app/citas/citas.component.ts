@@ -7,23 +7,7 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { calendariocita } from '../../environments/environment';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
-
+import { calendariocita, actions,colors } from '../../environments/environment';
 
 @Component({
   selector: 'app-citas',
@@ -45,9 +29,9 @@ export class CitasComponent implements OnInit {
 
   locale: string = 'es';
 
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+  weekStartsOn: number = DAYS_OF_WEEK.lunes;
 
-  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
+  weekendDays: number[] = [DAYS_OF_WEEK.viernes, DAYS_OF_WEEK.sabado];
 
   modalData: {
     action: string;
@@ -131,17 +115,19 @@ export class CitasComponent implements OnInit {
 
   addEvent(): void {
     calendariocita.push({
-      title: 'Nueva cita',
+      title: "this.nuevacita.title",
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
-      actions: this.actions,
-      draggable: true,
+      actions: actions,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      }
-    });
+      },
+      draggable: true,
+      email: "this.nuevacita.email",
+      agent: "this.nuevacita.agent"
+     });
     this.refresh.next();
   }
 
