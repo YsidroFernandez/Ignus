@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-reclamos',
@@ -12,12 +10,11 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 })
 export class ReclamosComponent implements OnInit {
 
-	reclamos = {
-	  tipos: "";
-    tiporeclamo: "",
+	reclamos2 = {
+    tipo: "",
     descripcion: "",
     estado: "En espera",
-    fotos: [],
+    tiporeclamo: "",
   }
 
   tiporeclamo = ["Servicio de agua defectuoso", "Daño en estructura", "Sistema de luz en malas condiciones"]
@@ -39,19 +36,16 @@ export class ReclamosComponent implements OnInit {
   }
 
   limpiar() {
-    this.reclamos = {
-      tiporeclamo: "",
-      descripcion: "",
-      estado: "En espera",
-      fotos: [],
+    this.reclamos2 = {
+    
+    tipo: "",
+    descripcion: "",
+    estado: "En espera",
+    tiporeclamo: "",
     }
   }
 
   ngOnInit() {
-  faEye = faEye;
-  faEdit = faEdit;
-  faTrash = faTrash;
-
  
   }
 
