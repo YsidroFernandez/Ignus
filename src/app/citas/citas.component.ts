@@ -2,8 +2,7 @@ import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@a
 import { routerTransition } from '../router.animations';
 
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK
-} from 'angular-calendar';
+import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK } from 'angular-calendar';
 
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
@@ -29,9 +28,9 @@ export class CitasComponent implements OnInit {
 
   locale: string = 'es';
 
-  weekStartsOn: number = DAYS_OF_WEEK.lunes;
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
 
-  weekendDays: number[] = [DAYS_OF_WEEK.viernes, DAYS_OF_WEEK.sabado];
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
   modalData: {
     action: string;
