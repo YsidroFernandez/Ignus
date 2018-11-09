@@ -29,6 +29,8 @@ const routes: Routes = [
             //transacciones
             { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
 
+            { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
+
             { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
             { path: 'role', loadChildren: './role/role.module#RoleModule' },
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
