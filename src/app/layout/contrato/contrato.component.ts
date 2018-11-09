@@ -6,6 +6,8 @@ import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatt
 
 import { Contrato } from './models/contrato';
 
+import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
+
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +15,9 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-contrato',
   templateUrl: './contrato.component.html',
-  styleUrls: ['./contrato.component.scss']
+  styleUrls: ['./contrato.component.scss'],
+  animations: [routerTransition()],
+    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
 })
 export class ContratoComponent implements OnInit {
 

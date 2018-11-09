@@ -73,19 +73,27 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title"> Usuario </h4>
+        <h4 class="modal-title"> Contrato </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+
     <div class="modal-body">
         <div class="row mb-3">
-        <div class="col col-sm-6">
-        	<div class="card-body">
-        <div class="form-group">
-            <label for="descripcion">Fecha de Nacimiento</label>
-            <input type="text" placeholder="dd-mm-yyyy" name="dob"  
+        <div  class="col col-sm-6">
+            <div  class="card-body">
+        	<div class="form-group">
+        
+            <label for="descripcion">Fecha</label>
+            <input type="text" placeholder="dd-mm-yyyy" name="dob"   ngbDatepicker #dob="ngbDatepicker"
                 class="form-control" />
+     <span class="input-group-btn">
+        <button class="input-group-addon" (click)="dob.toggle()" type="button">
+               <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+          </button>
+      </span>
+
         </div></div></div>
 
         <div class="col-xl-6 text-xs-center">
