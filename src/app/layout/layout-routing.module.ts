@@ -39,8 +39,13 @@ const routes: Routes = [
 
             //cliente
             { path: 'solicitudservicio', loadChildren: './cliente/solicitud-servicio/solicitud-servicio.module#SolicitudServicioModule'},
+            { path: 'ofrecer', loadChildren: './cliente/ofrecer/ofrecer.module#OfrecerModule'},
             { path: 'actividad', loadChildren: './cliente/actividad/actividad.module#ActividadModule' },
             { path: 'perfil', loadChildren: './cliente/perfil/perfil.module#PerfilModule' },
+            { path: 'sugerencias', loadChildren: './cliente/sugerencias/sugerencias.module#SugerenciasModule'},
+            { path: 'reclamos', loadChildren: './cliente/reclamos/reclamos.module#ReclamosModule'},
+            { path: 'valoracion', loadChildren: './cliente/valoracion/valoracion.module#ValoracionModule'},
+            { path: 'seguimiento', loadChildren: './cliente/seguimiento/seguimiento.module#SeguimientoModule'},
     ]}
     ];
 
