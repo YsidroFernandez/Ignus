@@ -9,10 +9,12 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
+
 @Component({
   selector: 'app-inmueble',
   templateUrl: './inmueble.component.html',
-  styleUrls: ['./inmueble.component.scss']
+  styleUrls: ['./inmueble.component.scss'],
+  animations: [routerTransition()]
 })
 export class InmuebleComponent implements OnInit {
  closeResult: string;
