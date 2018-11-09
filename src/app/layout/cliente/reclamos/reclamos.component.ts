@@ -13,7 +13,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 export class ReclamosComponent implements OnInit {
 
 	reclamos = {
-	  tipos: "";
+	  tipos: "",
     tiporeclamo: "",
     descripcion: "",
     estado: "En espera",
