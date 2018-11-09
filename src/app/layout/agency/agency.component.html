@@ -1,62 +1,77 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Datos de la Agencia'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="'Datos de la Agencia'" [icon]="'fa-edit'"></app-page-header>
 
-  <div class="row">
-      <div class="col-lg-6">
-
-          <form role="form">
-              <fieldset class="form-group">
-                  <label>Nombre de la Agencia</label>
-                  <input  placeholder="Nombre" class="form-control">
-                 
-              </fieldset>
-
-              <fieldset class="form-group">
-                  <label>Rif</label>
-                  <input class="form-control" placeholder="Rif">
-              </fieldset>
-
-              <div class="form-group">
-              
-                  <label>Dirección</label>
-                  <input class="form-control" placeholder="Dirección">
-            
-              </div>
-
-              
-             
-
-              
-
-             
-              
-                  <button type="button" disabled class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Guardar</button>
-                  <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Editar</button>
+    <div class="row" >
+        <!-- <fieldset disabled=""> -->
                
+                        
+            <div class="col-lg-6">
+                    <form role="form"> 
+                            <fieldset [disabled]='disabled' > 
+                    <div class="form-group">
+                        <label>Nombre de la Agencia</label>
+                        <input [(ngModel)]="agency.name" name="agencyName" placeholder="Nombre" class="form-control">
 
-            
+                    </div>
 
-          </form>
+                    <div class="form-group">
+                        <label>Rif</label>
+                        <input [(ngModel)]="agency.rif" name="rif" class="form-control" placeholder="Rif">
+                    </div>
 
-      </div>
-      <div class="col-lg-6">
-         
+                    <div class="form-group">
 
-          <form role="form">
+                        <label>Dirección</label>
+                        <input [(ngModel)]="agency.ubication" name="ubication" class="form-control" placeholder="Dirección">
 
-            <fieldset class="form-group">
-              <label>Misión</label>
-              <textarea class="form-control" rows="3"></textarea>
-          </fieldset>
-          <fieldset class="form-group">
-            <label>Visión</label>
-            <textarea class="form-control" rows="3"></textarea>
-        </fieldset>
+                    </div>
+                    <div class="form-group">
 
+                        <label>Fundación</label>
+                        <input [(ngModel)]="agency.foundationDate" name="fundation" class="form-control" placeholder="Dirección">
+
+                    </div>
+
+
+
+
+
+
+
+                    
+                   
+
+                </fieldset>
+                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="editAgency()">{{btnEdit}}</button>
                 </form>
-          
 
-      </div>
-  </div>
-  <!-- /.row -->
+            </div>
+            <div class="col-lg-6">
+
+
+                <form role="form">
+                        <fieldset [disabled]='disabled'>
+                <div class="form-group">
+                    <label>Misión</label>
+                    <textarea [(ngModel)]="agency.mission" name="mission" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Visión</label>
+                    <textarea [(ngModel)]="agency.vision" name="vision" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Objetivo General</label>
+                    <textarea [(ngModel)]="agency.generalObjective" name="objetive" class="form-control" rows="3"></textarea>
+                </div>
+            </fieldset>
+            </form>
+            </div>
+             
+    
+
+        <!-- </form> -->
+
+        <!-- </fieldset> -->
+    </div>
+    <!-- /.row -->
 </div>
