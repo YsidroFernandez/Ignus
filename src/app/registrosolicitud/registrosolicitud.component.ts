@@ -23,7 +23,7 @@ export class RegistroSolicitudComponent implements OnInit {
     tipo: "" ,
     descripcion: "",
     estado: "En espera",
-    fecha: new Date(),
+    fecha: "",
     fotos: [],
   }
 
@@ -41,7 +41,7 @@ enviar() {
   var options = document.getElementsByTagName("option")
 
  // this.solicitud2.tipo = options[select.value-1].text
- // solicitud.push(this.solicitud2)
+  solicitud.push(this.solicitud2)
   alert("Agregado con exito")
   this.limpiar()
 }
@@ -52,7 +52,7 @@ limpiar(){
     tipo: "" ,
     descripcion: "",
     estado: "En espera",
-    fecha: new Date(),
+    fecha: "",
     fotos: [],
   }
 }
