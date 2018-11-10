@@ -1,7 +1,8 @@
-<div [@routerTransition]>
-    <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
 
+<div [@routerTransition]>
+    
+    <app-page-header [heading]="'Usuarios'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container ">     
         <div class="card-header" style="text-align: -webkit-center;">Usuarios Registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
@@ -169,6 +170,8 @@
         </div>
     </div>
 </div>
+ <ng4-loading-spinner > </ng4-loading-spinner>
+
 <ng-template #ver let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> Usuario </h4>

@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
 export function highchartsModules() {
     return [ exporting ];
@@ -32,6 +33,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReactiveFormsModule,
         FormsModule,
         NgbModule.forRoot(),
+        Ng4LoadingSpinnerModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

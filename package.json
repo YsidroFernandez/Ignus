@@ -64,6 +64,7 @@
     "highcharts": "^6.2.0",
     "moment": "^2.22.2",
     "ng2-charts": "^1.6.0",
+    "ng4-loading-spinner": "^1.2.3",
     "rxjs": "^6.1.0",
     "yarn": "^1.6.0",
     "zone.js": "^0.8.26"

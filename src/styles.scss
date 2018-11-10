@@ -7,3 +7,18 @@ html, body {
 
   height: 100%;
 }
+
+body > app-root > app-layout > section > app-usuario > ng4-loading-spinner > div.hidden.spinner.center{
+
+  position: absolute;
+  padding: 0px;
+  top: 500px;
+  left: 500px;
+  height: 100%;
+  width: 100%;
+  z-index: 9998;
+  background: #000;
+  opacity: 0.6;
+  transition: opacity 0.3s linear;
+
+}

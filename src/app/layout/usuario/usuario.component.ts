@@ -6,6 +6,8 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Usuario } from './models/usuario';
+import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
+
 
 
 /*class Usuario {
@@ -46,7 +48,8 @@ export class UsuarioComponent implements OnInit {
   // It maintains Array of countries.
   estados: string[] = ['Lara', 'Zulia', 'Yaracuy', 'Miranda'];
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal,
+    private spinnerService: Ng4LoadingSpinnerService) {
     // Add default Usuario data.
     this.usuarios.push(new Usuario('Pedro', 'Leal', '@peleal','Programador frontend', {day: 22, month: 7, year: 1992}, 'peleal@gmail.com', 'pedro123', 'Lara'));
     this.usuarios.push(new Usuario('Jesus', 'Elias', '@jelias', ' Programador backend',{day: 22, month: 7, year: 1992}, 'jelia@gmail.com', 'jesus123', 'Zulia'));
@@ -55,6 +58,15 @@ export class UsuarioComponent implements OnInit {
     this.usuarios.push(new Usuario('Williams', 'Querales', '@wiquerales', ' Programador backend',{day: 22, month: 7, year: 1992}, 'wiquerales@gmail.com', 'william123', 'Zulia'));
     this.usuarios.push(new Usuario('Erick', 'Perez', '@eperez','Scrum Master', {day: 22, month: 7, year: 1992}, 'erick@gmail.com', 'erick123', 'Miranda'));
   }
+
+  ngOnInit() {
+    this.show();
+  }
+  show() {
+    this.spinnerService.show();
+    // setTimeout(() => this.spinnerService.hide(), 4000)
+}
+
 
 // This method associate to New Button.
   onNew() {
@@ -147,10 +159,10 @@ export class UsuarioComponent implements OnInit {
         }
     }
 
-    ngOnInit() {}
-
+   
     faEye = faEye;
     faEdit = faEdit;
     faTrash = faTrash;
+   
 
 }
