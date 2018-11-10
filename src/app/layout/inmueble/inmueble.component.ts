@@ -9,10 +9,12 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
+
 @Component({
   selector: 'app-inmueble',
   templateUrl: './inmueble.component.html',
-  styleUrls: ['./inmueble.component.scss']
+  styleUrls: ['./inmueble.component.scss'],
+  animations: [routerTransition()]
 })
 export class InmuebleComponent implements OnInit {
  closeResult: string;
@@ -93,9 +95,9 @@ this.tipSelect= 4;
 
       }
 
-       delete(i) {
+       delete(index: number) {
        if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.Inmuebles.splice(i, 1);
+        this.Inmuebles.splice(index, 1);
         this.msg = 'Campo Eliminado Exitosamente';
       }
       }

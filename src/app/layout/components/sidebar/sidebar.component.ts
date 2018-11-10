@@ -12,6 +12,7 @@ export class SidebarComponent {
     collapsed: boolean = false;
     showMenu: string = '';
     showMenuReport: string = '';
+    showMenuConf: string = '';
     pushRightClass: string = 'push-right';
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
@@ -46,6 +47,15 @@ export class SidebarComponent {
         }
     }
 
+      addExpandClassConf(element: any) {
+        if (element === this.showMenuConf) {
+            this.showMenuConf = '0';
+            console.log()
+        } else {
+            this.showMenuConf = element;
+        }
+    }
+ 
     addExpandClassReport(element: any) {
         if (element === this.showMenuReport) {
             this.showMenuReport = '0';

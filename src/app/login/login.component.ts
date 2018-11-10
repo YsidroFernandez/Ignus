@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { AuthService } from "../providers/auth.service";
 import { GlobalService } from "./../providers/global.service";
+import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -26,42 +28,49 @@ export class LoginComponent implements OnInit {
   constructor(public router: Router,
     public authService: AuthService,
     private global: GlobalService,
+    public route: Router,
+   
   ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
 
+
   login() {
+    console.log("login");
+    //Header del httpRequest 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Basic '+btoa(this.usuario.username+':'+this.usuario.password),
+      })
+    };
     if (this.usuario.username && this.usuario.password) {
-      /*
-      console.log(this.usuario.username + " " + this.usuario.password);
-      this.authService.postData(this.usuario, "usuarios/login").then((result) => {
-        this.resposeData = result;
-        console.log(this.resposeData);
-        if (this.resposeData) {
-          localStorage.setItem('usuario', JSON.stringify(this.resposeData))
+     this.global.getModel('/login',httpOptions) //De esta manera se harán las peticiones al servidor (Carpeta provider,archivo global.service.ts)
+      .then(response =>{
+        console.log(response);
+        if(response['status']){ // evalúa el estatus de la respuesta de la peticion (si es true =>accede sino 'credenciales incorrectas' )
+          localStorage.setItem('accessToken', response['data'].accessToken);
+          this.router.navigate(['/dashboard']);
+          console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
-          this.global.getModel_Id(this.resposeData.userId, "usuarios").then((result) => {
-            console.log(result);
-            localStorage.setItem('usuario', JSON.stringify(result));
-            console.log('user:loged', result);
-          })
-          
+        }else{
+           this.presentToast("Usuario y Contraseña Incorectos");
+           
         }
-        else {
-          this.presentToast("Por favor ingresa un usuario y contraseña válido");
-        }
-      }, (err) => {
-        //Connection failed message
-        this.presentToast("Por favor ingresa un usuario y contraseña válido%%");
-      });*/
-      localStorage.setItem('isLoggedin', 'true');
+      },err=>{
+        console.log(err);
+      })
     }
     else {
       this.presentToast("Por favor ingresa usuario y contraseña para iniciar sesión");
     }
 
+
+    // this.router.navigate(['/dashboard']);
+    //       console.log('entré');
+    //       localStorage.setItem('isLoggedin', 'true');
   }
 
 
@@ -70,7 +79,10 @@ export class LoginComponent implements OnInit {
   }
 
 
-  presentToast(msg) {
+  presentToast(msg) { 
     alert(msg)
   }
+
+
+
 }

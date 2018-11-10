@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './visita.component.html',
     styleUrls: ['./visita.component.scss'],
     animations: [routerTransition()],
-    providers: []
+    providers: [] 
 })
 export class VisitaComponent implements OnInit {
 

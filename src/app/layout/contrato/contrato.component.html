@@ -1,0 +1,166 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Contratos'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
+
+        <div class="card-header" style="text-align: -webkit-center;">Contratos Registrados</div>
+        <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;  "  (click)="open(content)"
+                        ><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Personal</th>
+                            <th>Cliente</th>
+                            <th>Inmueble</th>
+                             <th>Estado</th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let contrato of contratos">
+                            <td>{{ contrato.dob}}</td>
+                            <td>{{ contrato.personal}}</td>
+                            <td>{{ contrato.cliente}}</td>
+                            <td>{{ contrato.inmueble}}</td>
+                            <td>{{ contrato.estado}}</td>
+                            <td>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    >
+                                    <fa-icon [icon]="faEye"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    >
+                                    <fa-icon [icon]="faEdit"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    >
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+           
+        </div>
+
+    
+    </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title"> Contrato </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row mb-3">
+        <div  class="col col-sm-6">
+            <div  class="card-body">
+        	<div class="form-group">
+        
+            <label for="descripcion">Fecha</label>
+            <input type="text" placeholder="dd-mm-yyyy" name="dob"   ngbDatepicker #dob="ngbDatepicker"
+                class="form-control" />
+     <span class="input-group-btn">
+        <button class="input-group-addon" (click)="dob.toggle()" type="button">
+               <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+          </button>
+      </span>
+
+        </div></div></div>
+
+        <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Personal</label>
+                  <select  class="form-control">
+                    <option>Selecionar</option>
+                    <option>jesus</option>
+                    <option>Pedro</option>
+                    <option>Erick</option>
+                  </select>
+                </div>
+              </div>
+            </div></div>
+
+<div class="row mb-3">
+        <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Cliente</label>
+                  <select  class="form-control">
+                    <option>Selecionar</option>
+                    <option>Maria</option>
+                    <option>Pedro</option>
+                    <option>Juan</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+
+        <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Inmueble</label>
+                  <select  class="form-control">
+                    <option>Selecionar</option>
+                    <option>Casa Blanca</option>
+                    <option>Casa Rosada</option>
+                    <option>Edifico III</option>
+                  </select>
+                </div>
+              </div>
+            </div></div>
+
+        <div class="row mb-3">
+        <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+                <div class="form-group">
+                  <label>Estados</label>
+                  <select  class="form-control">
+                    <option>Selecionar</option>
+                    <option>En Espera</option>
+                    <option>En Proceso</option>
+                    <option>Realizado</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+       </div>
+
+        
+      </div>
+     <div class="modal-footer">
+                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                                (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        </div>  
+</ng-template>

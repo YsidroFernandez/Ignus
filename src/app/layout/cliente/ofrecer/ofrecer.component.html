@@ -1,0 +1,155 @@
+<div>
+ <h1><i class="fa fa-edit">Solicitud</i></h1>
+ <hr>
+ <p><i class="fa fa-building"></i>Ofrecer Inmueble</p>
+<hr>
+
+   
+ <div class="row mb-3">
+   <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo Solicitud</label>
+        <select class="form-control" name="horas" id="tiposolicitud" required>
+          <option value="0">Seleccione</option>
+          <option value="1">Venta</option>
+          <option value="2">Alquiler</option>
+          <option value="3">Permuta</option>
+          <option value="4">Subasta</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Cedula</label>
+                    <input type="text" class="form-control" />
+                </div>
+    </div>
+
+     <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Inmueble</label>
+        <select class="form-control" name="horas" id="tiposolicitud" required>
+          <option value="0">Seleccione</option>
+          <option value="1">Casa</option>
+          <option value="2">Edificio</option>
+          <option value="3">Terreno</option>
+          <option value="4">Parcela</option>
+        </select>
+      </div>
+    </div>
+
+   <div class="col col-sm-6">
+      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Numero de Habitaciones</label>
+        <select class="form-control" name="horas" id="tiposolicitud" required>
+          <option value="0">Seleccione</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Cantidad de Baños</label>
+                    <input type="text" class="form-control" />
+                </div>
+    </div>
+
+     <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Número de Plantas/Pisos</label>
+                    <input type="text" class="form-control" />
+                </div>
+       </div>
+
+       <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Pais</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Estado</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div> 
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Municipio</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div> 
+     
+
+    <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Precio Deseado</label>
+                    <input type="text" class="form-control" />
+                </div>
+   </div> 
+<hr>
+</div>
+
+<hr>
+<p><i class="fa fa-building"></i>Especificaciones</p>
+<hr>
+<div class="row mb-3">
+
+        <div class="col col-sm-6">
+         <div class="form-group">
+       	<input type="checkbox" name="patio" value="PatioTrasero">Patio Trasero<br>
+		</div>
+        </div>
+
+        <div class="col col-sm-6">
+         <div class="form-group">
+       	<input type="checkbox" name="Estacionamiento" value="Estacionamiento">Estacionamiento<br>
+		</div>
+        </div>
+
+         <div class="col col-sm-6">
+         <div class="form-group">
+       	<input type="checkbox" name="Piscina" value="Piscina">Piscina<br>
+		</div>
+        </div>
+
+        <div class="col col-sm-6">
+         <div class="form-group">
+       	<input type="checkbox" name="areasVerdes" value="areasVerdes">Áreas Verdes<br>
+		</div>
+        </div>
+
+        <div class="col col-sm-6">
+         <div class="form-group">
+       	<input type="checkbox" name="ParqueInfantil" value="ParqueInfantil">Parque Infantil<br>
+		</div>
+        </div>
+</div>
+
+<hr>
+
+<div>
+	<div class="col col-sm-6">
+        <div class="col col-sm-6">
+            <label class="ng-tns-c12-9" for="observaciones">Observaciones</label>
+            <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" required style="width: 700px; height: 200px; "></textarea>
+        </div>
+    </div>
+</div>
+<hr>
+<div>
+      <div class="row">
+    <div class="col-6">
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar</button>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+

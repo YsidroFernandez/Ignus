@@ -3,23 +3,28 @@
     <div class="card-header" style="text-align: -webkit-center;">Registrar Informe de Visitas Registradas</div>
 
     <div class="col-xl-12 text-xs-center">
+        <br>
+        <div class="row mb-3"> 
+                <div class="col col-sm-12">
+                        <label for="descripcion"><B>DATOS DEL EVALUADOR Y DEL CLIENTE</B></label>
+                </div>
+        </div>
+        <br>
+
         <div class="row mb-3">
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="tipos">Nombre Evaluador</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="nombre">Apellido Evaluador</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <label for="descripcion">Fecha</label>
 
                 <div class="input-group">
@@ -32,21 +37,59 @@
                     </span>
                 </div>
             </div>
-            <div class="col col-sm-6">
+        </div>
+
+        <div class="row mb-3">
+            
+            <div class="col col-sm-4">
                 <div class="form-group">
-                    <label for="descripcion">Horas</label>
+                    <label for="descripcion">Nombre Propietario</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
+            <div class="col col-sm-4">
+                <div class="form-group">
+                    <label for="descripcion">Apellido Propietario</label>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-4">
+                <div class="form-group">
+                    <label for="descripcion">Cedula Propietario</label>
+                    <input type="text" placeholder="Buscar Cédula..." class="form-control" />
+                </div>
+            </div>
         </div>
+
+        <br>
+        <div class="row mb-3"> 
+                <div class="col col-sm-12">
+                        <label for="descripcion"><B>UBICACIÓN Y DESCRIPCIÓN DEL INMUEBLE</B></label>
+                </div>
+        </div>
+        <br>
+
+
         <div class="row mb-3">
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
+                <div class="form-group">
+                    <label for="tipos">Codigo Inmueble</label>
+                    <div class="col-20 dropdown" ngbDropdown myDrop="ngbDropdown">
+                            <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="code"
+                                ngbDropdownToggle>Seleccione un codigo</button>
+                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                <button type="button" class="dropdown-item"></button>
+                            </div>
+                    </div>
+                 </div>
+            </div>
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="tipos">Ciudad</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="nombre">Estado</label>
                     <input type="text" class="form-control" />
@@ -55,53 +98,901 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="tipos">Parroquia</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="nombre">Municipio</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
+            <div class="col col-sm-4">
+                    <div class="form-group">
+                        <label for="tipos">Dirección</label>
+                        <input type="text" class="form-control" />
+                    </div>
+             </div>
         </div>
 
         <div class="row mb-3">
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Dirección</label>
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-4">
                 <div class="form-group">
                     <label for="nombre">N° de casa/Apartamento</label>
                     <input type="text" class="form-control" />
                 </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Telefono local</label>
-                    <input type="text" class="form-control" />
-                </div>
+            <div class="col col-sm-4">
+                    <div class="form-group">
+                        <label for="tipos">Telefono local</label>
+                        <input type="text" class="form-control" />
+                    </div>
             </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="nombre">Telefono personal</label>
-                    <input type="text" class="form-control" />
-                </div>
+            <div class="col col-sm-4">
+                    <div class="form-group">
+                        <label for="nombre">Telefono personal</label>
+                        <input type="text" class="form-control" />
+                    </div>
             </div>
         </div>
 
+        <br>
+        <div class="row mb-3"> 
+            <div class="col col-sm-12">
+                    <label for="descripcion"><B>TIPO DE INSPECCIÓN</B></label>
+            </div>
+        </div>
 
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="save()"><i
-                style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+            <div class="row mb-3">
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Inspección exterior
+                                </label>
+                        </div>
+                </div>
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Inspección Interior
+                                </label>
+                        </div>
+                </div>
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Inspección exterior e interior
+                                </label>
+                        </div>
+                </div>
+            </div>
 
+        <div class="row mb-3"> 
+            <div class="col col-sm-12">
+                    <label for="descripcion"><B>USO DEL INMUEBLE</B></label>
+            </div>
+        </div>
+
+            <div class="row mb-3">
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Casa habitación
+                                </label>
+                        </div>
+                </div>
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Departamentos
+                                </label>
+                        </div>
+                </div>
+                <div class="col col-sm-4">
+                        <div class="checkbox">
+                                <label for="descripcion">
+                                <input type="checkbox" data-toggle="toggle"> Comercios
+                                </label>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Oficinas publicas
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Oficinas privadas
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Industrias
+                                    </label>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3">
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Estacionamiento
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Bodegas
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> Educación
+                                    </label>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3">
+                    <div class="col col-sm-4">
+                            <div class="form-group">
+                                    <label for="nombre">Otro</label>
+                                    <input type="text" class="form-control" />
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="form-group">
+                                    <label for="nombre">Niveles sobre el terreno</label>
+                                    <input type="text" placeholder="también azotea y mezanines" class="form-control" />
+                            </div>
+                    </div>
+                    <div class="col col-sm-4">
+                            <div class="form-group">
+                                    <label for="nombre">Número de sótanos</label>
+                                    <input type="text" class="form-control" />
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>ESTADO DEL INMUEBLE</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <label for="descripcion"><B>SI</B></label>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <label for="descripcion"><B>NO</B></label>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <label for="descripcion"><B>EXISTEN DUDAS</B></label>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>1. Derrumbe total</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>2. Derrumbe parcial</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>3. Edificación separada de su cimentación</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>4. Asentamiento diferencial o hundimiento</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>5. Inclinación notoria de la edificación o de algun entrepiso</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>6. Daños en miembros estructurales (columnas, vigas, muros)</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>7. Daños severos en elementos no estructurales</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>8. Daños en instalaciones electricas</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>9. Daños en instalaciones hidrosanitarias</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>10. Daños en instalaciones de gas</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>11. Grietas, movimiento del suelo</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>12. Deslizamiento de talud o corte</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>13. Pretiles, balcones u otros objetos en peligro de caer</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>14. Otros peligros (lineas o ductos rotos, derrames tóxicos, etc.)</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-4">
+                                        <div class="checkbox">
+                                                <label for="descripcion">
+                                                <input type="checkbox" data-toggle="toggle">
+                                                </label>
+                                        </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-12">
+                            <label for="descripcion"><B>CLASIFICACIÓN GLOBAL</B></label>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-12">
+                            <label for="descripcion">Una vez evaluado el Estado de la Edificación, de no encontrarse alguna respuesta afirmativa, el inmueble se calificará como <b>Edificación/Área segura o de Riesgo bajo.</b> En caso de encontrarse una respuesta afirmativa en cualquiera de los incisos "1" al "7" y del "11" al "14", se calificará como <b>Edificación Insegura o de Riesgo Algo.</b> En caso de encontrarse una respuesta afirmativa en cualquiera de los incisos "8" al "10", se calificará como <b>Área insegura o de Riesgo Medio.</b> De existir dudas, se señalara <b>Seguridad Incierta.</b></label>
+                    </div>
+            </div>
+
+            <div class="row mb-3">
+                    <div class="col col-sm-6">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> <b> Edificación/Área segura o de Riesgo bajo.</b>
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> <b> Área insegura o de Riesgo Medio.</b>
+                                    </label>
+                            </div>
+                    </div>
+            </div>
+            <div class="row mb-3">
+                    <div class="col col-sm-6">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> <b> Edificación Insegura o de Riesgo Algo.</b>
+                                    </label>
+                            </div>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="checkbox">
+                                    <label for="descripcion">
+                                    <input type="checkbox" data-toggle="toggle"> <b> Seguridad Incierta.</b>
+                                    </label>
+                            </div>
+                    </div>
+            </div>
+            <br>
+            <div class="row mb-3"> 
+                    <div class="col col-sm-12">
+                            <label for="descripcion"><B>RECOMENDACIONES</B></label>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <label for="descripcion"><B>SI</B></label>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <label for="descripcion"><B>NO</B></label>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Requiere revisión futura</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Es necesario evaluación detallada</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Apuntalar</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Maquinaria para remover escombros</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Protección civil</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Central de fugas</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+            
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Servicios de agua</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+
+            <div class="row mb-3"> 
+                    <div class="col col-sm-6">
+                            <label for="descripcion"><B>Servicios de luz</B></label>
+                    </div>
+                    <div class="col col-sm-6">
+                            <div class="row"> 
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                            <div class="checkbox">
+                                                    <label for="descripcion">
+                                                    <input type="checkbox" data-toggle="toggle">
+                                                    </label>
+                                            </div>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
+            <br>
+            <div class="row mb-3">
+                    <div class="col col-sm-12">
+                        <div class="form-group">
+                            <label for="tipos">Observaciones</label>
+                            <input type="textarea" class="form-control" />
+                        </div>
+                    </div>
+            </div>
+
+
+        
+            <button style="background: rgb(124, 161, 154); border-radius: 20px" type="button" class="btn btn-success" (click)="save()"><i
+                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+       
 
 
     </div>

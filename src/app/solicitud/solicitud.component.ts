@@ -4,7 +4,7 @@ import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
 import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { solicitud, actions, calendariocita } from '../../environments/environment';
+import { solicitud, actions, calendariocita, colors } from '../../environments/environment';
 import { calendarFormat } from 'moment';
 
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
@@ -13,33 +13,7 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 
 
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
 
-/*class Solicitud {
-  constructor(
-    public nombre: string = '',
-    public apellido: string = '',
-    public username: string ='',
-    public cargo: string ='',
-    public dob: NgbDateStruct = null,
-    public correo: string = '',
-    public contrasena: string = '',
-    public estado: string = 'Selecciona Estado'
-  ) {}
-}*/
 
 @Component({
     selector: 'app-solicitud',
@@ -55,10 +29,24 @@ export class SolicitudComponent implements OnInit {
     tipo: "" ,
     descripcion: "",
     estado: "En espera",
-    fecha: new Date(),
+    fecha: "",
     fotos: [],
   }
 
+  nuevacita = {
+    title: "",
+    start: new Date(),
+    end: new Date(),
+    color: colors.red,
+    actions: actions,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true
+    },
+    draggable: true,
+    email: "",
+    agent: ""
+   }
   // It maintains list of solicituds
 solicituds= [];
 // It maintains solicitud Model
@@ -135,6 +123,7 @@ onEdit(index: number) {
  
  // Retrieve selected solicitud from list and assign to model.
  this.solicitud2 = Object.assign({}, this.solicituds[this.selectedRow]);
+ console.log(this.solicitud2)
  // Change submitType to Update.
  this.submitType = 'Actualizar';
  // Display solicitud entry section.
@@ -166,7 +155,10 @@ onChangetipo(tipo: string) {
   this.solicitud2.tipo = tipo;
  }
 
-
+ onChangefecha(fechac) {
+  // Assign corresponding selected estado to model.
+  this.solicitud2.fecha = fechac;
+ }
 
  open(content) {
      this.modalService.open(content).result.then((result) => {
@@ -183,6 +175,7 @@ onChangetipo(tipo: string) {
    this.solicituds[this.selectedRow].tipo = this.solicitud2.tipo;
    this.solicituds[this.selectedRow].descripcion = this.solicitud2.descripcion;
    this.solicituds[this.selectedRow].estado = this.solicitud2.estado;
+   this.solicituds[this.selectedRow].fecha = this.solicitud2.fecha;
 
    this.solicitud2 = Object.assign({}, this.solicituds[this.selectedRow]);
 
@@ -209,18 +202,7 @@ onChangetipo(tipo: string) {
 
 
  aceptar(i){
-   calendariocita.push({
-    title: 'Firma',
-    start: startOfDay(new Date()),
-    end: endOfDay(new Date()),
-    color: colors.red,
-    actions: actions,
-    draggable: true,
-    resizable: {
-      beforeStart: true,
-      afterEnd: true
-    }
-   })
+   calendariocita.push(this.nuevacita)
 
    this.solicituds.splice(i, 1);
    alert("aceptado y validada la cita")

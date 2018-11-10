@@ -1,0 +1,17 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+
+
+@Component({
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.scss']
+})
+export class PerfilComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

@@ -2,28 +2,11 @@ import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@a
 import { routerTransition } from '../router.animations';
 
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK
-} from 'angular-calendar';
+import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK } from 'angular-calendar';
 
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { calendariocita } from '../../environments/environment';
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
-
+import { calendariocita, actions,colors } from '../../environments/environment';
 
 @Component({
   selector: 'app-citas',
@@ -131,17 +114,19 @@ export class CitasComponent implements OnInit {
 
   addEvent(): void {
     calendariocita.push({
-      title: 'Nueva cita',
+      title: "this.nuevacita.title",
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
-      actions: this.actions,
-      draggable: true,
+      actions: actions,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      }
-    });
+      },
+      draggable: true,
+      email: "this.nuevacita.email",
+      agent: "this.nuevacita.agent"
+     });
     this.refresh.next();
   }
 
