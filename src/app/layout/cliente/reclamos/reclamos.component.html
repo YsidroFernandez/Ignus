@@ -1,69 +1,114 @@
- <div><hr>
- <h2><i class="fa fa-edit">Reclamos</i></h2> 
- <hr></div>
+ <div [@routerTransition]>
+ <h1><i class="fa fa-edit">Reclamos</i></h1> 
+ </div>
+ <div>
+     <span>
+        Introduzca todos sus datos personales para poder enviarle la confirmación de recepción de su solicitud, 
+        en conjunto al número de ticket. No debe adjuntar ni aportar a esta solicitud, datos de carácter 
+        personal de categorías especiales (ejemplo datos de viviendam dirección, entre otros), 
+        por no ser necesarios para cursar su queja. 
+     </span><p></p>
+     <span> Este formulario esta adaptado a dispositivos móviles. Si lo desea puede añadirlo a los
+             marcadores de su dispositivo para una mayor comodidad.</span><hr>
+ </div>
+
  
- <div class="row mb-3">
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Nombre</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Apellido</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Cedula</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Correo</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-     <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Telefono</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Reclamo</label>
-        <select class="form-control" name="horas" id="tiporeclamo" required>
-            <option value="0">Seleccionar</option>
-            <option value="1">Servicio de agua defectuoso</option>
-            <option value="2">Daño en estructura</option>
-            <option value="3">Sistema de luz en malas condiciones</option>
-        </select>
-      </div>
-    </div>
-<hr>
-<div class="col col-sm-6">
+ <div class="row mb-6">
         <div class="col col-sm-6">
-            <label class="ng-tns-c12-9" for="descripcion">Descripcion</label>
-            <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" required style="width: 700px; height: 200px; "></textarea>
+                    <div class="form-group">
+                        <label for="primernombre">Primer Nombre</label>
+                        <input type="text" class="form-control" />
+                    </div>
         </div>
-    </div>
-<hr>
-</div>
+    
+        <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="segundonombre">Segundo Nombre</label>
+                        <input type="text" class="form-control" />
+                    </div>
+        </div>
+    
+        <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="primerapellido">Primer Apellido</label>
+                        <input type="text" class="form-control" />
+                    </div>
+        </div>
+    
+        <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="segundoapellido">Segundo Apellido</label>
+                        <input type="text" class="form-control" />
+                    </div>
+        </div>
+        <div class="col col-sm-4">
+                <div class="form-control">
+                    <label for="cedula">Cédula</label>
+                    <select class="form-control" name="tipocedula" id="tipocedula" required>
+                            <option value="0">Seleccionar</option>
+                            <option value="1">V-</option>
+                            <option value="2">E-</option>
+                            <option value="3">J-</option>
+                            <option value="4">G-</option>
+                    </select>
+                    <input type="text" class = "form-control" />
+                    <label>El formato para la cédula es: 00000000, sin espacios, letras ni carácteres especiales</label>
+                </div>
+            </div>
+        
+            <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="text" class="form-control" />
+                        <label>El formato del correo electrónico es "xxxx@yyyy.zzz"</label>
+                    </div>
+            </div>
+             <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono de contacto</label>
+                            <input type="text" class="form-control" />
+                            <label>El formato del número telefónico es 000-0000000</label>
+                        </div>
+            </div>
+        
+            <div class="col col-sm-6">
+              <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Reclamo</label>
+                <select class="form-control" name="horas" id="tiporeclamo" required>
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Reclamo por garantía</option>
+                    <option value="2">Servicio de agua defectuoso</option>
+                    <option value="3">Daño en estructura</option>
+                    <option value="4">Sistema de luz en malas condiciones</option>
+                    <option value="5">Problemas con el agente</option>
+                    <option value="6">Problemas para concretar la cita</option>
+                    <option value="7">Otros</option>
+                </select>
+              </div>
+            </div>
+        <hr>
+        <div class="col col-sm-6">
+                <div class="col col-sm-6">
+                    <label class="ng-tns-c12-9" for="descripcion">Descripción del reclamo</label>
+                    <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" required style="width: 700px; height: 200px; "></textarea>
+                </div>
+                <input type="file" (change)="cargandoImagen($event.target.files)" multiple>
+            </div>
+            <label>Si desea enviar varios archivos, comprímalos en un sólo fichero (límite 1Mb) en formato ZIP.</label>
+        <hr>
+        </div>
+    <div>
+        <button
+            type="button" class="btn btn-primary btn-lg  fa fa-plus" 
+            aria-hidden="true"
+            style="background: #1AB394; border-radius: 50px; color: white" 
+            (click)="enviar()"> Agregar Reclamo
+        </button>
 
-<div>
-      <div class="row">
-    <div class="col-6">
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar</button>
+        <button type="button" class="btn btn-primary btn-lg  fa fa-trash " 
+            aria-hidden="true"
+            style="background: #1AB394; color: white; border-radius: 10px; -webkit-border-radius: 50px;
+            -moz-border-radius: 50px" 
+            (click)="limpiar()">  Limpiar campos
+            
+        </button>
     </div>
-
-  </div>
-</div>
