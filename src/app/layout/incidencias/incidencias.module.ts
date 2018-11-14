@@ -7,9 +7,11 @@ import { IncidenciasRoutingModule } from './incidencias-routing.module';
 import { IncidenciasComponent } from './incidencias.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { PageHeaderModule } from './../../shared';
+
 @NgModule({
   imports: [
-    CommonModule, FontAwesomeModule,
+    CommonModule, FontAwesomeModule, PageHeaderModule,
     IncidenciasRoutingModule, NgbModule.forRoot(),FormsModule, ReactiveFormsModule
   ],
   declarations: [IncidenciasComponent],

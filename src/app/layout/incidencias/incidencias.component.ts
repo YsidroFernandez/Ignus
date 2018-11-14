@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { routerTransition } from '../../router.animations';
 
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
+
 
 import { clientes } from './modelo/clientes';
 
@@ -12,7 +16,10 @@ import { Incidencia } from './modelo/incidencia';
 @Component({
   selector: 'app-incidencias',
   templateUrl: './incidencias.component.html',
-  styleUrls: ['./incidencias.component.scss']
+  styleUrls: ['./incidencias.component.scss'],
+  animations: [routerTransition()],
+    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
+
 })
 export class IncidenciasComponent implements OnInit {
 
@@ -69,15 +76,15 @@ export class IncidenciasComponent implements OnInit {
         {id:1,
 	fecha: "28-10-2018",
 	motivo: "Tuberias rotas",
-	cliente: "Jesus"},
+	cliente: "Jesus",transaccion: "Solicitud"},
         {id:2,
 	fecha: "15-11-2018",
 	motivo: "Falla electrica",
-	cliente: "Pedro"},
+	cliente: "Pedro",transaccion: "visita"},
 	{id:3,
 	fecha: "01-11-2018",
 	motivo: "Falta de agua",
-	cliente: "Juan"},
+	cliente: "Juan",transaccion: "Visita"},
 
 
     ];

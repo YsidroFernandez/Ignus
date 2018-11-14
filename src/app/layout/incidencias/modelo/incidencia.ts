@@ -3,5 +3,6 @@ export class Incidencia {
 	fecha: string;
 	motivo: string;
 	cliente: string;
+	transaccion: string;
 
 }
