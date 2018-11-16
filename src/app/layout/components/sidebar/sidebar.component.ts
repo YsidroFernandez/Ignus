@@ -1,7 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Menu } from './menu/menuJSON';
+//import { Menu } from './menu/menuJSON';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class SidebarComponent {
     showMenuReport: string = '';
     showMenuConf: string = '';
     pushRightClass: string = 'push-right';
-    menu: Menu[] = [];
+    //menu: Menu[] = [];
     @Output() collapsedEvent = new EventEmitter<boolean>();
     
 
