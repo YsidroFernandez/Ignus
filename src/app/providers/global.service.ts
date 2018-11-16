@@ -33,7 +33,7 @@ export class GlobalService {
   tipo:String;
 
   constructor(public http: HttpClient) {
-    this.apiBaseUrl = 'http://ignus-backend-jafp2000.c9users.io';
+    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
   }
 
   
