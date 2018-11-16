@@ -38,14 +38,13 @@ export class SolicitudComponent implements OnInit {
     start: new Date(),
     end: new Date(),
     color: colors.red,
-    actions: actions,
     resizable: {
       beforeStart: true,
       afterEnd: true
     },
     draggable: true,
-    email: "",
-    agent: ""
+    emailclient: "",
+    emailagent: ""
    }
   // It maintains list of solicituds
 solicituds= [];

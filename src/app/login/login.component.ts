@@ -38,7 +38,10 @@ export class LoginComponent implements OnInit {
 
 
   login() {
+    this.router.navigate(['/dashboard']);
+    localStorage.setItem('isLoggedin', 'true');
     console.log("login");
+    /*
     //Header del httpRequest 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -47,6 +50,7 @@ export class LoginComponent implements OnInit {
       })
     };
     if (this.usuario.username && this.usuario.password) {
+      this.router.navigate(['/dashboard']);
      this.global.getModel('/login',httpOptions) //De esta manera se harán las peticiones al servidor (Carpeta provider,archivo global.service.ts)
       .then(response =>{
         console.log(response);
@@ -67,10 +71,11 @@ export class LoginComponent implements OnInit {
       this.presentToast("Por favor ingresa usuario y contraseña para iniciar sesión");
     }
 
-
+*/
     // this.router.navigate(['/dashboard']);
     //       console.log('entré');
     //       localStorage.setItem('isLoggedin', 'true');
+    
   }
 
 

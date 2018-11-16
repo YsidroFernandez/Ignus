@@ -9,6 +9,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr";
 import { SchedulerRoutingModule } from './scheduler-routing.module';
 
+//traslate general   actualmente utilizado en calendar
+import { registerLocaleData } from '@angular/common';
+import localeEs from "@angular/common/locales/es"
+
+registerLocaleData(localeEs)
 
 @NgModule({
   imports: [
