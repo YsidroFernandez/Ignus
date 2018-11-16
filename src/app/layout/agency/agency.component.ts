@@ -30,19 +30,36 @@ export class AgencyComponent implements OnInit {
       console.log(err);
       //this.loader.dismiss();
     });
-
+ 
   }
-
+cancelAgency(){
+  console.log("cancel");
+  this.ngOnInit();
+  this.disabled=true;
+  this.btnEdit="Editar";
+}
   editAgency(){
     if(this.btnEdit=="Editar"){
       
       this.disabled=false;
       this.btnEdit="Guardar"
       console.log(this.disabled)
-    }else{
-      console.log("prueba");
+    }else
+    if(this.btnEdit=="Guardar"){
+      console.log(this.agency);
+
+      this.globalService.updateModel(this.agency.id,this.agency,"/api/agency")
+    .then((result) => {
+      console.log(result);
+      // this.agency=result['data'];
+      // console.log(this.agency);
       this.disabled=true;
       this.btnEdit="Editar";
+    }, (err) => {
+      console.log(err);
+      //this.loader.dismiss();
+    });
+     
     }
     
   }
