@@ -1,95 +1,54 @@
 <div>
- <h1><i class="fa fa-edit">Sugerencias</i></h1> 
- <hr>
-</div>
+    <app-page-header [heading]="'  Sugerencias'" [icon]="'fa-edit'"></app-page-header>
+
 <div><span>Sus observaciones son importantes para que podamos mejorar nuestro sitio web.
          Por favor complete el formulario de sugerencias y envíenoslo con sus observaciones y sugerencias.
         </span>
         <hr>
-        </div>
- <div class="row mb-3">
-    <div class="col col-sm-3">
-                <div class="form-group">
-                    <label for="primernombre">Primer Nombre</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
+</div>
 
-    <div class="col col-sm-3">
-                <div class="form-group">
-                    <label for="segundonombre">Segundo nombre</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-3">
-        <div class="form-group">
-            <label for="primerapellido">Primer Apellido</label>
-            <input type="text" class="form-control" />
-        </div>
-    </div>
-
-    <div class="col col-sm-3">
-        <div class="form-group">
-            <label for="segundoapellido">Segundo Apellido</label>
-            <input type="text" class="form-control" />
-        </div>
-    </div>
-    <hr>
-    <div class="col col-sm-9">
-        <div class="form-group">
-            <label for="email">Correo Electrónico</label>
-            <input type="text" class="form-control" />
-            <label>El formato del correo electrónico es "xxxx@yyyy.zzz"</label>
-        </div>
-    </div>
-    <hr> 
+<div class="col col-sm-12">
+ <div class="form-control">
+  <div class="row mb-3">
     <div class="col col-sm-6">
-        <div class ="form-group">
-            <h3>Tipo de observación que desea enviar</h3>
-            <label for="general">General</label>
-            <select class="form-control" name="tiposugerenciageneral" id="tiposugerenciageneral" required>
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Sobre el diseño</option>
-                    <option value="2">Sobre la información gráfica</option>
-                    <option value="3">Sobre la presentación de los inmuebles</option>
-                    <option value="4">Información inexacta o no facilitada</option>
-                    <option value="5">Otras</option>
-            </select>
-            <label for="general">Técnica</label>
-            <select class="form-control" name="tiposugerenciatecnica" id="tiposugerenciatecnica" required>
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Enlace interrumpido</option>
-                    <option value="2">Problema de visualización</option>
-                    <option value="3">Otras</option>
-            </select>
-            <label>Indique la dirección de Internet del sitio/página web de que se trate: </label>
-            <input type="text" class="form-control"/>
-            <label>El formato del URL es "http://xxxxx"</label>
+                <div class="form-group">
+                    <label for="nombre">Nombre(s):</label>
+                    <input type="text" class="form-control" />
+                </div>
+    </div>
+
+    <div class="col col-sm-6">
+        <div class="form-group">
+            <label for="apellido">Apellido(s):</label>
+            <input type="text" class="form-control" />
+        </div>
+    </div>
+
+   <div class="col col-sm-6">
+            <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="text" class="form-control" />
+            </div>
         </div>
 
-        </div>
-        <div class="col col-sm-12">
+         <div class="col col-sm-12">
             <label class="ng-tns-c12-9" for="descripcion">Escriba aquí su mensaje:</label>
             <textarea class="form-control ng-untouched ng-pristine ng-valid" 
                 type="text" required style="width: 700px; height: 200px; "></textarea>
         </div>
-    <hr>
-    </div>
+  </div>
 
-    <div>
-            <button
-            type="button" class="btn btn-primary btn-lg  fa fa-plus" 
-            aria-hidden="true"
-            style="background: #1AB394; color: white; border-radius: 50px" 
-            (click)="enviar()"> Enviar Sugerencias
-        </button>
-
-        <button type="button" class="btn btn-primary btn-lg  fa fa-trash " 
-            aria-hidden="true"
-            style="background: #1AB394; color: white; border-radius: 10px; -webkit-border-radius: 50px;
-            -moz-border-radius: 50px" 
-            (click)="limpiar()">  Limpiar campos
-            
-        </button>
+  <div class="row">
+    <div class="col-6">
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Sugerencias</button>
+     </div>
     </div>
+ </div>
+</div>
+
+</div>
+    
+
+    
+ 

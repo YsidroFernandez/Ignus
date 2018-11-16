@@ -6,12 +6,16 @@ import { ReclamosRoutingModule } from './reclamos-routing.module';
 import { ReclamosComponent } from './reclamos.component';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PageHeaderModule } from '../../../shared';
 
 @NgModule({
   imports: [
     CommonModule,
-    ReclamosRoutingModule
+    ReclamosRoutingModule,
+    PageHeaderModule,
+    FormsModule, ReactiveFormsModule
   ],
   declarations: [ReclamosComponent]
 })
 export class ReclamosModule { }
+
