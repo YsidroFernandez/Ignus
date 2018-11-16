@@ -30,10 +30,13 @@ export class AgencyComponent implements OnInit {
       console.log(err);
       //this.loader.dismiss();
     });
-
+ 
   }
 cancelAgency(){
-  this.ngOnInit;
+  console.log("cancel");
+  this.ngOnInit();
+  this.disabled=true;
+  this.btnEdit="Editar";
 }
   editAgency(){
     if(this.btnEdit=="Editar"){
