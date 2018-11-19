@@ -1,11 +1,10 @@
 <div >
- <h1><i class="fa fa-edit">Solicitud</i></h1>
- <hr>
- <p><i class="fa fa-building"></i>Buscar Inmueble</p>
-<hr>
-  <!--<app-page-header [heading]="'  Solicitud'" [icon]="'fa-edit'"></app-page-header> -->
-
- <div class="row mb-3">
+  <app-page-header [heading]="'  Buscar Inmueble'" [icon]="'fa-edit'"></app-page-header>
+   
+<div class="col col-sm-12">
+ <div class="form-control">
+  <br>
+  <div class="row mb-3">
     <div class="col col-sm-6">
       <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo Solicitud</label>
         <select class="form-control" name="horas" id="tiposolicitud" required>
@@ -17,10 +16,10 @@
     </div>
 
     <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Cedula</label>
-                    <input type="text" class="form-control" />
-                </div>
+     <div class="form-group">
+        <label for="tipos">Cedula</label>
+        <input type="text" class="form-control" />
+      </div>
     </div>
 
      <div class="col col-sm-6">
@@ -36,16 +35,16 @@
     </div>
 
     <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Estado</label>
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="nombre">Municipio</label>
-                    <input type="text" class="form-control" />
-                </div>
+       <div class="form-group">
+        <label for="tipos">Estado</label>
+        <input type="text" class="form-control" />
+       </div>
+    </div>
+    <div class="col col-sm-6">
+      <div class="form-group">
+        <label for="nombre">Municipio</label>
+        <input type="text" class="form-control" />
+      </div>
     </div> 
         
      <div class="col col-sm-6">
@@ -61,33 +60,24 @@
       </div>
     </div>
 
-
-    
-   <!-- <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Recaudo</label>
-        <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.foto" #fotos="ngModel"
-          required>
-      </div>
-    </div> -->
-
-    <div class="col col-sm-6">
-      <div class="form-group">
+      <div class="col col-sm-6">
+        <div class="form-group">
         <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
         <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion"
           #descripcion="ngModel" required cols="30" rows="4"></textarea>
+        </div>
+      </div>   
       </div>
-    </div>   
-  </div>
 
 
-  <div class="row">
+    <div class="row">
     <div class="col-6">
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar</button>
+     </div>
     </div>
 
-  </div>
+    </div>
 
-   
-
+ </div>
 </div>

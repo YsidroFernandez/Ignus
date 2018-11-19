@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Recaudo'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-      <div class="card-header" style="text-align: -webkit-center;">Usuarios Registrados</div>
+      <div class="card-header" style="text-align: -webkit-center;">Recaudos registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -107,14 +107,27 @@
                                             <input type="text"  class="form-control" />
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>
                                 <div class="row mb-3">
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Servicio de :</label>
+                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                                    name="country" ngbDropdownToggle>Seleccione</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                                    <button type="button" class="dropdown-item" *ngFor="let servicio of servicios"
+                                                        (click)="onChangeEstado(estado)">{{servicio}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col col-sm-6">
                                             <label for="descripcion">Fecha </label>
 
                                         <div class="input-group">
 
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" 
+                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
                                                 ngbDatepicker #dob="ngbDatepicker" class="form-control" />
                                             <span class="input-group-btn">
                                                 <button class="input-group-addon" (click)="dob.toggle()" type="button">
@@ -123,14 +136,14 @@
                                             </span>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                        </div>                       
+                        </div>
                     </ng-template>
                 </div>
             </div>
@@ -175,14 +188,27 @@
                                             <input type="text"  class="form-control" />
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>
                                 <div class="row mb-3">
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Servicio de :</label>
+                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                                    name="country" ngbDropdownToggle>Seleccione</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                                    <button type="button" class="dropdown-item" *ngFor="let servicio of servicios"
+                                                        (click)="onChangeEstado(estado)">{{servicio}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col col-sm-6">
                                             <label for="descripcion">Fecha </label>
 
                                         <div class="input-group">
 
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" 
+                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
                                                 ngbDatepicker #dob="ngbDatepicker" class="form-control" />
                                             <span class="input-group-btn">
                                                 <button class="input-group-addon" (click)="dob.toggle()" type="button">
@@ -191,14 +217,14 @@
                                             </span>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
-                        </div>                       
+                        </div>
                     </ng-template>
                 </div>
             </div>
@@ -243,14 +269,14 @@
                                             <input type="text"  class="form-control" />
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>
                                 <div class="row mb-3">
                                     <div class="col col-sm-6">
                                             <label for="descripcion">Fecha </label>
 
                                         <div class="input-group">
 
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" 
+                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
                                                 ngbDatepicker #dob="ngbDatepicker" class="form-control" />
                                             <span class="input-group-btn">
                                                 <button class="input-group-addon" (click)="dob.toggle()" type="button">
@@ -259,18 +285,17 @@
                                             </span>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button style=" border-radius: 20px" type="button" class="btn btn-danger"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
-                        </div>                       
+                        </div>
                     </ng-template>
                 </div>
             </div>
         </div>
 </div>
 </div>
-   

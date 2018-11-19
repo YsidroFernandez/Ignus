@@ -1,12 +1,19 @@
-<form>
-  <div>
- <div class="row mb-3">
-  <div class="col col-sm-2">
-            <div class="team-member" >
-              <img class="mx-auto rounded-circle" src="\assets\images\1.jpg" alt="">
-              <p>Katerin Sierra</p>
-              <p class="text-muted">ignus@gmail.com</p>
-              <ul class="list-inline social-buttons">
+
+
+<div [@routerTransition]>
+  
+  <div class="container">
+    <div class="card mb-3">
+      <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-7">
+              <div class="team-member" >
+          <div align="center"><img class="mx-auto rounded-circle" src="\assets\images\1.jpg" alt=""></div>
+              <div class="clearfix" align="center">Maria Perez</div>
+
+               <h2>
+                 <ul class="list-inline social-buttons" align="center">
                 <li class="list-inline-item">
                   <a href="#">
                     <i class="fa fa-twitter"></i>
@@ -23,68 +30,86 @@
                   </a>
                 </li>
               </ul>
+              </h2>
+             
             </div>
-            <div class="col-6" style="text-align: center">
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" 
-(click)="editar()">Editar Perfil</button>
+        </div>
+
+
+        <div class="col-2 text-xs-center">
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="editar()">Editar Perfil</button>
+   
+        </div>
+      </div>
+
+
+      <div class="col-1"></div>
     </div>
+
+  <div class="col col-sm-12">
+    <div class="form-control">
+      <h5>Datos del Cliente</h5>
+      <hr>
+      <div class="row mb-3">
+           <div class="col col-sm-6">
+               <div class="form-group">
+                <label for="tipos">Nombre</label>
+                <input type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                 <label for="tipos">Apellido</label>
+                 <input type="text" class="form-control" />
+                </div>
+           </div>
+           <div class="col col-sm-6">
+              <div class="form-group">
+               <label for="tipos">Nombre</label>
+               <input type="text" class="form-control" />
+              </div>
+            </div>
+            <div class="col col-sm-6">
+              <div class="form-group">
+                 <label for="tipos">Apellido</label>
+                 <input type="text" class="form-control" />
+              </div>
+           </div>
+           <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Cedula</label>
+                <input type="text" class="form-control" />
+              </div>
+         </div>
+         <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Correo</label>
+              <input type="text" class="form-control" />
+            </div>
           </div>
-    </div>
-</div> 
-
-<div>
-  <h2><i class="fa fa-user-circle-o">Datos del Usuario</i></h2>
-  <!--Datos que el ciente ingreso al suscribir-->
-  <div class="row mb-3">
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Nombre</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Apellido</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Cedula</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Correo</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-     <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Telefono Fijo</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Telefono Celular</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-
+          <div class="col col-sm-6">
+             <div class="form-group">
+              <label for="tipos">Telefono Fijo</label>
+              <input type="text" class="form-control" />
+             </div>
+          </div>
+          <div class="col col-sm-6">
+            <div class="form-group">
+               <label for="tipos">Telefono Celular</label>
+               <input type="text" class="form-control" />
+              </div>
+            </div>
+  </div>
+ </div>
 </div>
-<!--fin de los datos de suscripcion-->
-<h2><i class="fa fa-star">Gustos y Preferencias</i></h2>
-<div>
-  <div class="row mb-3">
+<br>
+<div class="col col-sm-12">
+    <div class="form-control">
+      <h5><p class="">Gustos y Preferencias</p></h5>
+      <hr>
+     <div class="row mb-3">
     <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo Solicitud</label>
+      <div class="form-group"><label class="ng-tns-c12-9" for="solicitud">Tipo Solicitud</label>
         <select class="form-control" name="horas" id="tiposolicitud" required>
           <option value="0">Seleccione</option>
           <option value="1">Compra</option>
@@ -96,8 +121,8 @@
     </div>
 
      <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Inmueble</label>
-        <select class="form-control" name="horas" id="tiposolicitud" required>
+      <div class="form-group"><label class="ng-tns-c12-9" for="inmueble">Tipo de Inmueble</label>
+        <select class="form-control" name="horas" id="tipoinmueble" required>
           <option value="0">Seleccione</option>
           <option value="1">Casa</option>
           <option value="2">Edificio</option>
@@ -108,21 +133,21 @@
     </div>
 
     <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Estado</label>
-                    <input type="text" class="form-control" />
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="nombre">Municipio</label>
-                    <input type="text" class="form-control" />
-                </div>
+        <div class="form-group">
+          <label for="tipos">Estado</label>
+          <input type="text" class="form-control" />
+        </div>
+    </div>
+   <div class="col col-sm-6">
+       <div class="form-group">
+         <label for="nombre">Municipio</label>
+         <input type="text" class="form-control" />
+        </div>
     </div> 
         
      <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Parroquia</label>
-        <select class="form-control" name="horas" id="tiposolicitud" required>
+      <div class="form-group"><label class="ng-tns-c12-9" for="parroquia">Parroquia</label>
+        <select class="form-control" name="horas" id="tipoparroquia" required>
           <option value="0">Seleccione</option>
           <option value="1">Concepción</option>
           <option value="2">Catedral</option>
@@ -139,100 +164,88 @@
                     <label for="nombre">Cantidad de Habitaciones</label>
                     <input type="text" class="form-control" />
                 </div>
-    </div> 
-
+        </div> 
+    </div>
+  </div>
+</div>
+<br>
     
-   <!-- <div class="col col-sm-6">
-      <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Recaudo</label>
-        <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]
-
-="solicitud2.foto" #fotos="ngModel"
-          required>
+ <div class="col col-sm-12">
+    <div class="form-control">
+       <h5><p class="">Redes Sociales</p></h5>
+      <hr>
+      <div class="row mb-3">
+           <div class="col col-sm-6">
+                <div class="form-group">
+                 <label for="tipos" class="fa fa-facebook-f">Facebook</label>
+                 <input type="text" class="form-control" />
+                </div>
+          </div>
+          <div class="col col-sm-6">
+             <div class="form-group">
+               <label for="tipos" class="">Instagram</label>
+               <input type="text" class="form-control" />
+            </div>
+         </div>
+         <div class="col col-sm-6">
+           <div class="form-group">
+              <label for="tipos" class="fa fa-twitter">Twitter</label>
+               <input type="text" class="form-control" />
+            </div>
+         </div>
+         <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos" class="fa fa-star">Likedin</label>
+              <input type="text" class="form-control" />
+            </div>
+        </div>
       </div>
-    </div> -->
- 
-  </div>
-  </div>
-</div>
-
-<div>
-  <h2><i class="fa fa-user">Redes Sociales</i></h2>
-  <div class="row mb-3">
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos" class="fa fa-facebook-f">Facebook</label>
-                    <input type="text" class="form-control" />
-                </div>
     </div>
+  </div>  
+  <br>  
 
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos" class="fa fa-star">Instagram</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos" class="fa fa-twitter">Twitter</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos" class="fa fa-star">Likedin</label>
-                    <input type="text" class="form-control" />
-                </div>
-    </div>
-</div>
-</div>
-<hr>
-  <h2><i class="fa fa-star">Otras Preferencias</i></h2>
-<hr>
-<div class="row mb-3">
+<div class="col col-sm-12">
+    <div class="form-control">
+       <h5><p class="">Otras Preferencias</p></h5>
+      <hr>
+      <div class="row mb-3">
 
         <div class="col col-sm-6">
-         <div class="form-group">
+        <div class="form-group">
         <input type="checkbox" name="terraza" value="terraza">Terraza<br>
-    </div>
+        </div>
         </div>
 
         <div class="col col-sm-6">
          <div class="form-group">
         <input type="checkbox" name="jardin" value="jardin">Jardin<br>
-    </div>
+        </div>
         </div>
 
          <div class="col col-sm-6">
          <div class="form-group">
-        <input type="checkbox" name="piscina" value="piscina">Piscina<br>
+         <input type="checkbox" name="piscina" value="piscina">Piscina<br>
+         </div>
+         </div>
+
+         <div class="col col-sm-6">
+          <div class="form-group">
+         <input type="checkbox" name="mascotas" value="mascotas">Mascotas<br>
+         </div>
+         </div>
+         </div>
     </div>
-        </div>
-
-        <div class="col col-sm-6">
-         <div class="form-group">
-        <input type="checkbox" name="mascotas" value="mascotas">Mascotas<br>
-    </div>
-        </div>
-
-
-</div>
-<div>
-
+  </div>
+  
+    
 <hr>
  <div class="row" style="text-align: center">
     <div class="col-6" style="text-align: center">
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" 
-
-(click)="cancelar()">Cancelar</button>
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" 
-
-(click)="guardar()">Guardar Cambios</button>
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="cancelar()">Cancelar</button>
+      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="guardar()">Guardar Cambios</button>
     </div>
   </div>
   <hr>
 
+  </div>
 </div>
-
-</form>

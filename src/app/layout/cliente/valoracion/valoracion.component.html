@@ -1,3 +1,137 @@
-<p>
-  valoracion works!
-</p>
+<div>
+ <app-page-header [heading]="'  Valoracion'" [icon]="'fa-edit'"></app-page-header>
+
+<hr>
+<p style="align-content: center; "><i class=""></i>Calificacion del Servicio</p>
+<hr>         
+
+    <div class="row mb-3"> 
+                <div class="col col-sm-6">
+                  <label for="descripcion"><B></B></label>
+                </div>  
+      <div class="col col-sm-6">
+              <div class="row"> 
+                  <div class="col col-sm-4">
+                   <label for="descripcion"><B>Bueno</B></label>
+                  </div>
+                  <div class="col col-sm-4">
+                   <label for="descripcion"><B>Regular</B></label>
+                  </div>
+                  <div class="col col-sm-4">
+                  <label for="descripcion"><B>Malo</B></label>
+                  </div>  
+              </div>
+      </div>
+  </div>
+  
+  <div class="row mb-3"> 
+                <div class="col col-sm-6">
+                        <label for="descripcion"><B>1. Atencion del Agente</B></label>
+                </div>
+                <div class="col col-sm-6">
+                        <div class="row"> 
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="row mb-3"> 
+                <div class="col col-sm-6">
+                        <label for="descripcion"><B>2. Asistencia del agente con la cita pautada </B></label>
+                </div>
+                <div class="col col-sm-6">
+                        <div class="row"> 
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+        <div class="row mb-3"> 
+                <div class="col col-sm-6">
+                        <label for="descripcion"><B>3. Notificacion de Eventos Oportunamente</B></label>
+                </div>
+                <div class="col col-sm-6">
+                        <div class="row"> 
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                            <div class="col col-sm-4">
+                                    <div class="checkbox">
+                                            <label for="descripcion">
+                                            <input type="checkbox" data-toggle="toggle">
+                                            </label>
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+
+
+        <div class="row mb-3">
+          <div class="col col-sm-12">
+            <div class="form-group">
+            <label for="tipos">Observaciones</label>
+            <input type="textarea" class="form-control" />
+            </div>
+          </div>
+        </div>
+                <hr>
+                <div>
+                      <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
+                      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Valoracion</button>
+                    </div>
+                
+                  </div>
