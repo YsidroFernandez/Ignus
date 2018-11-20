@@ -62,9 +62,7 @@
     "flatpickr": "^4.5.2",
     "font-awesome": "^4.7.0",
     "highcharts": "^6.2.0",
-
     "install": "^0.12.2",
-
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "ng2-charts": "^1.6.0",
