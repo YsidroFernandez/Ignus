@@ -2,7 +2,7 @@
     <app-page-header [heading]="'  Sugerencias'" [icon]="'fa-edit'"></app-page-header>
 
 <div><span>Sus observaciones son importantes para que podamos mejorar nuestro sitio web.
-         Por favor complete el formulario de sugerencias y envíenoslo con sus observaciones y sugerencias.
+         Por favor complete el formulario de sugerencias y envíenoslo.
         </span>
         <hr>
 </div>
@@ -10,40 +10,59 @@
 <div class="col col-sm-12">
  <div class="form-control">
   <div class="row mb-3">
-    <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="nombre">Nombre(s):</label>
-                    <input type="text" class="form-control" />
-                </div>
+
+    <div class="col col-sm-12">
+     <div class="form-group">
+        <b><label>Campos Obligatorios (*)</label></b>
+     </div> 
     </div>
 
-    <div class="col col-sm-6">
-        <div class="form-group">
-            <label for="apellido">Apellido(s):</label>
-            <input type="text" class="form-control" />
+       <div class="col col-sm-6">
+          <div class="form-group">
+          <label for="titulo">Titulo:</label>
+           <input type="text" class="form-control" />
+         </div>
         </div>
-    </div>
 
-   <div class="col col-sm-6">
-            <div class="form-group">
-            <label for="correo">Correo</label>
-            <input type="text" class="form-control" />
+    <div class="col col-sm-6">
+              <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Sugerencia(*):</label>
+                <select class="form-control" name="horas" id="tiposugerencia" required>
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Respecto al Servicio</option>
+                    <option value="2">Atencion al cliente</option>
+                    <option value="3">Promociones y Ofertas</option>
+                    <option value="4">Graficas y Contenido</option>
+                    <option value="5">Tiempos de Respuesta</option>
+                    <option value="6">Aplicacion Web</option>
+                    <option value="7">Aplicacion Movil</option>
+                    <option value="8">Otros</option>
+                </select>
+              </div>
             </div>
-        </div>
 
          <div class="col col-sm-12">
-            <label class="ng-tns-c12-9" for="descripcion">Escriba aquí su mensaje:</label>
+            <label class="ng-tns-c12-9" for="descripcion">Escriba el detalle de su Reclamo:</label>
             <textarea class="form-control ng-untouched ng-pristine ng-valid" 
                 type="text" required style="width: 700px; height: 200px; "></textarea>
         </div>
+        <br>
+        <br>
+        <div class="col col-sm-12">
+          <div class="form-group">
+        <label><b>E-mail:</b>(Indique una dirección de correo si desea contestación)</label>
+            <input type="text" class="form-control" />
+         </div>
+        </div>
+<br>
   </div>
-
   <div class="row">
     <div class="col-6">
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Sugerencias</button>
      </div>
     </div>
+
+    <br>
  </div>
 </div>
 

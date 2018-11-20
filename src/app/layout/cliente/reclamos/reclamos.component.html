@@ -1,8 +1,7 @@
  <div [@routerTransition]>
     <app-page-header [heading]="'  Reclamos'" [icon]="'fa-edit'"></app-page-header>
      <span>
-        Introduzca todos sus datos personales para poder enviarle la confirmación de recepción de su solicitud, 
-        en conjunto al número de ticket. No debe adjuntar ni aportar a esta solicitud, datos de carácter 
+        Introduzca sus datos personales para poder enviarle la confirmación de recepción de su solicitud. No debe adjuntar ni aportar a esta solicitud, datos de carácter 
         personal de categorías especiales (ejemplo datos de viviendam dirección, entre otros), 
         por no ser necesarios para cursar su queja. 
      </span><p></p>
@@ -12,28 +11,30 @@
 <div class="col col-sm-12">
  <div class="form-control">
   <div class="row mb-3">
-    <div class="col col-sm-6">
-            <div class="form-group">
-            <label for="nombre">Nombre(s):</label>
-            <input type="text" class="form-control" />
-            </div>
-        </div>
-        <div class="col col-sm-6">
-        <div class="form-group">
-            <label for="apellido">Apellido(s):</label>
-            <input type="text" class="form-control" />
-         </div>
+    
+       <div class="col col-sm-12">
+         <div class="form-group">
+           <b><label>Campos Obligatorios (*)</label></b>
+         </div> 
        </div>
+
+       <div class="col col-sm-6">
+          <div class="form-group">
+          <label for="titulo">Titulo:</label>
+           <input type="text" class="form-control" />
+         </div>
+        </div>
 
           <div class="col col-sm-6">
                 <div class="form-group">
-                    <label for="cedula">Cédula</label>
+                    <label for="cedula">Cédula: (*)</label>
                     <input type="text" class = "form-control" />
                 </div>
-            </div>
+          </div>
+
         <div class="col col-sm-6">
         <div class="form-group">
-            <label for="correo">Correo Electronico:</label>
+            <label for="correo">Correo Electronico: (*)</label>
             <input type="text" class="form-control" />
          </div>
        </div>
@@ -44,6 +45,34 @@
            <input type="text" class="form-control" />
          </div>
         </div>
+
+        <div class="col col-sm-6"> 
+          <div class="form-group"><label class="ng-tns-c12-9" for="area">Area de Servicio:(*)</label>
+                <select class="form-control" name="horas" id="tipoarea" required>
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Area de Solicitudes</option>
+                    <option value="2">Recepcion de Documentos</option>
+                    <option value="3">Recursos Humanos</option>
+                    <option value="4">Protocolizacion</option>
+                    <option value="5">Atencion al cliente</option>
+                    <option value="8">Otros</option>
+                </select>
+          </div>
+        </div>
+        
+       <div class="col col-sm-6"> 
+          <div class="form-group"><label class="ng-tns-c12-9" for="sede">Sede:(*)</label>
+              <select class="form-control" name="horas" id="tipoarea" required>
+                    <option value="0">Seleccionar</option>
+                    <option value="1">Este</option>
+                    <option value="2">Oeste</option>
+                    <option value="2">Centro</option>
+                    <option value="8">Otros</option>
+             </select>
+          </div>
+       </div>
+
+
         <div class="col col-sm-6">
               <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Reclamo</label>
                 <select class="form-control" name="horas" id="tiporeclamo" required>
@@ -57,7 +86,7 @@
                     <option value="7">Otros</option>
                 </select>
               </div>
-            </div>
+          </div>
 </div>
 </div>
 <br>
@@ -65,25 +94,35 @@
 <div class="col col-sm-12">
  <div class="form-control">
     <div class="row mb-3">
-        <div class="col col-sm-6">
-                <div class="col col-sm-6">
-                    <label class="ng-tns-c12-9" for="descripcion">Descripción:</label>
-                    <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" required style="width: 700px; height: 200px; "></textarea>
-                </div>
+
+      <div class="col col-sm-6">
+         <div class="form-group">
+          <label for="titulo">Titulo:</label>
+           <input type="text" class="form-control" />
+         </div>
         </div>
+
+        <div class="col col-sm-12">
+            <label class="ng-tns-c12-9" for="descripcion">Escriba aquí su mensaje:</label>
+            <textarea class="form-control ng-untouched ng-pristine ng-valid" 
+                type="text" required style="width: 700px; height: 200px; "></textarea>
+        </div>
+        <br>
         <div class="col col-sm-12">
         <input type="file" (change)="cargandoImagen($event.target.files)" multiple>
         </div>
     </div>
-  </div>
-</div>
-<br>
-      <div class="row">
+
+    <br>
+    <div class="row">
     <div class="col-6">
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
       <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Reclamo</button>
      </div>
     </div>
+<br>
+  </div>
+</div>
 
  </div>
     
