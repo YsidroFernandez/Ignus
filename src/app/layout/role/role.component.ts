@@ -35,7 +35,7 @@ submitType: string = 'Guardar';
 // It maintains table row index based on selection.
 selectedRow: number;
 // It maintains Array of countries.
-estados: string[] = ['Lara', 'Zulia', 'Yaracuy', 'Miranda'];
+
 
 constructor(private modalService: NgbModal) {
  // Add default Usuario data.
@@ -114,8 +114,8 @@ onChangeEstado(estado: string) {
 
   // this.regModel = Object.assign({}, this.usuarios[this.selectedRow]);
 
-   console.log( this.usuarios[this.selectedRow]);
-   console.log(this.submitType);
+  // console.log( this.usuarios[this.selectedRow]);
+   console.log("nada");
  }
  // Hide Usuario entry section.
  this.showNew = false;
