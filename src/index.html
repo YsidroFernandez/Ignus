@@ -12,20 +12,38 @@
         <link href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.css" rel="stylesheet">
         <link href="https://unpkg.com/angular-calendar@0.26.3/css/angular-calendar.css" rel="stylesheet">
         <link href="https://unpkg.com/flatpickr@4.5.2/dist/flatpickr.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js">    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js">
         </script>
         <!-- <script src="node_modules/chart.js/src/chart.js"></script> -->
+        <link rel="stylesheet" type="text/css" href="assets/css/admin4b.min.css" />
+        <script src="assets/js/admin4b.min.js"></script>
+        <script src="assets/js/admin4b.docs.js"></script>
+
+
     </head>
-    <body>             
+    <body>
         <app-root>
-                <ng4-loading-spinner> </ng4-loading-spinner> 
-     
+                <ng4-loading-spinner> </ng4-loading-spinner>
+
             <!-- <div class="spinner">
                 <div class="bounce1"></div>
                 <div class="bounce2"></div>
                 <div class="bounce3"></div>
             </div> -->
         </app-root>
-      
+
     </body>
+    <script>
+        $('[data-form-step]').on('click', function () {
+        var tabId = $(this).attr('data-form-step');
+        $('[href="' + tabId + '"]').tab('show');
+      });
+
+      $('#formOrder').on('submit', function(e) {
+        $('.nav-tabs-progress').find('.nav-item').last().addClass('complete');
+        e.preventDefault();
+      });
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 </html>
