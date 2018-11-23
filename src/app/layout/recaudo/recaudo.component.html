@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Recaudo'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="'Recaudos'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
       <div class="card-header" style="text-align: -webkit-center;">Recaudos registrados</div>
         <div class="card mb-3">
@@ -32,18 +32,13 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
-                            <th>Referencia</th>
-                            <th>Estatus</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr >
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr *ngFor = "let item of recaudos">
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
@@ -85,60 +80,15 @@
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Nombre</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.name" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="nombre">Descripción</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Referencia</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Contribuyente</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Servicio de :</label>
-                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
-                                                    name="country" ngbDropdownToggle>Seleccione</button>
-                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                                    <button type="button" class="dropdown-item" *ngFor="let servicio of servicios"
-                                                        (click)="onChangeEstado(estado)">{{servicio}}</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                            <label for="descripcion">Fecha </label>
-
-                                        <div class="input-group">
-
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
-                                                ngbDatepicker #dob="ngbDatepicker" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -160,69 +110,24 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="card mb-3">
+                        <!-- <div class="card mb-3"> -->
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Nombre</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.name" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="nombre">Descripción</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Referencia</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Contribuyente</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Servicio de :</label>
-                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
-                                                    name="country" ngbDropdownToggle>Seleccione</button>
-                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                                    <button type="button" class="dropdown-item" *ngFor="let servicio of servicios"
-                                                        (click)="onChangeEstado(estado)">{{servicio}}</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                            <label for="descripcion">Fecha </label>
-
-                                        <div class="input-group">
-
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
-                                                ngbDatepicker #dob="ngbDatepicker" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
-                        </div>
+                        <!-- </div> -->
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
@@ -236,7 +141,7 @@
                 <div class="card-body">
                     <ng-template #ver let-c="close" let-d="dismiss">
                         <div class="modal-header">
-                            <h4 class="modal-title ">Recaudo</h4>
+                            <h4 class="modal-title ">Recaudos</h4>
                             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -247,48 +152,17 @@
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Nombre</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.name"  class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="nombre">Descripción</label>
-                                            <input type="text"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Referencia</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Contribuyente</label>
-                                            <input type="text"  class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                            <label for="descripcion">Fecha </label>
-
-                                        <div class="input-group">
-
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob"
-                                                ngbDatepicker #dob="ngbDatepicker" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">

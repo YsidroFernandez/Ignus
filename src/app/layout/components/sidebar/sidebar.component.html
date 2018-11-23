@@ -105,9 +105,6 @@
                 </ul>
             </li>
         </div>
-
-
-
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages1')">
                 <i class="fa fa-address-book"></i>&nbsp;
@@ -177,10 +174,6 @@
                 <span>{{ 'Registro' | translate }}</span>
             </a>
         </li>
-
-
-
-
         <li>
             <a [routerLink]="['/contrato']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                 <i class="fa fa-fw fa-edit"></i>&nbsp;
@@ -273,7 +266,7 @@
                 <li>
                     <a [routerLink]="['/recaudo']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                         <i class="fa fa-building"></i>&nbsp;
-                        <span>{{ 'Recaudo' | translate }}</span>
+                        <span>{{ 'Recaudos' | translate }}</span>
                     </a>
                 </li>
                 <li>
@@ -295,7 +288,7 @@
         <li class="nested" [class.expand]="showMenu === '4'">
             <ul class="submenu">
                 <li>
-                    <a [routerLink]="['/']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                    <a [routerLink]="['/recaudo']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                         <i class="fa fa-monument"></i>&nbsp;
                         <span>{{ 'Servicios' | translate }}</span>
                     </a>
