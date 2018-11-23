@@ -1,26 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
 import {  startOfDay,  endOfDay,  subDays,  addDays,  endOfMonth,  isSameDay,  isSameMonth,  addHours} from 'date-fns';
 import { Subject } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import {  CalendarEvent,  CalendarEventAction,  CalendarEventTimesChangedEvent,  CalendarView} from 'angular-calendar';
-import { calendariocita } from '../../environments/environment';
+import { calendariocita,cliente,colors,inmueble } from '../../environments/environment';
+console.log(calendariocita)
 
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF'
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA'
-  }
-};
-
+console.log(cliente)
 @Component({
   selector: 'app-scheduler',
   templateUrl: './scheduler.component.html',
@@ -39,33 +25,41 @@ export class SchedulerComponent implements OnInit {
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+  
+  modalData: any;
+  client = {correo: "", nombre: "",apellido: "",telefono:""}
+  agent = {correo: "", nombre: "",apellido: "",telefono:""}
+  casa = {direccion:"",foto:""}
+  i=0;
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
+  selactores(){
+    console.log(this.modalData.emailclient)
+      console.log(this.modalData.emailagent)
+    for(var x in cliente){
+      
+      if (cliente[x].correo==this.modalData.emailclient){
+        this.client=cliente[x];
+        console.log(this.client)
       }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
+      if (cliente[x].correo==this.modalData.emailagent){
+        this.agent=cliente[x];
+        console.log(this.agent)
       }
+      if(this.i=0){
+      this.casa=inmueble[0];
+      this.i=1
+    }else{ this.casa=inmueble[1]; this.i=0}
+      
     }
-  ];
-
+  }
+  
+  
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] =  calendariocita
   activeDayIsOpen: boolean = true;
 
+  locale: string = 'es';
   constructor(private modal: NgbModal) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -89,18 +83,22 @@ export class SchedulerComponent implements OnInit {
   }: CalendarEventTimesChangedEvent): void {
     event.start = newStart;
     event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
+    this.handleEvent(event);
     this.refresh.next();
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
+  handleEvent(event: CalendarEvent): void {
+    this.modalData = event;
+    console.log(this.modalData.title)
+    this.selactores()
+
+    console.log(inmueble[0])
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
   addEvent(): void {
     this.events.push({
-      title: 'New event',
+      title: 'Cosas que pasan',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
@@ -108,9 +106,12 @@ export class SchedulerComponent implements OnInit {
       resizable: {
         beforeStart: true,
         afterEnd: true
-      }
+      },
+    emailclient: "",
+    emailagent: ""
     });
-    this.refresh.next();
+    this.refresh.next()
+    
   }
 
 }

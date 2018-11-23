@@ -118,14 +118,13 @@ export class CitasComponent implements OnInit {
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: colors.red,
-      actions: actions,
       resizable: {
         beforeStart: true,
         afterEnd: true
       },
       draggable: true,
-      email: "this.nuevacita.email",
-      agent: "this.nuevacita.agent"
+      emailclient: "this.nuevacita.email",
+      emailagent: "this.nuevacita.agent"
      });
     this.refresh.next();
   }

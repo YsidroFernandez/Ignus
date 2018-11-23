@@ -1,6 +1,18 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Citas'" [icon]="'fa-edit'"></app-page-header>
   <div class="container">
+      <!--<div [ngSwitch]="view" style="max-width: 1000px; max-height: 1000px;">
+          <mwl-calendar-month-view
+            *ngSwitchCase="CalendarView.Month"
+            [viewDate]="viewDate"
+            [events]="events"
+            [locale]="locale"
+            [refresh]="refresh"
+            [activeDayIsOpen]="activeDayIsOpen"
+            (eventTimesChanged)="eventTimesChanged($event)">
+          </mwl-calendar-month-view>
+        </div> -->
+   
     <div class="card mb-3">
       <div class="row">
         <div class="col-2">

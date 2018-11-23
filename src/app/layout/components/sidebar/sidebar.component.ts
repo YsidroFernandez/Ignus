@@ -16,7 +16,7 @@ export class SidebarComponent {
     showMenuConf: string = '';
     pushRightClass: string = 'push-right';
     @Output() collapsedEvent = new EventEmitter<boolean>();
-    
+
 
     constructor(private translate: TranslateService, public router: Router) {
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
@@ -56,7 +56,7 @@ export class SidebarComponent {
             this.showMenuConf = element;
         }
     }
- 
+
     addExpandClassReport(element: any) {
         if (element === this.showMenuReport) {
             this.showMenuReport = '0';
