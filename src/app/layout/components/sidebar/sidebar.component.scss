@@ -3,18 +3,18 @@ $topnav-background-color: #676a6c;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 58px;
-    left: 235px;
-    width: 235px;
-    margin-left: -235px;
-    margin-bottom: 48px;
+    top: 55px;
+    left: 277px;
+    width: 277px;
+    margin-left: -277px;
+    margin-bottom: 55px;
     border: none;
     border-radius: 0;
     overflow-y: auto;
     background-color: $topnav-background-color;
     bottom: 0;
     overflow-x: hidden;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
     white-space: nowrap;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -122,7 +122,7 @@ $topnav-background-color: #676a6c;
             li {
                 a {
                     color: #fff;
-                    padding: 10px;
+                    padding: 20px;
                     display: block;
                 }
             }
@@ -131,7 +131,7 @@ $topnav-background-color: #676a6c;
 }
 @media screen and (max-width: 992px) {
     .sidebar {
-        top: 54px;
+        top: 60px;
         left: 0px;
     }
 }
@@ -162,7 +162,7 @@ $topnav-background-color: #676a6c;
 
 .toggle-button {
     position: fixed;
-    width: 236px;
+    width: 277px;
     cursor: pointer;
     padding: 12px;
     bottom: 0;
@@ -184,7 +184,7 @@ $topnav-background-color: #676a6c;
 }
 
 .collapsed {
-    width: 50px;
+    width: 60px;
     span {
         display: none;
     }

@@ -14,6 +14,12 @@ import { IndicadoresComponent } from './components/indicadores/indicadores.compo
 import { PageHeaderModule } from '../../shared';
 import { ChartModule } from 'angular-highcharts';
 import { ChartsModule } from 'ng2-charts'; // <- HERE
+
+import { FormsModule }    from '@angular/forms';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { FlatpickrModule } from "angularx-flatpickr";
+
 @NgModule({
     imports: [
         CommonModule,
@@ -24,6 +30,12 @@ import { ChartsModule } from 'ng2-charts'; // <- HERE
         PageHeaderModule,
         ChartModule,
         ChartsModule,
+        FormsModule,
+        FlatpickrModule.forRoot(),
+        CalendarModule.forRoot({
+          provide: DateAdapter,
+          useFactory: adapterFactory
+        })
     ],
     declarations: [
         DashboardComponent,
