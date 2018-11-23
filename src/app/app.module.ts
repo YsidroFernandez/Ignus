@@ -13,6 +13,13 @@ import { AuthGuard } from './shared';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
+
+//traslate general   actualmente utilizado en calendar
+import { registerLocaleData } from '@angular/common';
+import localeEs from "@angular/common/locales/es"
+
+registerLocaleData(localeEs)
+
 export function highchartsModules() {
     return [ exporting ];
 }
