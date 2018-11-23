@@ -107,8 +107,7 @@ export class SchedulerComponent implements OnInit {
         beforeStart: true,
         afterEnd: true
       },
-    emailclient: "",
-    emailagent: ""
+   
     });
     this.refresh.next()
     

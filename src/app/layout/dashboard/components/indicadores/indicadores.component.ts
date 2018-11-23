@@ -24,7 +24,8 @@ export class IndicadoresComponent implements OnInit {
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
-  
+  emailclient: any;
+  emailagent: any;
   modalData: any;
   client = {correo: "", nombre: "",apellido: "",telefono:""}
   agent = {correo: "", nombre: "",apellido: "",telefono:""}
@@ -106,8 +107,7 @@ export class IndicadoresComponent implements OnInit {
         beforeStart: true,
         afterEnd: true
       },
-    emailclient: "",
-    emailagent: ""
+     
     });
     this.refresh.next()
     
