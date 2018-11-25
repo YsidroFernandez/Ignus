@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+//import { Menu } from './menu/menuJSON';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class SidebarComponent {
     collapsed: boolean = false;
     showMenu: string = '';
     showMenuReport: string = '';
+    showMenuSubAte: string = '';
     showMenuConf: string = '';
     pushRightClass: string = 'push-right';
+    //menu: Menu[] = [];
     @Output() collapsedEvent = new EventEmitter<boolean>();
-
+    
 
     constructor(private translate: TranslateService, public router: Router) {
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
@@ -56,13 +59,23 @@ export class SidebarComponent {
             this.showMenuConf = element;
         }
     }
-
+ 
     addExpandClassReport(element: any) {
         if (element === this.showMenuReport) {
             this.showMenuReport = '0';
             console.log('pagina actual')
         } else {
             this.showMenuReport = element;
+            console.log(element);
+        }
+    }
+
+      addExpandClassSubAte(element: any) {
+        if (element === this.showMenuSubAte) {
+            this.showMenuSubAte = '0';
+            console.log('pagina actual')
+        } else {
+            this.showMenuSubAte = element;
             console.log(element);
         }
     }

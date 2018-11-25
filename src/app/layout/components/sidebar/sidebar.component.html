@@ -18,13 +18,13 @@
             </div>
         </div> -->
 
-        <div class="nested-menu">
+        <div class="nested-menu1">
             <a class="list-group-item" (click)="addExpandClassReport('pages')">
                 <i class="fa fa-user-circle-o"></i>&nbsp;
                 <span>{{ 'Mi cuenta' | translate }}</span>
             </a>
-            <li class="nested" [class.expand]="showMenuReport === 'pages'">
-                <ul class="submenu">
+            <li class="nested1" [class.expand1]="showMenuReport === 'pages'">
+                <ul class="submenu1">
 
                     <li>
                         <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item"
@@ -34,7 +34,7 @@
                         </a>
                     </li>
 
-                    <li>
+                   <!-- <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Realizar solicitud' | translate }}</span>
@@ -56,7 +56,7 @@
                             </li>
                         </ul>
 
-                    </li>
+                    </li>-->
 
                     <li>
                         <a [routerLink]="['/actividad']" [routerLinkActive]="['router-link-active']" class="list-group-item"
@@ -68,7 +68,7 @@
                     <li>
                         <a [routerLink]="['/seguimiento']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-bell"></i>&nbsp;
+                           <i class="fa fa-bell"></i>&nbsp;
                             <span>{{ 'Seguimiento' | translate }}</span>
                         </a>
                     </li>
@@ -79,13 +79,15 @@
                             <span>{{ 'Valoracion' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+                    
+                        <div class="nested-menu">
+                        <a  class="list-group-item" (click)="addExpandClassSubAte('pages15')">
                             <i class="fa fa-list-alt"></i>&nbsp;
                             <span>{{ 'Atencion al cliente' | translate }}</span>
                         </a>
 
-                        <ul class="submenu">
+                        <li class="nested" [class.expand]="showMenuSubAte === 'pages15'">
+                    <ul class="submenu">
                             <li>
                                 <a [routerLink]="['/reclamos']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                                     href="javascript:void(0)">
@@ -102,6 +104,7 @@
                             </li>
                         </ul>
                     </li>
+                    </div>
                 </ul>
             </li>
         </div>
@@ -113,15 +116,15 @@
 
             <li class="nested" [class.expand]="showMenu === 'pages1'">
                 <ul class="submenu">
-                    <li>
+                    
 
-                        <div class="nested-menu">
-                            <a class="list-group-item" (click)="addExpandClass('pages2')">
+                        <div class="nested-menu1">
+                            <a class="list-group-item" (click)="addExpandClassSubAte('pages2')">
                                 <i class="fa fa-address-book"></i>&nbsp;
                                 <span>{{ 'Solicitud' | translate }}</span>
                             </a>
-                    <li class="nested" [class.expand]="showMenu === 'pages2'">
-                        <ul class="submenu">
+                    <li class="nested1" [class.expand1]="showMenuSubAte === 'pages2'">
+                        <ul class="submenu1">
                             <li>
                                 <a [routerLink]="['/registrosolicitud']" [routerLinkActive]="['router-link-active']"
                                     class="list-group-item">
@@ -144,7 +147,7 @@
                             </li>
                             <li>
                                 <a [routerLink]="['/visita']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                                    <i class="fa fa-calendr-edit"></i>&nbsp;
+                                    <i class="fa fa-calendar"></i>&nbsp;
                                     <span>{{ 'Visita' | translate }}</span>
                                 </a>
                             </li>
@@ -154,7 +157,7 @@
 
 
 
-        </li>
+        
         <li>
             <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                 <i class="fa fa-address-book"></i>&nbsp;

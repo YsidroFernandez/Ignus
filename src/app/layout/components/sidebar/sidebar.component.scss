@@ -129,6 +129,33 @@ $topnav-background-color: #676a6c;
         }
     }
 }
+
+.nested-menu1 {
+    .list-group-item {
+        cursor: pointer;
+    }
+    .nested1 {
+        list-style-type: none;
+    }
+    ul.submenu1 {
+        display: none;
+        height: 0;
+    }
+    & .expand1 {
+        ul.submenu1 {
+            display: block;
+            list-style-type: none;
+            height: auto;
+            li {
+                a {
+                    color: #fff;
+                    padding: 20px;
+                    display: block;
+                }
+            }
+        }
+    }
+}
 @media screen and (max-width: 992px) {
     .sidebar {
         top: 60px;

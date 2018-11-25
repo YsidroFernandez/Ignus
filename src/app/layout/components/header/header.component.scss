@@ -12,6 +12,17 @@ $topnav-background-color: #4b4b4b;
             }
         }
     }
+    .photo img {
+    background-color:#1FB5AD;
+    text-decoration:none;
+    color:#fff;
+    transition:all 0.3s ease 0s;
+    -webkit-transition:all 0.3s ease 0s;
+    border-radius:30px;
+    -webkit-border-radius:80px;
+}
+
+
     .messages {
         width: 300px;
         .media {
