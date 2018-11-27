@@ -63,7 +63,8 @@ export class UsuarioComponent implements OnInit {
     this.show();
   }
   show() {
-    this.spinnerService.show();
+    console.log("aqui va el loaer");
+    //this.spinnerService.show();
     // setTimeout(() => this.spinnerService.hide(), 4000)
 }
 
