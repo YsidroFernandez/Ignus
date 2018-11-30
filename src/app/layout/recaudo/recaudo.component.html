@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor = "let item of recaudos">
+                        <tr *ngFor = "let item of recaudos ; let i= index"  (click)="onEdit(i)" >
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td>
@@ -49,7 +49,7 @@
                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="delete()">
+                                    (click)="onDelete(i)">
                                     <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </td>
@@ -100,7 +100,7 @@
                 </div>
             </div>
         </div>
-          <div class="card mb-3">
+          <div class="card mb-3" [hidden]="!visible">
             <div class="col-xl-4 text-xs-center">
                 <div class="card-body">
                     <ng-template #editar let-c="close" let-d="dismiss">
@@ -110,24 +110,22 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <!-- <div class="card mb-3"> -->
                             <div class="modal-body">
                                 <div class="row mb-3">
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Nombre</label>
-                                            <input type="text" [(ngModel)]="recaudos.name" class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudo.name" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="nombre">Descripción</label>
-                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <!-- </div> -->
                         <div class="modal-footer">
                             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
@@ -152,13 +150,13 @@
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Nombre</label>
-                                            <input type="text" [(ngModel)]="recaudos.name"  class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudo.name"  class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="nombre">Descripción</label>
-                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
+                                            <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -173,5 +171,6 @@
                 </div>
             </div>
         </div>
+     
 </div>
 </div>

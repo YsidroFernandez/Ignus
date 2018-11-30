@@ -4,11 +4,6 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 
-class Recaudo {
-    constructor(
-        public servicio: string = 'Selecciona Servicio'
-    ) { }
-}
 
 
 @Component({
@@ -22,29 +17,54 @@ class Recaudo {
 export class RecaudoComponent implements OnInit {
     closeResult: string;
     recaudos: any;
-     recaudo: any;
+    recaudo: any;
+    // It maintains recaudos form display status. By default it will be false.
+    showNew: Boolean = false;
+    // It will be either 'Save' or 'Update' based on operation.
+    submitType: string = 'Save';
     selectedRow: number;
-    submitType: string = 'Guardar';
+    
+    modal: string = 'content';
+    visible: Boolean =true;
 
     constructor(private modalService: NgbModal, public globalService: GlobalService) {
         this.recaudos = [];
-        
+        this.recaudo = [];
+
+
     }
 
-    // recaudo = new this.recaudos();
-    servicios: string[] = ['Venta', 'Compra', 'Arriendo', 'Alquiler'];
 
-
-    open(content) {
+    open(modal) {
         console.log("aqui");
-        this.modalService.open(content).result.then((result) => {
+        this.modalService.open(modal).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
-         
+            if (this.submitType === "Save") {
+                console.log("está creando un nuevo usuario");
+            }else{
+                this.globalService.updateModel(this.recaudo.id, this.recaudo, "/api/requirement")
+                    .then((result) => {
+                        if (result['status']) {
+                            //Para que actualice la lista una vez que es editado el recaudo
+                            this.globalService.getModel("/api/requirement")
+                                .then((result) => {
+                                    console.log(result);
+                                    this.recaudos = result['data'];
+                                }, (err) => {
+                                    console.log(err);
+                                });
+                        }
 
-        }
-            , (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
+                    }, (err) => {
+                        console.log(err);
+                    });
+
+            }
+            // Hide Usuario entry section.
+            this.showNew = false;
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
     }
 
     private getDismissReason(reason: any): string {
@@ -57,8 +77,12 @@ export class RecaudoComponent implements OnInit {
         }
     }
 
-    ngOnInit() {
+    show() {
+        console.log("aqui va el loaer");
+    }
 
+    ngOnInit() {
+        this.show();
         this.globalService.getModel("/api/requirement")
             .then((result) => {
                 console.log(result);
@@ -72,25 +96,49 @@ export class RecaudoComponent implements OnInit {
     faEdit = faEdit;
 
     onEdit(index: number) {
+        this.submitType = 'Update';
+        this.modal = 'edit';
         this.selectedRow = index;
-        console.log(index);
-        if(this.submitType==="Guardar"){
-            console.log(this.recaudos);
-
-            this.globalService.updateModel(index, this.recaudos, "/api/requirement")
-            .then((result) => {
-                console.log(result);
-                // this.recaudo = Object.assign({}, this.recaudos[this.selectedRow]);
-            }, (err) => {
-                console.log(err);
-            });
-           
-          }
-       
-
-        
-
+        this.recaudo = Object.assign({}, this.recaudos[this.selectedRow]);
+        this.showNew = true;
     }
+
+    // This method associate to Delete Button.
+    onDelete(index: number) {
+        console.log('eliminando');
+        this.selectedRow = index;
+        this.recaudo = Object.assign({}, this.recaudos[this.selectedRow]);
+        this.showNew = true;
+        //Pendiente
+        if(confirm('¿Estas seguro de eliminar este usuario?')){
+            this.globalService.removeModel(this.recaudo.id, "/api/requirement")
+                    .then((result) => {
+                        console.log(result);
+                        if (result['status']) {
+                            //Para que actualice la lista una vez que es eliminado el recaudo
+                            this.globalService.getModel("/api/requirement")
+                                .then((result) => {
+                                    console.log(result);
+                                    this.recaudos = result['data'];
+                                }, (err) => {
+                                    console.log(err);
+                                });
+                        }
+
+                    }, (err) => {
+                        console.log(err);
+                    });
+            }
+        
+          
+    }
+
+    // This method associate toCancel Button.
+    onCancel() {
+        // Hide Usuario entry section.
+        this.showNew = false;
+    }
+
 
 }
 
