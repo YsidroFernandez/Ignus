@@ -64,9 +64,6 @@
                     <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
             </div>
-         <div class="card mb-3">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
                     <ng-template #content let-c="close" let-d="dismiss">
                         <div class="modal-header">
                             <h4 class="modal-title ">Crear Recaudo</h4>
@@ -97,12 +94,6 @@
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>
                     </ng-template>
-                </div>
-            </div>
-        </div>
-          <div class="card mb-3" [hidden]="!visible">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
                     <ng-template #editar let-c="close" let-d="dismiss">
                         <div class="modal-header">
                             <h4 class="modal-title ">Editar Recaudo</h4>
@@ -131,12 +122,6 @@
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
                         </div>
                     </ng-template>
-                </div>
-            </div>
-        </div>
-          <div class="card mb-3">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
                     <ng-template #ver let-c="close" let-d="dismiss">
                         <div class="modal-header">
                             <h4 class="modal-title ">Recaudos</h4>
@@ -167,10 +152,6 @@
                             <button style=" border-radius: 20px" type="button" class="btn btn-danger"
                                 (click)="c('Close click')"><i style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
                         </div>
-                    </ng-template>
-                </div>
-            </div>
-        </div>
-     
+                    </ng-template>   
 </div>
 </div>
