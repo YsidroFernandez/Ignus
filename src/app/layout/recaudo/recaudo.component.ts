@@ -18,29 +18,44 @@ export class RecaudoComponent implements OnInit {
     closeResult: string;
     recaudos: any;
     recaudo: any;
+    nuevo: any;
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
     submitType: string = 'Save';
     selectedRow: number;
-    
-    modal: string = 'content';
-    visible: Boolean =true;
 
     constructor(private modalService: NgbModal, public globalService: GlobalService) {
         this.recaudos = [];
         this.recaudo = [];
-
+        this.nuevo = [];
 
     }
 
 
-    open(modal) {
+    open(content) {
         console.log("aqui");
-        this.modalService.open(modal).result.then((result) => {
+        this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
             if (this.submitType === "Save") {
-                console.log("está creando un nuevo usuario");
+                this.nuevo = JSON.stringify({name: this.recaudo.name , description:this.recaudo.description});
+                this.globalService.addModel(this.nuevo,"/api/requirement")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es creado el recaudo
+                        this.globalService.getModel("/api/requirement")
+                            .then((result) => {
+                                console.log(result);
+                                this.recaudos = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
             }else{
                 this.globalService.updateModel(this.recaudo.id, this.recaudo, "/api/requirement")
                     .then((result) => {
@@ -95,9 +110,9 @@ export class RecaudoComponent implements OnInit {
     }
     faEdit = faEdit;
 
+   
     onEdit(index: number) {
         this.submitType = 'Update';
-        this.modal = 'edit';
         this.selectedRow = index;
         this.recaudo = Object.assign({}, this.recaudos[this.selectedRow]);
         this.showNew = true;
@@ -132,6 +147,7 @@ export class RecaudoComponent implements OnInit {
         
           
     }
+
 
     // This method associate toCancel Button.
     onCancel() {

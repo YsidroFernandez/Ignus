@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Recaudos'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-      <div class="card-header" style="text-align: -webkit-center;">Recaudos registrados</div>
+        <div class="card-header" style="text-align: -webkit-center;">Recaudos registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -36,7 +36,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor = "let item of recaudos ; let i= index"  (click)="onEdit(i)" >
+                        <tr *ngFor="let item of recaudos ; let i= index" (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td>
@@ -46,7 +46,7 @@
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(editar)">
-                                   <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="onDelete(i)">
@@ -64,94 +64,94 @@
                     <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
             </div>
-                    <ng-template #content let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title ">Crear Recaudo</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Nombre</label>
-                                            <input type="text" [(ngModel)]="recaudos.name" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Descripción</label>
-                                            <input type="text" [(ngModel)]="recaudos.description" class="form-control" />
-                                        </div>
-                                    </div>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Crear Recaudo</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="recaudo.name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Descripción</label>
+                                    <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+            <ng-template #editar let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Editar Recaudo</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre</label>
+                                <input type="text" [(ngModel)]="recaudo.name" class="form-control" />
+                            </div>
                         </div>
-                    </ng-template>
-                    <ng-template #editar let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title ">Editar Recaudo</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Descripción</label>
+                                <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
+                            </div>
                         </div>
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Nombre</label>
-                                            <input type="text" [(ngModel)]="recaudo.name" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Descripción</label>
-                                            <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
-                                        </div>
-                                    </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+            <ng-template #ver let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Recaudos</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="recaudo.name" class="form-control" />
                                 </div>
                             </div>
-                        <div class="modal-footer">
-                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
-                        </div>
-                    </ng-template>
-                    <ng-template #ver let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title ">Recaudos</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Nombre</label>
-                                            <input type="text" [(ngModel)]="recaudo.name"  class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Descripción</label>
-                                            <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
-                                        </div>
-                                    </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Descripción</label>
+                                    <input type="text" [(ngModel)]="recaudo.description" class="form-control" />
                                 </div>
+                            </div>
+                        </div>
 
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button style=" border-radius: 20px" type="button" class="btn btn-danger"
-                                (click)="c('Close click')"><i style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
-                        </div>
-                    </ng-template>   
-</div>
-</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
+                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
