@@ -30,6 +30,7 @@ export class RegistroSolicitudComponent implements OnInit {
     selectedRow: number;
 
   solicitud2= {
+    cedula:"",
     correo: "",
     tipo: "" ,
     descripcion: "",
@@ -76,7 +77,9 @@ enviar() {
 }
 
 limpiar(){
+  console.log(this.solicitud2)
   this.solicitud2= {
+    cedula:"",
     correo: "",
     tipo: "" ,
     descripcion: "",
@@ -85,6 +88,8 @@ limpiar(){
     fotos: [],
   }
 }
+
+
 
  ngOnInit() {}
 
