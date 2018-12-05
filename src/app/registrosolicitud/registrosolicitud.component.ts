@@ -5,6 +5,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { solicitud } from '../../environments/environment';
+import { GlobalService } from '../providers/global.service';
 
 
 
@@ -18,6 +19,16 @@ import { solicitud } from '../../environments/environment';
 })
 export class RegistroSolicitudComponent implements OnInit {
 
+    closeResult: string;
+    solicitud: any;
+    solicitudes: any;
+    nuevo: any;
+    // It maintains recaudos form display status. By default it will be false.
+    showNew: Boolean = false;
+    // It will be either 'Save' or 'Update' based on operation.
+    submitType: string = 'Save';
+    selectedRow: number;
+
   solicitud2= {
     correo: "",
     tipo: "" ,
@@ -27,21 +38,39 @@ export class RegistroSolicitudComponent implements OnInit {
     fotos: [],
   }
 
-  tipos = ["Compra","Venta","Alquiler","Arrendamiento"]
+tipos = ["Compra","Venta","Alquiler","Arrendamiento"]
 estados: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
 
-constructor(private modalService: NgbModal) {
-
+constructor(private modalService: NgbModal,public globalService: GlobalService) {
+this.solicitud = [];
+this.nuevo = [];
       }
 // This method associate to New Button.
 enviar() { 
   
-  
+  this.nuevo = JSON.stringify({correo: this.solicitud.email, tipo:this.solicitud.type, descripcion:this.solicitud.description, estado:this.solicitud.status, fecha:this.solicitud.date, fotos: this.solicitud.images });
+   this.globalService.addModel(this.nuevo,"/api/requirement")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es creado el recaudo
+                        this.globalService.getModel("/api/requirement")
+                            .then((result) => {
+                                console.log(result);
+                                this.solicitudes = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
   var select = document.getElementById("tiposolicitud");
   var options = document.getElementsByTagName("option");
 
  // this.solicitud2.tipo = options[select.value-1].text
-  solicitud.push(this.solicitud2)
+//solicitud.push(this.solicitud2)
   alert("Agregado con exito")
   this.limpiar()
 }

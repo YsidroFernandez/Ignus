@@ -12,7 +12,7 @@ import { GlobalService } from '../../providers/global.service';
     animations: [routerTransition()],
     styleUrls: ['./recaudo.component.scss']
 })
-
+ 
 
 export class RecaudoComponent implements OnInit {
     closeResult: string;
