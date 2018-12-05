@@ -19,6 +19,7 @@ import { solicitud } from '../../environments/environment';
 export class RegistroSolicitudComponent implements OnInit {
 
   solicitud2= {
+    cedula:"",
     correo: "",
     tipo: "" ,
     descripcion: "",
@@ -47,7 +48,9 @@ enviar() {
 }
 
 limpiar(){
+  console.log(this.solicitud2)
   this.solicitud2= {
+    cedula:"",
     correo: "",
     tipo: "" ,
     descripcion: "",
@@ -56,6 +59,8 @@ limpiar(){
     fotos: [],
   }
 }
+
+
 
  ngOnInit() {}
 
