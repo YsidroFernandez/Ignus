@@ -33,8 +33,8 @@ export class GlobalService {
   tipo: String;
 
   constructor(public http: HttpClient, private toastr: ToastrService, private spinner: NgxSpinnerService) {
-    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
-    // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io';
+    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io'; //endpoint de la nube
+   // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io'; //endpoint de desarrollo
   }
 
   getHeaderClear() {
@@ -69,18 +69,18 @@ export class GlobalService {
     this.spinner.show();
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
-        if (data.status)
-          this.toastr.success('', data.message.text, {
-            timeOut: 5000,
-            progressBar: true,
-            positionClass: 'toast-bottom-right'
-          });
-        else
-          this.toastr.error('', data.message.text, {
-            timeOut: 5000,
-            progressBar: true,
-            positionClass: 'toast-bottom-right'
-          });
+        // if (data.status)
+        //   this.toastr.success('', data.message.text, {
+        //     timeOut: 5000,
+        //     progressBar: true,
+        //     positionClass: 'toast-bottom-right'
+        //   });
+        // else
+        //   this.toastr.error('', data.message.text, {
+        //     timeOut: 5000,
+        //     progressBar: true,
+        //     positionClass: 'toast-bottom-right'
+        //   });
         this.spinner.hide();
         resolve(data);
 

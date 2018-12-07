@@ -3,7 +3,7 @@
     <div class="container">
         <div style="padding-bottom: 4%">
                 <div style="text-align: end; padding-top: 2%; padding-bottom: 2%">
-                        <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
                 </div>
         
 
@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer">
                 <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                    (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                    (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Guardar"></i></button>
             </div>
         </ng-template>
         <ng-template #editar let-c="close" let-d="dismiss">

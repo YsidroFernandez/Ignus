@@ -7,6 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { solicitud } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
 import * as moment from 'moment';
+import { routerTransition } from '../../router.animations';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 
@@ -15,7 +16,8 @@ import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
     selector: 'app-registrosolicitud',
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
-    providers: []
+    providers: [],
+    animations: [routerTransition()],
 })
 export class RegistroSolicitudComponent implements OnInit {
     
