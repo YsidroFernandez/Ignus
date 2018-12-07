@@ -12,7 +12,7 @@ import { GlobalService } from '../../providers/global.service';
     animations: [routerTransition()],
     styleUrls: ['./recaudo.component.scss']
 })
- 
+
 
 export class RecaudoComponent implements OnInit {
     closeResult: string;
@@ -110,7 +110,7 @@ export class RecaudoComponent implements OnInit {
     }
     faEdit = faEdit;
 
-   
+
     onEdit(index: number) {
         this.submitType = 'Update';
         this.selectedRow = index;
@@ -144,8 +144,8 @@ export class RecaudoComponent implements OnInit {
                         console.log(err);
                     });
             }
-        
-          
+
+
     }
 
 
