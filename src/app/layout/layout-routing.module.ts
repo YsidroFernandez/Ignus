@@ -24,8 +24,8 @@ const routes: Routes = [
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
-            { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
-
+            { path: 'cliente', loadChildren: './client/client.module#ClientModule' },
+            { path: 'empleados', loadChildren: './employee/employee.module#EmployeeModule' },
             //transacciones
             { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },

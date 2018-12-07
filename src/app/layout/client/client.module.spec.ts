@@ -1,10 +1,10 @@
-import { UsuarioModule } from './usuario.module';
+import { ClientModule } from './client.module';
 
 describe('UsuarioModule', () => {
-    let usuarioModule: UsuarioModule;
+    let usuarioModule: ClientModule;
 
     beforeEach(() => {
-        usuarioModule = new UsuarioModule();
+        usuarioModule = new ClientModule();
     });
 
     it('should create an instance', () => {

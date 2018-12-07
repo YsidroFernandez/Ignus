@@ -1,0 +1,631 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Clientes'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
+        <div class="card-header" style="text-align: -webkit-center;">Clientes Registrados</div>
+        <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Identificación</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th> Sexo </th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of clientes ; let i= index" (click)="onEdit(i)">
+                            <td>{{ item.identification}}</td>
+                            <td>{{ item.firstName}}</td>
+                            <td>{{ item.lastName}}</td>
+                            <td>{{ item.phoneNumber}}</td>
+                            <td>{{ item.gender}}</td>
+                            <td>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(ver)">
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(editar)">
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="onDelete(i)">
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-8">
+                </div>
+                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+                </div>
+            </div>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Crear Cliente</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-6">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Identificación</label>
+                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Fecha de Nacimiento</label>
+                                        <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Apellidos</label>
+                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Teléfono</label>
+                                    <input type="text" [(ngModel)]="cliente.phoneNumber" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Sexo</label>
+                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+            <ng-template #editar let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Editar Cliente</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Identificación</label>
+                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Fecha de Nacimiento</label>
+                                        <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Apellidos</label>
+                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Teléfono</label>
+                                    <input type="text" [(ngModel)]="cliente.phoneNumber" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Sexo</label>
+                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+            <ng-template #ver let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">Cliente</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Identificación</label>
+                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Fecha de Nacimiento</label>
+                                        <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Apellidos</label>
+                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Teléfono</label>
+                                    <input type="text" [(ngModel)]="cliente.phoneNumber" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Sexo</label>
+                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
+                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div [@routerTransition]>
+
+    <app-page-header [heading]="'Clientes'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container ">
+        <div class="card-header" style="text-align: -webkit-center;">Clientes Registrados</div>
+        <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Identificación</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Teléfono</th>
+                            <th> Sexo </th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of clientes; let i = index" (click)="onEdit(i)">
+                            <td>{{ item.idetification}}</td>
+                            <td>{{ item.firstName}}</td>
+                            <td>{{ item.lastName}}</td>
+                            <td>{{ item.phoneNumber}}</td>
+                            <td>{{ item.gender}}</td>
+                            <td>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(ver)">
+                                    <fa-icon [icon]="faEye"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(editar)">
+                                    <fa-icon [icon]="faEdit"></fa-icon>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="delete()">
+                                    <fa-icon [icon]="faTrash"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-8">
+                </div>
+                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title ">Crear cliente</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Identificación</label>
+                                <input type="text" [(ngModel)]="cliente.Identification" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombres</label>
+                                <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Apellidos</label>
+                                <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Teléfono</label>
+                                <input type="text" [(ngModel)]="cliente.phoneNumber" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Sexo</label>
+                                <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                                    <div class="col col-sm-6">
+                                        <label for="descripcion">Fecha de Nacimiento</label>
+
+                                        <div class="input-group">
+
+                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="cliente.dob"
+                                                ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+                                            <span class="input-group-btn">
+                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Correo</label>
+                                            <input type="text" [(ngModel)]="cliente.correo" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                    <div class="row mb-3">
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Contraseña</label>
+                                            <input type="text" [(ngModel)]="cliente.contrasena" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="descripcion">Estado</label>
+                                            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                                <button type="button" class="btn btn-outline-primary" id="dropdownManual"
+                                                    name="country" ngbDropdownToggle>{{cliente.estado}}</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                                    <button type="button" class="dropdown-item" *ngFor="let estado of estados"
+                                                        (click)="onChangeEstado(estado)">{{estado}}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                        style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+            </div>
+        </ng-template>
+        <ng-template #ver let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Cliente</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Identificación</label>
+                                <input type="text" [(ngModel)]="cliente.nombre" class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombres</label>
+                                <input type="text" [(ngModel)]="cliente.nombre" class="form-control" />
+                            </div>
+                        </div>
+            
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Apellidos</label>
+                                <input type="text" [(ngModel)]="cliente.apellido" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Teléfono</label>
+                                <input type="text" [(ngModel)]="cliente.username" class="form-control" />
+                            </div>
+                        </div>
+            
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Sexo</label>
+                                <input type="text" [(ngModel)]="cliente.cargo" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Fecha de Nacimiento</label>
+                                <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="cliente.dob" ngbDatepicker #dob="ngbDatepicker"
+                                    class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Correo</label>
+                                <input type="text" [(ngModel)]="cliente.correo" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Contraseña</label>
+                                <input type="text" [(ngModel)]="cliente.contrasena" class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Estado</label>
+                                <input type="text" [(ngModel)]="cliente.estado" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+                </div>
+            </ng-template>
+            
+            <ng-template #editar let-c="close" let-d="dismiss">
+            
+                <div class="modal-header">
+                    <h4 class="modal-title"> Cliente </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Identificación</label>
+                                <input type="text" [(ngModel)]="cliente.nombre" class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombres</label>
+                                <input type="text" [(ngModel)]="cliente.nombre" class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Apellidos</label>
+                                <input type="text" [(ngModel)]="cliente.apellido" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Teléfono</label>
+                                <input type="text" [(ngModel)]="cliente.username" class="form-control" />
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Sexo</label>
+                                <input type="text" [(ngModel)]="cliente.cargo" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Fecha de Nacimiento</label>
+                                <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="cliente.dob" ngbDatepicker #dob="ngbDatepicker"
+                                    class="form-control" dateFormat="dd-MMM-yyyy" />
+                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
+                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                                </button>
+                            </div>
+                        </div>
+            
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Correo</label>
+                                <input type="text" [(ngModel)]="cliente.correo" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Contraseña</label>
+                                <input type="text" [(ngModel)]="cliente.contrasena" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Estado</label>
+                                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
+                                        ngbDropdownToggle>{{cliente.estado}}</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                        <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+            
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
+                        <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+                    </button>
+                </div>
+            </ng-template>
+
+    </div>
+</div>
+<ng4-loading-spinner> </ng4-loading-spinner> -->

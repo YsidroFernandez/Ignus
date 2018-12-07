@@ -9,7 +9,6 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 
-
 @NgModule({
     imports: [
         CommonModule,
@@ -17,6 +16,6 @@ import { TransactionsComponent } from './transactions/transactions.component';
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent ]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent]
 })
 export class LayoutModule {}

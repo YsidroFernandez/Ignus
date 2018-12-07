@@ -261,7 +261,7 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <a [routerLink]="['/cliente']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                         <i class="fa fa-user"></i>&nbsp;
                         <span>{{ 'Clientes' | translate }}</span>
                     </a>
@@ -279,6 +279,13 @@
                         <span>{{ 'Actividades' | translate }}</span>
                     </a>
                 </li>
+                <li>
+                        <a [routerLink]="['/empleados']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Empleados' | translate }}</span>
+                        </a>
+                    </li>
         </ul>
         </li>
     </div>
