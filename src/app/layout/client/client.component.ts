@@ -33,24 +33,7 @@ export class ClientComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
-            this.nuevo = JSON.stringify({identification : this.cliente.identification ,firstName: this.cliente.firstName,lastName: this.cliente.lastName , phoneNumber:this.cliente.phoneNumber, gender: this.cliente.gender});
-            this.globalService.addModel(this.nuevo,"/api/client")
-            .then((result) => {
-                console.log(result);
-                if (result['status']) {
-                    //Para que actualice la lista una vez que es creado el cliente
-                    this.globalService.getModel("/api/client")
-                        .then((result) => {
-                            console.log(result);
-                            this.clientes = result['data'];
-                        }, (err) => {
-                            console.log(err);
-                        });
-                }
-
-            }, (err) => {
-                console.log(err);
-            });
+           //Aquí no se crean clientes. eso se hace cuando se suscribe
         }else{
             this.globalService.updateModel(this.cliente.id, this.cliente, "/api/client")
                 .then((result) => {
@@ -59,7 +42,7 @@ export class ClientComponent implements OnInit {
                         this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.clientes = result['data'];
+                                this.clientes = result['data']['clients'];
                             }, (err) => {
                                 console.log(err);
                             });

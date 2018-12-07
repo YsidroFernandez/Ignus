@@ -119,7 +119,7 @@ onDelete(index: number) {
     this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar este usuario?')){
+    if(confirm('¿Estas seguro de eliminar esta Actividad?')){
         this.globalService.removeModel(this.actividad.id, "/api/activity")
                 .then((result) => {
                     console.log(result);
