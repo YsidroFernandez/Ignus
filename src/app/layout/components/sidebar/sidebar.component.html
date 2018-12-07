@@ -27,12 +27,14 @@
                 <ul class="submenu1">
 
                     <li>
-                        <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                        <a [routerLink]="['/dashboardcustomer']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-user"></i>&nbsp;
-                            <span>{{ 'Perfil' | translate }}</span>
+                            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                            <span>{{ 'Dashboard' }}</span>
                         </a>
                     </li>
+
+                    
 
                    <!-- <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
@@ -65,13 +67,7 @@
                             <span>{{ 'Actividades' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/seguimiento']" [routerLinkActive]="['router-link-active']" class="list-group-item"
-                            href="javascript:void(0)">
-                           <i class="fa fa-bell"></i>&nbsp;
-                            <span>{{ 'Seguimiento' | translate }}</span>
-                        </a>
-                    </li>
+                  
                     <li>
                         <a [routerLink]="['/valoracion']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
