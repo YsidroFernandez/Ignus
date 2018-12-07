@@ -8,6 +8,9 @@ import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { calendariocita, actions,colors } from '../../environments/environment';
 
+import { GlobalService } from '../providers/global.service';
+
+
 @Component({
   selector: 'app-citas',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,6 +39,16 @@ export class CitasComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
+    cita:any;
+
+    citas:any;
+
+    nuevo: any;
+    // It maintains recaudos form display status. By default it will be false.
+    showNew: Boolean = false;
+    // It will be either 'Save' or 'Update' based on operation.
+    submitType: string = 'Save';
+    selectedRow: number;
 
   actions: CalendarEventAction[] = [
     {
@@ -60,7 +73,7 @@ export class CitasComponent implements OnInit {
 
   closeResult: string;
 
-  constructor(private modal: NgbModal) {}
+  constructor(private modal: NgbModal, public globalService: GlobalService) {}
 
   open(content) {
     this.modal.open(content).result.then((result) => {
@@ -131,5 +144,35 @@ export class CitasComponent implements OnInit {
 
   ngOnInit() {
   }
+
+
+  onDelete(index: number) {
+    console.log('eliminando');
+    this.selectedRow = index;
+    this.cita = Object.assign({}, this.citas[this.selectedRow]);
+    this.showNew = true;
+    //Pendiente
+    if(confirm('¿Estas seguro de eliminar esta cita?')){
+        this.globalService.removeModel(this.cita.id, "/api/requirement")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es eliminado la cita
+                        this.globalService.getModel("/api/requirement")
+                            .then((result) => {
+                                console.log(result);
+                                this.citas= result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+        }
+
+
+}
 
 }
