@@ -4,6 +4,12 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
+
+        <a [routerLink]="['/dashboardcustomer']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                    href="javascript:void(0)">
+                    <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                    <span>{{ 'Dashboard (Cliente)' }}</span>
+                </a>
         <!-- Esto es Para trabajar el menú desde un menuJson está en fase de desarrollo -->
 
         <!-- <div  items="menu" (itemClick)="menuItemClick($event)">
@@ -18,7 +24,7 @@
             </div>
         </div> -->
 
-        <div class="nested-menu1">
+        <!-- <div class="nested-menu1">
             <a class="list-group-item" (click)="addExpandClassReport('pages')">
                 <i class="fa fa-user-circle-o"></i>&nbsp;
                 <span>{{ 'Mi cuenta' | translate }}</span>
@@ -36,7 +42,7 @@
 
                     
 
-                   <!-- <li>
+                   <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Realizar solicitud' | translate }}</span>
@@ -58,9 +64,9 @@
                             </li>
                         </ul>
 
-                    </li>-->
+                    </li>
 
-                    <!-- <li>
+                    <li>
                         <a [routerLink]="['/actividad']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-calendar"></i>&nbsp;
@@ -74,8 +80,8 @@
                             <i class="fa fa-star"></i>&nbsp;
                             <span>{{ 'Valoracion' | translate }}</span>
                         </a>
-                    </li> -->
-<!--                     
+                    </li>
+                    
                         <div class="nested-menu">
                         <a  class="list-group-item" (click)="addExpandClassSubAte('pages15')">
                             <i class="fa fa-list-alt"></i>&nbsp;
@@ -100,10 +106,10 @@
                             </li>
                         </ul>
                     </li>
-                    </div> -->
+                    </div>
                 </ul>
             </li>
-        </div>
+        </div> -->
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages1')">
                 <i class="fa fa-address-book"></i>&nbsp;
