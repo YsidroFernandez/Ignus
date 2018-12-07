@@ -28,6 +28,7 @@ const routes: Routes = [
 
             //transacciones
             { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
+            { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
 
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
 
