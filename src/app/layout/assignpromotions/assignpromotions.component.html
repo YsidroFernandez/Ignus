@@ -32,121 +32,157 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripción</th>
+                            <th>Cantidad de Inmuebles</th>
+                            <th>Estado de la Promoción</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of assignpromotions ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of promotionsFill | paginate: { itemsPerPage: numPage, currentPage: pages }; let i= index "
+                            (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
+                            <td>{{item.properties.length}}</td>
+                            <td class="text-center">
+                                <label class="switch switch-sm switch-3d switch-primary" tooltip="habilita o desabilita ">
+                                    <input type="checkbox" [value]="true" (change)="changeStatus($event)" class="switch-input"
+                                        checked>
+                                    <span class="switch-slider"></span>
+                                </label>
+                            </td>
                             <td>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(ver)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(editar)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="open(ver)">
+                                        <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="open(editar)">
+                                        <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="onDelete(i)">
+                                        <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="row mb-3">
-                <div class="col col-sm-8">
+            <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                            </a>
+                        </li>
+
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                {{ page.label }} </a>
+                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination-template>
+        </div>
+    </div>
+</div>
+
+
+<!--Contenido -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Asignar Promociones</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Promociones</label>
+                    <select name="nombreAgent" [(ngModel)]="id_promotion" (ngModelChange)="promotionChanged($event)"
+                        class="form-control">
+                        <option *ngFor="let list of promotions" [value]="list.id">
+                            {{list.name}}
+                        </option>
+                    </select>
                 </div>
-                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-12" style="text-align: -webkit-center;">
+                <label for="tipos">Asignación de Promociones</label>
+            </div>
+        </div>
+        <div class="row  mb-3">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 form-group">
+                <bs-sortable [(ngModel)]="inmuebles" fieldName="ubication" itemClass="sortable-item" itemActiveClass="sortable-item-active"
+                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+            </div>
+            <div class="col-md-4 form-group">
+                <bs-sortable [(ngModel)]="property" fieldName="ubication" itemClass="sortable-item" itemActiveClass="sortable-item-active"
+                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+            </div>
+            <div class="col-md-2"> </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </div>
+</ng-template>
+
+
+<!--editar -->
+<ng-template #editar let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Editar Promoción</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Nombre</label>
+                    <input type="text" [(ngModel)]="assignpromotion.name" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Descripción</label>
+                    <input type="text" [(ngModel)]="assignpromotion.description" class="form-control" />
                 </div>
             </div>
         </div>
     </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+    </div>
+</ng-template>
 
-    <!--Contenido -->
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Asignar Promociones</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-             <!--   <div class="flex">
-                    <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps">
-                        <div class="vamp" *ngFor="let vamp of vamps">{{ vamp.name }}</div>
-                    </div>
-                    <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps2">
-                        <div class="vamp" *ngFor="let vamp of vamps2">{{ vamp.name }}</div>
-                    </div>
-                </div>-->
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                            <div class="form-group">
-                                    <label for="tipos">Promociones</label>
-                                    <div class="col-20 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                            <button type="button" class="btn btn-outline-primary"
-                                                    id="dropdownManual" name="code"
-                                                    ngbDropdownToggle>Seleccione una promoción</button>
-                                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                                    <button type="button" class="dropdown-item"></button>
-                                            </div>
-                                    </div>
-                            </div>
-                    </div>
-                    <div class="col col-sm-6">
-                            <div class="form-group">
-                                    <label for="tipos">Tipo de Servicio</label>
-                                    <div class="col-20 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                            <button type="button" class="btn btn-outline-primary"
-                                                    id="dropdownManual" name="code"
-                                                    ngbDropdownToggle >Seleccione un tipo de servicio</button>
-                                            <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                                    <button type="button" class="dropdown-item"></button>
-                                            </div>
-                                    </div>
-                            </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="card-body">
-                            <div class="form-group" style="text-align: -webkit-center;">
-                                    <label for="tipos" >Asignación de Promociones</label>
-                            </div>
-                        <div class="col col-sm-12">
-                            <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
-                                    <div class="container-draga" *ngFor="let group of groups">
-                                    <span class="group-handle">{{group.name}}</span>
-                                    <div class="container-draga" dragula="ITEMS" [(dragulaModel)]="group.items">
-                                        <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
-                                    </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
-
-
-    <!--editar -->
-    <ng-template #editar let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Editar Promoción</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+<!--ver -->
+<ng-template #ver let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Promoción</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
         <div class="modal-body">
             <div class="row mb-3">
                 <div class="col col-sm-6">
@@ -162,42 +198,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
 
-    <!--ver -->
-    <ng-template #ver let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Promoción</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Nombre</label>
-                            <input type="text" [(ngModel)]="assignpromotion.name" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Descripción</label>
-                            <input type="text" [(ngModel)]="assignpromotion.description" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
+    </div>
+    <div class="modal-footer">
+        <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i style="color: white"
+                class="fa fa-close" aria-hidden="true"></i></button>
+    </div>
+</ng-template>

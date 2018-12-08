@@ -1,45 +1,136 @@
-import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { solicitud } from '../../../environments/environment';
+import { solicitud, actions, calendariocita, colors } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
+import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { routerTransition } from '../../router.animations';
+import * as datepicker from 'ngx-bootstrap/datepicker';
+import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 
 @Component({
     selector: 'app-registrosolicitud',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
-    providers: [],
-    animations: [routerTransition()],
+    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider],
+    animations: [routerTransition()]
+   
 })
 export class RegistroSolicitudComponent implements OnInit {
-    
+    modalRef: BsModalRef;
+    message: string;
+
+    colors: any = {
+        red: {
+          primary: '#ad2121',
+          secondary: '#FAE3E3'
+        },
+        blue: {
+          primary: '#1e90ff',
+          secondary: '#D1E8FF'
+        },
+        yellow: {
+          primary: '#e3bc08',
+          secondary: '#FDF1BA'
+        }
+      };
+
     disableSwitching: boolean;
     @ViewChild('tabset', {read: ElementRef}) tabsetEl: ElementRef;
     @ViewChild('tabset') tabset: TabsetComponent;
     @ViewChild('first') first: TabDirective;
     @ViewChild('second') second: TabDirective;
 
+    view: CalendarView = CalendarView.Month;  
+    CalendarView = CalendarView;
+    refresh: Subject<any> = new Subject();
+    viewDate: Date = new Date();
+    locale: string = 'es';
+    modalData: any;
+    activeDayIsOpen: boolean = true;
+
+    clickedDate: Date;
+
+    actions: CalendarEventAction[] = [
+        {
+          label: '<i class="fa fa-fw fa-pencil"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.handleEvent('Edited', event);
+          }
+        },
+        {
+          label: '<i class="fa fa-fw fa-times"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.events = this.events.filter(iEvent => iEvent !== event);
+            this.handleEvent('Deleted', event);
+          }
+        }
+      ];
+
+    events: CalendarEvent[] = [
+        {
+          start: startOfDay('2019/01/04'),    
+          title: 'jajajaaj',
+          color: colors.red,
+          actions: this.actions,      
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          }
+        },
+        {
+          start: startOfDay('2019/01/04'),
+          title: 'test2',
+          color: colors.yellow,
+          actions: this.actions,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          }
+        },
+        {
+         start: startOfDay('2019/01/08'),
+          title: 'otros',
+          color: colors.yellow,
+          actions: this.actions,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          }
+        }
+      ];
+
+      public test: any = {
+          fecha: '',
+          descripcion: '',
+          turno: ''
+      }
+
     datePickerConfig: Partial<BsDatepickerConfig>;
     closeResult: string;
     solicitud: any;
     solicitudes: any;
     nuevo: any;
-    employes = []
-    states = []
-    municipalities = []
-    parishes = []
+    employes = [];
+    states = [];
+    municipalities = [];
+    parishes = [];
 
 
     typeService: any;
-    typeSpecifications: any;
+    typeSpecifications: any = [];
     especificaciones: any;
     typeProperties = [];
     typeProperty: any;
@@ -62,36 +153,32 @@ export class RegistroSolicitudComponent implements OnInit {
         typeProperty: "",
         description: "",
         employee: ""
-
     }
 
 
-    constructor(private modalService: NgbModal, public globalService: GlobalService) {
+    constructor(private modalService: NgbModal,
+                public globalService: GlobalService) {
 
-        let now = moment().format();
-
-        this.datePickerConfig = Object.assign({},
+       this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
             { dateInputFormat: 'DD/MM/YYYY' },
             { locale: 'es' });
 
-        this.solicitud = {
-            ClientId: 1,
-            TypeServiceId: "",
-            wishDate: "",
-            TypeRequestId: 3
-        }
-        this.nuevo = [];
-        this.typeService = [];
-        this.typeSpecifications = [];
-        this.typeProperties = [];
+            this.solicitud = {
+                ClientId: 1,
+                TypeServiceId: "",
+                wishDate: "",
+                TypeRequestId: 3
+            } 
+    }
+
+    ngOnInit() {
 
         this.globalService.getModel(`/api/state/`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
                 this.states = result['data'];
-
             }
         }, (err) => {
             console.log(err);
@@ -100,8 +187,8 @@ export class RegistroSolicitudComponent implements OnInit {
         this.globalService.getModel("/api/typeService").then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
+                this.typeService= [];
                 this.typeService = result['data'];
-
             }
         }, (err) => {
             console.log(err);
@@ -110,8 +197,8 @@ export class RegistroSolicitudComponent implements OnInit {
         this.globalService.getModel(`/api/typeProperty`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
+                this.typeProperties = [];
                 this.typeProperties = result['data'];
-
             }
         }, (err) => {
             console.log(err);
@@ -122,7 +209,6 @@ export class RegistroSolicitudComponent implements OnInit {
                 console.log(result['data'])
                 //Para que actualice la lista una vez que es creado el recaudo
                 this.employes = result['data'];
-
             }
         }, (err) => {
             console.log(err);
@@ -131,13 +217,17 @@ export class RegistroSolicitudComponent implements OnInit {
         this.globalService.getModel("/api/typeSpecification").then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
+                this.typeSpecifications = 0;
                 this.typeSpecifications = result['data'];
-                console.log(this.typeSpecifications)
+                console.log(this.typeSpecifications);
             }
         }, (err) => {
             console.log(err);
         });
     }
+
+    @ViewChild('modalContent')
+    modalContent: TemplateRef<any>;
 
     loadSpecifications(type){
         this.typeSpecifications = [];
@@ -182,10 +272,9 @@ export class RegistroSolicitudComponent implements OnInit {
 
     }
 
-
     // This method associate to New Button.
     enviar() {
-
+        this.nuevo = [];
         this.nuevo = {
             ClientId: this.solicitud.ClientId,
             TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
@@ -199,13 +288,10 @@ export class RegistroSolicitudComponent implements OnInit {
                 if (result['status']) {
                     //Para que actualice la lista una vez que es creado el recaudo
                     console.log(result);
-
                 }
-
             }, (err) => {
                 console.log(err);
             });
-
         // this.solicitud2.tipo = options[select.value-1].text
         //solicitud.push(this.solicitud2)
         alert("Agregado con exito")
@@ -235,12 +321,58 @@ export class RegistroSolicitudComponent implements OnInit {
         }
     }
 
+    fechaClick($event) {
+         console.log($event);
+     }
+   
+     // Este metodo escucha el calendario y envia el evento mas la fecha
+    dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+       
+        console.log(date);
+        console.log(events);
+        this.test.fecha = moment(date).format('DD/MM/YYYY');
+        console.log(this.test.fecha);
+        if(events.length<2){
+            console.log("hola");
+           
+        }else{
+            console.log("hola 2");
+        }
+    }
 
-    ngOnInit() { }
-
-    faEye = faEye;
-    faEdit = faEdit;
-    faTrash = faTrash;
-
+     // Este metodo guarda 
+    addEvent(): void {
+        this.events.push({
+          title: 'New event',
+          start: startOfDay(new Date()),      
+          color: colors.red,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true
+          }
+        });
+        this.refresh.next();
+    }
     
+    beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+        body.forEach(day => {
+            if (day.date.getDate() % 2 === 1 && day.inMonth) {
+                day.cssClass = 'odd-cell';
+            }
+        });
+    }
+
+    handleEvent(action: string, event: CalendarEvent): void {
+        console.log(action);
+        console.log(event);
+        this.modalData = { event, action };
+        this.modalService.open(this.modalContent, { size: 'lg' });
+    }   
+
+    eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+        event.start = newStart;
+        event.end = newEnd;
+        this.handleEvent('Dropped or resized', event);
+        this.refresh.next();
+    }    
 }

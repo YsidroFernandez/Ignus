@@ -18,34 +18,39 @@ export class ActivitiesCollectionsComponent implements OnInit {
   test: any;
   transaction: any;
   disabled: boolean;
-  btnEdit:any;
-  files:File[] = [];
-  rol: number;
-  actividades:string[]=["Actividad 1","Actividad 2","Actividad 3","Actividad 4"];
+  btnEdit: any;
+  files: File[] = [];
+  requirements:any;
+  employee:any;
 
-  recaudos:string[]=["Recaudo 1","Recaudo 2","Recaudo 3","Recaudo 4"];
+  public activities = [];
+  public client :any = [];
 
   constructor(public globalService: GlobalService) {
-    this.rol = 1;
+
   }
 
   ngOnInit() {
 
-      console.log("init");
-    this.globalService.getModel("/api/transaction/")
+    const userId = JSON.parse(localStorage.user).id;
+    console.log(userId);
+    this.globalService.getModel_Id(userId, '/api/client/transaction')
     .then((result) => {
-      console.log(result);
-      this.transaction=result['data'];
-      console.log(this.transaction);
+    console.log(result);
 
-      this.test = result['data'][0].client.firstName;
 
-      console.log(this.test);
+     this.client = result['data'];
 
-    }, (err) => {
-      console.log(err);
-      //this.loader.dismiss();
-    });
+     this.requirements = result['data']['requirements'];
+      this.employee = result['data']['employee'];
+      this.activities = result['data']['activities'];
+     console.log(this.activities);
+
+  }, (err) => {
+    console.log(err);
+    // this.loader.dismiss();
+  });
+
 
   }
 

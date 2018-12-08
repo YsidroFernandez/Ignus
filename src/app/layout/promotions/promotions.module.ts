@@ -9,6 +9,7 @@ import { PromotionsComponent } from './promotions.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+
 @NgModule({
   imports: [
     CommonModule,

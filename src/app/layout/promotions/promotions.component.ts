@@ -3,11 +3,11 @@ import { routerTransition } from '../../router.animations';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
-
 @Component({
   selector: 'app-activities',
   templateUrl: './promotions.component.html',
-  styleUrls: ['./promotions.component.scss']
+  styleUrls: ['./promotions.component.scss'],
+  animations: [routerTransition()]
 })
 export class PromotionsComponent implements OnInit {
   closeResult: string;
@@ -19,6 +19,8 @@ export class PromotionsComponent implements OnInit {
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
+
+  
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
       this.promotions = [];
@@ -91,18 +93,22 @@ show() {
 }
 
 ngOnInit() {
-    this.show();
-    this.globalService.getModel("/api/promotion")
-        .then((result) => {
-            console.log(result);
-            this.promotions = result['data'];
-            console.log(this.promotions);
-        }, (err) => {
-            console.log(err);
-        });
-
+    this.show();   
+   this.allPromotion();
 }
 faEdit = faEdit;
+
+
+ allPromotion(){
+    this.globalService.getModel("/api/promotion")
+    .then((result) => {
+        console.log(result);
+        this.promotions = result['data'];
+        console.log(this.promotions);
+    }, (err) => {
+        console.log(err);
+    });
+ }
 
 
 onEdit(index: number) {
