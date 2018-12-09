@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { GlobalService } from '../../../providers/global.service';
 
 @Component({
   selector: 'app-perfil',

@@ -40,7 +40,7 @@
                         </a>
                     </li>
 
-                    
+
 
                    <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
@@ -73,7 +73,7 @@
                             <span>{{ 'Actividades' | translate }}</span>
                         </a>
                     </li>
-                  
+
                     <li>
                         <a [routerLink]="['/valoracion']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
@@ -81,7 +81,7 @@
                             <span>{{ 'Valoracion' | translate }}</span>
                         </a>
                     </li>
-                    
+
                         <div class="nested-menu">
                         <a  class="list-group-item" (click)="addExpandClassSubAte('pages15')">
                             <i class="fa fa-list-alt"></i>&nbsp;
@@ -118,7 +118,7 @@
 
             <li class="nested" [class.expand]="showMenu === 'pages1'">
                 <ul class="submenu">
-                    
+
 
                         <div class="nested-menu1">
                             <a class="list-group-item" (click)="addExpandClassSubAte('pages2')">
@@ -159,9 +159,9 @@
 
 
 
-        
+
         <li>
-            <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+            <a [routerLink]="['/activities-collections']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Actividades y Recaudos' | translate }}</span>
             </a>
