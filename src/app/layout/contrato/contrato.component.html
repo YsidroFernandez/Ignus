@@ -31,32 +31,36 @@
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
-                            <th>Personal</th>
+                            <th>numero de folio</th>
+                            <th>Elaboracion</th>
+                            <th>Fecha de firma</th>
                             <th>Cliente</th>
-                            <th>Inmueble</th>
-                             <th>Estado</th>
+                            <th>Agente</th>
+                            <th>Garantia</th>
+                            <!--<th>Inmueble</th>
+                             <th>Estado</th>-->
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let contrato of contratos">
-                            <td>{{ contrato.dob}}</td>
-                            <td>{{ contrato.personal}}</td>
-                            <td>{{ contrato.cliente}}</td>
-                            <td>{{ contrato.inmueble}}</td>
-                            <td>{{ contrato.estado}}</td>
+                        <tr *ngFor="let contrato of contratos ; let i= index" (click)="onEdit(i)">
+                            <td>{{contrato.folioNumber}}</td>
+                            <td>{{contrato.elaborationDate}}</td>
+                            <td>{{contrato.firmDate}}</td>
+                            <td>{{contrato.client}}</td>
+                            <td>{{contrato.agent}}</td>
+                            <td>{{contrato.warranties}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    >
+                                    (click)="open(ver)">
                                     <fa-icon [icon]="faEye"></fa-icon>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    >
+                                    (click)="open(editar)">
                                     <fa-icon [icon]="faEdit"></fa-icon>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    >
+                                    (click)="onDelete(i)">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
                             </td>
@@ -80,6 +84,24 @@
     </div>
 
     <div class="modal-body">
+
+        <div class="row mb-3">
+        <div  class="col col-sm-6">
+            <div  class="card-body">
+            <div class="form-group">
+                                    <label for="tipos">Numero de Folio</label>
+                                    <input type="text" [(ngModel)]="contrato.folioNumber" class="form-control" />
+                                </div></div></div>
+
+        <div class="col-xl-6 text-xs-center">
+              <div class="card-body">
+               <div class="form-group">
+                                    <label for="tipos">Fecha de la Firma</label>
+                                    <input type="text" [(ngModel)]="contrato.firmDate" class="form-control" />
+                                </div>
+              </div>
+            </div></div>
+
         <div class="row mb-3">
         <div  class="col col-sm-6">
             <div  class="card-body">
@@ -99,12 +121,9 @@
         <div class="col-xl-6 text-xs-center">
               <div class="card-body">
                 <div class="form-group">
-                  <label>Personal</label>
+                  <label>Cliente</label>
                   <select  class="form-control">
-                    <option>Selecionar</option>
-                    <option>jesus</option>
-                    <option>Pedro</option>
-                    <option>Erick</option>
+                    <option *ngFor="let contrato of contratos" [value]="contrato.client">{{contrato.client}}</option>
                   </select>
                 </div>
               </div>

@@ -4,25 +4,26 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 
+
 @Component({
-  selector: 'app-activities',
-  templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.scss']
+  selector: 'app-client',
+  templateUrl: './client.component.html',
+  styleUrls: ['./client.component.scss']
 })
-export class ActivitiesComponent implements OnInit {
+export class ClientComponent implements OnInit {
   closeResult: string;
-  actividades: any;
-  actividad: any;
+  clientes: any;
+  cliente: any;
   nuevo: any;
-  // It maintains actividades form display status. By default it will be false.
+  // It maintains clientes form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
-      this.actividades = [];
-      this.actividad = [];
+      this.clientes = [];
+      this.cliente = [];
       this.nuevo = [];
    }
 
@@ -32,33 +33,16 @@ export class ActivitiesComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
-            this.nuevo = JSON.stringify({name: this.actividad.name , description:this.actividad.description});
-            this.globalService.addModel(this.nuevo,"/api/activity")
-            .then((result) => {
-                console.log(result);
-                if (result['status']) {
-                    //Para que actualice la lista una vez que es creado el actividad
-                    this.globalService.getModel("/api/activity")
-                        .then((result) => {
-                            console.log(result);
-                            this.actividades = result['data'];
-                        }, (err) => {
-                            console.log(err);
-                        });
-                }
-
-            }, (err) => {
-                console.log(err);
-            });
+           //Aquí no se crean clientes. eso se hace cuando se suscribe
         }else{
-            this.globalService.updateModel(this.actividad.id, this.actividad, "/api/activity")
+            this.globalService.updateModel(this.cliente.id, this.cliente, "/api/client")
                 .then((result) => {
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es editado el actividad
-                        this.globalService.getModel("/api/activity")
+                        //Para que actualice la lista una vez que es editado el cliente
+                        this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.clientes = result['data']['clients'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -69,7 +53,7 @@ export class ActivitiesComponent implements OnInit {
                 });
 
         }
-        // Hide Usuario entry section.
+        // Hide cliente entry section.
         this.showNew = false;
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -92,11 +76,11 @@ show() {
 
 ngOnInit() {
     this.show();
-    this.globalService.getModel("/api/activity")
+    this.globalService.getModel("/api/client")
         .then((result) => {
             console.log(result);
-            this.actividades = result['data'];
-            console.log(this.actividades);
+            this.clientes = result['data']['clients'];
+            console.log(this.clientes);
         }, (err) => {
             console.log(err);
         });
@@ -108,7 +92,7 @@ faEdit = faEdit;
 onEdit(index: number) {
     this.submitType = 'Update';
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.cliente = Object.assign({}, this.clientes[this.selectedRow]);
     this.showNew = true;
 }
 
@@ -116,19 +100,19 @@ onEdit(index: number) {
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.cliente = Object.assign({}, this.clientes[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar esta Actividad?')){
-        this.globalService.removeModel(this.actividad.id, "/api/activity")
+    if(confirm('¿Estas seguro de eliminar este cliente?')){
+        this.globalService.removeModel(this.cliente.id, "/api/client")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado la actividad
-                        this.globalService.getModel("/api/activity")
+                        //Para que actualice la lista una vez que es eliminado la cliente
+                        this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.clientes = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -145,7 +129,7 @@ onDelete(index: number) {
 
 // This method associate toCancel Button.
 onCancel() {
-    // Hide Usuario entry section.
+    // Hide cliente entry section.
     this.showNew = false;
 }
 

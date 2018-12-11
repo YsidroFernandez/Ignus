@@ -24,11 +24,12 @@ const routes: Routes = [
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
-            { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
-
+            { path: 'cliente', loadChildren: './client/client.module#ClientModule' },
+            { path: 'empleados', loadChildren: './employee/employee.module#EmployeeModule' },
             //transacciones
             { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
+            { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
 
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
 
@@ -48,10 +49,12 @@ const routes: Routes = [
             { path: 'actividad', loadChildren: './cliente/actividad/actividad.module#ActividadModule' },
             { path: 'perfil', loadChildren: './cliente/perfil/perfil.module#PerfilModule' },
             { path: 'sugerencias', loadChildren: './cliente/sugerencias/sugerencias.module#SugerenciasModule'},
-    { path: 'reclamos', loadChildren: './cliente/reclamos/reclamos.module#ReclamosModule'},
-    { path: 'reclamos', loadChildren: './cliente/reclamos/reclamos.module#ReclamosModule'},
+            { path: 'reclamos', loadChildren: './cliente/reclamos/reclamos.module#ReclamosModule'},
+            { path: 'reclamos', loadChildren: './cliente/reclamos/reclamos.module#ReclamosModule'},
             { path: 'valoracion', loadChildren: './cliente/valoracion/valoracion.module#ValoracionModule'},
             { path: 'seguimiento', loadChildren: './cliente/seguimiento/seguimiento.module#SeguimientoModule'},
+            { path: 'dashboardcustomer', loadChildren: './cliente/dashboardcustomer/dashboardcustomer.module#DashboardcustomerModule' },
+
     ]}
     ];
 

@@ -5,24 +5,25 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { GlobalService } from '../../providers/global.service';
 
 @Component({
-  selector: 'app-activities',
-  templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.scss']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.scss']
 })
-export class ActivitiesComponent implements OnInit {
+export class EmployeeComponent implements OnInit {
+
   closeResult: string;
-  actividades: any;
-  actividad: any;
+  empleados: any;
+  empleado: any;
   nuevo: any;
-  // It maintains actividades form display status. By default it will be false.
+  // It maintains empleados form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
-      this.actividades = [];
-      this.actividad = [];
+      this.empleados = [];
+      this.empleado = [];
       this.nuevo = [];
    }
 
@@ -32,16 +33,16 @@ export class ActivitiesComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
-            this.nuevo = JSON.stringify({name: this.actividad.name , description:this.actividad.description});
-            this.globalService.addModel(this.nuevo,"/api/activity")
+            this.nuevo = JSON.stringify({identification : this.empleado.identification ,firstName: this.empleado.firstName,lastName: this.empleado.lastName , phoneNumber:this.empleado.phoneNumber, gender: this.empleado.gender, username: this.empleado.username});
+            this.globalService.addModel(this.nuevo,"/api/user/employee")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {
-                    //Para que actualice la lista una vez que es creado el actividad
-                    this.globalService.getModel("/api/activity")
+                    //Para que actualice la lista una vez que es creado el empleado
+                    this.globalService.getModel("/api/employee")
                         .then((result) => {
                             console.log(result);
-                            this.actividades = result['data'];
+                            this.empleados = result['data']['employees'];
                         }, (err) => {
                             console.log(err);
                         });
@@ -51,14 +52,14 @@ export class ActivitiesComponent implements OnInit {
                 console.log(err);
             });
         }else{
-            this.globalService.updateModel(this.actividad.id, this.actividad, "/api/activity")
+            this.globalService.updateModel(this.empleado.id, this.empleado, "/api/employee")
                 .then((result) => {
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es editado el actividad
-                        this.globalService.getModel("/api/activity")
+                        //Para que actualice la lista una vez que es editado el empleado
+                        this.globalService.getModel("/api/employee")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.empleados = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -69,7 +70,7 @@ export class ActivitiesComponent implements OnInit {
                 });
 
         }
-        // Hide Usuario entry section.
+        // Hide empleado entry section.
         this.showNew = false;
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -92,11 +93,11 @@ show() {
 
 ngOnInit() {
     this.show();
-    this.globalService.getModel("/api/activity")
+    this.globalService.getModel("/api/employee")
         .then((result) => {
             console.log(result);
-            this.actividades = result['data'];
-            console.log(this.actividades);
+            this.empleados = result['data']['employees'];
+            console.log(this.empleados);
         }, (err) => {
             console.log(err);
         });
@@ -108,7 +109,7 @@ faEdit = faEdit;
 onEdit(index: number) {
     this.submitType = 'Update';
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.empleado = Object.assign({}, this.empleados[this.selectedRow]);
     this.showNew = true;
 }
 
@@ -116,19 +117,19 @@ onEdit(index: number) {
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.empleado = Object.assign({}, this.empleados[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar esta Actividad?')){
-        this.globalService.removeModel(this.actividad.id, "/api/activity")
+    if(confirm('¿Estas seguro de eliminar este empleado?')){
+        this.globalService.removeModel(this.empleado.id, "/api/employee")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado la actividad
-                        this.globalService.getModel("/api/activity")
+                        //Para que actualice la lista una vez que es eliminado la empleado
+                        this.globalService.getModel("/api/employee")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.empleados = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -145,7 +146,7 @@ onDelete(index: number) {
 
 // This method associate toCancel Button.
 onCancel() {
-    // Hide Usuario entry section.
+    // Hide empleado entry section.
     this.showNew = false;
 }
 

@@ -4,6 +4,12 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
+
+        <a [routerLink]="['/dashboardcustomer']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                    href="javascript:void(0)">
+                    <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                    <span>{{ 'Dashboard (Cliente)' }}</span>
+                </a>
         <!-- Esto es Para trabajar el menú desde un menuJson está en fase de desarrollo -->
 
         <!-- <div  items="menu" (itemClick)="menuItemClick($event)">
@@ -18,7 +24,7 @@
             </div>
         </div> -->
 
-        <div class="nested-menu1">
+        <!-- <div class="nested-menu1">
             <a class="list-group-item" (click)="addExpandClassReport('pages')">
                 <i class="fa fa-user-circle-o"></i>&nbsp;
                 <span>{{ 'Mi cuenta' | translate }}</span>
@@ -27,14 +33,16 @@
                 <ul class="submenu1">
 
                     <li>
-                        <a [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                        <a [routerLink]="['/dashboardcustomer']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-user"></i>&nbsp;
-                            <span>{{ 'Perfil' | translate }}</span>
+                            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+                            <span>{{ 'Dashboard' }}</span>
                         </a>
                     </li>
 
-                   <!-- <li>
+
+
+                   <li>
                         <a [routerLink]="[]" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                             <i class="fa fa-plus"></i>&nbsp;
                             <span>{{ 'Realizar solicitud' | translate }}</span>
@@ -56,7 +64,7 @@
                             </li>
                         </ul>
 
-                    </li>-->
+                    </li>
 
                     <li>
                         <a [routerLink]="['/actividad']" [routerLinkActive]="['router-link-active']" class="list-group-item"
@@ -65,13 +73,7 @@
                             <span>{{ 'Actividades' | translate }}</span>
                         </a>
                     </li>
-                    <li>
-                        <a [routerLink]="['/seguimiento']" [routerLinkActive]="['router-link-active']" class="list-group-item"
-                            href="javascript:void(0)">
-                           <i class="fa fa-bell"></i>&nbsp;
-                            <span>{{ 'Seguimiento' | translate }}</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a [routerLink]="['/valoracion']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
@@ -79,7 +81,7 @@
                             <span>{{ 'Valoracion' | translate }}</span>
                         </a>
                     </li>
-                    
+
                         <div class="nested-menu">
                         <a  class="list-group-item" (click)="addExpandClassSubAte('pages15')">
                             <i class="fa fa-list-alt"></i>&nbsp;
@@ -107,7 +109,7 @@
                     </div>
                 </ul>
             </li>
-        </div>
+        </div> -->
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('pages1')">
                 <i class="fa fa-address-book"></i>&nbsp;
@@ -116,7 +118,7 @@
 
             <li class="nested" [class.expand]="showMenu === 'pages1'">
                 <ul class="submenu">
-                    
+
 
                         <div class="nested-menu1">
                             <a class="list-group-item" (click)="addExpandClassSubAte('pages2')">
@@ -157,9 +159,9 @@
 
 
 
-        
+
         <li>
-            <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
+            <a [routerLink]="['/activitiesCollections']" [routerLinkActive]="['router-link-active']" class="list-group-item" href="javascript:void(0)">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Actividades y Recaudos' | translate }}</span>
             </a>
@@ -255,13 +257,13 @@
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <a [routerLink]="['/cliente']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                         <i class="fa fa-user"></i>&nbsp;
                         <span>{{ 'Usuarios' | translate }}</span>
                     </a>
                 </li>
                 <li>
-                    <a [routerLink]="['/usuario']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                    <a [routerLink]="['/cliente']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                         <i class="fa fa-user"></i>&nbsp;
                         <span>{{ 'Clientes' | translate }}</span>
                     </a>
@@ -279,6 +281,13 @@
                         <span>{{ 'Actividades' | translate }}</span>
                     </a>
                 </li>
+                <li>
+                        <a [routerLink]="['/empleados']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                            href="javascript:void(0)">
+                            <i class="fa fa-monument"></i>&nbsp;
+                            <span>{{ 'Empleados' | translate }}</span>
+                        </a>
+                    </li>
         </ul>
         </li>
     </div>

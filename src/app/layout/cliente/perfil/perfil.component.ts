@@ -3,7 +3,8 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-//import { GlobalService } from '../../providers/global.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { GlobalService } from '../../../providers/global.service';
 
 @Component({
   selector: 'app-perfil',
@@ -17,9 +18,8 @@ export class PerfilComponent implements OnInit {
     closeResult: string;
     perfil: any;
     nuevo: any;
-    // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
+
     submitType: string = 'Save';
     selectedRow: number;
 

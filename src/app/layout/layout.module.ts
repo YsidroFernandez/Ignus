@@ -17,6 +17,6 @@ import { TransactionsComponent } from './transactions/transactions.component';
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent ]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent]
 })
 export class LayoutModule {}
