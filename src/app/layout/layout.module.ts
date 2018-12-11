@@ -8,7 +8,7 @@ import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TransactionsComponent } from './transactions/transactions.component';
-import { ActivitiesCollectionsComponent } from './activities-collections/activities-collections.component';
+
 
 @NgModule({
     imports: [
@@ -17,6 +17,6 @@ import { ActivitiesCollectionsComponent } from './activities-collections/activit
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent, ActivitiesCollectionsComponent]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent]
 })
 export class LayoutModule {}

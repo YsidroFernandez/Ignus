@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-activities-collections',
-  templateUrl: './activities-collections.component.html',
-  styleUrls: ['./activities-collections.component.scss']
+  selector: 'app-activitiesCollections',
+  templateUrl: './activitiesCollections.component.html',
+  styleUrls: ['./activitiesCollections.component.scss']
 })
 export class ActivitiesCollectionsComponent implements OnInit {
 

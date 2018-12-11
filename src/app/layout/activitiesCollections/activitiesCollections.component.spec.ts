@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivitiesCollectionsComponent } from './activities-collections.component';
+import { ActivitiesCollectionsComponent } from './activitiesCollections.component';
 
 describe('ActivitiesCollectionsComponent', () => {
   let component: ActivitiesCollectionsComponent;
