@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Calificación de Empleado'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
-        <div class="col col-xl-12">
+        <div class="col col-md-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
                 Calificación de Empleado
             </div>
@@ -46,14 +46,16 @@
                         </button>
                     </span>
                 </div>
-                <div class="col col-sm-12">
-                        <div class="card border-primary">
-                            <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                            <div class="card-body text-primary">
-                                <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                <p class="card-text">MARICO EL QUE LO LEA.</p>
-                            </div>
+                <div *ngIf="view" class="col col-sm-12">
+                    <div class="card border-primary">
+                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL
+                                REPORTE</b></div>
+                        <div class="card-body text-primary">
+                            <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes
+                                    por Ordenes de Servicio</b></h5>
+                            <p class="card-text">MARICO EL QUE LO LEA.</p>
                         </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div [chart]="chart" id="graficaLineal" class="chart"></div>
