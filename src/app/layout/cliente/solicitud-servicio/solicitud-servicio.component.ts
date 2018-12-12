@@ -3,12 +3,16 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+//import { GlobalService } from '../../providers/global.service';
 
 @Component({
   selector: 'app-solicitud-servicio',
   templateUrl: './solicitud-servicio.component.html',
+  //animations: [routerTransition()],
   styleUrls: ['./solicitud-servicio.component.scss']
 })
+
+
 export class SolicitudServicioComponent implements OnInit {
   solicitud2 = {
     tipo: "",
@@ -20,6 +24,7 @@ export class SolicitudServicioComponent implements OnInit {
 
   tipos = ["Compra", "Venta", "Alquiler", "Arrendamiento"]
   estados: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
+  
   constructor() { 
     console.log("hola")
   }

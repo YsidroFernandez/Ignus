@@ -3,6 +3,7 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
     selector: 'app-calificacion',
@@ -12,7 +13,7 @@ import * as moment from 'moment';
 
 })
 export class CalificacionComponent implements OnInit {
-
+    datePickerConfig: Partial<BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
@@ -21,6 +22,10 @@ export class CalificacionComponent implements OnInit {
     constructor() {
         let now = moment().format();
         console.log('hello world', this.tipos);
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'DD/MM/YYYY' });
     }
 
     ngOnInit() {
