@@ -3,7 +3,7 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 @Component({
     selector: 'app-estadistico',
     templateUrl: './estadistico.component.html',
@@ -13,31 +13,33 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 })
 export class EstadisticoComponent implements OnInit {
     selectedValue: string = "";
-   
-    // defaultValue = this.values[0];
+    datePickerConfig: Partial<BsDatepickerConfig>;
+    public view = false;
+    
     tipos = [ { value: "1", name: "Barra" }, { value: "2", name: "Lineal" }];
-// { value: "1", name: "Circular" },
-    public chart: any;
-    constructor(
 
-    ) {
+    public chart: any;
+    constructor() {
         this.selectedValue = "0";
         let now = moment().format();
-        console.log('hello world', this.tipos);
+
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'DD/MM/YYYY' },
+            { locale: 'es' });
     }
 
     ngOnInit() {
 
     }
 
-
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
 
     buscar(data) {
-        console.log(data);
-
+        this.view = true;
         if (data == 3) {
             this.chart = new Chart({
                 chart: {

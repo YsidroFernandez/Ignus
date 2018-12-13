@@ -3,7 +3,8 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
+
 
 @Component({
     selector: 'app-calificacion',
@@ -14,30 +15,33 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class CalificacionComponent implements OnInit {
     datePickerConfig: Partial<BsDatepickerConfig>;
+    public view = false;
+    public time_ini: any;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
 
     public chart: any;
-    constructor() {
+    constructor() {              
         let now = moment().format();
-        console.log('hello world', this.tipos);
+        
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
-            { dateInputFormat: 'DD/MM/YYYY' });
+            { dateInputFormat: 'DD/MM/YYYY' },
+            { locale: 'es' });
     }
 
     ngOnInit() {
 
     }
 
-
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
-    buscar() {
 
+    buscar() {
+        this.view = true;
         this.chart = new Chart({
             chart: {
                 renderTo: 'graficaLineal', 	// Le doy el nombre a la gráfica
