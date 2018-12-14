@@ -112,23 +112,23 @@ export class ContratoComponent implements OnInit {
                     folioNumber: this.contract.folioNumber,
                     firmDate:  moment(this.contract.firmDate).format('DD/MM/YYYY'),
                     elaborationDate: moment(this.contract.elaborationDate).format('DD/MM/YYYY'),
-                    client: this.contract.client.id,                         
-                    agent: this.contract.agent.id                   
+                    ClientId: this.contract.client.id,                         
+                    EmployeeId: this.contract.agent.id                   
                  });
                  console.log(this.nuevo);
-                // this.globalService.addModel(this.nuevo, "/api/contract").then((result) => {
-                //     if (result['status']) {
-                //         this.globalService.getModel("/api/contract").then((result) => {
-                //             this.contratos = result['data'];
-                //             console.log(this.contratos);
-                //         }, (err) => {
-                //             console.log(err);
-                //         });
-                //     }
+                this.globalService.addModel(this.nuevo, "/api/contract").then((result) => {
+                    if (result['status']) {
+                        this.globalService.getModel("/api/contract").then((result) => {
+                            this.contratos = result['data'];
+                            console.log(this.contratos);
+                        }, (err) => {
+                            console.log(err);
+                        });
+                    }
 
-                // }, (err) => {
-                //     console.log(err);
-                // });
+                }, (err) => {
+                    console.log(err);
+                });
             }
         else {
                 this.globalService.updateModel(this.contrato.id, this.contrato, "/api/contract").then((result) => {
