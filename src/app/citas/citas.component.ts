@@ -7,7 +7,7 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { calendariocita, actions,colors } from '../../environments/environment';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import { GlobalService } from '../providers/global.service';
 
@@ -64,6 +64,7 @@ export class CitasComponent implements OnInit {
   events: CalendarEvent[] = calendariocita
   activeDayIsOpen: boolean = true;
   closeResult: string;
+  msg = '';
 
   constructor(private modal: NgbModal, public globalService: GlobalService) {}
 
@@ -85,6 +86,13 @@ export class CitasComponent implements OnInit {
             return  `with: ${reason}`;
         }
     }
+
+  delete(index: number) {
+       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
+        this.cita.splice(index, 1);
+        this.msg = 'Campo Eliminado Exitosamente';
+      }
+      }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -137,6 +145,8 @@ export class CitasComponent implements OnInit {
   }
 
   faEye = faEye;
+  faEdit = faEdit;
+  faTrash = faTrash;
 
   onDelete(index: number) {
     console.log('eliminando');

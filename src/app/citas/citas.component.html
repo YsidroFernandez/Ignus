@@ -14,28 +14,11 @@
         </mwl-calendar-month-view>
       </div> -->
  
-  <div class="card mb-3">
-    <div class="row">
-      <div class="col-2">
-      </div>
-      <div class="col-7">
-        <h3>
-          Editar Cita
-          <div class="clearfix"></div>
-        </h3>
-      </div>
-      <div class="col-2 text-xs-center">
-        <!--
-        <button class="btn btn-primary pull-right" (click)="open(Crear)">
-          Crear Cita
-        </button>
-      -->
-      </div>
-    </div>
-    <div class="col-1"></div>
-  </div>
+  <div class="card-header" style="text-align: -webkit-center;">
+        Editar Cita</div>
 
-  <table class="table table-bordered">
+  <div class="card-body  table-responsive">
+  <table class="card-body table table-hover">
     <thead>
       <tr>
         <th>Titulo</th><!--1-->
@@ -50,16 +33,28 @@
           <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
         </td>
         <td><!--2-->
-          <input type="text" class="form-control" [(ngModel)]="event.descripcion" (keyup)="refresh.next()">
+          <input type="text" class="form-control" [(ngModel)]="event.description" (keyup)="refresh.next()">
         </td>
         <td><!--3-->
           <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
         </td>
-        <td><!--4-->
-          <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                  (click)="Open(content)">
-                   <fa-icon [icon]="faEye"></fa-icon> 
+        <td><!--4Opciones-->
+          <button aling="center" type="button" style="background: #1AB394; border-radius: 20px"> <!--(click)="open(Crear)"-->
+                  <fa-icon style="color: white" [icon]="faEye"></fa-icon>
           </button>
+
+          <button aling="center" type="button" style="background: #1AB394; border-radius: 20px"> <!--(click)="open
+
+(Crear)"-->
+                  <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+          </button>
+            
+          <button aling="center" (click)="delete()" type="button" style="background: #1AB394; border-radius: 20px">
+                  <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+          </button>
+
+          
+
           <!--<input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
             [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
             placeholder="Not set">-->
@@ -77,7 +72,7 @@
       </tr>
     </tbody>
   </table>
-
+  </div>
 
   <div class="card mb-3">
     <div class="col-xl-4 text-xs-center">

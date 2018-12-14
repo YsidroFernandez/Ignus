@@ -29,7 +29,7 @@ onSelectFile(event) { // called each time file input changes
       reader.readAsDataURL(event.target.files[0]); // read file as data url
        
       reader.onload = (event) => { // called once readAsDataURL is completed
-        this.agency.logos[1].url = event.target.result;
+        //this.agency.logos[1].url = event.target.result;
       }
     }
 }
