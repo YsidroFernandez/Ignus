@@ -2,8 +2,16 @@
     <app-page-header [heading]="'Servicios'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
         <div class="card-header" style="text-align: -webkit-center;">Servicios registrados</div>
-        <button (click)="show1 = !show1">{{show1 ? 'Vista 1' : 'Vista 2'}}</button>
-        <div  *ngIf="!show1" class="card mb-3">
+
+
+        <div style="text-align: end; padding-top: 2%; padding-bottom: 2%">
+
+                <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1 ? 'Vista Card ' : 'Vista Tabla'}}</button>
+        
+
+
+        </div>
+        <div  *ngIf="show1" class="card mb-3">
          <br>
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -70,11 +78,11 @@
         </div>
          
 
-        <div  *ngIf="show1" class="card mb-3">
+        <div  *ngIf="!show1" class="card mb-3">
                 <div class="row">
                     
                         <div *ngFor="let item of services ; let i= index" class="col-md-6">
-                           <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                           <div class="card flex-md-row mb-4 shadow-sm ">   
                               <div class="card-body d-flex flex-column align-items-start">
                                  <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
                                  
@@ -95,8 +103,10 @@
                                  </div>
                                  
                               </div>
+                              <div class="card-body d-flex flex-column align-items-end">
                               <img  class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{item.urlImage}}" style="width: 300px; height: 400px; border-radius: 10%;">
-                           </div>    
+                           </div>   
+                        </div>  
                         </div>
                     
                       
