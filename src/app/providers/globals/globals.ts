@@ -5,19 +5,13 @@ import { BehaviorSubject } from 'rxjs'
 @Injectable()
 export class GlobalsProvider {
     // public serviceBaseUrl =  enviroment.apiHost;
-
-
-
     constructor() {
-
     }
 //    public loading() {
 //         let loading = this.loadingCtrl.create({
 //             spinner: 'hide',
 //             content: `<div class="boxLoading"></div>`
 //         });
-
 //         return loading;
 //     }
-
 }
