@@ -29,19 +29,25 @@
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Correo</th>
-                            <th>Tipo</th>
-                            <th>descripcion</th>
-                            <th> Estado </th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Telefono</th>
+                            <th> Tipo de Solicitud </th>
+                            <th> Fecha</th>
+                            <th> Hora</th>
+                            <th> Estatus </th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="onEdit(i)">
-                            <td>{{ solicitud.correo}}</td>
-                            <td>{{ solicitud.tipo}}</td>
-                            <td>{{ solicitud.descripcion}}</td>
-                            <td>{{ solicitud.estado}}</td>
+                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="openForEdit(Solicitud)">
+                            <td>{{Solicitud.nombre}}</td>
+                            <td>{{Solicitud.apellido}}</td>
+                            <td>{{Solicitud.telefono}}</td>
+                            <td>{{Solicitud.tipo}}</td>
+                            <td>{{Solicitud.fecha}}</td>
+                            <td>{{Solicitud.hora}}</td>
+                            <td>{{Solicitud.estatus}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
@@ -115,7 +121,7 @@
     
                                     <div class="row mb-3">
                                         <div class="col-12 col-sm-6">
-                                            <label for="fechainicio">Fecha de Inicio</label>
+                                            <label for="fechainicio">Fecha</label>
                                             <div class="input-group">
                                                 <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="nuevacita.fechainicio"
                                                     ngbDatepicker #fechainicio="ngbDatepicker" class="form-control" />
@@ -162,14 +168,28 @@
         <div class="row mb-3">
             <div class="col col-sm-6">
                 <div class="form-group">
-                    <label class="ng-tns-c12-9" for="correo">Correo</label>
+                    <label class="ng-tns-c12-9" for="correo">Nombre</label>
                     <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
                         #correo="ngModel" required>
                 </div>
             </div>
             <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="ng-tns-c12-9" for="correo">Apellido</label>
+                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
+                            #correo="ngModel" required>
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label class="ng-tns-c12-9" for="correo">Telefono</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
+                                #correo="ngModel" required>
+                        </div>
+                    </div>
+            <div class="col col-sm-6">
                 <div class="form-group">
-                    <label for="descripcion">Tipo</label>
+                    <label for="descripcion">Tipo de servicio</label>
                     <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
                         <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
                             ngbDropdownToggle>{{solicitud2.tipo}}</button>

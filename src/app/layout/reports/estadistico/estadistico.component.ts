@@ -26,7 +26,7 @@ export class EstadisticoComponent implements OnInit {
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
-            { dateInputFormat: 'DD/MM/YYYY' },
+            { dateInputFormat: 'MM/YYYY' },
             { locale: 'es' });
     }
 
