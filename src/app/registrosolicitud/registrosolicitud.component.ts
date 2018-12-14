@@ -35,23 +35,20 @@ export class RegistroSolicitudComponent implements OnInit {
     selectedRow: number;
 
   solicitud2= {
-    cliente: "1",
-    inmueble: {
     tipo: "",
-    pisos:"",
-    banos: "",
-    habitaciones: "",
-    descripcion: "",
-    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
-    estado: "En espera",
-    fotos: []
-    },
-    fecha: "",
-    tipo: "" ,
+    ClientId:1,
+	TypeServiceId: "",
+	wishDate:"",
+    TypeRequestId:3,
+    estado:[],
+    ciudad: []
+
     
   }
 
 tiposervicio: any;
+tipoespecificaciones: any;
+especificaciones: any;
 
 constructor(private modalService: NgbModal,public globalService: GlobalService) {
 
@@ -63,9 +60,14 @@ constructor(private modalService: NgbModal,public globalService: GlobalService) 
         { dateInputFormat: 'DD/MM/YYYY' },
         { locale: 'es' });
 
-this.solicitud = [];
+this.solicitud = {ClientId: 1,
+TypeServiceId: "",
+wishDate:"",
+TypeRequestId:3
+}
 this.nuevo = [];
 this.tiposervicio = [];
+this.tipoespecificaciones = [];
 
 this.globalService.getModel(`/api/state/`).then((result) => {
     if (result['status']) {
@@ -83,11 +85,19 @@ this.globalService.getModel("/api/typeService").then((result) => {
                 this.tiposervicio = result['data'];
                 
     }
-    console.log(this.tiposervicio);
 }, (err) => {
     console.log(err);
 });
 
+this.globalService.getModel("/api/typeSpecification").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+                this.tipoespecificaciones = result['data'];
+                console.log(this.tipoespecificaciones)
+    }
+}, (err) => {
+    console.log(err);
+});
       }
 
      
@@ -110,27 +120,26 @@ cargarciudades(state){
 // This method associate to New Button.
 enviar() { 
   
-  this.nuevo = JSON.stringify({correo: this.solicitud.email, tipo:this.solicitud.type, descripcion:this.solicitud.description, estado:this.solicitud.status, fecha:this.solicitud.date, fotos: this.solicitud.images });
-   this.globalService.addModel(this.nuevo,"/api/requirement")
+  this.nuevo = JSON.stringify({
+    ClientId: this.solicitud.ClientId,
+	TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
+	wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
+	TypeRequestId: this.solicitud.TypeRequestId
+});
+console.log("result",this.nuevo);
+   this.globalService.addModel(this.nuevo,"/api/request/pending")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
                         //Para que actualice la lista una vez que es creado el recaudo
-                        this.globalService.getModel("/api/requirement")
-                            .then((result) => {
-                                console.log(result);
-                                this.solicitudes = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
+                            console.log(result);
+                        
                     }
 
                 }, (err) => {
                     console.log(err);
                 });
-  var select = document.getElementById("tiposolicitud");
-  var options = document.getElementsByTagName("option");
-
+  
  // this.solicitud2.tipo = options[select.value-1].text
 //solicitud.push(this.solicitud2)
   alert("Agregado con exito")
@@ -138,9 +147,9 @@ enviar() {
 }
 
 limpiar(){
-  console.log(this.solicitud2)
-  this.solicitud2= {
-    cliente: "1",
+  
+  this.solicitud= {
+  /*  cliente: "1",
     inmueble: {
     tipo: "",
     pisos:"",
@@ -152,7 +161,11 @@ limpiar(){
     fotos: []
     },
     fecha: "",
-    tipo: "" 
+    tipo: "" */
+        ClientId:1,
+        TypeServiceId: "",
+        wishDate:"",
+        TypeRequestId:3
 }
 }
 

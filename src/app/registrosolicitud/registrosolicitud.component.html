@@ -6,236 +6,153 @@
             <div class="row">
                 <div class="col col-sm-6">
                     <div class="form-group"><label class="ng-tns-c12-9" for="tiposolicitud">Tipo Solicitud</label>
-                        <select class="form-control" name="horas" id="tiposolicitud" required [(ngModel)]="solicitud2.tipo">
-                            <option [value]="tipo.id" *ngFor="let tipo of tiposervicio">{{tipo.name}}</option>
+                        <select class="form-control" name="horas" id="tiposolicitud" required [(ngModel)]="solicitud.TypeServiceId">
+                            <option *ngFor="let tipo of tiposervicio" [value]="tipo.id">{{tipo.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="col col-sm-6">
                     <div class="form-group"><label class="ng-tns-c12-9" for="fechapreferencial">Fecha Preferencial</label>
-                        <input name="fechapreferencial" formControlName="fechareferencial" type="text" class="form-control"
+                       <!--<input name="fechapreferencial" formControlName="fechareferencial" type="text" class="form-control"
                             placeholder="Hoy" [bsConfig]="datePickerConfig" bsDatepicker autocomplete="off" required
-                            [(ngModel)]="solicitud2.fecha">
+                            [(ngModel)]="solicitud.wishDate">--> 
+                            <input name="firmDate" [(ngModel)]="solicitud.wishDate" name="firmDate" [bsConfig]="datePickerConfig"
+                        type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker autocomplete="off"
+                        required>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-        <div class="form-control">
-            <div class="row mb-3">
-<div class="row">
+        <div class="row mb-3">
+            <div class="form-control">
+            <div class="row">
                 <div class="col col-sm-8">
                     <div class="form-group">
                         <b><label>Inmueble</label></b>
                     </div>
                 </div>
                 <div class="col col-sm-4">
-                        <div class="form-group">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                                <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                               <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                             </button>
+                    <div class="row">
+                        <div class="col col-sm-9">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        </div>
+                        <div class="col col-sm-3">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+                                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
+                </div>
             </div>
-                <br>
-                <div class="col col-sm-6">
-                    <div class="form-group"><label class="ng-tns-c12-9" for="tipoinmueble">Tipo de Inmueble</label>
-                        <select class="form-control" name="tipoinmueble" id="tipoinmueble" required [(ngModel)]="solicitud2.inmueble.tipo"
-                            #tipo="ngModel">
-                            <option value="0" disabled>Seleccione</option>
-                            <option value="1">Casa</option>
-                            <option value="2">Edificio</option>
-                            <option value="3">Terreno</option>
-                            <option value="4">Parcela</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col col-sm-3">
-                    <div class="form-group">
-                        <label class="ng-tns-c12-9" for="habitaciones">Numero de Habitaciones</label>
-                        <select class="form-control" name="habitaciones" id="habitaciones" [(ngModel)]="solicitud2.habitaciones"
-                            #habitaciones="ngModel" required>
-                            <option value="0" disabled>Seleccione</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6+</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col col-sm-3">
-                    <div class="form-group">
-                        <label for="tipos">Cantidad de Baños</label>
-                        <select class="form-control" name="banos" id="banos" [(ngModel)]="solicitud2.banos" #banos="ngModel"
-                            required>
-                            <option value="0" disabled>Seleccione</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6+</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label for="pisos">Número de Plantas/Pisos</label>
-                        <select class="form-control" name="pisos" id="pisos" [(ngModel)]="solicitud2.pisos" #pisos="ngModel"
-                            required>
-                            <option value="0" disabled>Seleccione</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6+</option>
-                        </select>
-                    </div>
-                </div>
-
-
-
-                <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label for="tipos">Estado</label>
-                        <select class="form-control" name="estado" id="estado" [(ngModel)]="solicitud2.inmueble.direccion.estado"
-                            #estado="ngModel" (change)="cargarciudades(solicitud2.inmueble.direccion.estado)">
-                            <option *ngFor="let est of estados" [value]="est.id">{{est.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label for="ciudades">Ciudades</label>
-                        <select class="form-control" name="ciudad" id="ciudad" [(ngModel)]="solicitud2.inmueble.direccion.ciudad"
-                            #ciudad="ngModel">
-                            <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <!--
-                        <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="pais">Pais</label>
-                            <select class="form-control" name="pais" id="paises"  [(ngModel)]="solicitud2.inmueble.direccion.pais" #pais="ngModel" (change)="cargarestados()">
-                                <option *ngFor="let pais of paises"value="pais">{{pais}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Municipio</label>
-                            <select class="form-control" name="municipio" id="municipio" [(ngModel)]="solicitud2.direccion.municipio" #municipio="ngModel">
-                                <option *ngFor="let mun of municipios" value="mun">{{mun}}</option>
-                            </select>
-                        </div>
-                    </div>
+            
+            <div *ngFor="let te of tipoespecificaciones" [id]="te.id">
                     
-                    <div class="col col-sm-6">
-                        <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Parroquia</label>
-                            <select class="form-control" name="horas" id="tiposolicitud" required>
-                                <option value="1">Concepción</option>
-                                <option value="2">Catedral</option>
-                                <option value="3">Juan de Villegas</option>
-                                <option value="4">Unión</option>
-                                <option value="5">Tamaca</option>
-                                <option value="6">El Cují</option>
+                <div class="row">
+                        <div class="col col-sm-12">
+                        <div class="form-control">
+                    <div class="col col-sm-12">
+                        <b><label>{{te.name}}</label></b>
+                    </div>
+                    <br>
+                                        
+                    
+                    <div class="col col-sm-6" *ngFor="let esp of te.specifications" [id]="esp.id">
+                        <div class="form-group"><label class="ng-tns-c12-9" [for]="esp.name">{{esp.name}}</label>
+                            <select class="form-control" [name]="esp.name" [id]="esp.name" required [(ngModel)]="solicitud2.tipo">
+                                <option value="1">1</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
                             </select>
                         </div>
-                    </div> -->
-                <div class="col col-sm-6">
+                    </div>
+            
+                </div>
+            </div>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-sm-12">
+                <div class="form-control">
+                        <div class="col col-sm-8">
+                            <div class="form-group">
+                                <b><label>Ubicacion</label></b>
+                            </div>
+                        </div>
+        
+        
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Estado</label>
+                                <select class="form-control" name="estado" id="estado" [(ngModel)]="solicitud2.estado"
+                                    #estado="ngModel" (change)="cargarciudades(solicitud2.estado)">
+                                    <option *ngFor="let est of estados" [value]="est.id">{{est.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="ciudades">Ciudades</label>
+                                <select class="form-control" name="ciudad" id="ciudad" [(ngModel)]="solicitud2.ciudad"
+                                    #ciudad="ngModel">
+                                    <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+        
+                        <!--
+                    <div class="col col-sm-6">
                     <div class="form-group">
-                        <label for="precio">Precio Deseado</label>
-                        <input type="number" class="form-control" value=0 />
+                        <label for="pais">Pais</label>
+                        <select class="form-control" name="pais" id="paises"  [(ngModel)]="solicitud2.inmueble.direccion.pais" #pais="ngModel" (change)="cargarestados()">
+                            <option *ngFor="let pais of paises"value="pais">{{pais}}</option>
+                        </select>
                     </div>
                 </div>
-
-                <br>
-                <div class="col col-sm-12">
-                    <div class="form-control">
-                        <p>Especificaciones</p>
-                        <hr>
-                        <div class="row mb-3">
-
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <input type="checkbox" name="patio" value="PatioTrasero">Patio Trasero<br>
-                                </div>
-                            </div>
-
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <input type="checkbox" name="Estacionamiento" value="Estacionamiento">Estacionamiento<br>
-                                </div>
-                            </div>
-
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <input type="checkbox" name="Piscina" value="Piscina">Piscina<br>
-                                </div>
-                            </div>
-
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <input type="checkbox" name="areasVerdes" value="areasVerdes">Áreas Verdes<br>
-                                </div>
-                            </div>
-
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <input type="checkbox" name="ParqueInfantil" value="ParqueInfantil">Parque
-                                    Infantil<br>
-                                </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="nombre">Municipio</label>
+                        <select class="form-control" name="municipio" id="municipio" [(ngModel)]="solicitud2.direccion.municipio" #municipio="ngModel">
+                            <option *ngFor="let mun of municipios" value="mun">{{mun}}</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col col-sm-6">
+                    <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Parroquia</label>
+                        <select class="form-control" name="horas" id="tiposolicitud" required>
+                            <option value="1">Concepción</option>
+                            <option value="2">Catedral</option>
+                            <option value="3">Juan de Villegas</option>
+                            <option value="4">Unión</option>
+                            <option value="5">Tamaca</option>
+                            <option value="6">El Cují</option>
+                        </select>
+                    </div>
+                </div> -->
+                        <div class="col col-sm-6">
+                            <div class="col col-sm-12">
+                                <label class="ng-tns-c12-9" for="referencia">Referencia</label>
+                                <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" id="referencia"
+                                    required style="width: 700px; height: 200px; "></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
 
-                <hr>
-                <div class="col col-sm-6">
-                    <div class="col col-sm-12">
-                        <label class="ng-tns-c12-9" for="referencia">Referencia</label>
-                        <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" id="referencia"
-                            required style="width: 700px; height: 200px; "></textarea>
-                    </div>
-                </div>
-                <div class="col col-sm-12">
-                    <div class="form-group"><label class="ng-tns-c12-9" for="fotos">Fotos</label>
-                        <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.inmueble.fotos"
-                            #fotos="ngModel" required>
-                    </div>
-                </div>
-                <hr>
+                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                    (click)="limpiar()">Limpiar</button>
+
+                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                    (click)="enviar()">Enviar</button>
             </div>
         </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col col-sm-12">
-            <div class="form-group">
-                <label class="ng-tns-c12-9" for="descripcionI">Descripcion del Inmueble</label>
-                <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion"
-                    #descripcion="ngModel" required cols="30" rows="4"></textarea>
-            </div>
-        </div>
-
-        <div class="col-3">
-        </div>
-        <div class="col-6">
-
-            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
-
-            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar</button>
-        </div>
-
-    </div>
+    
 
 </div>
