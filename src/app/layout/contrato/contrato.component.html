@@ -128,16 +128,10 @@
             <div class="col col-sm-6">
                 <div class="card-body">
                     <div class="form-group">
-
-                        <label for="descripcion">Fecha</label>
-                        <!-- <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker" class="form-control" />
-
-                        <span class="input-group-btn">
-                            <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                            </button>
-                        </span> -->
-
+                        <label for="descripcion">Fecha</label> 
+                        <input name="elaborationDate" [(ngModel)]="contrato.elaborationDate" [bsConfig]="datePickerConfig" type="text"
+                        class="form-control" placeholder="Fecha de elavoración*" bsDatepicker autocomplete="off"
+                        required>
                     </div>
                 </div>
             </div>
