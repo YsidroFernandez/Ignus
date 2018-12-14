@@ -21,7 +21,7 @@
                         <div class="col-sm-3">
                             <div class="form-group text-center">
                                 <label for="descripcion">Fecha Fin</label>
-                                <input name="fecha_fin" [minDate]="20/12/2018" [(ngModel)]="datos.fecha_fin" [bsConfig]="datePickerConfig"
+                                <input name="fecha_fin" [(ngModel)]="datos.fecha_fin" [bsConfig]="datePickerConfig"
                                     type="text" class="form-control" placeholder="Fecha fin *" bsDatepicker
                                     autocomplete="off" required>
                             </div>
@@ -60,8 +60,8 @@
                         <div class="card-body text-primary">
                             <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes
                                     por Ordenes de Servicio</b></h5>
-                            <p class="card-text">Fecha fin: {{datos.fecha_inicio}}</p>
-                            <p class="card-text">Fecha fin: {{datos.fecha_fin}}</p>
+                            <p class="card-text">Fecha fin: {{datos.fecha_inicio}}  Fecha fin: {{datos.fecha_fin}}</p>
+  
                         </div>
                     </div>
                 </div>
