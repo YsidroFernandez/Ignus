@@ -8,9 +8,16 @@ import { RegistroSolicitudComponent } from './registrosolicitud.component';
 import { PageHeaderModule } from '../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
 
 @NgModule({
-    imports: [CommonModule, RegistroSolicitudRoutingModule,
+    imports: [
+      BsDatepickerModule.forRoot(), // ToastrModule added        
+      DatepickerModule.forRoot(),
+      CommonModule, RegistroSolicitudRoutingModule,
        PageHeaderModule,
        FontAwesomeModule, NgbModule.forRoot(),
         FormsModule, ReactiveFormsModule],

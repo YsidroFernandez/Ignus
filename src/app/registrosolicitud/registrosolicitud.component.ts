@@ -6,6 +6,8 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { solicitud } from '../../environments/environment';
 import { GlobalService } from '../providers/global.service';
+import * as moment from 'moment';
+import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 
 
 
@@ -18,16 +20,14 @@ import { GlobalService } from '../providers/global.service';
     providers: []
 })
 export class RegistroSolicitudComponent implements OnInit {
-
+    datePickerConfig: Partial<BsDatepickerConfig>;
     closeResult: string;
     solicitud: any;
     solicitudes: any;
     nuevo: any;
 
-    paises=["Venezuela","Colombia","Brasil"]
-    estadost={"Venezuela":["Lara","Zulia","Caracas","Falcon"],"Colombia":["Antioquia","Bolivia","Cauca"],"Brasil":["Alagoas","Río de Janeiro"]}
-    municipio=["Urdaneta","Iribarren","Crespo","Palavecino"]
     estados = []
+    ciudades = []
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
@@ -35,24 +35,47 @@ export class RegistroSolicitudComponent implements OnInit {
     selectedRow: number;
 
   solicitud2= {
-    cedula:"",
-    correo: "",
-    tipo: "" ,
+    cliente: "1",
+    inmueble: {
+    tipo: "",
+    pisos:"",
+    banos: "",
+    habitaciones: "",
     descripcion: "",
-    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
+    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
     estado: "En espera",
+    fotos: []
+    },
     fecha: "",
-    fotos: [],
+    tipo: "" ,
+    
   }
 
 tiposervicio: any;
 
-estado: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
-
 constructor(private modalService: NgbModal,public globalService: GlobalService) {
+
+    let now = moment().format();
+
+    this.datePickerConfig = Object.assign({},
+        { containerClass: 'theme-dark-blue' },
+        { showWeekNumbers: false },
+        { dateInputFormat: 'DD/MM/YYYY' },
+        { locale: 'es' });
+
 this.solicitud = [];
 this.nuevo = [];
 this.tiposervicio = [];
+
+this.globalService.getModel(`/api/state/`).then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+        this.estados = result['data'];
+        
+    }
+}, (err) => {
+    console.log(err);
+});
 
 this.globalService.getModel("/api/typeService").then((result) => {
     if (result['status']) {
@@ -67,9 +90,20 @@ this.globalService.getModel("/api/typeService").then((result) => {
 
       }
 
+     
 //this method associate to reload estados
-cargarestados(){
-    this.estados = this.estadost[this.solicitud2.direccion.pais]
+cargarciudades(state){
+    console.log(state)
+    this.globalService.getModel(`/api/state/city/${state}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            this.ciudades = result['data'];
+                    
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
 }
 
 
@@ -106,17 +140,21 @@ enviar() {
 limpiar(){
   console.log(this.solicitud2)
   this.solicitud2= {
-    cedula:"",
-    correo: "",
-    tipo: "" ,
+    cliente: "1",
+    inmueble: {
+    tipo: "",
+    pisos:"",
+    banos: "",
+    habitaciones: "",
     descripcion: "",
-    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
+    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
     estado: "En espera",
+    fotos: []
+    },
     fecha: "",
-    fotos: [],
-  }
+    tipo: "" 
 }
-
+}
 
 
  ngOnInit() {}
