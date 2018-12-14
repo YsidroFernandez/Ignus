@@ -1,112 +1,83 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Citas'" [icon]="'fa-edit'"></app-page-header>
   <div class="container">
-      <!--<div [ngSwitch]="view" style="max-width: 1000px; max-height: 1000px;">
-          <mwl-calendar-month-view
-            *ngSwitchCase="CalendarView.Month"
-            [viewDate]="viewDate"
-            [events]="events"
-            [locale]="locale"
-            [refresh]="refresh"
-            [activeDayIsOpen]="activeDayIsOpen"
-            (eventTimesChanged)="eventTimesChanged($event)">
-          </mwl-calendar-month-view>
-        </div> -->
-   
-    <div class="card mb-3">
-      <div class="row">
-        <div class="col-2">
-        </div>
-        <div class="col-7">
-          <h3>
-            Editar Cita
 
-            <div class="clearfix"></div>
-          </h3>
-        </div>
-        <div class="col-2 text-xs-center">
-          <!--
-          <button class="btn btn-primary pull-right" (click)="open(Crear)">
-            Crear Cita
-          </button>
-        -->
-        </div>
-      </div>
-      <div class="col-1"></div>
+    <div class="card-header" style="text-align: -webkit-center;">
+      Editar Cita
     </div>
-
-    <table class="table table-bordered">
-
-      <thead>
-        <tr>
-          <th>Titulo</th>
-          <th>Próxima citas</th>
-          <th>Citas sin finalizar</th>
-          <th>Empieza el</th>
-          <th>Termina el</th>
-          <th>Retirar</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr *ngFor="let event of events; let index = index">
-          <td>
-            <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
-          </td>
-          <td>
-            <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
-          </td>
-          <td>
-            <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
-          </td>
-          <td>
-            <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
-              [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-              placeholder="Not set">
-          </td>
-          <td>
-            <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end" (ngModelChange)="refresh.next()"
-              [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-              placeholder="Not set">
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="events.splice(index, 1); refresh.next()">
-              Borrar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-
-    </table>
-
-
     <div class="card mb-3">
-      <div class="col-xl-4 text-xs-center">
-        <ng-template #modalContent let-close="close">
-          <div class="modal-header">
-            <h5 class="modal-title">Incidencia ocurrida </h5>
-            <button type="button" class="close" (click)="close()">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div>
-              Action:
-              <pre>{{ modalData?.action }}</pre>
-            </div>
-            <div>
-              Event:
-              <pre>{{ modalData?.event | json }}</pre>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
-          </div>
-        </ng-template>
-      </div>
+      <table class="table table-bordered">
+
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Próxima citas</th>
+            <th>Citas sin finalizar</th>
+            <th>Empieza el</th>
+            <th>Termina el</th>
+            <th>Retirar</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let event of events; let index = index">
+            <td>
+              <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
+            </td>
+            <td>
+              <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
+            </td>
+            <td>
+              <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
+            </td>
+            <td>
+                <input name="firmDate" [(ngModel)]="event.start" name="start" (ngModelChange)="refresh.next()" [bsConfig]="datePickerConfig"
+                type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                required>              
+            </td>
+            <td>
+                <input name="firmDate" [(ngModel)]="event.end"  name="end" (ngModelChange)="refresh.next()" [bsConfig]="datePickerConfig"
+                type="text" class="form-control" placeholder="Fecha final *" bsDatepicker autocomplete="off"
+                required> 
+             
+            </td>
+            <td>
+              <button class="btn btn-danger" (click)="events.splice(index, 1); refresh.next()">
+                Borrar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
+
+<!-- <div class="card mb-3">
+    <div class="col-xl-4 text-xs-center">
+      <ng-template #modalContent let-close="close">
+        <div class="modal-header">
+          <h5 class="modal-title">Incidencia ocurrida </h5>
+          <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            Action:
+            <pre>{{ modalData?.action }}</pre>
+          </div>
+          <div>
+            Event:
+            <pre>{{ modalData?.event | json }}</pre>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="close()">OK</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 <ng-template #Crear let-close="close">
   <div class="modal-header">
     <h5 class="modal-title">Nueva Cita </h5>
@@ -195,4 +166,4 @@
     </tbody>
 
   </table>
-</ng-template>
+</ng-template> -->

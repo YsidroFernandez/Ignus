@@ -1,14 +1,14 @@
 import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
 import { routerTransition } from '../router.animations';
-
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK } from 'angular-calendar';
-
 import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { calendariocita, actions,colors } from '../../environments/environment';
-
 import { GlobalService } from '../providers/global.service';
+import { GlobalsProvider } from '../shared';
+import * as moment from 'moment';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 
 
 @Component({
@@ -16,13 +16,16 @@ import { GlobalService } from '../providers/global.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './citas.component.html',
   styleUrls: ['./citas.component.scss'],
-  animations: [routerTransition()]
+  animations: [routerTransition()],
+  providers: [GlobalsProvider]
 })
 export class CitasComponent implements OnInit {
 
   @ViewChild('modalContent')
   modalContent: TemplateRef<any>;
-
+  datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
+  public numPage: number;
+  public pages = 1;
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -73,7 +76,14 @@ export class CitasComponent implements OnInit {
 
   closeResult: string;
 
-  constructor(private modal: NgbModal, public globalService: GlobalService) {}
+  constructor(private modal: NgbModal,  private globals: GlobalsProvider, public globalService: GlobalService) {
+
+    this.datePickerConfig = Object.assign({},
+      { containerClass: 'theme-dark-blue' },
+      { showWeekNumbers: false },
+      { dateInputFormat: 'DD/MM/YYYY' },
+      { locale: 'es' });
+  }
 
   open(content) {
     this.modal.open(content).result.then((result) => {
@@ -143,6 +153,7 @@ export class CitasComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.numPage = this.globals.numPage;     
   }
 
 
