@@ -3,6 +3,7 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 
 @Component({
     selector: 'app-cita',
