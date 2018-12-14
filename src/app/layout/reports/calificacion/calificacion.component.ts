@@ -16,15 +16,17 @@ import * as datepicker from 'ngx-bootstrap/datepicker';
 export class CalificacionComponent implements OnInit {
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public view = false;
-    public time_ini: any;
+    public datos: any = {
+        fecha_inicio: '',
+        fecha_fin: ''
+    }
+    minDate: any;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
 
     public chart: any;
-    constructor() {              
-        let now = moment().format();
-        
+    constructor() {   
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
@@ -33,14 +35,29 @@ export class CalificacionComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        
     }
 
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
 
+    // onValueChange(value: Date): void { 
+    //     this.minDate = moment(value).format('DD/MM/YYYY');
+    //   }
+
     buscar() {
+        this.datos.fecha_inicio =  moment(this.datos.fecha_inicio).format('DD/MM/YYYY');
+        this.datos.fecha_fin =  moment(this.datos.fecha_fin).format('DD/MM/YYYY');
+        
+
+        const data = {
+            fecha_inicio:  moment(this.datos.fecha_inicio).format('YYYY/MM/DD'),
+            fecha_fin: moment(this.datos.fecha_fin).format('YYYY/MM/DD')
+           
+
+        };
+        console.log(data);
         this.view = true;
         this.chart = new Chart({
             chart: {
