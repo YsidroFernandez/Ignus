@@ -34,11 +34,11 @@ export class SolicitudComponent implements OnInit {
 
 ngOnInit() {
     this.show();
-    this.globalService.getModel("/api/")
+    this.globalService.getModel("/api/request/pending")
         .then((result) => {
             console.log(result);
             this.solicitudes = result['data'];
-            console.log(this.solicitudes);
+            
         }, (err) => {
             console.log(err);
         });

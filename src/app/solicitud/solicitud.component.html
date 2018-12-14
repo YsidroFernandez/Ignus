@@ -40,14 +40,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="openForEdit(Solicitud)">
-                            <td>{{Solicitud.nombre}}</td>
-                            <td>{{Solicitud.apellido}}</td>
-                            <td>{{Solicitud.telefono}}</td>
-                            <td>{{Solicitud.tipo}}</td>
-                            <td>{{Solicitud.fecha}}</td>
-                            <td>{{Solicitud.hora}}</td>
-                            <td>{{Solicitud.estatus}}</td>
+                        <tr *ngFor="let solicitud of solicitudes; let i = index" (click)="openForEdit(Solicitud)">
+                            <td>{{solicitud.client.firstName}}</td>
+                            <td>{{solicitud.client.lastName}}</td>
+                            <td>{{solicitud.client.identification}}</td>
+                            <td>{{solicitud.typeService.name}}</td>
+                            <td>{{solicitud.requestDate}}</td>
+                            <td>Opcional</td>
+                            <td>Pendiente</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">

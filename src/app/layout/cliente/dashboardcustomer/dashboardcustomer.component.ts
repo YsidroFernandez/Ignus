@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../../providers/global.service';
+import { GlobalsProvider } from '../../../shared';
 
 @Component({
   selector: 'app-dashboardcustomer',
   templateUrl: './dashboardcustomer.component.html',
-  styleUrls: ['./dashboardcustomer.component.scss']
+  styleUrls: ['./dashboardcustomer.component.scss'],
+  providers: [GlobalsProvider]
 })
 export class DashboardcustomerComponent implements OnInit {
-
+    public numbPage: number;
+    public numPage: number;
+    public pages = 1;
     closeResult: string;
     clientes: any;
     cliente: any;
@@ -24,7 +28,7 @@ export class DashboardcustomerComponent implements OnInit {
   public listSolicitudes:any;
 
 
-  constructor(private modalService: NgbModal, public globalService: GlobalService) {
+  constructor(private modalService: NgbModal, private globals: GlobalsProvider, public globalService: GlobalService) {
 
     this.clientes = [];
     this.cliente = [];
@@ -78,7 +82,8 @@ export class DashboardcustomerComponent implements OnInit {
     }
 
   ngOnInit() {
-
+    this.numPage = this.globals.numPage;       
+    this.numbPage = this.globals.numPage;       
         this.show();
         this.globalService.getModel("/api/client")
             .then((result) => {

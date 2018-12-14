@@ -6,6 +6,8 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { solicitud } from '../../environments/environment';
 import { GlobalService } from '../providers/global.service';
+import * as moment from 'moment';
+import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 
 
 
@@ -18,16 +20,14 @@ import { GlobalService } from '../providers/global.service';
     providers: []
 })
 export class RegistroSolicitudComponent implements OnInit {
-
+    datePickerConfig: Partial<BsDatepickerConfig>;
     closeResult: string;
     solicitud: any;
     solicitudes: any;
     nuevo: any;
 
-    paises=["Venezuela","Colombia","Brasil"]
-    estadost={"Venezuela":["Lara","Zulia","Caracas","Falcon"],"Colombia":["Antioquia","Bolivia","Cauca"],"Brasil":["Alagoas","Río de Janeiro"]}
-    municipio=["Urdaneta","Iribarren","Crespo","Palavecino"]
     estados = []
+    ciudades = []
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
@@ -35,24 +35,49 @@ export class RegistroSolicitudComponent implements OnInit {
     selectedRow: number;
 
   solicitud2= {
-    cedula:"",
-    correo: "",
-    tipo: "" ,
-    descripcion: "",
-    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
-    estado: "En espera",
-    fecha: "",
-    fotos: [],
+    tipo: "",
+    ClientId:1,
+	TypeServiceId: "",
+	wishDate:"",
+    TypeRequestId:3,
+    estado:[],
+    ciudad: []
+
+    
   }
 
 tiposervicio: any;
-
-estado: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
+tipoespecificaciones: any;
+especificaciones: any;
 
 constructor(private modalService: NgbModal,public globalService: GlobalService) {
-this.solicitud = [];
+
+    let now = moment().format();
+
+    this.datePickerConfig = Object.assign({},
+        { containerClass: 'theme-dark-blue' },
+        { showWeekNumbers: false },
+        { dateInputFormat: 'DD/MM/YYYY' },
+        { locale: 'es' });
+
+this.solicitud = {ClientId: 1,
+TypeServiceId: "",
+wishDate:"",
+TypeRequestId:3
+}
 this.nuevo = [];
 this.tiposervicio = [];
+this.tipoespecificaciones = [];
+
+this.globalService.getModel(`/api/state/`).then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+        this.estados = result['data'];
+        
+    }
+}, (err) => {
+    console.log(err);
+});
 
 this.globalService.getModel("/api/typeService").then((result) => {
     if (result['status']) {
@@ -60,43 +85,61 @@ this.globalService.getModel("/api/typeService").then((result) => {
                 this.tiposervicio = result['data'];
                 
     }
-    console.log(this.tiposervicio);
 }, (err) => {
     console.log(err);
 });
 
+this.globalService.getModel("/api/typeSpecification").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+                this.tipoespecificaciones = result['data'];
+                console.log(this.tipoespecificaciones)
+    }
+}, (err) => {
+    console.log(err);
+});
       }
 
+     
 //this method associate to reload estados
-cargarestados(){
-    this.estados = this.estadost[this.solicitud2.direccion.pais]
+cargarciudades(state){
+    console.log(state)
+    this.globalService.getModel(`/api/state/city/${state}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            this.ciudades = result['data'];
+                    
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
 }
 
 
 // This method associate to New Button.
 enviar() { 
   
-  this.nuevo = JSON.stringify({correo: this.solicitud.email, tipo:this.solicitud.type, descripcion:this.solicitud.description, estado:this.solicitud.status, fecha:this.solicitud.date, fotos: this.solicitud.images });
-   this.globalService.addModel(this.nuevo,"/api/requirement")
+  this.nuevo = JSON.stringify({
+    ClientId: this.solicitud.ClientId,
+	TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
+	wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
+	TypeRequestId: this.solicitud.TypeRequestId
+});
+console.log("result",this.nuevo);
+   this.globalService.addModel(this.nuevo,"/api/request/pending")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
                         //Para que actualice la lista una vez que es creado el recaudo
-                        this.globalService.getModel("/api/requirement")
-                            .then((result) => {
-                                console.log(result);
-                                this.solicitudes = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
+                            console.log(result);
+                        
                     }
 
                 }, (err) => {
                     console.log(err);
                 });
-  var select = document.getElementById("tiposolicitud");
-  var options = document.getElementsByTagName("option");
-
+  
  // this.solicitud2.tipo = options[select.value-1].text
 //solicitud.push(this.solicitud2)
   alert("Agregado con exito")
@@ -104,19 +147,27 @@ enviar() {
 }
 
 limpiar(){
-  console.log(this.solicitud2)
-  this.solicitud2= {
-    cedula:"",
-    correo: "",
-    tipo: "" ,
+  
+  this.solicitud= {
+  /*  cliente: "1",
+    inmueble: {
+    tipo: "",
+    pisos:"",
+    banos: "",
+    habitaciones: "",
     descripcion: "",
-    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
+    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
     estado: "En espera",
+    fotos: []
+    },
     fecha: "",
-    fotos: [],
-  }
+    tipo: "" */
+        ClientId:1,
+        TypeServiceId: "",
+        wishDate:"",
+        TypeRequestId:3
 }
-
+}
 
 
  ngOnInit() {}
