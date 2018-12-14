@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef ,ViewChild } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
+import * as jspdf from 'jspdf';  
+import html2canvas from 'html2canvas'; 
 
 @Component({
     selector: 'app-solicitudes',
@@ -18,11 +20,39 @@ export class SolicitudesComponent implements OnInit {
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
 
+    public view = false;
     public chart: any;
     constructor() {
         let now = moment().format();
         console.log('hello world', this.tipos);
+
+        var doc = new jspdf('p', 'pt');
     }
+    downloadImagePDF(){
+        var doc = new jspdf()
+        var data = document.getElementById('content');  
+        html2canvas(data).then(canvas => {  
+          // Few necessary setting options  
+          var imgWidth = 208;   
+          var pageHeight = 295;    
+          var imgHeight = canvas.height * imgWidth / canvas.width;  
+          var heightLeft = imgHeight;  
+      
+          const contentDataURL = canvas.toDataURL('image/png')  
+          //let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
+          var position = 0;  
+          //pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+          doc.addImage(contentDataURL, 'PNG', 0, 40, imgWidth, imgHeight) 
+          doc.setFontSize(30)
+          doc.text(55, 25, 'Reportes Estadisticos')
+          var img = new Image();
+          img.src = "./../../assets/images/ignus3.png"
+          doc.addImage(img, 'PNG', 0,3,30,30)
+          doc.addImage(img, 'PNG', 180,3,30,30)
+          doc.save("Reporte.pdf")
+        });  
+    
+          }
 
     ngOnInit() {
 
@@ -33,7 +63,7 @@ export class SolicitudesComponent implements OnInit {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
     buscar() {
-
+        this.view = true;
         this.chart = new Chart({
             chart: {
                 renderTo: 'graficaLineal', 	// Le doy el nombre a la gráfica
