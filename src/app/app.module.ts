@@ -13,7 +13,7 @@ import { AuthGuard } from './shared';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
-
+import { ToastrModule } from 'ngx-toastr';
 //traslate general   actualmente utilizado en calendar
 import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
@@ -40,7 +40,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReactiveFormsModule,
         FormsModule,
         NgbModule.forRoot(),
-        
+        ToastrModule.forRoot(),
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),

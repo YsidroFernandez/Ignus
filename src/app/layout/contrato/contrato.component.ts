@@ -114,13 +114,14 @@ export class ContratoComponent implements OnInit {
                     elaborationDate: moment(this.contract.elaborationDate).format('DD/MM/YYYY'),
                     ClientId: this.contract.client.id,                         
                     EmployeeId: this.contract.agent.id                   
-                 });
+                 });                
                  console.log(this.nuevo);
                 this.globalService.addModel(this.nuevo, "/api/contract").then((result) => {
                     if (result['status']) {
                         this.globalService.getModel("/api/contract").then((result) => {
                             this.contratos = result['data'];
                             console.log(this.contratos);
+                            this.globals.alertSuccess('El contrato se registro correctamente', 'Operación exitosa');
                         }, (err) => {
                             console.log(err);
                         });

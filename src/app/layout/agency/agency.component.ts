@@ -77,7 +77,7 @@ cancelAgency(){
     }else
     if(this.btnEdit=="Guardar"){
       console.log(this.agency);
-
+       
       
       const uploadData = new FormData();
       uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
