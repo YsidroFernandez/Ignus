@@ -25,7 +25,7 @@ onSelectFile(event) {
   console.log(event);// called each time file input changes
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-      this.selectedFile = event.target.files[0];
+      this.selectedFile = event.target.files[0];   
 
       
   

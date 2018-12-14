@@ -1,0 +1,2 @@
+[1212/011118.297:ERROR:process_reader_win.cc(123)] NtOpenThread: {Acceso denegado} Un proceso ha solicitado acceso a un objeto, pero no se le han concedido esos derechos de acceso. (0xc0000022)
+[1212/011118.899:ERROR:exception_snapshot_win.cc(88)] thread ID 7384 not found in process

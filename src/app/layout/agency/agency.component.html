@@ -22,7 +22,7 @@
                     <div class="form-group">
 
                         <label>Dirección</label>
-                        <input [(ngModel)]="agency.ubication" name="ubication" class="form-control" placeholder="Dirección">
+                        <textarea rows="2" [(ngModel)]="agency.ubication" name="ubication" class="form-control" placeholder="Dirección"></textarea>
 
                     </div>
                     <div class="form-group">
@@ -33,7 +33,10 @@
                     </div>
 
 
-
+                    <div class="form-group">
+                            <label>Objetivo General</label>
+                            <textarea [(ngModel)]="agency.generalObjective" name="objetive" class="form-control" rows="3"></textarea>
+                        </div>
 
 
 
@@ -72,10 +75,7 @@
                         <label>Visión</label>
                         <textarea [(ngModel)]="agency.vision" name="vision" class="form-control" rows="3"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label>Objetivo General</label>
-                        <textarea [(ngModel)]="agency.generalObjective" name="objetive" class="form-control" rows="3"></textarea>
-                    </div>
+                   
                 </fieldset>
             </form>
         </div>

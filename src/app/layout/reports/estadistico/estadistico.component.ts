@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef ,ViewChild } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import * as jspdf from 'jspdf';  
+import html2canvas from 'html2canvas'; 
 import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 @Component({
     selector: 'app-estadistico',
@@ -11,17 +14,40 @@ import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
     animations: [routerTransition()]
 
 })
+
 export class EstadisticoComponent implements OnInit {
+
     selectedValue: string = "";
     datePickerConfig: Partial<BsDatepickerConfig>;
     public view = false;
     
     tipos = [ { value: "1", name: "Barra" }, { value: "2", name: "Lineal" }];
-
+// { value: "1", name: "Circular" },
     public chart: any;
+    public captureScreen()  
+    {  
+      var data = document.getElementById('content');  
+      html2canvas(data).then(canvas => {  
+        // Few necessary setting options  
+        var imgWidth = 208;   
+        var pageHeight = 295;    
+        var imgHeight = canvas.height * imgWidth / canvas.width;  
+        var heightLeft = imgHeight;  
+    
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
+        var position = 0;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('MYPdf.pdf'); // Generated PDF   
+      });  
+    }  
+           
     constructor() {
         this.selectedValue = "0";
         let now = moment().format();
+        console.log('hello world', this.tipos);
+
+        var doc = new jspdf('p', 'pt');
 
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
@@ -29,6 +55,31 @@ export class EstadisticoComponent implements OnInit {
             { dateInputFormat: 'MM/YYYY' },
             { locale: 'es' });
     }
+    downloadImagePDF(){
+        var doc = new jspdf()
+        var data = document.getElementById('content');  
+        html2canvas(data).then(canvas => {  
+          // Few necessary setting options  
+          var imgWidth = 208;   
+          var pageHeight = 295;    
+          var imgHeight = canvas.height * imgWidth / canvas.width;  
+          var heightLeft = imgHeight;  
+      
+          const contentDataURL = canvas.toDataURL('image/png')  
+          //let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
+          var position = 0;  
+          //pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+          doc.addImage(contentDataURL, 'PNG', 0, 40, imgWidth, imgHeight) 
+          doc.setFontSize(30)
+          doc.text(55, 25, 'Reportes Estadisticos')
+          var img = new Image();
+          img.src = "./../../assets/images/ignus3.png"
+          doc.addImage(img, 'PNG', 0,3,30,30)
+          doc.addImage(img, 'PNG', 180,3,30,30)
+          doc.save("ImageSample.pdf")
+        });  
+    
+          }
 
     ngOnInit() {
 
@@ -37,6 +88,7 @@ export class EstadisticoComponent implements OnInit {
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
+
 
     buscar(data) {
         this.view = true;
@@ -94,7 +146,7 @@ export class EstadisticoComponent implements OnInit {
                     type: 'column'
                 },
                 title: {
-                    text: 'Reporte por ordenes de servicio'
+                    text: ''
                 },               
                 xAxis: {
                     categories: ['Ene', 'Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],

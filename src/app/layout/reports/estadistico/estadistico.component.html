@@ -79,19 +79,48 @@
                 </div>
 
             </div>
-            <div  *ngIf="view" class="col col-sm-12">
-                <div class="card border-primary">
-                    <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                    <div class="card-body text-primary">
-                        <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                        <p class="card-text">MARICO EL QUE LO LEA.</p>
-                    </div>
+            <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+                <style>
+                    .wide-card.mdl-card {
+                       width: auto;
+                    }
+                 
+                    .square-card.mdl-card {
+                       width: auto;
+                       height: auto;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                        <div class="card-body">
+                                <div class="col col-sm-12">
+                                    <div class="card border-primary">
+                                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL
+                                                REPORTE</b></div>
+                                        <div class="card-body text-primary">
+                                            <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes
+                                                    por Ordenes de Servicio</b></h5>
+                                            <p class="card-text">...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <div [chart]="chart" class="chart"></div>
+                                
+                            </div>                
+                  <div class="mdl-card__actions mdl-card--border">
+                        <div>  
+                            <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>  
+                        </div>  
+                  </div>
                 </div>
-            </div>
-
-            <div class="card-body">
-                <div [chart]="chart" class="chart"></div>
-            </div>
+            </body>
         </div>
     </div>
 </div>
