@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -10,11 +10,11 @@ import { GlobalService } from '../../providers/global.service';
 import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
 @Component({
-  selector: 'app-contrato',
-  templateUrl: './contrato.component.html',
-  styleUrls: ['./contrato.component.scss'],
-  animations: [routerTransition()],
-    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}, GlobalsProvider]
+    selector: 'app-contrato',
+    templateUrl: './contrato.component.html',
+    styleUrls: ['./contrato.component.scss'],
+    animations: [routerTransition()],
+    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider]
 })
 export class ContratoComponent implements OnInit {
 
@@ -24,71 +24,133 @@ export class ContratoComponent implements OnInit {
     closeResult: string;
     contratos: any;
     contrato: any;
+    public clients = [];
+    public employees = [];
     nuevo: any;
     showNew: Boolean = false;
     submitType: string = 'Guardar';
-    selectedRow: number;  
+    selectedRow: number;
 
-  constructor(    
-               private modalService: NgbModal,
-               private globals: GlobalsProvider,
-               public globalService: GlobalService)
-  {
-    this.contratos = [];
-    this.contrato = [];
-    this.nuevo = [];
-    this.datePickerConfig = Object.assign({},
-        { containerClass: 'theme-dark-blue' },
-        { showWeekNumbers: false },
-        { dateInputFormat: 'DD/MM/YYYY' },
-        { locale: 'es' });
-  }
+    public contract: any = {
+        id: '',
+        folioNumber: '',
+        firmDate: '',
+        elaborationDate: '',
+        client: {
+            id: '',
+            firstName: ''
+        },
+        agent: {
+            id:'',
+            firstName: ''
+        }
+    }
 
- open(content) {   
+    constructor(
+        private modalService: NgbModal,
+        private globals: GlobalsProvider,
+        public globalService: GlobalService) {
+        this.contratos = [];
+        this.contrato = [];
+        this.nuevo = [];
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'DD/MM/YYYY' },
+            { locale: 'es' });
+    }
+
+    ngOnInit() {
+        this.numPage = this.globals.numPage;       
+        this.allClientes();
+        this.allAgentes();
+        this.allContratos();
+    }
+
+    allAgentes() {
+        this.globalService.getModel("/api/employee").then((result) => {
+            this.employees = result['data'];
+            console.log(this.employees);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    allClientes() {
+        this.globalService.getModel("/api/client").then((result) => {
+            this.clients = result['data'];
+            console.log(this.clients);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    allContratos() {
+        this.globalService.getModel("/api/contract").then((result) => {
+                this.contratos = result['data'];
+                console.log(this.contratos);
+            }, (err) => {
+                console.log(err);
+            });
+    }
+
+    clientChanged ($event) {
+        this.contract.client.id = $event;
+        console.log($event);
+    }
+
+    agentChanged ($event) {
+        this.contract.agent.id = $event;
+    }
+
+// aca registrar y verifica el status construyen el cuerpo del json que falta
+    open(content) {
         this.modalService.open(content).result.then((result) => {
-           this.closeResult = `Closed with: ${result}`;
-           if (this.submitType === 'Guardar')
-           {
-              this.nuevo = JSON.stringify({folioNumber: this.contrato.folioNumber, firmDate: this.contrato.firmDate});
-              this.globalService.addModel(this.nuevo,"/api/contract").then((result) => {
-                if (result['status'])
-                {
-                    //Para que actualice la lista una vez que es creado el contrato
-                    this.globalService.getModel("/api/contract").then((result) => {
-                        this.contratos = result['data'];
-                        console.log(this.contratos);
-                    },(err) => {
-                        console.log(err);
+            this.closeResult = `Closed with: ${result}`;
+            if (this.submitType === 'Guardar') {
+                this.nuevo = JSON.stringify({
+                    folioNumber: this.contract.folioNumber,
+                    firmDate:  moment(this.contract.firmDate).format('DD/MM/YYYY'),
+                    elaborationDate: moment(this.contract.elaborationDate).format('DD/MM/YYYY'),
+                    client: this.contract.client.id,                         
+                    agent: this.contract.agent.id                   
+                 });
+                 console.log(this.nuevo);
+                this.globalService.addModel(this.nuevo, "/api/contract").then((result) => {
+                    if (result['status']) {
+                        this.globalService.getModel("/api/contract").then((result) => {
+                            this.contratos = result['data'];
+                            console.log(this.contratos);
+                        }, (err) => {
+                            console.log(err);
                         });
                     }
 
-                },(err) => {
+                }, (err) => {
                     console.log(err);
                 });
-            }else{
+            }
+        else {
                 this.globalService.updateModel(this.contrato.id, this.contrato, "/api/contract").then((result) => {
-                if (result['status'])
-                {
-                    //Para que actualice la lista una vez que es editado el contrato
-                    this.globalService.getModel("/api/contract").then((result) => {
-                        this.contratos = result['data'];
-                        console.log( this.contratos);
-                    }, (err) => {
-                        console.log(err);
+                    if (result['status']) {                  
+                        this.globalService.getModel("/api/contract").then((result) => {
+                            this.contratos = result['data'];
+                            console.log(this.contratos);
+                        }, (err) => {
+                            console.log(err);
                         });
                     }
 
-                    }, (err) => {
-                        console.log(err);
-                    });
+                }, (err) => {
+                    console.log(err);
+                });
 
-            }
-    // Hide Contratos entry section.
-    this.showNew = false;
+            }         
+            this.showNew = false;
         }
-        , (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+            , (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
     }
 
     private getDismissReason(reason: any): string {
@@ -97,28 +159,11 @@ export class ContratoComponent implements OnInit {
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
             return 'by clicking on a backdrop';
         } else {
-            return  `with: ${reason}`;
+            return `with: ${reason}`;
         }
-      }
-         show() {
-        console.log("aqui va el loaer");
-    }
+    }   
 
-
-  ngOnInit() {
-    this.numPage = this.globals.numPage;
-  this.show();
-        this.globalService.getModel("/api/contract")
-            .then((result) => {
-                console.log(result);
-                this.contratos = result['data'];
-                console.log(this.contratos);
-            }, (err) => {
-                console.log(err);
-            });
-  }
-
- 	faEye = faEye;
+    faEye = faEye;
     faEdit = faEdit;
     faTrash = faTrash;
 
@@ -127,45 +172,34 @@ export class ContratoComponent implements OnInit {
         this.selectedRow = index;
         this.contrato = Object.assign({}, this.contratos[this.selectedRow]);
         this.showNew = true;
+    }
 
-}
-
- // This method associate to Delete Button.
+  
     onDelete(index: number) {
         console.log('eliminando');
         this.selectedRow = index;
         this.contrato = Object.assign({}, this.contratos[this.selectedRow]);
         this.showNew = true;
-        //Pendiente
-        if(confirm('¿Estas seguro de eliminar este contrato?')){
-            this.globalService.removeModel(this.contrato.id, "/api/contract")
-                    .then((result) => {
-                        console.log(result);
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es eliminado el contrato
-                            this.globalService.getModel("/api/contract")
-                                .then((result) => {
-                                    console.log(result);
-                                    this.contratos = result['data'];
-                                }, (err) => {
-                                    console.log(err);
-                                });
-                        }
-
-                    }, (err) => {
-                        console.log(err);
-                    });
-            }
-
-
+        
+        if (confirm('¿Estas seguro de eliminar este contrato?')) {
+            this.globalService.removeModel(this.contrato.id, "/api/contract").then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                      
+                        this.globalService.getModel("/api/contract").then((result) => {
+                                console.log(result);
+                                this.contratos = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+                }, (err) => {
+                    console.log(err);
+                });
+        }
     }
 
-
-    // This method associate toCancel Button.
     onCancel() {
-        // Hide contrato entry section.
         this.showNew = false;
     }
-
-
 }
