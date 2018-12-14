@@ -1,81 +1,82 @@
 import { Component, OnInit } from '@angular/core';
-
 import { routerTransition } from '../../router.animations';
-
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
-
 import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
+import { GlobalsProvider } from '../../shared';
 import { GlobalService } from '../../providers/global.service';
-
+import * as moment from 'moment';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 @Component({
   selector: 'app-contrato',
   templateUrl: './contrato.component.html',
   styleUrls: ['./contrato.component.scss'],
   animations: [routerTransition()],
-    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
+    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}, GlobalsProvider]
 })
 export class ContratoComponent implements OnInit {
 
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
+    public numPage: number;
+    public pages = 1;
     closeResult: string;
     contratos: any;
     contrato: any;
     nuevo: any;
-    // It maintains Usuario form display status. By default it will be false.
     showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
     submitType: string = 'Guardar';
-    // It maintains table row index based on selection.
-    selectedRow: number;
-  
+    selectedRow: number;  
 
-  constructor(private modalService: NgbModal,public globalService: GlobalService) {
+  constructor(    
+               private modalService: NgbModal,
+               private globals: GlobalsProvider,
+               public globalService: GlobalService)
+  {
     this.contratos = [];
     this.contrato = [];
     this.nuevo = [];
-
+    this.datePickerConfig = Object.assign({},
+        { containerClass: 'theme-dark-blue' },
+        { showWeekNumbers: false },
+        { dateInputFormat: 'DD/MM/YYYY' },
+        { locale: 'es' });
   }
 
- open(content) {
-      console.log("aqui");
+ open(content) {   
         this.modalService.open(content).result.then((result) => {
            this.closeResult = `Closed with: ${result}`;
-           if (this.submitType === 'Guardar') {
- this.nuevo = JSON.stringify({folioNumber: this.contrato.folioNumber, firmDate: this.contrato.firmDate});
-                this.globalService.addModel(this.nuevo,"/api/contract")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es creado el contrato
-                        this.globalService.getModel("/api/contract")
-                            .then((result) => {
-                                console.log(result);
-                                this.contratos = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
+           if (this.submitType === 'Guardar')
+           {
+              this.nuevo = JSON.stringify({folioNumber: this.contrato.folioNumber, firmDate: this.contrato.firmDate});
+              this.globalService.addModel(this.nuevo,"/api/contract").then((result) => {
+                if (result['status'])
+                {
+                    //Para que actualice la lista una vez que es creado el contrato
+                    this.globalService.getModel("/api/contract").then((result) => {
+                        this.contratos = result['data'];
+                        console.log(this.contratos);
+                    },(err) => {
+                        console.log(err);
+                        });
                     }
 
-                }, (err) => {
+                },(err) => {
                     console.log(err);
                 });
             }else{
-                this.globalService.updateModel(this.contrato.id, this.contrato, "/api/contract")
-                    .then((result) => {
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es editado el contrato
-                            this.globalService.getModel("/api/contract")
-                                .then((result) => {
-                                    console.log(result);
-                                    this.contratos = result['data'];
-                                }, (err) => {
-                                    console.log(err);
-                                });
-                        }
+                this.globalService.updateModel(this.contrato.id, this.contrato, "/api/contract").then((result) => {
+                if (result['status'])
+                {
+                    //Para que actualice la lista una vez que es editado el contrato
+                    this.globalService.getModel("/api/contract").then((result) => {
+                        this.contratos = result['data'];
+                        console.log( this.contratos);
+                    }, (err) => {
+                        console.log(err);
+                        });
+                    }
 
                     }, (err) => {
                         console.log(err);
@@ -105,6 +106,7 @@ export class ContratoComponent implements OnInit {
 
 
   ngOnInit() {
+    this.numPage = this.globals.numPage;
   this.show();
         this.globalService.getModel("/api/contract")
             .then((result) => {
