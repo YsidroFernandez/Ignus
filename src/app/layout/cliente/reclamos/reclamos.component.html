@@ -1,20 +1,16 @@
  <div [@routerTransition]>
-    <app-page-header [heading]="'  Reclamos'" [icon]="'fa-edit'"></app-page-header>
-     <span>
-        Introduzca sus datos personales para poder enviarle la confirmación de recepción de su solicitud. No debe adjuntar ni aportar a esta solicitud, datos de carácter 
-        personal de categorías especiales (ejemplo datos de viviendam dirección, entre otros), 
-        por no ser necesarios para cursar su queja. 
-     </span><p></p>
-  <hr>
+  <app-page-header [heading]="'Reclamos'" [icon]="'fa-edit'"></app-page-header>  
  </div>
 
 <div class="col col-sm-12">
  <div class="form-control">
   <div class="row mb-3">
-    
+    <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+      Campos Obligatorios (*)
+    </div>
        <div class="col col-sm-12">
          <div class="form-group">
-           <b><label>Campos Obligatorios (*)</label></b>
+           <b><label></label></b>
          </div> 
        </div>
 
@@ -87,22 +83,9 @@
                 </select>
               </div>
           </div>
-</div>
-</div>
-<br>
 
-<div class="col col-sm-12">
- <div class="form-control">
-    <div class="row mb-3">
 
-      <div class="col col-sm-6">
-         <div class="form-group">
-          <label for="titulo">Titulo:</label>
-           <input type="text" class="form-control" />
-         </div>
-        </div>
-
-        <div class="col col-sm-12">
+          <div class="col col-sm-12">
             <label class="ng-tns-c12-9" for="descripcion">Escriba aquí su mensaje:</label>
             <textarea class="form-control ng-untouched ng-pristine ng-valid" 
                 type="text" required style="width: 700px; height: 200px; "></textarea>
@@ -121,8 +104,8 @@
      </div>
     </div>
 <br>
-  </div>
 </div>
+</div>
+<br>
 
- </div>
     
