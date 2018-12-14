@@ -30,7 +30,7 @@ const routes: Routes = [
             { path: 'recaudo', loadChildren: './recaudo/recaudo.module#RecaudoModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
             { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
-
+            { path: 'services', loadChildren: './services/services.module#ServicesModule' },
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
 
              { path: 'reserva', loadChildren: './reserva/reserva.module#ReservaModule' },
