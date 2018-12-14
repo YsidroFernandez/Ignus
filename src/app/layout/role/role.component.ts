@@ -57,7 +57,7 @@ export class RoleComponent implements OnInit {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
             if (this.submitType === "Save") {
-                this.nuevo = JSON.stringify({ name: this.rol.name, description: this.rol.description });
+                this.nuevo = JSON.stringify({ name: this.rol.name, description: this.rol.description, functions: this.config.value });
                 this.globalService.addModel(this.nuevo, "/api/role")
                     .then((result) => {
                         console.log(result);
@@ -118,13 +118,14 @@ export class RoleComponent implements OnInit {
         displayKey: "name", //if objects array passed which key to be displayed defaults to description
         search: false, //true/false for the search functionlity defaults to false,
         height: 'auto', //height of the list so that if there are more no of items it can show a scroll defaults to auto. With auto height scroll will never appear
-        placeholder: 'Sel   eccione las Funciones', // text to be displayed when no item is selected defaults to Select,
+        placeholder: 'Seleccione las Funciones', // text to be displayed when no item is selected defaults to Select,
         customComparator: () => { }, // a custom function using which user wants to sort the items. default is undefined and Array.sort() will be used in that case,
         limitTo: this.functions,
         moreText: 'more', // text to be displayed whenmore than one items are selected like Option 1 + 5 more
         noResultsFound: 'No results found!', // text to be displayed when no items are found while searching
         searchPlaceholder: 'Search', // label thats displayed in search input
         multiline: true,
+        value: this.dataModel,
     }
 
    

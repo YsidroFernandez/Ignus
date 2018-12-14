@@ -62,7 +62,7 @@ export class SidebarComponent {
  
     addExpandClassReport(element: any) {
         if (element === this.showMenuReport) {
-            this.showMenuReport = '0';
+            this.showMenuReport = '10';
             console.log('pagina actual')
         } else {
             this.showMenuReport = element;

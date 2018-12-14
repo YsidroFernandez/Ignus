@@ -88,8 +88,16 @@
                                 </div>
                         </div>
                         <ngx-select-dropdown (change)="selectionChanged($event)" [multiple]="true" [(value)]="dataModel" [config]="config" [options]="functions"></ngx-select-dropdown>
+                        <!-- <div>
+                                <select class="mdb-select md-form" *ngFor="let item of functions ; let i= index" multiple>
+                                        <option value="" disabled selected>Choose your country</option>
+                                        <option value="1">{{item.name}}</option>
+                                        
+                                      </select>
+                                      <button class="btn-save btn btn-primary btn-sm">Save</button>
                        
-                    </div>
+                        </div> -->
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"

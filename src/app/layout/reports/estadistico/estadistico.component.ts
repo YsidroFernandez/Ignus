@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas'; 
+import { BsDatepickerConfig } from 'ngx-bootstrap';
 @Component({
     selector: 'app-estadistico',
     templateUrl: './estadistico.component.html',
@@ -41,10 +42,6 @@ export class EstadisticoComponent implements OnInit {
       });  
     }  
     
-    constructor(
-        
-
-    public chart: any;
     constructor() {
         this.selectedValue = "0";
         let now = moment().format();
