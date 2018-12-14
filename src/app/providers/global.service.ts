@@ -10,7 +10,7 @@ const httpOptionsDefault = {
     'accessToken':localStorage.getItem('accessToken'),
     
     //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
-     'Content-Type': 'application/json',
+     //'Content-Type': 'application/json',
      
 
   })
@@ -34,6 +34,7 @@ export class GlobalService {
 
   constructor(public http: HttpClient) {
     this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
+   // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io';
   }
 
   

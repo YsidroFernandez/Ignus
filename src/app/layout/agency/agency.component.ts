@@ -21,15 +21,23 @@ export class AgencyComponent implements OnInit {
     this.btnEdit="Editar"
    } 
    
-onSelectFile(event) { // called each time file input changes
+onSelectFile(event) { 
+  console.log(event);// called each time file input changes
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
-      this.selectedFile = event.target.files[0];
-      this.agency.file=this.selectedFile;
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
+      this.selectedFile = event.target.files[0];   
+
+      
+  
+
+
+     reader.readAsDataURL(event.target.files[0]); // read file as data url
        
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        // this.agency.logos[1].url = event.target.result;
+      reader.onload = (event) => { 
+        let target: any = event.target; //<-- This (any) will tell compiler to shut up!
+        this.url= target.result;
+         console.log(event)// called once readAsDataURL is completed
+        
       }
     }
 }
@@ -45,6 +53,8 @@ onSelectFile(event) { // called each time file input changes
       console.log(result);
       this.agency=result['data'];
       console.log(this.agency);
+      
+      this.url=this.agency.logos[1].url;
     }, (err) => {
       console.log(err);
       //this.loader.dismiss();
@@ -68,7 +78,12 @@ cancelAgency(){
     if(this.btnEdit=="Guardar"){
       console.log(this.agency);
 
-      this.globalService.updateModel(this.agency.id,this.agency,"/api/agency")
+      
+      const uploadData = new FormData();
+      uploadData.append('myFile', this.selectedFile, this.selectedFile.name);
+      uploadData.append('agency',JSON.stringify(this.agency))
+      
+      this.globalService.updateModel(this.agency.id,uploadData,"/api/agency")
     .then((result) => {
       console.log(result);
       // this.agency=result['data'];
