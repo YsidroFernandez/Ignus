@@ -7,14 +7,6 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { solicitud, actions, calendariocita, colors } from '../../environments/environment';
 import { calendarFormat } from 'moment';
 
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK
-} from 'angular-calendar';
-
-
-
-
-
 @Component({
     selector: 'app-solicitud',
     templateUrl: './solicitud.component.html',

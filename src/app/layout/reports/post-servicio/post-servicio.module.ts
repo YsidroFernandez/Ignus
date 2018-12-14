@@ -6,8 +6,14 @@ import { PostServicioRoutingModule } from './post-servicio-routing.module';
 import { PostServicioComponent } from './post-servicio.component';
 import { PageHeaderModule } from '../../../shared';
 import { ChartModule } from 'angular-highcharts';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
 @NgModule({
-    imports: [ChartModule, CommonModule, PostServicioRoutingModule, PageHeaderModule],
+    imports: [
+        BsDatepickerModule.forRoot(), // ToastrModule added        
+        DatepickerModule.forRoot(),
+        ChartModule, CommonModule, PostServicioRoutingModule, PageHeaderModule],
     declarations: [PostServicioComponent]
 })
 export class PostServicioModule {}
