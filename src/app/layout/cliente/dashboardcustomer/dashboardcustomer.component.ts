@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalService } from '../../../providers/global.service';
+
 @Component({
   selector: 'app-dashboardcustomer',
   templateUrl: './dashboardcustomer.component.html',
@@ -7,11 +10,85 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 })
 export class DashboardcustomerComponent implements OnInit {
 
+    closeResult: string;
+    clientes: any;
+    cliente: any;
+    nuevo: any;
+    // It maintains recaudos form display status. By default it will be false.
+    showNew: Boolean = false;
+    // It will be either 'Save' or 'Update' based on operation.
+    submitType: string = 'Save';
+    selectedRow: number;
+
   public listSeguimiento:any;
   public listSolicitudes:any;
-  constructor() { }
+
+
+  constructor(private modalService: NgbModal, public globalService: GlobalService) {
+
+    this.clientes = [];
+    this.cliente = [];
+    this.nuevo = [];
+  }
+
+  open(content) {
+    console.log("aqui");
+    this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        if (this.submitType === "Save") {
+           //Aquí no se crean clientes. eso se hace cuando se suscribe
+        }else{
+            this.globalService.updateModel(this.cliente.id, this.cliente, "/api/client")
+                .then((result) => {
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es editado el cliente
+                        this.globalService.getModel("/api/client")
+                            .then((result) => {
+                                console.log(result);
+                                this.clientes = result['data']['clients'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+
+        }
+        // Hide cliente entry section.
+        this.showNew = false;
+    }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+}
+
+ private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
+    }
+
+    show() {
+        console.log("aqui va el loaer");
+    }
 
   ngOnInit() {
+
+        this.show();
+        this.globalService.getModel("/api/client")
+            .then((result) => {
+                console.log(result);
+                this.clientes = result['data'];
+                console.log(this.clientes);
+            }, (err) => {
+                console.log(err);
+            });
+
     this.listSeguimiento=[
       { nro: '12345', descripcion: 'Compra de Casa en el Este de Barqto', estatus:'	Esperando Recaudos'},
       { nro: '54545', descripcion: 'Alquiler de apartamento', estatus: 'Reserva realizada' }
