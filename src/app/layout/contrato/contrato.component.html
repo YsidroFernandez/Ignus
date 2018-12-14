@@ -139,7 +139,7 @@
             <div class="row mb-3">
                 <div class="form-group col-md-6">
                     <label>Agente</label>
-                    <select name="nombreAgent" [(ngModel)]="contract.client.firstName" (ngModelChange)="agentChanged($event)"
+                    <select name="nombreAgent" [(ngModel)]="contract.agent.firstName" (ngModelChange)="agentChanged($event)"
                         class="form-control">                       
                         <option *ngFor="let listAgente of employees" [value]="listAgente.id">
                             {{listAgente.firstName}}
