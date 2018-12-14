@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import * as jspdf from 'jspdf';  
+import html2canvas from 'html2canvas'; 
 @Component({
     selector: 'app-estadistico',
     templateUrl: './estadistico.component.html',
