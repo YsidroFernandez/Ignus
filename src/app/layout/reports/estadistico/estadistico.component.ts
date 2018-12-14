@@ -76,7 +76,7 @@ export class EstadisticoComponent implements OnInit {
           img.src = "./../../assets/images/ignus3.png"
           doc.addImage(img, 'PNG', 0,3,30,30)
           doc.addImage(img, 'PNG', 180,3,30,30)
-          doc.save("ImageSample.pdf")
+          doc.save("Reporte.pdf")
         });  
     
           }

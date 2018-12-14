@@ -9,10 +9,12 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr";
 import { CitasRoutingModule } from './citas-routing.module';
 import { PageHeaderModule } from './../shared';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 @NgModule({
-  imports: [CommonModule,FormsModule,
+  imports: [CommonModule,FormsModule, FontAwesomeModule,
     CitasRoutingModule,PageHeaderModule, FlatpickrModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,
