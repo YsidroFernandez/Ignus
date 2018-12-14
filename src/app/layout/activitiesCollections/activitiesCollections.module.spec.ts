@@ -1,4 +1,4 @@
-import { ActivitiesCollectionsModule } from './activities-collections.module';
+import { ActivitiesCollectionsModule } from './activitiesCollections.module';
 
 describe('PerfilModule', () => {
   let activitiesCollectionsModule: ActivitiesCollectionsModule;

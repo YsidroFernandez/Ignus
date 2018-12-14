@@ -23,6 +23,11 @@ export class RegistroSolicitudComponent implements OnInit {
     solicitud: any;
     solicitudes: any;
     nuevo: any;
+
+    paises=["Venezuela","Colombia","Brasil"]
+    estadost={"Venezuela":["Lara","Zulia","Caracas","Falcon"],"Colombia":["Antioquia","Bolivia","Cauca"],"Brasil":["Alagoas","Río de Janeiro"]}
+    municipio=["Urdaneta","Iribarren","Crespo","Palavecino"]
+    estados = []
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
@@ -34,18 +39,40 @@ export class RegistroSolicitudComponent implements OnInit {
     correo: "",
     tipo: "" ,
     descripcion: "",
+    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
     estado: "En espera",
     fecha: "",
     fotos: [],
   }
 
-tipos = ["Compra","Venta","Alquiler","Arrendamiento"]
-estados: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
+tiposervicio: any;
+
+estado: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
 
 constructor(private modalService: NgbModal,public globalService: GlobalService) {
 this.solicitud = [];
 this.nuevo = [];
+this.tiposervicio = [];
+
+this.globalService.getModel("/api/typeService").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+                this.tiposervicio = result['data'];
+                
+    }
+    console.log(this.tiposervicio);
+}, (err) => {
+    console.log(err);
+});
+
       }
+
+//this method associate to reload estados
+cargarestados(){
+    this.estados = this.estadost[this.solicitud2.direccion.pais]
+}
+
+
 // This method associate to New Button.
 enviar() { 
   
@@ -83,6 +110,7 @@ limpiar(){
     correo: "",
     tipo: "" ,
     descripcion: "",
+    direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:""},
     estado: "En espera",
     fecha: "",
     fotos: [],

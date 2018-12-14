@@ -8,7 +8,6 @@ import { SolicitudComponent } from './solicitud.component';
 import { PageHeaderModule } from './../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
 @NgModule({
     imports: [CommonModule, SolicitudRoutingModule,
        PageHeaderModule,

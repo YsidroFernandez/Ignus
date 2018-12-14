@@ -29,19 +29,25 @@
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Correo</th>
-                            <th>Tipo</th>
-                            <th>descripcion</th>
-                            <th> Estado </th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Telefono</th>
+                            <th> Tipo de Solicitud </th>
+                            <th> Fecha</th>
+                            <th> Hora</th>
+                            <th> Estatus </th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="onEdit(i)">
-                            <td>{{ solicitud.correo}}</td>
-                            <td>{{ solicitud.tipo}}</td>
-                            <td>{{ solicitud.descripcion}}</td>
-                            <td>{{ solicitud.estado}}</td>
+                        <tr *ngFor="let solicitud of solicituds; let i = index" (click)="openForEdit(Solicitud)">
+                            <td>{{Solicitud.nombre}}</td>
+                            <td>{{Solicitud.apellido}}</td>
+                            <td>{{Solicitud.telefono}}</td>
+                            <td>{{Solicitud.tipo}}</td>
+                            <td>{{Solicitud.fecha}}</td>
+                            <td>{{Solicitud.hora}}</td>
+                            <td>{{Solicitud.estatus}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
@@ -72,72 +78,77 @@
         <div class="card mb-3">
             <div class="col-xl-4 text-xs-center">
                 <div class="card-body">
+                    
                     <ng-template #content let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title ">Agendar Cita</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="modal-body">
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label class="ng-tns-c12-9" for="titulo">Titulo</label>
-                                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                [(ngModel)]="nuevacita.title" #titulo="ngModel" required>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
-                                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                [(ngModel)]="solicitud2.descripcion" #descripcion="ngModel" required>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-
-                                <div class="row mb-3">
-                                    <div class="col-12 col-sm-6">
-                                        <label for="fechainicio">Fecha de Inicio</label>
-                                        <div class="input-group">
-                                            <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="nuevacita.fechainicio"
-                                                ngbDatepicker #fechainicio="ngbDatepicker" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="fechainicio.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <label for="fechafin">Fecha de Finalización</label>
-                                        <div class="input-group">
-                                            <input type="text" placeholder="dd-mm-yyyy" name="fechafin" [(ngModel)]="nuevacita.fechafin"
-                                                ngbDatepicker #fechafin="ngbDatepicker" class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="fechafin.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="cita-tab" data-toggle="tab" href="#cita" role="tab" aria-controls="cita" aria-selected="false">Cita</a>
+                            </li>
+                          </ul>
+                          <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">                        
+                                <div class="modal-header">
+                                <h4 class="modal-title ">Agendar Cita</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                            (click)="c('Cross click')"> <fa-icon [icon]="faCancel"></fa-icon></button>
-                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="aceptar(i)" ><fa-icon [icon]="faCheck"></fa-icon></button>
-                        </div>
-
+                            <div class="card mb-3">
+                                <div class="modal-body">
+    
+                                    <div class="row mb-3">
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label class="ng-tns-c12-9" for="titulo">Titulo</label>
+                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
+                                                    [(ngModel)]="nuevacita.title" #titulo="ngModel" required>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
+                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
+                                                    [(ngModel)]="solicitud2.descripcion" #descripcion="ngModel" required>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+    
+    
+    
+                                    <div class="row mb-3">
+                                        <div class="col-12 col-sm-6">
+                                            <label for="fechainicio">Fecha</label>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="nuevacita.fechainicio"
+                                                    ngbDatepicker #fechainicio="ngbDatepicker" class="form-control" />
+                                                <span class="input-group-btn">
+                                                    <button class="input-group-addon" (click)="fechainicio.toggle()" type="button">
+                                                        <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="modal-footer">
+                                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                                (click)="c('Cross click')"> <fa-icon [icon]="faCancel"></fa-icon></button>
+                                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                                    (click)="aceptar(i)" ><fa-icon [icon]="faCheck"></fa-icon></button>
+                            </div>
+    
+    </div>
+                            <div class="tab-pane fade" id="cita" role="tabpanel" aria-labelledby="cita-tab">
+                                ...
+                            </div>
+                          </div>
+    
                     </ng-template>
                 </div>
             </div>
@@ -157,14 +168,28 @@
         <div class="row mb-3">
             <div class="col col-sm-6">
                 <div class="form-group">
-                    <label class="ng-tns-c12-9" for="correo">Correo</label>
+                    <label class="ng-tns-c12-9" for="correo">Nombre</label>
                     <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
                         #correo="ngModel" required>
                 </div>
             </div>
             <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="ng-tns-c12-9" for="correo">Apellido</label>
+                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
+                            #correo="ngModel" required>
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label class="ng-tns-c12-9" for="correo">Telefono</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
+                                #correo="ngModel" required>
+                        </div>
+                    </div>
+            <div class="col col-sm-6">
                 <div class="form-group">
-                    <label for="descripcion">Tipo</label>
+                    <label for="descripcion">Tipo de servicio</label>
                     <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
                         <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
                             ngbDropdownToggle>{{solicitud2.tipo}}</button>

@@ -6,9 +6,15 @@ import { PromedioRoutingModule } from './promedio-routing.module';
 import { PromedioComponent } from './promedio.component';
 import { PageHeaderModule } from '../../../shared';
 import { ChartModule } from 'angular-highcharts';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
 
 @NgModule({
-    imports: [ChartModule, CommonModule,FormsModule, ReactiveFormsModule, PromedioRoutingModule, PageHeaderModule],
+    imports: [
+        BsDatepickerModule.forRoot(), // ToastrModule added        
+        DatepickerModule.forRoot(),
+        ChartModule, CommonModule,FormsModule, ReactiveFormsModule, PromedioRoutingModule, PageHeaderModule],
     declarations: [PromedioComponent]
 })
 export class PromedioModule {}

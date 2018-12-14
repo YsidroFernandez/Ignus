@@ -6,8 +6,14 @@ import { CitaRoutingModule } from './cita-routing.module';
 import { CitaComponent } from './cita.component';
 import { PageHeaderModule } from '../../../shared';
 import { ChartModule } from 'angular-highcharts';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
 @NgModule({
-    imports: [ChartModule, CommonModule, CitaRoutingModule, PageHeaderModule],
+    imports: [
+        BsDatepickerModule.forRoot(), // ToastrModule added        
+        DatepickerModule.forRoot(),
+        ChartModule, CommonModule, CitaRoutingModule, PageHeaderModule],
     declarations: [CitaComponent]
 })
 export class CitaModule {}

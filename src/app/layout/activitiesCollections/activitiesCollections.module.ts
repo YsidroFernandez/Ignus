@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr"
-import { ActivitiesCollectionsRoutingModule } from './activities-collections-routing.module';
-import { ActivitiesCollectionsComponent } from './activities-collections.component';
+import { ActivitiesCollectionsRoutingModule } from './activitiesCollections-routing.module';
+import { ActivitiesCollectionsComponent } from './activitiesCollections.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 

@@ -1,7 +1,7 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Clientes'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="'Servicios'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-        <div class="card-header" style="text-align: -webkit-center;">Clientes Registrados</div>
+        <div class="card-header" style="text-align: -webkit-center;">Servicios registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -21,26 +21,24 @@
                         </span>
                     </div>
                 </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
             </div>
             <div class="card-body  table-responsive">
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Identificación</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <!-- <th>Teléfono</th> -->
-                            <th> Sexo </th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of clientes ; let i= index" (click)="onEdit(i)">
-                            <td>{{ item.identification}}</td>
-                            <td>{{ item.firstName}}</td>
-                            <td>{{ item.lastName}}</td>
-                            <!-- <td>{{ item.phoneNumber}}</td> -->
-                            <td>{{ item.gender}}</td>
+                        <tr *ngFor="let item of services ; let i= index" (click)="onEdit(i)">
+                            <td>{{item.name}}</td>
+                            <td>{{item.description}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
@@ -68,46 +66,24 @@
             </div>
             <ng-template #content let-c="close" let-d="dismiss">
                 <div class="modal-header">
-                    <h4 class="modal-title ">Crear Cliente</h4>
+                    <h4 class="modal-title ">Crear service</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="card mb-3">
                     <div class="modal-body">
-                        <div class="row mb-6">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                    <input type="text" [(ngModel)]="service.name" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
-                                    <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                    <label for="nombre">Descripción</label>
+                                    <input type="text" [(ngModel)]="service.description" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -120,47 +96,23 @@
             </ng-template>
             <ng-template #editar let-c="close" let-d="dismiss">
                 <div class="modal-header">
-                    <h4 class="modal-title ">Editar Cliente</h4>
+                    <h4 class="modal-title ">Editar service</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="card mb-3">
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
-                                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre</label>
+                                <input type="text" [(ngModel)]="service.name" class="form-control" />
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
-                                </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">Descripción</label>
+                                <input type="text" [(ngModel)]="service.description" class="form-control" />
                             </div>
                         </div>
                     </div>
@@ -172,7 +124,7 @@
             </ng-template>
             <ng-template #ver let-c="close" let-d="dismiss">
                 <div class="modal-header">
-                    <h4 class="modal-title ">Cliente</h4>
+                    <h4 class="modal-title ">Servicios</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -182,39 +134,18 @@
                         <div class="row mb-3">
                             <div class="col col-sm-6">
                                 <div class="form-group">
-                                    <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
                                     <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                    <input type="text" [(ngModel)]="service.name" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
-                                    <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                    <label for="nombre">Descripción</label>
+                                    <input type="text" [(ngModel)]="service.description" class="form-control" />
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

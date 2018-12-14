@@ -11,12 +11,9 @@
                         <div class="form-group text-center">
                             <label for="descripcion">Fecha Inicio</label>
                             <div class="input-group">
-                                <input type="text" placeholder="mm-yyyy" name="fecha_inicio" class="form-control" />
-                                <span class="input-group-btn">
-                                    <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                        <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                    </button>
-                                </span>
+                                <input name="fecha_inicio" formControlName="fecha_inicio" [bsConfig]="datePickerConfig"
+                                type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                                required>
                             </div>
                         </div>
                     </div>
@@ -24,12 +21,8 @@
                         <div class="form-group text-center">
                             <label for="descripcion">Fecha Fin</label>
                             <div class="input-group">
-                                <input type="text" placeholder="mm-yyyy" name="fecha_fin" class="form-control" />
-                                <span class="input-group-btn">
-                                    <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                        <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                    </button>
-                                </span>
+                                <input name="fecha_fin" formControlName="fecha_fin" [bsConfig]="datePickerConfig" type="text"
+                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required> 
                             </div>
                         </div>
                     </div>
@@ -44,6 +37,15 @@
                                 Generar
                             </button>
                         </span>
+                    </div>
+                    <div class="col col-sm-12">
+                            <div class="card border-primary">
+                                <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                <div class="card-body text-primary">
+                                    <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
+                                    <p class="card-text">MARICO EL QUE LO LEA.</p>
+                                </div>
+                            </div>
                     </div>
                     <div class="card-body">
                         <div [chart]="chart" id="graficaLineal" class="chart"></div>

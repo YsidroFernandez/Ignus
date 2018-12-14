@@ -17,7 +17,11 @@ import exporting from 'highcharts/modules/exporting.src.js';
 //traslate general   actualmente utilizado en calendar
 import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
+<<<<<<< HEAD
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+=======
+import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
+>>>>>>> b51d1e5f810e91ed09286ad5025dcfcd21e01e52
 registerLocaleData(localeEs)
 
 export function highchartsModules() {
@@ -40,6 +44,9 @@ export const createTranslateLoader = (http: HttpClient) => {
         ReactiveFormsModule,
         FormsModule,
         NgbModule.forRoot(),
+        
+        TimepickerModule.forRoot(),
+        BsDatepickerModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),
         TranslateModule.forRoot({
             loader: {
