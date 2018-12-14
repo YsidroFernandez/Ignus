@@ -1,19 +1,19 @@
 <div class="row">
   <div class="col-12 col-md-12 col-sm-12 mb-12">
     <div class="form-group team-member mb-3">
-      <div align="center"><img class="mx-auto rounded-circle" [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" src="\assets\images\1.jpg" alt="">
-          <div class="clearfix" align="center">Maria Perez</div>
+      <div align="center"><img class="mx-auto rounded-circle" [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" src="\assets\images\avatar1.jpg" width="150px" alt="">
+          <div class="clearfix" align="center">Sara Smith</div>
       </div>
     </div>
   </div>
 </div>
 
-<!--Seguimiento-->
+<!--Transacciones-->
 <div class="row">
   
     <div class="container">
-      <div class="card-header" style="text-align: -webkit-center;">
-        Seguimiento
+      <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+        Transacciones
       </div>
       <div class="card mb-3">
         <div class="row mb-3">
@@ -45,7 +45,7 @@
                 <th style="vertical-align: middle;">Nro de Transacción</th>
                 <th style="vertical-align: middle;">Descripción</th>
                 <th style="vertical-align: middle;">Estado</th>
-                <th style="vertical-align: middle;">Acciones</th>
+                <th style="vertical-align: middle;">Ver Detalle</th>
               </tr>
             </thead>
             <tbody>
@@ -56,8 +56,8 @@
                 <td>{{ seguimiento.estatus}}</td>
                 
               <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="Open()">
-                  <fa-icon [icon]="faEye"></fa-icon>
+                <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(content)">
+                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
                 </button>
               </td>
                 </tr>
@@ -65,6 +65,9 @@
             </tbody>
           </table>
         </div>
+
+ 
+
         <div class="row mb-3">
           <div class="col col-sm-8">
             <!--esta columna está vacia-->
@@ -75,89 +78,22 @@
         </div>
       </div>
     </div>
+
+
 </div>
-<br>
-<br>
-<br>
-<!--Solicitudes-->
-<div class="row">
-
-  <div class="container">
-    <div class="card-header" style="text-align: -webkit-center;">
-      Mis Solicitudes
-    </div>
-    <div class="card mb-3">
-      <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label>Mostrar
-            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select> entradas
-          </label>
-        </div>
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group" style="align-content: center;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-            <span class="input-group-btn">
-              <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px;">
-                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="card-body  table-responsive">
-        <table class="card-body table table-hover">
-          <thead>
-            <tr>
-              <th style="vertical-align: middle;">Fecha</th>
-              <th style="vertical-align: middle;">Tipo</th>
-              <th style="vertical-align: middle;">Descripción</th>
-              <th style="vertical-align: middle;">Estado</th>
-              <th style="vertical-align: middle;">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="onEdit(i)">
-              <td>{{solicitud.fecha}}</td>
-              <td>{{solicitud.tipo}}</td>
-              <td>{{ solicitud.descripcion}}</td>
-              <td>{{ solicitud.estatus}}</td>
-
-              <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="Open()">
-                  <fa-icon [icon]="faEye"></fa-icon>
-                </button>
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
-      <div class="row mb-3">
-        <div class="col col-sm-8">
-          <!--esta columna está vacia-->
-        </div>
-        <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
-          </div>-->
-      </div>
-    </div>
+<ng-template #content let-c="close" let-d="dismiss">
+<div class="modal-header">
+   <div class="col-md-12"><div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+        Recaudos
+      </div></div>
+<!-- <h4  " class="modal-title ">Recaudos</h4>-->
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+  <span aria-hidden="true">&times;</span>
+  </button>
   </div>
-</div>
-<br>
-<br>
-<div class="row">
-  <!--Recaudos-->
-  <div class="col-md-12">
     <div class="card  card-tasks">
       <div class="card-header ">
         <h5 class="card-category"></h5>
-        <h4 class="card-title">Recaudos</h4>
       </div>
       <div class="card-body ">
         <p><strong>Compra de Casa en el Este de Barqto: </strong></p> 
@@ -213,5 +149,94 @@
         </div>
       </div>
     </div>
+
+                <div class="modal-footer">
+                    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
+                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                </div>
+            </ng-template>
+
+<br>
+<br>
+<br>
+<!--Solicitudes-->
+<div class="row">
+
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+      Mis Solicitudes
+    </div>
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <label>Mostrar
+            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select> entradas
+          </label>
+        </div>
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <div class="input-group" style="align-content: center;">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+            <span class="input-group-btn">
+              <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px;">
+                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th style="vertical-align: middle;">Fecha</th>
+              <th style="vertical-align: middle;">Tipo</th>
+              <th style="vertical-align: middle;">Descripción</th>
+              <th style="vertical-align: middle;">Estado</th>
+              <th style="vertical-align: middle;">Ver Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="onEdit(i)">
+              <td>{{solicitud.fecha}}</td>
+              <td>{{solicitud.tipo}}</td>
+              <td>{{ solicitud.descripcion}}</td>
+              <td>{{ solicitud.estatus}}</td>
+
+              <td>
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="Open()">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="row mb-3">
+        <div class="col col-sm-8">
+          <!--esta columna está vacia-->
+        </div>
+        <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
+          </div>-->
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+
+
+
+<div class="row">
+  <!--Recaudos-->
+  <div class="col-md-12">
+    
   </div>
   </div>

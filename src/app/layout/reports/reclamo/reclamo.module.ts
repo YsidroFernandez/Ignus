@@ -6,9 +6,16 @@ import { ReclamoRoutingModule } from './reclamo-routing.module';
 import { ReclamoComponent } from './reclamo.component';
 import { PageHeaderModule } from '../../../shared';
 import { ChartModule } from 'angular-highcharts';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+
 
 @NgModule({
-    imports: [ChartModule, CommonModule,FormsModule, ReactiveFormsModule, ReclamoRoutingModule, PageHeaderModule],
+    imports: [
+        BsDatepickerModule.forRoot(), // ToastrModule added        
+        DatepickerModule.forRoot(),
+        ChartModule, CommonModule,FormsModule, ReactiveFormsModule, ReclamoRoutingModule, PageHeaderModule],
     declarations: [ReclamoComponent]
 })
 export class ReclamoModule {}

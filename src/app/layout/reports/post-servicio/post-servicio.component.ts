@@ -3,7 +3,7 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
-
+import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 @Component({
     selector: 'app-post-servicio',
     templateUrl: './post-servicio.component.html',

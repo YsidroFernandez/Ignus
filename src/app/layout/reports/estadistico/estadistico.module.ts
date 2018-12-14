@@ -6,8 +6,17 @@ import { EstadisticoRoutingModule } from './estadistico-routing.module';
 import { EstadisticoComponent } from './estadistico.component';
 import { PageHeaderModule } from '../../../shared';
 import { ChartModule } from 'angular-highcharts';
+import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+defineLocale('es', esLocale);
+
+
 @NgModule({
-    imports: [ChartModule, CommonModule,FormsModule, ReactiveFormsModule,  EstadisticoRoutingModule, PageHeaderModule],
+    imports: [
+        BsDatepickerModule.forRoot(), // ToastrModule added        
+        DatepickerModule.forRoot(),
+        ChartModule, CommonModule,FormsModule, ReactiveFormsModule,  EstadisticoRoutingModule, PageHeaderModule],
     declarations: [EstadisticoComponent]
 })
 export class EstadisticoModule {}

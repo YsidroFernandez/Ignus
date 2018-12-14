@@ -1,65 +1,73 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Calificación de Empleado'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
-        <div class="col col-xl-12">
+        <div class="col-md-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
                 Calificación de Empleado
             </div>
 
-            <div class="row">
-                <div class="col col-sm-3 text-center">
-                    <div class="form-group text-center">
-                        <label for="descripcion">Fecha Inicio</label>
-                        <div class="input-group">
-                                <input  name="fecha_inicio" formControlName="fecha_inicio"
-                                [bsConfig]="datePickerConfig"   type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
-                                required>                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-sm-3 text-center">
-                    <div class="form-group text-center">
-                        <label for="descripcion">Fecha Fin</label>
-                        <div class="input-group">
-                                <input  name="fecha_fin" formControlName="fecha_fin"
-                                [bsConfig]="datePickerConfig"   type="text" class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off"
-                                required>                           
-                        </div>                       
-                    </div>
-                </div>
-
-                <div class="col col-sm-3 text-center">
-                    <label>Empleado</label>
-                    <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">Erick</option>
-                            <option value="2">Juan</option>
-                            <option value="3">Pedro</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col col-sm-3 text-center">
-                    <span class="input-group-btn">
-                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
-                            Generar
-                        </button>
-                    </span>
-                </div>
-                <div class="col col-sm-12">
-                        <div class="card border-primary">
-                            <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                            <div class="card-body text-primary">
-                                <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                <p class="card-text">MARICO EL QUE LO LEA.</p>
+            <div class="card-body">
+                <form role="form" #clasificacionForm="ngForm" (ngSubmit)="buscar()" id="form" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group text-center">
+                                <label for="descripcion">Fecha Inicio</label> <!--(bsValueChange)="onValueChange($event)"-->
+                                <input name="fecha_inicio" [(ngModel)]="datos.fecha_inicio"  [bsConfig]="datePickerConfig"
+                                    type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker
+                                    autocomplete="off" required>
                             </div>
                         </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group text-center">
+                                <label for="descripcion">Fecha Fin</label>
+                                <input name="fecha_fin" [(ngModel)]="datos.fecha_fin" [bsConfig]="datePickerConfig"
+                                    type="text" class="form-control" placeholder="Fecha fin *" bsDatepicker
+                                    autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <div class="col col-sm-3 text-center">
+                            <label>Empleado</label>
+                            <div class="form-group input-group">
+                                <select class="form-control">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="1">Erick</option>
+                                    <option value="2">Juan</option>
+                                    <option value="3">Pedro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col col-sm-3 text-center">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit" style="position: relative; top: 30px;  background: #1AB394;">
+                                    Generar
+                                </button>
+                               
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="row">
+                <div *ngIf="view" class="col-sm-12">
+                    <div class="card border-primary">
+                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES
+                                DEL
+                                REPORTE</b></div>
+                        <div class="card-body text-primary">
+                            <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes
+                                    por Ordenes de Servicio</b></h5>
+                            <p class="card-text">Fecha fin: {{datos.fecha_inicio}}  Fecha fin: {{datos.fecha_fin}}</p>
+  
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div [chart]="chart" id="graficaLineal" class="chart"></div>
                 </div>
-
             </div>
 
 

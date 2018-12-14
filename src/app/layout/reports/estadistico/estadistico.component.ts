@@ -3,9 +3,13 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
+<<<<<<< HEAD
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas'; 
+=======
+import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
+>>>>>>> e1bcad5ecd6d5c75db367b2195d88af99be64614
 @Component({
     selector: 'app-estadistico',
     templateUrl: './estadistico.component.html',
@@ -17,9 +21,11 @@ import html2canvas from 'html2canvas';
 export class EstadisticoComponent implements OnInit {
 
     selectedValue: string = "";
-   
-    // defaultValue = this.values[0];
+    datePickerConfig: Partial<BsDatepickerConfig>;
+    public view = false;
+    
     tipos = [ { value: "1", name: "Barra" }, { value: "2", name: "Lineal" }];
+<<<<<<< HEAD
 // { value: "1", name: "Circular" },
     public chart: any;
     public captureScreen()  
@@ -42,15 +48,27 @@ export class EstadisticoComponent implements OnInit {
     
     constructor(
         
+=======
+>>>>>>> e1bcad5ecd6d5c75db367b2195d88af99be64614
 
-    ) {
+    public chart: any;
+    constructor() {
         this.selectedValue = "0";
         let now = moment().format();
+<<<<<<< HEAD
         console.log('hello world', this.tipos);
 
         var doc = new jspdf('p', 'pt');
         //doc.autoTable(columns, rows);
         //doc.save('table.pdf');
+=======
+
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'MM/YYYY' },
+            { locale: 'es' });
+>>>>>>> e1bcad5ecd6d5c75db367b2195d88af99be64614
     }
     downloadImagePDF(){
         var doc = new jspdf()
@@ -88,8 +106,7 @@ export class EstadisticoComponent implements OnInit {
 
 
     buscar(data) {
-        console.log(data);
-
+        this.view = true;
         if (data == 3) {
             this.chart = new Chart({
                 chart: {
