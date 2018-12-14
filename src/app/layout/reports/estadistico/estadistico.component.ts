@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import * as jspdf from 'jspdf';  
 import html2canvas from 'html2canvas'; 
+import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 @Component({
     selector: 'app-estadistico',
     templateUrl: './estadistico.component.html',
@@ -40,19 +41,19 @@ export class EstadisticoComponent implements OnInit {
         pdf.save('MYPdf.pdf'); // Generated PDF   
       });  
     }  
-    
-    constructor(
-        
-
-    public chart: any;
+           
     constructor() {
         this.selectedValue = "0";
         let now = moment().format();
         console.log('hello world', this.tipos);
 
         var doc = new jspdf('p', 'pt');
-        //doc.autoTable(columns, rows);
-        //doc.save('table.pdf');
+
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'MM/YYYY' },
+            { locale: 'es' });
     }
     downloadImagePDF(){
         var doc = new jspdf()
