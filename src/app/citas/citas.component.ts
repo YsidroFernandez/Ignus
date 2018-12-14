@@ -27,31 +27,25 @@ export class CitasComponent implements OnInit {
   public numPage: number;
   public pages = 1;
   view: CalendarView = CalendarView.Month;
-
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
   locale: string = 'es';
-
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-
   weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 
   modalData: {
     action: string;
     event: CalendarEvent;
   };
-    cita:any;
 
-    citas:any;
-
-    nuevo: any;
-    // It maintains recaudos form display status. By default it will be false.
-    showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
-    submitType: string = 'Save';
-    selectedRow: number;
+  cita:any;
+  citas:any;
+  nuevo: any;
+  // It maintains recaudos form display status. By default it will be false.
+  showNew: Boolean = false;
+  // It will be either 'Save' or 'Update' based on operation.
+  submitType: string = 'Save';
+  selectedRow: number;
 
   actions: CalendarEventAction[] = [
     {
@@ -70,11 +64,10 @@ export class CitasComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-
   events: CalendarEvent[] = calendariocita
   activeDayIsOpen: boolean = true;
-
   closeResult: string;
+  msg = '';
 
   constructor(private modal: NgbModal,  private globals: GlobalsProvider, public globalService: GlobalService) {
 
@@ -87,7 +80,6 @@ export class CitasComponent implements OnInit {
 
   open(content) {
     this.modal.open(content).result.then((result) => {
-
     this.closeResult = `Closed with: ${result}`;
    }
 , (reason) => {
@@ -95,7 +87,7 @@ export class CitasComponent implements OnInit {
 });
 }
 
-    private getDismissReason(reason: any): string {
+  private getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -104,6 +96,13 @@ export class CitasComponent implements OnInit {
             return  `with: ${reason}`;
         }
     }
+
+  delete(index: number) {
+       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
+        this.cita.splice(index, 1);
+        this.msg = 'Campo Eliminado Exitosamente';
+      }
+      }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -156,6 +155,9 @@ export class CitasComponent implements OnInit {
     this.numPage = this.globals.numPage;     
   }
 
+  // faEye = faEye;
+  // faEdit = faEdit;
+  // faTrash = faTrash;
 
   onDelete(index: number) {
     console.log('eliminando');
@@ -182,7 +184,6 @@ export class CitasComponent implements OnInit {
                     console.log(err);
                 });
         }
-
 
 }
 

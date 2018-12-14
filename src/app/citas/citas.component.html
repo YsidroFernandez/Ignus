@@ -126,14 +126,14 @@
 
   <table class="table table-bordered">
 
+  <div class="card-body  table-responsive">
+  <table class="card-body table table-hover">
     <thead>
       <tr>
         <th>Titulo</th>
-        <th>Próxima citas</th>
-        <th>Citas sin finalizar</th>
-        <th>Empieza el</th>
-        <th>Termina el</th>
-        <th>Retirar</th>
+        <th>Fecha citas</th>
+        <th>Turno</th>
+        <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
@@ -142,12 +142,28 @@
           <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()">
         </td>
         <td>
-          <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()">
+          <input type="text" class="form-control" [(ngModel)]="event.description" (keyup)="refresh.next()">
         </td>
         <td>
           <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()">
         </td>
         <td>
+          <button aling="center" type="button" style="background: #1AB394; border-radius: 20px"> (click)="open(Crear)"
+                  <fa-icon style="color: white" [icon]="faEye"></fa-icon>
+          </button>
+
+          <button aling="center" type="button" style="background: #1AB394; border-radius: 20px"> (click)="open
+
+(Crear)"
+                  <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+          </button>
+            
+          <button aling="center" (click)="delete()" type="button" style="background: #1AB394; border-radius: 20px">
+                  <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+          </button>
+
+          
+
           <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start" (ngModelChange)="refresh.next()"
             [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
             placeholder="Not set">
@@ -164,6 +180,5 @@
         </td>
       </tr>
     </tbody>
-
   </table>
-</ng-template> -->
+</ng-template>-->
