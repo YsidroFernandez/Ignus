@@ -79,7 +79,7 @@ ngOnInit() {
     this.globalService.getModel("/api/client")
         .then((result) => {
             console.log(result);
-            this.clientes = result['data']['clients'];
+            this.clientes = result['data'];
             console.log(this.clientes);
         }, (err) => {
             console.log(err);

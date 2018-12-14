@@ -42,7 +42,7 @@ export class EmployeeComponent implements OnInit {
                     this.globalService.getModel("/api/employee")
                         .then((result) => {
                             console.log(result);
-                            this.empleados = result['data']['employees'];
+                            this.empleados = result['data'];
                         }, (err) => {
                             console.log(err);
                         });
@@ -96,7 +96,7 @@ ngOnInit() {
     this.globalService.getModel("/api/employee")
         .then((result) => {
             console.log(result);
-            this.empleados = result['data']['employees'];
+            this.empleados = result['data'];
             console.log(this.empleados);
         }, (err) => {
             console.log(err);

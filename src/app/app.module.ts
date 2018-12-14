@@ -17,7 +17,7 @@ import exporting from 'highcharts/modules/exporting.src.js';
 //traslate general   actualmente utilizado en calendar
 import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
-
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 registerLocaleData(localeEs)
 
 export function highchartsModules() {
@@ -50,6 +50,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule,
         ChartsModule,
+        SelectDropDownModule
 
 
     ],
