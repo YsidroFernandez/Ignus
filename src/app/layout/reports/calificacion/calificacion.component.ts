@@ -3,7 +3,7 @@ import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
-import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 
 })
 export class CalificacionComponent implements OnInit {
-    datePickerConfig: Partial<BsDatepickerConfig>;
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public view = false;
     public time_ini: any;
     values = ['circular', 'barra', 'lineal'];
