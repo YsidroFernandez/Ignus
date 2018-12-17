@@ -120,12 +120,12 @@ cargarciudades(state){
 // This method associate to New Button.
 enviar() { 
   
-  this.nuevo = JSON.stringify({
+  this.nuevo = {
     ClientId: this.solicitud.ClientId,
 	TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
 	wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
 	TypeRequestId: this.solicitud.TypeRequestId
-});
+};
 console.log("result",this.nuevo);
    this.globalService.addModel(this.nuevo,"/api/request/pending")
                 .then((result) => {
