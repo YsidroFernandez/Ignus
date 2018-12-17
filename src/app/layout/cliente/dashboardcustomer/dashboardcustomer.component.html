@@ -133,7 +133,7 @@
               <td>{{ solicitud.status}}</td>
 
               <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="Open(solicitud)">
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(modalSolicitud)">
                   <fa-icon [icon]="faEye"></fa-icon>
                 </button>
               </td>
@@ -236,10 +236,10 @@
 <!--Fin modal de transacciones-->
 
 <!--Modal solicitudes-->
-<ng-template #ver let-c="close" let-d="dismiss">
+<ng-template #modalSolicitud let-c="close" let-d="dismiss">
 
   <div class="modal-header">
-    <h4 class="modal-title">Gestion Inmuebles</h4>
+    <h4 class="modal-title">Detalles</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -249,20 +249,16 @@
       <div class="col-xl-6 text-xs-center">
         <div class="card-body">
           <div class="form-group">
-            <label>Tipos</label>
-            <select disabled="" [(ngModel)]="selectedInmueble.tipo" class="form-control">
-              <option *ngFor="let tip of tipo" [value]="tip.Name">
-                {{tip.Name}}
-              </option>
-            </select>
+            <label>Fecha: </label>
+            <input disabled="" [(ngModel)]="solicitudSelect.wishDate" type="text" name="fecha" ng-model="fecha" class="form-control" />
           </div>
         </div>
       </div>
       <div class="col-xl-6 text-xs-center">
-        <div class="card-body">
+        <div class="card-body"> 
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input disabled="" [(ngModel)]="selectedInmueble.nombre" type="text" name="nombre" ng-model="nombre" class="form-control" />
+            <input disabled="" [(ngModel)]="solicitudSelect.typeRequest.name" type="text" name="nombre" ng-model="nombre" class="form-control" />
           </div>
         </div>
       </div>
@@ -272,7 +268,7 @@
         <div class="card-body">
           <fieldset class="form-group">
             <label>Descripcion</label>
-            <textarea disabled="" [(ngModel)]="selectedInmueble.descripcion" class="form-control" name="descripcion"
+            <textarea disabled="" [(ngModel)]="solicitudSelect.typeRequest.description" class="form-control" name="descripcion"
               ng-model="descripcion" rows="3"></textarea>
           </fieldset>
         </div>
@@ -281,32 +277,14 @@
       <div class="col-xl-6 text-xs-center">
         <div class="card-body">
           <fieldset class="form-group">
-            <label>Ubicacion</label>
-            <textarea disabled="" [(ngModel)]="selectedInmueble.ubicacion" class="form-control" name="ubicacion"
-              ng-model="ubicacion" rows="3"></textarea>
+            <label>Estatus</label>
+          <input disabled="" [(ngModel)]="solicitudSelect.status" type="text" name="status" ng-model="status" class="form-control" />
           </fieldset>
         </div>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xl-6 text-xs-center">
-        <div class="card-body">
-          <div class="form-group">
-            <label class="ng-tns-c12-9" for="descripcion">Fotos</label>
-            <input disabled="" class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-6 text-xs-center">
-        <div class="card-body">
-          <div class="form-group">
-            <label for="id">Precio</label>
-            <input disabled="" [(ngModel)]="selectedInmueble.precio" type="text" name="precio" ng-model="precio" class="form-control" />
-          </div>
-        </div>
-      </div>
-    </div>
+
   </div>
 
 </ng-template>

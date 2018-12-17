@@ -88,12 +88,13 @@ export class DashboardcustomerComponent implements OnInit {
         { fecha: "16/11/2018", descripcion: 'Compra de Casa en el Este de Barqto', estatus:'	Esperando Recaudos'},
         { fecha: "16/12/2018", descripcion: 'Alquiler de apartamento', estatus: 'Reserva realizada' }
 
-    ];
+    ]; 
 
   }
 
     detallesSolicitud(solicitud){
         this.solicitudSelect=solicitud;
+        console.log("Esto es",this.solicitudSelect)
     }
   faEye = faEye;
 
