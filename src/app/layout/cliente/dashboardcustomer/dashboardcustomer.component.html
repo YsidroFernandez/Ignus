@@ -42,7 +42,7 @@
           <table class="card-body table table-hover">
             <thead>
               <tr>
-                <th style="vertical-align: middle;">Nro de Transacción</th>
+                <th style="vertical-align: middle;">Fecha de la transaccion</th>
                 <th style="vertical-align: middle;">Descripción</th>
                 <th style="vertical-align: middle;">Estado</th>
                 <th style="vertical-align: middle;">Ver Detalle</th>
@@ -50,8 +50,8 @@
             </thead>
             <tbody>
               
-               <tr *ngFor="let seguimiento of listSeguimiento; let i = index" (click)="onEdit(i)"> 
-                <td>{{seguimiento.nro}}</td>
+               <tr *ngFor="let seguimiento of listSeguimiento; let i = index"> 
+                <td>{{seguimiento.fecha}}</td>
                 <td>{{ seguimiento.descripcion}}</td>    
                 <td>{{ seguimiento.estatus}}</td>
                 
@@ -78,86 +78,10 @@
         </div>
       </div>
     </div>
-
-
 </div>
-<ng-template #content let-c="close" let-d="dismiss">
-<div class="modal-header">
-   <div class="col-md-12"><div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-        Recaudos
-      </div></div>
-<!-- <h4  " class="modal-title ">Recaudos</h4>-->
-  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-  <span aria-hidden="true">&times;</span>
-  </button>
-  </div>
-    <div class="card  card-tasks">
-      <div class="card-header ">
-        <h5 class="card-category"></h5>
-      </div>
-      <div class="card-body ">
-        <p><strong>Compra de Casa en el Este de Barqto: </strong></p> 
-        <div class="table-full-width table-responsive">
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked>
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                </td>
-                <td class="text-left">Cédula y Rif del inquilino</td>
-                
-              </tr>
-              
-              <tr>
-                <td>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" >
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                </td>
-                <td class="text-left">Carta de residencia emitida por el CNE
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="form-check">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked>
-                      <span class="form-check-sign"></span>
-                    </label>
-                  </div>
-                </td>
-                <td class="text-left">Carta de buena conducta
-                </td>
-            
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="now-ui-icons loader_refresh spin"></i> Actualizado hace 3 minutos
-        </div>
-      </div>
-    </div>
 
-                <div class="modal-footer">
-                    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
-                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
-                </div>
-            </ng-template>
 
-<br>
-<br>
+
 <br>
 <!--Solicitudes-->
 <div class="row">
@@ -202,18 +126,18 @@
           </thead>
           <tbody>
 
-            <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="onEdit(i)">
-              <td>{{solicitud.fecha}}</td>
-              <td>{{solicitud.tipo}}</td>
-              <td>{{ solicitud.descripcion}}</td>
-              <td>{{ solicitud.estatus}}</td>
+         <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="detallesSolicitud(solicitud)">
+              <td>{{solicitud.wishDate}}</td>
+              <td>{{solicitud.typeRequest.name}}</td>
+              <td>{{ solicitud.typeRequest.description}}</td>
+              <td>{{ solicitud.status}}</td>
 
               <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="Open()">
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(modalSolicitud)">
                   <fa-icon [icon]="faEye"></fa-icon>
                 </button>
               </td>
-            </tr>
+            </tr> 
 
           </tbody>
         </table>
@@ -229,14 +153,140 @@
     </div>
   </div>
 </div>
-<br>
-<br>
+<!--Fin Solicitudes-->
 
-
-
-<div class="row">
-  <!--Recaudos-->
-  <div class="col-md-12">
-    
+<!--Modal de transacciones-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <div class="col-md-12">
+      <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+        Recaudos
+      </div>
+    </div>
+    <!-- <h4  " class="modal-title ">Recaudos</h4>-->
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
+  <div class="card  card-tasks">
+    <div class="card-header ">
+      <h5 class="card-category"></h5>
+    </div>
+    <div class="card-body ">
+      <p><strong>Compra de Casa en el Este de Barqto: </strong></p>
+      <div class="table-full-width table-responsive">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked>
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </td>
+              <td class="text-left">Cédula y Rif del inquilino</td>
+
+            </tr>
+
+            <tr>
+              <td>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox">
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </td>
+              <td class="text-left">Carta de residencia emitida por el CNE
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" checked>
+                    <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </td>
+              <td class="text-left">Carta de buena conducta
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer ">
+      <hr>
+      <div class="stats">
+        <i class="now-ui-icons loader_refresh spin"></i> Actualizado hace 3 minutos
+      </div>
+    </div>
   </div>
+
+  <div class="modal-footer">
+    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i style="color: white"
+        class="fa fa-close" aria-hidden="true"></i></button>
+  </div>
+</ng-template>
+
+<!--Fin modal de transacciones-->
+
+<!--Modal solicitudes-->
+<ng-template #modalSolicitud let-c="close" let-d="dismiss">
+
+  <div class="modal-header">
+    <h4 class="modal-title">Detalles</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <div class="form-group">
+            <label>Fecha: </label>
+            <input disabled="" [(ngModel)]="solicitudSelect.wishDate" type="text" name="fecha" ng-model="fecha" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body"> 
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input disabled="" [(ngModel)]="solicitudSelect.typeRequest.name" type="text" name="nombre" ng-model="nombre" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <fieldset class="form-group">
+            <label>Descripcion</label>
+            <textarea disabled="" [(ngModel)]="solicitudSelect.typeRequest.description" class="form-control" name="descripcion"
+              ng-model="descripcion" rows="3"></textarea>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <fieldset class="form-group">
+            <label>Estatus</label>
+          <input disabled="" [(ngModel)]="solicitudSelect.status" type="text" name="status" ng-model="status" class="form-control" />
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</ng-template>
+
+<!--Fin Modal solicitudes-->
