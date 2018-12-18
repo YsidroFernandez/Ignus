@@ -66,16 +66,32 @@ export class GlobalService {
 
 
   getModel_Id(id: String, tipo: String,httpOptions=httpOptionsDefault){
+    this.spinner.show();
     return new Promise(resolve =>{
-      this.http.get(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe(data =>{
+      this.http.get(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe((data: any) =>{
+        this.toastr.success('',data.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
+        this.spinner.hide();
         resolve(data);
-      }, err =>{
+
+        
+      }, (err: any) =>{
         console.log({id: id,tipo: tipo, httpOptions: httpOptions});
+        this.toastr.error('',err.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
+        this.spinner.hide();
       })
     })
   }
 
   addModel(model,tipo: String,httpOptions=httpOptionsDefault){
+    this.spinner.show();
     return new Promise(resolve =>{
       this.http.post(this.apiBaseUrl + "" + tipo,model,httpOptions).subscribe((data : any) =>{
         console.log(data);  
@@ -84,6 +100,7 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
+        this.spinner.hide();
         resolve(data);
       }, (err: any) =>{
         console.log(err);
@@ -92,12 +109,13 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
-        
+        this.spinner.hide();
       })
     })
   }
 
   updateModel(id, model, tipo: String,httpOptions=httpOptionsDefault){
+    this.spinner.show();
     return new Promise(resolve =>{
       this.http.put(this.apiBaseUrl + "" + tipo  + '/' + id, model,httpOptions).subscribe((data: any) =>{
         console.log(data);
@@ -106,6 +124,7 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
+        this.spinner.hide();
         resolve(data);
       }, (err: any) =>{
         console.log(err);
@@ -114,11 +133,13 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
+        this.spinner.hide();
       })
     })
   }
 
   removeModel(id,tipo: String,httpOptions=httpOptionsDefault){
+    this.spinner.show();
     return new Promise(resolve =>{
       this.http.delete(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe((data: any) =>{
         console.log(data);
@@ -127,6 +148,7 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
+        this.spinner.hide();
         resolve(data);
       }, (err: any) =>{
         console.log(err);
@@ -135,6 +157,7 @@ export class GlobalService {
           progressBar:true,
           positionClass:'toast-bottom-right'
         });
+        this.spinner.hide();
       })
     })
   }
