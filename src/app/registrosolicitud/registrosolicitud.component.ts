@@ -65,7 +65,7 @@ constructor(private modalService: NgbModal,public globalService: GlobalService) 
         { locale: 'es' });
 
 this.solicitud = {ClientId: 1,
-TypeServiceId: "",
+TypeServiceId: "", 
 wishDate:"",
 TypeRequestId:3
 }

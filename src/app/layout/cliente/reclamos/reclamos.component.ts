@@ -3,7 +3,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
-
+import { GlobalService } from '../../../providers/global.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-reclamos',
@@ -12,65 +13,85 @@ import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatt
 })
 export class ReclamosComponent implements OnInit {
 
-	reclamos2 = {
-    tipo: "",
+    closeResult: string;
+    reclamo: any;
+    reclamos: any;
+    nuevo: any;
+
+    showNew: Boolean = false;
+    submitType: string = 'Save';
+    selectedRow: number;
+
+  reclamos2= {
+
+    name: "",
+    clienteId:1,
+    typeIncidenceId: 3,
     descripcion: "",
-    estado: "En espera",
-    tiporeclamo: "",
+    
   }
 
-  tiporeclamo = ["Servicio de agua defectuoso", "Daño en estructura", "Sistema de luz en malas condiciones"]
-  estados: string[] = ['En Proceso', 'En Espera', 'Procesado', 'Eliminado'];
-  modalService: any;
-  closeResult: string;
-  selectedReclamo: any;
-  ReclamoArray: any;
-  msg: string;
+typeIncidence: any;
+descripcion: any;
 
-  constructor() { 
+  constructor(public globalService: GlobalService) { 
+
+    let now = moment().format();
+    
+    this.nuevo = [];
+    this.typeIncidence = [];  
+
+
+this.globalService.getModel("/api/typeIncidence").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+                this.typeIncidence= result['data'];            
+    }
+}, (err) => {
+    console.log(err);
+});
+
   console.log("hola")
 }
-open(content) {
-  this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      if(this.selectedReclamo.id === 0){
-  this.selectedReclamo.id = this.ReclamoArray.length + 1;
-  this.ReclamoArray.push(this.selectedReclamo);
-  this.msg = 'Campo Agregado Exitosamente';
-  }
-  }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  });
+
+enviar() { 
+  
+  this.nuevo = {  name: this.reclamo.clienteId,
+    TypeIncidencesId: Number.parseInt(this.reclamo.TypeIncidencesId), 
+    descripcion: this.reclamo.descripcion,
+  }; 
+console.log("result",this.nuevo);
+   this.globalService.addModel(this.nuevo,"/api/Incidence")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es creado el recaudo
+                            console.log(result);
+                        
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+  alert("Agregado con exito")
+  this.limpiar()
 }
-  getDismissReason(reason: any): any {
-    throw new Error("Method not implemented.");
-  }
 
- enviar() {
+limpiar(){
 
-
-    var select = document.getElementById("tiporeclamo")
-    var options = document.getElementsByTagName("option")
-
-    
-    alert("Enviado con exito")
-    this.limpiar()
-  }
-
-  limpiar() {
-    this.reclamos2 = {
-    
-    tipo: "",
+ this.reclamo= {
+  
+    name: "",
+    clienteId:1,
+    typeIncidenceId: 3,
     descripcion: "",
-    estado: "En espera",
-    tiporeclamo: "",
-    }
-  }
+}
+}
+ 
 
   ngOnInit() {
  
   }
 
 }
-
 

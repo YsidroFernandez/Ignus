@@ -14,9 +14,9 @@ import { GlobalService } from '../../../providers/global.service';
 })
 
 export class PerfilComponent implements OnInit {
-  
     closeResult: string;
     perfil: any;
+    
     nuevo: any;
     showNew: Boolean = false;
 
@@ -31,7 +31,7 @@ export class PerfilComponent implements OnInit {
     //Metodo del boton Enviar
   enviar() { 
   if (this.submitType === "Save") {
-  this.nuevo = JSON.stringify({firstName: this.perfil.firstName, lastName: this.perfil.lastName, phoneNumber: this.perfil.phoneNumber, });
+  this.nuevo = JSON.stringify({firstName: this.perfil.firstName, lastName: this.perfil.lastName, birthDate: this.perfil.birthDate, gender: this.perfil.gender, });
    this.globalService.addModel(this.nuevo,"/api/client")
                 .then((result) => {
                     console.log(result);
