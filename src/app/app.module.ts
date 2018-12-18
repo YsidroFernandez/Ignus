@@ -18,9 +18,12 @@ import { ToastrModule } from 'ngx-toastr';
 //traslate general   actualmente utilizado en calendar
 import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
-import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
-registerLocaleData(localeEs)
+import { NgSelectModule } from '@ng-select/ng-select';
+registerLocaleData(localeEs);
+
+
+
 
 export function highchartsModules() {
     return [ exporting ];
@@ -55,7 +58,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule,
         ChartsModule,
-        SelectDropDownModule,
+        NgSelectModule,
         NgxSpinnerModule,
         
     ],

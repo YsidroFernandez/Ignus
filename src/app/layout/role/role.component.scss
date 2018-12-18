@@ -1,0 +1,48 @@
+.ng-select.custom {
+    border-color: #a1d8e7;
+    border-radius: 5;
+    box-shadow: inset 1 1px 1px #a1d8e7, 0 0 0 3px ;
+    border: 1px solid #a1d8e7;
+    height: 40px;
+    font-size:18px;
+    
+}
+.ng-select.custom .ng-select-container  {   
+    content: "\025be";         
+    border-radius: 5;
+    border-color: #a1d8e7;
+    
+}
+.ng-select.custom .ng-select-select {
+     padding: 5px 8px;
+     width: 130%;
+     border: none;
+     box-shadow: none;
+     background-color: transparent;
+     background-image: none;
+     appearance: none;
+  }
+
+// .ng-select.custom:before {
+//   content: "\025be";
+//     position: absolute;
+//     right: 5px;
+//     top: 7px;
+//     width: 0;
+//     height: 0;
+//     border-style: solid;
+//     border-width: 7px 5px 0 5px;
+//     border-color: #000000 transparent transparent transparent;
+//     z-index: 5;
+//     pointer-events: none;
+// }
+// .ng-select.custom select {
+//   padding: 5px 8px;
+//   width: 130%;
+//   border: none;
+//   box-shadow: none;
+//   background-color: transparent;
+//   background-image: none;
+//   appearance: none;
+//   }
+  

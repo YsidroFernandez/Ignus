@@ -1,7 +1,8 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 // regular style toast
 @import '~ngx-toastr/toastr.css';
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
 // bootstrap style toast
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions

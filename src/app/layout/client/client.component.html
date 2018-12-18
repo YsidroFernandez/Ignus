@@ -158,11 +158,38 @@
                         <div class="row mb-3">
                             <div class="col col-sm-6">
                                 <div class="form-group">
+                                    <label for="tipos">Banco</label>
+                                    <input type="text" [(ngModel)]="cliente.bankName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Cuenta Bancaria</label>
+                                    <input type="text" [(ngModel)]="cliente.bankAccount" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
                                     <label for="nombre">Sexo</label>
                                     <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="descripcion">Estado</label>
+                                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
+                                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
+                                        ngbDropdownToggle>{{solicitud2.estado}}</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
+                                        <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -210,11 +237,26 @@
                         <div class="row mb-3">
                             <div class="col col-sm-6">
                                 <div class="form-group">
+                                    <label for="tipos">Banco</label>
+                                    <input type="text" [(ngModel)]="cliente.bankName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Cuenta Bancaria</label>
+                                    <input type="text" [(ngModel)]="cliente.bankAccount" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
                                     <label for="nombre">Sexo</label>
                                     <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                 </div>
                 <div class="modal-footer">

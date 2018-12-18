@@ -35,14 +35,15 @@ export class ClientComponent implements OnInit {
         if (this.submitType === "Save") {
            //Aquí no se crean clientes. eso se hace cuando se suscribe
         }else{
-            this.globalService.updateModel(this.cliente.id, this.cliente, "/api/client")
+            console.log(this.cliente.userId);
+            this.globalService.updateModel(this.cliente.userId, this.cliente, "/api/client")
                 .then((result) => {
                     if (result['status']) {
                         //Para que actualice la lista una vez que es editado el cliente
                         this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.clientes = result['data']['clients'];
+                                this.clientes = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -104,7 +105,7 @@ onDelete(index: number) {
     this.showNew = true;
     //Pendiente
     if(confirm('¿Estas seguro de eliminar este cliente?')){
-        this.globalService.removeModel(this.cliente.id, "/api/client")
+        this.globalService.removeModel(this.cliente.userId, "/api/client")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {

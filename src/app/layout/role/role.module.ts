@@ -7,15 +7,14 @@ import { PageHeaderModule } from './../../shared';
 import { RoleRoutingModule } from './role-routing.module';
 import { RoleComponent } from './role.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   imports: [
-   
     CommonModule, FontAwesomeModule,
     PageHeaderModule,
     RoleRoutingModule,NgbModule.forRoot(), 
     FormsModule, ReactiveFormsModule,
-    SelectDropDownModule
+    NgSelectModule
   ],
   declarations: [RoleComponent],
   providers: [

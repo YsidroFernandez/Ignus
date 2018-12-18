@@ -50,6 +50,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+    "@ng-select/ng-select": "^2.13.1",
     "@ngx-translate/core": "^10.0.1",
     "@ngx-translate/http-loader": "^3.0.1",
     "angular-calendar": "^0.26.3",
