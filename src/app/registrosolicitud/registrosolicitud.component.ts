@@ -26,8 +26,9 @@ export class RegistroSolicitudComponent implements OnInit {
     solicitudes: any;
     nuevo: any;
 
-    estados = []
-    ciudades = []
+    states = []
+    municipalities = []
+    parishes = []
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
@@ -35,20 +36,23 @@ export class RegistroSolicitudComponent implements OnInit {
     selectedRow: number;
 
   solicitud2= {
-    tipo: "",
+    type: "",
     ClientId:1,
 	TypeServiceId: "",
 	wishDate:"",
     TypeRequestId:3,
-    estado:[],
-    ciudad: []
-
+    state: "",
+    municipality: "",
+    parish: "",
+    typeproperty: "",
+    description: ""
     
   }
 
-tiposervicio: any;
-tipoespecificaciones: any;
+typeservice: any;
+typespecifications: any;
 especificaciones: any;
+typeproperties: any;
 
 constructor(private modalService: NgbModal,public globalService: GlobalService) {
 
@@ -66,13 +70,14 @@ wishDate:"",
 TypeRequestId:3
 }
 this.nuevo = [];
-this.tiposervicio = [];
-this.tipoespecificaciones = [];
+this.typeservice = [];
+this.typespecifications = [];
+this.typeproperties = [];
 
 this.globalService.getModel(`/api/state/`).then((result) => {
     if (result['status']) {
         //Para que actualice la lista una vez que es creado el recaudo
-        this.estados = result['data'];
+        this.states = result['data'];
         
     }
 }, (err) => {
@@ -82,8 +87,18 @@ this.globalService.getModel(`/api/state/`).then((result) => {
 this.globalService.getModel("/api/typeService").then((result) => {
     if (result['status']) {
         //Para que actualice la lista una vez que es creado el recaudo
-                this.tiposervicio = result['data'];
+                this.typeservice = result['data'];
                 
+    }
+}, (err) => {
+    console.log(err);
+});
+
+this.globalService.getModel(`/api/state/`).then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista una vez que es creado el recaudo
+        this.states = result['data'];
+        
     }
 }, (err) => {
     console.log(err);
@@ -92,8 +107,8 @@ this.globalService.getModel("/api/typeService").then((result) => {
 this.globalService.getModel("/api/typeSpecification").then((result) => {
     if (result['status']) {
         //Para que actualice la lista una vez que es creado el recaudo
-                this.tipoespecificaciones = result['data'];
-                console.log(this.tipoespecificaciones)
+                this.typespecifications = result['data'];
+                console.log(this.typespecifications)
     }
 }, (err) => {
     console.log(err);
@@ -101,13 +116,28 @@ this.globalService.getModel("/api/typeSpecification").then((result) => {
       }
 
      
-//this method associate to reload estados
-cargarciudades(state){
-    console.log(state)
-    this.globalService.getModel(`/api/state/city/${state}`).then((result) => {
+//this method associate to reload states
+loadmunicipality(state){
+    this. municipalities = [];
+    this.parishes = [];
+    
+    this.globalService.getModel(`/api/state/municipality/${state}`).then((result) => {
         if (result['status']) {
             //Para que actualice la lista una vez que es creado el recaudo
-            this.ciudades = result['data'];
+            this. municipalities = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+
+loadparish(municipality){
+    console.log("muni ",municipality)
+    this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            this.parishes = result['data'];
                     
         }
     }, (err) => {

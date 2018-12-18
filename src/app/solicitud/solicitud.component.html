@@ -40,7 +40,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes; let i = index" (click)="openForEdit(Solicitud)">
+                        <tr *ngFor="let solicitud of solicitudes; let i = index" (click)="open(content)">
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
@@ -58,7 +58,7 @@
                                     <fa-icon [icon]="faCheck"></fa-icon>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="delete(i)">
+                                    (click)="open(delete)">
                                     <fa-icon [icon]="faCancel"></fa-icon>
                                 </button>
                             </td>
@@ -104,14 +104,14 @@
                                             <div class="form-group">
                                                 <label class="ng-tns-c12-9" for="titulo">Titulo</label>
                                                 <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                    [(ngModel)]="nuevacita.title" #titulo="ngModel" required>
+                                                    [(ngModel)]="solicitudapprove.title" #titulo="ngModel" required>
                                             </div>
                                         </div>
                                         <div class="col col-sm-6">
                                             <div class="form-group">
                                                 <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
                                                 <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                    [(ngModel)]="solicitud2.descripcion" #descripcion="ngModel" required>
+                                                    [(ngModel)]="solicitud.description" #description="ngModel" required>
                                             </div>
                                         </div>
     
@@ -123,7 +123,7 @@
                                         <div class="col-12 col-sm-6">
                                             <label for="fechainicio">Fecha</label>
                                             <div class="input-group">
-                                                <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="nuevacita.fechainicio"
+                                                <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="solicitudapprove.start"
                                                     ngbDatepicker #fechainicio="ngbDatepicker" class="form-control" />
                                                 <span class="input-group-btn">
                                                     <button class="input-group-addon" (click)="fechainicio.toggle()" type="button">
@@ -140,7 +140,7 @@
                                 <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                                 (click)="c('Cross click')"> <fa-icon [icon]="faCancel"></fa-icon></button>
                                 <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                    (click)="aceptar(i)" ><fa-icon [icon]="faCheck"></fa-icon></button>
+                                    (click)="aceptar(1)" ><fa-icon [icon]="faCheck"></fa-icon></button>
                             </div>
     
     </div>
@@ -168,31 +168,31 @@
         <div class="row mb-3">
             <div class="col col-sm-6">
                 <div class="form-group">
-                    <label class="ng-tns-c12-9" for="correo">Nombre</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
-                        #correo="ngModel" required>
+                    <label class="ng-tns-c12-9" for="email">Nombre</label>
+                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
+                        #email="ngModel" required>
                 </div>
             </div>
             <div class="col col-sm-6">
                     <div class="form-group">
-                        <label class="ng-tns-c12-9" for="correo">Apellido</label>
-                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
-                            #correo="ngModel" required>
+                        <label class="ng-tns-c12-9" for="email">Apellido</label>
+                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
+                            #email="ngModel" required>
                     </div>
                 </div>
                 <div class="col col-sm-6">
                         <div class="form-group">
-                            <label class="ng-tns-c12-9" for="correo">Telefono</label>
-                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.correo"
-                                #correo="ngModel" required>
+                            <label class="ng-tns-c12-9" for="email">Telefono</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
+                                #email="ngModel" required>
                         </div>
                     </div>
             <div class="col col-sm-6">
                 <div class="form-group">
-                    <label for="descripcion">Tipo de servicio</label>
+                    <label for="description">Tipo de servicio</label>
                     <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
                         <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                            ngbDropdownToggle>{{solicitud2.tipo}}</button>
+                            ngbDropdownToggle>{{solicitud.tipo}}</button>
                         <div ngbDropdownMenu aria-labelledby="dropdownManual">
                             <button type="button" class="dropdown-item" *ngFor="let tipo of tipos" (click)="onChangetipo(tipo)">{{tipo}}</button>
                         </div>
@@ -201,15 +201,14 @@
             </div>
             <div class="col col-sm-6">
                 <div class="form-group">
-                    <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.descripcion"
-                        #descripcion="ngModel" required>
+                    <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.description"
+                        #description="ngModel" required>
                 </div>
             </div>
             <div class="col col-sm-6">
-                <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Fotos</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="file" [(ngModel)]="solicitud2.foto"
-                        #fotos="ngModel" required>
+                <div class="form-group"><label class="ng-tns-c12-9" for="photo">Fotos</label>
+                    <input class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
                 </div>
             </div>
         </div>
@@ -220,11 +219,11 @@
 
 
             <div class="col col-sm-6">
-                <label for="descripcion">Fecha</label>
+                <label for="description">Fecha</label>
 
                 <div class="input-group">
 
-                    <input type="text" name="dob" [(ngModel)]="solicitud2.fecha" ngbDatepicker
+                    <input type="text" name="dob" [(ngModel)]="solicitud.fecha" ngbDatepicker
                         #dob="ngbDatepicker" class="form-control" onchange="onChangefecha(this.text)"/>
                     <span class="input-group-btn">
                         <button class="input-group-addon" (click)="dob.toggle()" type="button">
@@ -238,10 +237,10 @@
 
         <div class="col col-sm-6">
             <div class="form-group">
-                <label for="descripcion">Estado</label>
+                <label for="description">Estado</label>
                 <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
                     <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                        ngbDropdownToggle>{{solicitud2.estado}}</button>
+                        ngbDropdownToggle>{{solicitud.estado}}</button>
                     <div ngbDropdownMenu aria-labelledby="dropdownManual">
                         <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
                     </div>
@@ -273,15 +272,15 @@
             <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="descripcion">Username</label>
+            <label for="username">Username</label>
             <input type="text" [(ngModel)]="regModel.username" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="descripcion">Cargo</label>
+            <label for="cargo">Cargo</label>
             <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="descripcion">Fecha de Nacimiento</label>
+            <label for="fechaini">Fecha de Nacimiento</label>
             <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
                 class="form-control" dateFormat="dd-MMM-yyyy" />
             <button class="input-group-addon" (click)="dob.toggle()" type="button">
@@ -289,15 +288,15 @@
             </button>
         </div>
         <div class="form-group">
-            <label for="descripcion">Correo</label>
-            <input type="text" [(ngModel)]="regModel.correo" class="form-control" />
+            <label for="email">email</label>
+            <input type="text" [(ngModel)]="regModel.email" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="descripcion">Contraseña</label>
+            <label for="password">Contraseña</label>
             <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
         </div>
         <div class="form-group">
-            <label for="descripcion">Estado</label>
+            <label for="state">Estado</label>
             <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
                 <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
                     ngbDropdownToggle>{{regModel.estado}}</button>
@@ -312,5 +311,36 @@
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
             <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
         </button>
+    </div>
+</ng-template>
+
+<ng-template #delete let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <h4 class="modal-title"> Eliminar </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group">
+            <div class="form-control">
+                <div class="row">
+            <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
+        </div>
+                    <div class="row">
+                            <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea> 
+                    </div>
+            
+        
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+        (click)="c('Cross click')"><fa-icon [icon]="faCancel"></fa-icon></button>
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+            (click)="onDelete(1)" ><fa-icon [icon]="faCheck"></fa-icon></button>
     </div>
 </ng-template>
