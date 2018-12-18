@@ -5,9 +5,9 @@
         <div class="form-control">
             <div class="row">
                 <div class="col col-sm-6">
-                    <div class="form-group"><label class="ng-tns-c12-9" for="tiposolicitud">Tipo Solicitud</label>
-                        <select class="form-control" name="horas" id="tiposolicitud" required [(ngModel)]="solicitud.TypeServiceId">
-                            <option *ngFor="let tipo of tiposervicio" [value]="tipo.id">{{tipo.name}}</option>
+                    <div class="form-group"><label class="ng-tns-c12-9" for="typeservice">Tipo Servicio</label>
+                        <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="solicitud.TypeServiceId">
+                            <option *ngFor="let type of typeservice" [value]="type.id">{{type.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -44,9 +44,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="typeproperty">tipo de inmueble</label>
+                        <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud2.typeproperty"
+                            #typeproperty="ngModel">
+                            <option *ngFor="let tp of typeproperties" [value]="tp.id">{{tp.name}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             
-            <div *ngFor="let te of tipoespecificaciones" [id]="te.id">
+            <div *ngFor="let te of typespecifications" [id]="te.id">
                     
                 <div class="row">
                         <div class="col col-sm-12">
@@ -58,12 +67,8 @@
                                         
                     
                     <div class="col col-sm-6" *ngFor="let esp of te.specifications" [id]="esp.id">
-                        <div class="form-group"><label class="ng-tns-c12-9" [for]="esp.name">{{esp.name}}</label>
-                            <select class="form-control" [name]="esp.name" [id]="esp.name" required [(ngModel)]="solicitud2.tipo">
-                                <option value="1">1</option>
-                                <option value="3">3</option>
-                                <option value="2">2</option>
-                            </select>
+                        <div class="form-group"><label *ngIf="esp.type!='checkbox'" class="ng-tns-c12-9" [for]="esp.name">{{esp.name}}</label>
+                            <input [type]="esp.type" [name]="esp.name" [value]="esp.name"><br>
                         </div>
                     </div>
             
@@ -74,7 +79,7 @@
         </div>
         <div class="row">
             <div class="col col-sm-12">
-                <div class="form-control">
+                <div class="row">
                         <div class="col col-sm-8">
                             <div class="form-group">
                                 <b><label>Ubicacion</label></b>
@@ -85,22 +90,29 @@
                         <div class="col col-sm-6">
                             <div class="form-group">
                                 <label for="tipos">Estado</label>
-                                <select class="form-control" name="estado" id="estado" [(ngModel)]="solicitud2.estado"
-                                    #estado="ngModel" (change)="cargarciudades(solicitud2.estado)">
-                                    <option *ngFor="let est of estados" [value]="est.id">{{est.name}}</option>
+                                <select class="form-control" name="state" id="state" [(ngModel)]="solicitud2.state"
+                                    #estado="ngModel" (change)="loadmunicipality(solicitud2.state)">
+                                    <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col col-sm-6">
                             <div class="form-group">
-                                <label for="ciudades">Ciudades</label>
-                                <select class="form-control" name="ciudad" id="ciudad" [(ngModel)]="solicitud2.ciudad"
-                                    #ciudad="ngModel">
-                                    <option *ngFor="let ciudad of ciudades" [value]="ciudad.id">{{ciudad.name}}</option>
+                                <label for="municipality">Municipios</label>
+                                <select class="form-control" name="municipality" id="municipality" [(ngModel)]="solicitud2.municipality"
+                                    #municipality="ngModel" (change)="loadparish(solicitud2.municipality)">
+                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
                                 </select>
                             </div>
                         </div>
         
+        <div class="col col-sm-6">
+                    <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                        <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud2.parish" required>
+                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                        </select>
+                    </div>
+                </div>
                         <!--
                     <div class="col col-sm-6">
                     <div class="form-group">
@@ -131,7 +143,6 @@
                         </select>
                     </div>
                 </div> -->
-                        <div class="col col-sm-6">
                             <div class="col col-sm-12">
                                 <label class="ng-tns-c12-9" for="referencia">Referencia</label>
                                 <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" id="referencia"
@@ -139,8 +150,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
         </div>
+        <div class="row">
+            <div class="col col-sm-12">
+                <div class="form-group">
+                    <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
+                    <textarea id="description" class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud2.description"
+                        #description="ngModel" required style="width: 700px; height: 200px; "></textarea>
+                </div>
+            </div>
         <div class="row">
             <div class="col-3">
             </div>
