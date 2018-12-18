@@ -97,9 +97,17 @@
                             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name}}
                         </ng-template>
                     </ng-select>
+                    <br>
+                    <ngx-select [multiple]="true"
+                    [items]="functions"
+                    optionValueField="name" 
+                    [disabled]="ngxDisabled"
+                    [(ngModel)]="ngxValue"
+                    placeholder="Seleccione las Funciones"
+                    (selectionChanges)="doSelectOptions($event)">
+                   </ngx-select>
 
 
-                   
 
 
 

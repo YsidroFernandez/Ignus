@@ -7,7 +7,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from '../../providers/global.service';
 
-//import { Ng4LoadingSpinnerModule, Ng4LoadingSpinnerService  } from 'ng4-loading-spinner';
+
 
 @Component({
     selector: 'app-role',
@@ -32,6 +32,8 @@ export class RoleComponent implements OnInit {
     // It will be either 'Save' or 'Update' based on operation.
     submitType: string = 'Save';
     selectedRow: number;
+    public ngxValue: any = [];
+    public ngxDisabled = false;
     constructor(private modalService: NgbModal, public globalService: GlobalService) {
         this.roles = [];
         this.rol = [];
@@ -49,7 +51,9 @@ export class RoleComponent implements OnInit {
             });
 
     }
-
+   
+ 
+    public doSelectOptions = (options) => console.log(this.ngxValue, options);
     open(content) {
         console.log("aqui");
         this.modalService.open(content).result.then((result) => {

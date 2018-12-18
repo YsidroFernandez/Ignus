@@ -8,7 +8,9 @@ import { RoleRoutingModule } from './role-routing.module';
 import { RoleComponent } from './role.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { NgxSelectModule } from 'ngx-select-ex';
+import { NgxSelectModule} from 'ngx-select-ex';
+
+
 @NgModule({
   imports: [
     CommonModule, FontAwesomeModule,
@@ -16,11 +18,12 @@ import { NgxSelectModule } from 'ngx-select-ex';
     RoleRoutingModule,NgbModule.forRoot(), 
     FormsModule, ReactiveFormsModule,
     NgSelectModule,
-    NgxSelectModule
+    NgxSelectModule,
   ],
   declarations: [RoleComponent],
   providers: [
     NgbActiveModal,
   ]
 })
+
 export class RoleModule { }
