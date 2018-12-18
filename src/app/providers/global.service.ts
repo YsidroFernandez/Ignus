@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 const httpOptionsDefault = {
@@ -10,13 +10,13 @@ const httpOptionsDefault = {
     // 'accessToken':localStorage.getItem('accessToken'),
     
     //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
-     //'Content-Type': 'application/json',
+      'Content-Type': 'application/json',
      
 
   })
 };
 
-
+    
 @Injectable({
   providedIn: 'root'
 })
@@ -32,16 +32,30 @@ export class GlobalService {
   Model:any={};
   tipo:String;
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private toastr: ToastrService) {
     this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
    // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io';
   }
 
-  
+  getHeaderClear(){
+     const httpOptions = {
+      headers: new HttpHeaders({
+        
+         
+      })
+    };
+
+    return httpOptions;
+  }
+
+
   getModel(tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
       this.http.get(this.apiBaseUrl + "" + tipo,httpOptions).subscribe(data =>{
         resolve(data);
+        console.log(data);
+        
+
       }, err =>{
         console.log(err);
       })
@@ -61,30 +75,64 @@ export class GlobalService {
 
   addModel(model,tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.post(this.apiBaseUrl + "" + tipo,model,httpOptions).subscribe(data =>{
+      this.http.post(this.apiBaseUrl + "" + tipo,model,httpOptions).subscribe((data : any) =>{
+        console.log(data);  
+        this.toastr.success('',data.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
         resolve(data);
-      }, err =>{
+      }, (err: any) =>{
         console.log(err);
+        this.toastr.error('',err.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
+        
       })
     })
   }
 
   updateModel(id, model, tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.put(this.apiBaseUrl + "" + tipo  + '/' + id, model,httpOptions).subscribe(data =>{
+      this.http.put(this.apiBaseUrl + "" + tipo  + '/' + id, model,httpOptions).subscribe((data: any) =>{
+        console.log(data);
+        this.toastr.success('',data.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
         resolve(data);
-      }, err =>{
+      }, (err: any) =>{
         console.log(err);
+        this.toastr.error('',err.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
       })
     })
   }
 
   removeModel(id,tipo: String,httpOptions=httpOptionsDefault){
     return new Promise(resolve =>{
-      this.http.delete(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe(data =>{
+      this.http.delete(this.apiBaseUrl + "" + tipo + '/' + id,httpOptions).subscribe((data: any) =>{
+        console.log(data);
+        this.toastr.success('',data.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
         resolve(data);
-      }, err =>{
+      }, (err: any) =>{
         console.log(err);
+        this.toastr.error('',err.message.text, {
+          timeOut: 5000,
+          progressBar:true,
+          positionClass:'toast-bottom-right'
+        });
       })
     })
   }

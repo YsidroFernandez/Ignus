@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../../providers/global.service';
 import { routerTransition } from '../../router.animations';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-agency',
   templateUrl: './agency.component.html',
@@ -89,7 +90,7 @@ cancelAgency(){
       // this.agency=result['data'];
        console.log(this.agency);   
       this.disabled=true;
-      this.btnEdit="Editar";
+      this.btnEdit="Editar"; 
     }, (err) => {
       console.log(err);
       //this.loader.dismiss();
