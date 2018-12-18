@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 const httpOptionsDefault = {
   headers: new HttpHeaders({
@@ -32,7 +32,7 @@ export class GlobalService {
   Model:any={};
   tipo:String;
 
-  constructor(public http: HttpClient, private toastr: ToastrService) {
+  constructor(public http: HttpClient, private toastr: ToastrService, private spinner: NgxSpinnerService) {
     this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
    // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io';
   }
@@ -40,7 +40,7 @@ export class GlobalService {
   getHeaderClear(){
      const httpOptions = {
       headers: new HttpHeaders({
-        
+          
          
       })
     };
@@ -50,14 +50,16 @@ export class GlobalService {
 
 
   getModel(tipo: String,httpOptions=httpOptionsDefault){
+    this.spinner.show();
     return new Promise(resolve =>{
       this.http.get(this.apiBaseUrl + "" + tipo,httpOptions).subscribe(data =>{
         resolve(data);
         console.log(data);
-        
+        this.spinner.hide();
 
       }, err =>{
         console.log(err);
+        this.spinner.hide();
       })
     })
   }

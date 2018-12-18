@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
 import { ToastrModule } from 'ngx-toastr';
 //traslate general   actualmente utilizado en calendar
@@ -39,7 +40,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserAnimationsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        FormsModule,
+        FormsModule,  
         NgbModule.forRoot(),
         ToastrModule.forRoot(),
         TimepickerModule.forRoot(),
@@ -55,6 +56,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         AppRoutingModule,
         ChartsModule,
         SelectDropDownModule,
+        NgxSpinnerModule,
         
     ],
     declarations: [AppComponent],
