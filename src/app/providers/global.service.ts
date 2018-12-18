@@ -109,7 +109,7 @@ export class GlobalService {
         resolve(data);
       }, (err: any) =>{
         console.log(err);
-        this.toastr.error('',err.message.text, {
+        this.toastr.error('',err.message, {
           timeOut: 5000,
           progressBar:true,
           positionClass:'toast-bottom-right'

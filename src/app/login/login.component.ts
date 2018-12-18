@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']);
           console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
+          localStorage.setItem('user',JSON.stringify(response['data'].user));
         }else{
            this.presentToast("Usuario y Contraseña Incorectos");
            
