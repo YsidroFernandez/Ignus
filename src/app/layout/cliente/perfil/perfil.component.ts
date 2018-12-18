@@ -19,6 +19,8 @@ export class PerfilComponent implements OnInit {
     perfil: any;
     nuevo: any;
     showNew: Boolean = false;
+    step: string;
+    
 
     submitType: string = 'Save';
     selectedRow: number;
@@ -26,6 +28,8 @@ export class PerfilComponent implements OnInit {
   constructor(private modalService: NgbModal, public globalService: GlobalService) { 
   this.perfil = [];
   this.nuevo = [];
+  this.step = '1';
+ 
   }
 
     //Metodo del boton Enviar
