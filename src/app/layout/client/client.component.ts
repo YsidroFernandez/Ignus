@@ -15,6 +15,15 @@ export class ClientComponent implements OnInit {
   clientes: any;
   cliente: any;
   nuevo: any;
+  state:any;
+  city:any;
+  
+
+  data:{
+      estado:"",
+      ciudad:"",
+  }
+
   // It maintains clientes form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
@@ -25,8 +34,36 @@ export class ClientComponent implements OnInit {
       this.clientes = [];
       this.cliente = [];
       this.nuevo = [];
+      this.state = [];
+      this.city = [];
+
+      this.globalService.getModel(`/api/state/`).then((result) => {
+        if (result['status']) {
+            this.state = result['data'];
+            
+        }
+    }, (err) => {
+        console.log(err);
+    });
+
+
    }
 
+
+   //this method associate to reload estados
+cargarciudades(state){
+    console.log(state)
+    this.globalService.getModel(`/api/state/city/${state}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el estado
+            this.city = result['data'];
+                    
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
 
   open(content) {
     console.log("aqui");

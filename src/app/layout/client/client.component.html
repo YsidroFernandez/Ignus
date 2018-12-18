@@ -177,19 +177,33 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="descripcion">Estado</label>
-                                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                                        ngbDropdownToggle>{{solicitud2.estado}}</button>
-                                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                                        <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+                        <div class="col col-sm-12">
+                            <div class="form-control">
+                                    <div class="col col-sm-8">
+                                        <div class="form-group">
+                                            <b><label>Ubicacion</label></b>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="tipos">Estado</label>
+                                            <select class="form-control" name="state" id="state" [(ngModel)]="data.estado"
+                                                #estado="ngModel" (change)="cargarciudades(data.estado)">
+                                                <option *ngFor="let est of state" [value]="est.id">{{est.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6">
+                                        <div class="form-group">
+                                            <label for="ciudades">Ciudades</label>
+                                            <select class="form-control" name="city" id="city" [(ngModel)]="data.ciudad"
+                                                #city="ngModel">
+                                                <option *ngFor="let item of city" [value]="item.id">{{item.name}}</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        
                     </div>
                 </div>
                 <div class="modal-footer">
