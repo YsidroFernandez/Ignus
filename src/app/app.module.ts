@@ -58,12 +58,8 @@ export const createTranslateLoader = (http: HttpClient) => {
         }),
         AppRoutingModule,
         ChartsModule,
-<<<<<<< HEAD
-        NgSelectModule
-=======
-        SelectDropDownModule,
+        NgSelectModule,
         NgxSpinnerModule,
->>>>>>> 1375297a494914c08cad01e57ef68cc9a8d231ba
         
     ],
     declarations: [AppComponent],
