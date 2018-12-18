@@ -56,10 +56,8 @@ export class RoleComponent implements OnInit {
             this.closeResult = `Closed with: ${result}`;
             if (this.submitType === "Save") {
                 this.nuevo = JSON.stringify({ name: this.rol.name, description: this.rol.description, functions: this.dataModel });
-                console.log(this.nuevo);
                 this.globalService.addModel(this.nuevo, "/api/role")
                     .then((result) => {
-                        console.log(result);
                         if (result['status']) {
                             //Para que actualice la lista una vez que es creado el rol
                             this.globalService.getModel("/api/role")
@@ -77,6 +75,7 @@ export class RoleComponent implements OnInit {
             } else {
                 this.globalService.updateModel(this.rol.id, this.rol, "/api/role")
                     .then((result) => {
+                        console.log(this.rol.id);
                         if (result['status']) {
                             //Para que actualice la lista una vez que es editado el rol
                             this.globalService.getModel("/api/role")
