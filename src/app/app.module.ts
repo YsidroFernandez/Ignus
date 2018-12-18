@@ -20,6 +20,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
 import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxSelectModule } from 'ngx-select-ex';
 registerLocaleData(localeEs);
 
 
@@ -60,6 +61,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         ChartsModule,
         NgSelectModule,
         NgxSpinnerModule,
+        NgxSelectModule,
         
     ],
     declarations: [AppComponent],

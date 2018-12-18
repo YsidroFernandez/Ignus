@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 <label for="tipos">Description</label>
                                 <input type="text" [(ngModel)]="rol.description" class="form-control" />
-                            </div>
+                              </div>
                         </div>
                     </div>
                     <ng-select class="custom" 
@@ -97,6 +97,20 @@
                             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name}}
                         </ng-template>
                     </ng-select>
+                    <br>
+                    <ngx-select [multiple]="true"
+                    [items]="functions"
+                    optionValueField="name" 
+                    [disabled]="ngxDisabled"
+                    [(ngModel)]="ngxValue"
+                    placeholder="Seleccione las Funciones"
+                    (selectionChanges)="doSelectOptions($event)">
+                   </ngx-select>
+
+
+
+
+
                 </div>
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
