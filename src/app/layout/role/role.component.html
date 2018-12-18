@@ -19,7 +19,7 @@
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
                                     style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
                         </span>
-                    </div>   
+                    </div>
                 </div>
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
@@ -71,33 +71,35 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="card mb-3">
-                    <div class="modal-body">
-                        <div class="row mb-6">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="rol.name" class="form-control" />
-                                </div>
+                <div class="modal-body">
+                    <div class="row mb-6">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre</label>
+                                <input type="text" [(ngModel)]="rol.name" class="form-control" />
                             </div>
-                            <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Description</label>
-                                        <input type="text" [(ngModel)]="rol.description" class="form-control" />
-                                    </div>
-                                </div>
                         </div>
-                        <ngx-select-dropdown (change)="selectionChanged($event)" [multiple]="true" [(value)]="dataModel" [config]="config" [options]="functions"></ngx-select-dropdown>
-                        <!-- <div>
-                                <select class="mdb-select md-form" *ngFor="let item of functions ; let i= index" multiple>
-                                        <option value="" disabled selected>Choose your country</option>
-                                        <option value="1">{{item.name}}</option>
-                                        
-                                      </select>
-                                      <button class="btn-save btn btn-primary btn-sm">Save</button>
-                       
-                        </div> -->
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Description</label>
+                                <input type="text" [(ngModel)]="rol.description" class="form-control" />
+                            </div>
                         </div>
+                    </div>
+                    <ng-select style="padding: 5px;margin:20px auto 40px auto;	
+                        border:1px solid rgba(125, 168, 179, 0);content:'\025be';
+                   border-color:rgb(189, 214, 235);font-size:18px;  min-height: 10px;
+                        border-radius: 5; box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 3px #0000; "
+                        dropdownPosition=auto [closeOnSelect]=false [searchable]=true addTagText="Funciones" [items]="functions"
+                        [multiple]="true" bindLabel="name" [selectableGroup]="true" bindValue="id" [(ngModel)]="dataModel">
+                        <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name
+                            | uppercase}}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name}}
+                        </ng-template>
+                    </ng-select>
                 </div>
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
@@ -121,11 +123,11 @@
                                 </div>
                             </div>
                             <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Descripción</label>
-                                        <input type="text" [(ngModel)]="rol.description" class="form-control" />
-                                    </div>
+                                <div class="form-group">
+                                    <label for="tipos">Descripción</label>
+                                    <input type="text" [(ngModel)]="rol.description" class="form-control" />
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,11 +153,11 @@
                                 </div>
                             </div>
                             <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Descripción</label>
-                                        <input type="text" [(ngModel)]="rol.description" class="form-control" />
-                                    </div>
+                                <div class="form-group">
+                                    <label for="tipos">Descripción</label>
+                                    <input type="text" [(ngModel)]="rol.description" class="form-control" />
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -166,14 +168,3 @@
             </ng-template>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-

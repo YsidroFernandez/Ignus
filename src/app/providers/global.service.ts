@@ -10,7 +10,7 @@ const httpOptionsDefault = {
     // 'accessToken':localStorage.getItem('accessToken'),
     
     //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
-     //'Content-Type': 'application/json',
+     'Content-Type': 'application/json',
      
 
   })
