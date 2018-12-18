@@ -13,7 +13,7 @@ const httpOptionsDefault = {
      'Content-Type': 'application/json',
      
 
-  })
+  }) 
 };
 
     
