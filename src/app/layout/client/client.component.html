@@ -35,11 +35,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of clientes ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of customers ; let i= index" (click)="onEdit(i)">
                             <td>{{ item.identification}}</td>
                             <td>{{ item.firstName}}</td>
                             <td>{{ item.lastName}}</td>
-                            <!-- <td>{{ item.phoneNumber}}</td> -->
                             <td>{{ item.gender}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
@@ -79,13 +78,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.identification" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.birthDate" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -93,13 +92,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.firstName" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.lastName" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -107,10 +106,38 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.gender" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Estado</label>
+                                    <select class="form-control" name="state" id="state" [(ngModel)]="data.state"
+                                        #state="ngModel" (change)="loadmunicipality(data.state)">
+                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="municipality">Municipios</label>
+                                <select class="form-control" name="municipality" id="municipality"
+                                    [(ngModel)]="data.municipality" #municipality="ngModel" (change)="loadparish(data.municipality)">
+                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                                <select class="form-control" name="parish" id="parish" #parish="ngModel" [(ngModel)]="data.parish"
+                                    required>
+                                    <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -131,13 +158,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.identification" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.birthDate" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -145,13 +172,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.firstName" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.lastName" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -159,13 +186,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Banco</label>
-                                    <input type="text" [(ngModel)]="cliente.bankName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.bankName" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Cuenta Bancaria</label>
-                                    <input type="text" [(ngModel)]="cliente.bankAccount" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.bankAccount" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -173,37 +200,39 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.gender" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Estado</label>
+                                    <select class="form-control" name="state" id="state" [(ngModel)]="data.state"
+                                        #state="ngModel" (change)="loadmunicipality(data.state)">
+                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-sm-12">
-                            <div class="form-control">
-                                    <div class="col col-sm-8">
-                                        <div class="form-group">
-                                            <b><label>Ubicacion</label></b>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Estado</label>
-                                            <select class="form-control" name="state" id="state" [(ngModel)]="data.estado"
-                                                #estado="ngModel" (change)="cargarciudades(data.estado)">
-                                                <option *ngFor="let est of state" [value]="est.id">{{est.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="ciudades">Ciudades</label>
-                                            <select class="form-control" name="city" id="city" [(ngModel)]="data.ciudad"
-                                                #city="ngModel">
-                                                <option *ngFor="let item of city" [value]="item.id">{{item.name}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="municipality">Municipios</label>
+                                <select class="form-control" name="municipality" id="municipality"
+                                    [(ngModel)]="data.municipality" #municipality="ngModel" (change)="loadparish(data.municipality)">
+                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                </select>
                             </div>
+                        </div>
+
+                        <div class="col col-sm-6">
+                            <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                                <select class="form-control" name="parish" id="parish" [(ngModel)]="data.parish"
+                                    required>
+                                    <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -224,13 +253,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Identificación</label>
-                                    <input type="text" [(ngModel)]="cliente.identification" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.identification" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Fecha de Nacimiento</label>
-                                    <input type="text" [(ngModel)]="cliente.birthDate" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.birthDate" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -238,13 +267,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="cliente.firstName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.firstName" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Apellidos</label>
-                                    <input type="text" [(ngModel)]="cliente.lastName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.lastName" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -252,13 +281,13 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Banco</label>
-                                    <input type="text" [(ngModel)]="cliente.bankName" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.bankName" class="form-control" />
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Cuenta Bancaria</label>
-                                    <input type="text" [(ngModel)]="cliente.bankAccount" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.bankAccount" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -266,11 +295,40 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Sexo</label>
-                                    <input type="text" [(ngModel)]="cliente.gender" class="form-control" />
+                                    <input type="text" [(ngModel)]="client.gender" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Estado</label>
+                                    <select class="form-control" name="state" id="state" [(ngModel)]="data.state"
+                                        #state="ngModel" (change)="loadmunicipality(data.state)">
+                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                       
+                        <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="municipality">Municipios</label>
+                                <select class="form-control" name="municipality" id="municipality"
+                                    [(ngModel)]="data.municipality" #municipality="ngModel" (change)="loadparish(data.municipality)">
+                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col col-sm-6">
+                            <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                                <select class="form-control" name="parish" id="parish" [(ngModel)]="data.parish"
+                                    required>
+                                    <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

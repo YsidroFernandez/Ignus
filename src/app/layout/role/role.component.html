@@ -86,7 +86,7 @@
                               </div>
                         </div>
                     </div>
-                    <ng-select class="custom" 
+                    <!-- <ng-select class="custom" 
                         dropdownPosition=auto [closeOnSelect]=false [searchable]=true addTagText="Funciones" [items]="functions"
                         [multiple]="true" bindLabel="name" [selectableGroup]="true" bindValue="id" [(ngModel)]="dataModel">
                         <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
@@ -96,7 +96,7 @@
                         <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                             <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name}}
                         </ng-template>
-                    </ng-select>
+                    </ng-select> -->
                     <br>
                     <ngx-select [multiple]="true"
                     [items]="functions"
@@ -104,7 +104,9 @@
                     [disabled]="ngxDisabled"
                     [(ngModel)]="ngxValue"
                     placeholder="Seleccione las Funciones"
-                    (selectionChanges)="doSelectOptions($event)">
+                    (selectionChanges)="doSelectOptions($event)"
+                    [keepSelectedItems]=true
+                    >
                    </ngx-select>
 
 

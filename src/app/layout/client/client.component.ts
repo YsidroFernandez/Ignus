@@ -12,34 +12,37 @@ import { GlobalService } from '../../providers/global.service';
 })
 export class ClientComponent implements OnInit {
   closeResult: string;
-  clientes: any;
-  cliente: any;
-  nuevo: any;
-  state:any;
-  city:any;
-  
+  customers: any;
+  client: any;
+  new: any;
+  states: any;
+  municipalities: any;
+  parishes: any;
 
-  data:{
-      estado:"",
-      ciudad:"",
+
+  data = {
+      state:"",
+      municipality:"",
+      parish:""
   }
 
-  // It maintains clientes form display status. By default it will be false.
+  // It maintains customers form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
-      this.clientes = [];
-      this.cliente = [];
-      this.nuevo = [];
-      this.state = [];
-      this.city = [];
+      this.customers = [];
+      this.client = [];
+      this.new = [];
+      this.states = [];
+      this.municipalities = [];
+      this.parishes = [];
 
       this.globalService.getModel(`/api/state/`).then((result) => {
         if (result['status']) {
-            this.state = result['data'];
+            this.states = result['data'];
             
         }
     }, (err) => {
@@ -50,13 +53,25 @@ export class ClientComponent implements OnInit {
    }
 
 
-   //this method associate to reload estados
-cargarciudades(state){
-    console.log(state)
-    this.globalService.getModel(`/api/state/city/${state}`).then((result) => {
+//this method associate to reload states
+loadmunicipality(state){
+    this. municipalities = [];
+    this.parishes = []; 
+    this.globalService.getModel(`/api/state/municipality/${state}`).then((result) => {
         if (result['status']) {
-            //Para que actualice la lista una vez que es creado el estado
-            this.city = result['data'];
+            this. municipalities = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+
+loadparish(municipality){
+    console.log("muni ",municipality)
+    this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
+        if (result['status']) {
+            this.parishes = result['data'];
                     
         }
     }, (err) => {
@@ -65,22 +80,23 @@ cargarciudades(state){
     
 }
 
+
   open(content) {
     console.log("aqui");
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
-           //Aquí no se crean clientes. eso se hace cuando se suscribe
+           //Aquí no se crean customers. eso se hace cuando se suscribe
         }else{
-            console.log(this.cliente.userId);
-            this.globalService.updateModel(this.cliente.userId, this.cliente, "/api/client")
+            console.log(this.client.userId);
+            this.globalService.updateModel(this.client.userId, this.client, "/api/client")
                 .then((result) => {
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es editado el cliente
+                        //Para que actualice la lista una vez que es editado el client
                         this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.clientes = result['data'];
+                                this.customers = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -91,7 +107,7 @@ cargarciudades(state){
                 });
 
         }
-        // Hide cliente entry section.
+        // Hide client entry section.
         this.showNew = false;
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -117,8 +133,8 @@ ngOnInit() {
     this.globalService.getModel("/api/client")
         .then((result) => {
             console.log(result);
-            this.clientes = result['data'];
-            console.log(this.clientes);
+            this.customers = result['data'];
+            console.log(this.customers);
         }, (err) => {
             console.log(err);
         });
@@ -130,7 +146,7 @@ faEdit = faEdit;
 onEdit(index: number) {
     this.submitType = 'Update';
     this.selectedRow = index;
-    this.cliente = Object.assign({}, this.clientes[this.selectedRow]);
+    this.client = Object.assign({}, this.customers[this.selectedRow]);
     this.showNew = true;
 }
 
@@ -138,19 +154,19 @@ onEdit(index: number) {
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
-    this.cliente = Object.assign({}, this.clientes[this.selectedRow]);
+    this.client = Object.assign({}, this.customers[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar este cliente?')){
-        this.globalService.removeModel(this.cliente.userId, "/api/client")
+    if(confirm('¿Estas seguro de eliminar este client?')){
+        this.globalService.removeModel(this.client.userId, "/api/client")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado la cliente
+                        //Para que actualice la lista una vez que es eliminado la client
                         this.globalService.getModel("/api/client")
                             .then((result) => {
                                 console.log(result);
-                                this.clientes = result['data'];
+                                this.customers = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -167,7 +183,7 @@ onDelete(index: number) {
 
 // This method associate toCancel Button.
 onCancel() {
-    // Hide cliente entry section.
+    // Hide client entry section.
     this.showNew = false;
 }
 

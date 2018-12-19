@@ -51,8 +51,6 @@ export class RoleComponent implements OnInit {
             });
 
     }
-   
- 
     public doSelectOptions = (options) => console.log(this.ngxValue, options);
     open(content) {
         console.log("aqui");
@@ -168,17 +166,11 @@ export class RoleComponent implements OnInit {
 
 
     }
-
-
     // This method associate toCancel Button.
     onCancel() {
         // Hide Usuario entry section.
         this.showNew = false;
     }
-
-
-
-
 }
 
 
