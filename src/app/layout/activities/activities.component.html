@@ -36,7 +36,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let item of actividades ; let i= index" (click)="onEdit(i)">
+                      <tr *ngFor="let item of activities ; let i= index" (click)="onEdit(i)">
                           <td>{{item.name}}</td>
                           <td>{{item.description}}</td>
                           <td>
@@ -66,7 +66,7 @@
           </div>
           <ng-template #content let-c="close" let-d="dismiss">
               <div class="modal-header">
-                  <h4 class="modal-title ">Crear Recaudo</h4>
+                  <h4 class="modal-title ">Crear Actividades</h4>
                   <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -77,13 +77,13 @@
                           <div class="col col-sm-6">
                               <div class="form-group">
                                   <label for="tipos">Nombre</label>
-                                  <input type="text" [(ngModel)]="actividad.name" class="form-control" />
+                                  <input type="text" [(ngModel)]="activity.name" class="form-control" />
                               </div>
                           </div>
                           <div class="col col-sm-6">
                               <div class="form-group">
                                   <label for="nombre">Descripción</label>
-                                  <input type="text" [(ngModel)]="actividad.description" class="form-control" />
+                                  <input type="text" [(ngModel)]="activity.description" class="form-control" />
                               </div>
                           </div>
                       </div>
@@ -96,7 +96,7 @@
           </ng-template>
           <ng-template #editar let-c="close" let-d="dismiss">
               <div class="modal-header">
-                  <h4 class="modal-title ">Editar Recaudo</h4>
+                  <h4 class="modal-title ">Editar Actividad</h4>
                   <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -106,13 +106,13 @@
                       <div class="col col-sm-6">
                           <div class="form-group">
                               <label for="tipos">Nombre</label>
-                              <input type="text" [(ngModel)]="actividad.name" class="form-control" />
+                              <input type="text" [(ngModel)]="activity.name" class="form-control" />
                           </div>
                       </div>
                       <div class="col col-sm-6">
                           <div class="form-group">
                               <label for="nombre">Descripción</label>
-                              <input type="text" [(ngModel)]="actividad.description" class="form-control" />
+                              <input type="text" [(ngModel)]="activity.description" class="form-control" />
                           </div>
                       </div>
                   </div>
@@ -124,7 +124,7 @@
           </ng-template>
           <ng-template #ver let-c="close" let-d="dismiss">
               <div class="modal-header">
-                  <h4 class="modal-title ">Recaudos</h4>
+                  <h4 class="modal-title ">Actividad</h4>
                   <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                       <span aria-hidden="true">&times;</span>
                   </button>
@@ -135,13 +135,13 @@
                           <div class="col col-sm-6">
                               <div class="form-group">
                                   <label for="tipos">Nombre</label>
-                                  <input type="text" [(ngModel)]="actividad.name" class="form-control" />
+                                  <input type="text" [(ngModel)]="activity.name" class="form-control" />
                               </div>
                           </div>
                           <div class="col col-sm-6">
                               <div class="form-group">
                                   <label for="nombre">Descripción</label>
-                                  <input type="text" [(ngModel)]="actividad.description" class="form-control" />
+                                  <input type="text" [(ngModel)]="activity.description" class="form-control" />
                               </div>
                           </div>
                       </div>

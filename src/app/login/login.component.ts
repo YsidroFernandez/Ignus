@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { AuthService } from "../providers/auth.service";
-import { GlobalService } from "./../providers/global.service";
+import { GlobalService } from "../providers/global.service";
 import { HttpHeaders } from '@angular/common/http';
 
 
@@ -67,11 +67,6 @@ export class LoginComponent implements OnInit {
     else {
       this.presentToast("Por favor ingresa usuario y contraseña para iniciar sesión");
     }
-
-
-    // this.router.navigate(['/dashboard']);
-    //       console.log('entré');
-    //       localStorage.setItem('isLoggedin', 'true');
   }
 
 

@@ -11,19 +11,19 @@ import { GlobalService } from '../../providers/global.service';
 })
 export class ActivitiesComponent implements OnInit {
   closeResult: string;
-  actividades: any;
-  actividad: any;
-  nuevo: any;
-  // It maintains actividades form display status. By default it will be false.
+  activities: any;
+  activity: any;
+  new: any;
+  // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
-      this.actividades = [];
-      this.actividad = [];
-      this.nuevo = [];
+      this.activities = [];
+      this.activity = [];
+      this.new = [];
    }
 
 
@@ -32,16 +32,16 @@ export class ActivitiesComponent implements OnInit {
     this.modalService.open(content).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
-            this.nuevo = JSON.stringify({name: this.actividad.name , description:this.actividad.description});
-            this.globalService.addModel(this.nuevo,"/api/activity")
+            this.new = JSON.stringify({name: this.activity.name , description:this.activity.description});
+            this.globalService.addModel(this.new,"/api/activity")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {
-                    //Para que actualice la lista una vez que es creado el actividad
+                    //Para que actualice la lista una vez que es creado el activity
                     this.globalService.getModel("/api/activity")
                         .then((result) => {
                             console.log(result);
-                            this.actividades = result['data'];
+                            this.activities = result['data'];
                         }, (err) => {
                             console.log(err);
                         });
@@ -51,14 +51,14 @@ export class ActivitiesComponent implements OnInit {
                 console.log(err);
             });
         }else{
-            this.globalService.updateModel(this.actividad.id, this.actividad, "/api/activity")
+            this.globalService.updateModel(this.activity.id, this.activity, "/api/activity")
                 .then((result) => {
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es editado el actividad
+                        //Para que actualice la lista una vez que es editado el activity
                         this.globalService.getModel("/api/activity")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.activities = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
@@ -95,8 +95,8 @@ ngOnInit() {
     this.globalService.getModel("/api/activity")
         .then((result) => {
             console.log(result);
-            this.actividades = result['data'];
-            console.log(this.actividades);
+            this.activities = result['data'];
+            console.log(this.activities);
         }, (err) => {
             console.log(err);
         });
@@ -108,7 +108,7 @@ faEdit = faEdit;
 onEdit(index: number) {
     this.submitType = 'Update';
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.activity = Object.assign({}, this.activities[this.selectedRow]);
     this.showNew = true;
 }
 
@@ -116,19 +116,19 @@ onEdit(index: number) {
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
-    this.actividad = Object.assign({}, this.actividades[this.selectedRow]);
+    this.activity = Object.assign({}, this.activities[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar esta Actividad?')){
-        this.globalService.removeModel(this.actividad.id, "/api/activity")
+    if(confirm('¿Estas seguro de eliminar esta activity?')){
+        this.globalService.removeModel(this.activity.id, "/api/activity")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado la actividad
+                        //Para que actualice la lista una vez que es eliminado la activity
                         this.globalService.getModel("/api/activity")
                             .then((result) => {
                                 console.log(result);
-                                this.actividades = result['data'];
+                                this.activities = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
