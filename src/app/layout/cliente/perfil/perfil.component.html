@@ -29,7 +29,7 @@
                 <span class="font-lg">4.</span> Redes Sociales
                 <small class="d-block text-secondary">
 
-                </small>
+                </small> 
               </a>
             </li>
           <li class="nav-item">
@@ -44,7 +44,7 @@
 
 
         <form id="formOrder" class="tab-content">
-          <div id="account" class="tab-pane show active">
+          <div id="account" class="tab-pane show active" *ngIf="step === '1'">
             <div class="mb-3">
               <a href="#account-collapse" data-toggle="collapse">
                 <span class="font-lg">1.</span> Información de la cuenta
@@ -87,12 +87,10 @@
                   </div>
                   <div class="col-9 col-md-9 col-lg-9">
               <div class="row">
-                <!--<div class="col-9 col-md-5 col-lg-5">
-                  <div class="form-group">
-                    <label>Nombre de Usuario</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>-->
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 09359d77ff91687e6bbd6a787c8ec5815942ca7c
                 <div class="col-12 col-lg-10">
                   <div class="form-group">
                     <label>Correo</label>
@@ -117,7 +115,7 @@
               <div class="d-none d-md-block">
                 <hr>
                 <div class="d-flex mb-3">
-                  <button type="button" class="btn btn-success ml-auto" data-form-step="#personal">
+                  <button type="button" class="btn btn-success ml-auto" data-form-step="#personal" (click)="step === '2'">
                     Información Personal
                     <i class="icon-arrow-right font-sm"></i>
                   </button>
@@ -125,7 +123,7 @@
               </div></div></div>
             </div>
           </div>
-          <div id="personal" class="tab-pane">
+          <div id="personal" class="tab-pane" *ngIf="step === '2'" >
             <div class="mb-3">
               <a href="#personal-collapse" data-toggle="collapse">
                 <span class="font-lg">2.</span> Información Personal
@@ -241,9 +239,9 @@
               <div class="d-none d-md-block">
                 <hr>
                 <div class="d-flex mb-3">
-                  <button type="button" class="btn btn-outline-success" data-form-step="#account">
+                  <button type="button" class="btn btn-outline-success" data-form-step="#account" (click)="step === '1'">{{step ? 'Información de la Cuenta ': 'Información de la Cuenta'}}
                     <i class="icon-arrow-left font-sm"></i>
-                      Información de la Cuenta
+                    
                   </button>
                   <button type="button" class="btn btn-success ml-auto" data-form-step="#confirmation">
                       Gustos y Preferencias
@@ -253,7 +251,7 @@
               </div>
             </div>
           </div>
-          <div id="payment" class="tab-pane">
+          <div id="payment" class="tab-pane" *ngIf="step === '3'">
             <div class="mb-3">
               <a href="#payment-collapse" data-toggle="collapse">
                 <span class="font-lg">3.</span> Gustos y Preferencias
@@ -396,10 +394,10 @@
               </div>
             </div>
           </div>
-          <div id="social-network" class="tab-pane">
+          <div id="social-network" class="tab-pane" *ngIf="step === '4'">
               <div class="mb-3">
                 <a href="#payment-collapse" data-toggle="collapse">
-                  <span class="font-lg">3.</span> Gustos y Preferencias
+                  <span class="font-lg">4.</span> Redes Sociales
                   <small class="d-block text-secondary">
 
                   </small>
@@ -453,7 +451,7 @@
                 </div>
               </div>
             </div>
-          <div id="confirmation" class="tab-pane">
+          <div id="confirmation" class="tab-pane" *ngIf="step === '5'">
             <div class="mb-3">
               <a href="#confirmation-collapse" data-toggle="collapse">
                 <span class="font-lg">5.</span> Confirme sus datos
