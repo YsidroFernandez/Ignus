@@ -15,6 +15,7 @@ export class DashboardcustomerComponent implements OnInit {
     public numPage: number;
     public solicitudSelect: any;
     public pages = 1;
+    public usuario : any;
     closeResult: string;
     clientes: any;
     cliente: any;
@@ -37,7 +38,8 @@ export class DashboardcustomerComponent implements OnInit {
     this.clientes = [];
     this.cliente = [];
     this.nuevo = [];
-  }
+    
+  } 
 
  open(content) {
     console.log("aqui");
@@ -66,16 +68,9 @@ export class DashboardcustomerComponent implements OnInit {
     this.numPage = this.globals.numPage;       
     this.numbPage = this.globals.numPage;       
     this.show();
-    this.globalService.getModel("/api/client")
-    .then((result) => {
-        console.log(result);
-        this.clientes = result['data'];
-        console.log(this.clientes);
-    }, (err) => {
-        console.log(err);
-    });
-
-      this.globalService.getModel('/api/request/pending')
+    this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      let id=  this.usuario.person.id;
+      this.globalService.getModel('/api/client/request/'+id)
       .then(res=>{
         this.listSolicitudes=res['data'];
         console.log("Las solicitudes: ",this.listSolicitudes);
