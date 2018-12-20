@@ -19,12 +19,13 @@ export class ClientComponent implements OnInit {
   municipalities: any;
   parishes: any;
 
-
   data = {
       state:"",
       municipality:"",
       parish:""
   }
+
+
 
   // It maintains customers form display status. By default it will be false.
   showNew: Boolean = false;
@@ -39,17 +40,6 @@ export class ClientComponent implements OnInit {
       this.states = [];
       this.municipalities = [];
       this.parishes = [];
-
-      this.globalService.getModel(`/api/state/`).then((result) => {
-        if (result['status']) {
-            this.states = result['data'];
-            
-        }
-    }, (err) => {
-        console.log(err);
-    });
-
-
    }
 
 
@@ -139,6 +129,15 @@ ngOnInit() {
             console.log(err);
         });
 
+    this.globalService.getModel(`/api/state/`).then((result) => {
+        if (result['status']) {
+            this.states = result['data'];         
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+
 }
 faEdit = faEdit;
 
@@ -147,7 +146,9 @@ onEdit(index: number) {
     this.submitType = 'Update';
     this.selectedRow = index;
     this.client = Object.assign({}, this.customers[this.selectedRow]);
+    this.data.state = this.client.state.name;
     this.showNew = true;
+    console.log(this.data.state);
 }
 
 // This method associate to Delete Button.
