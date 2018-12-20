@@ -52,6 +52,7 @@ export class RoleComponent implements OnInit {
 
     }
     public doSelectOptions = (options) => console.log(this.ngxValue, options);
+    
     open(content) {
         console.log("aqui");
         this.modalService.open(content).result.then((result) => {

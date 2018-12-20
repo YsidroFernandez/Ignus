@@ -10,9 +10,6 @@ import * as moment from 'moment';
 import {BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 
 
-
-
-
 @Component({
     selector: 'app-registrosolicitud',
     templateUrl: './registrosolicitud.component.html',

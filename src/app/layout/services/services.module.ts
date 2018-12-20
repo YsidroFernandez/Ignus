@@ -8,13 +8,14 @@ import { ServicesRoutingModule } from './services-routing.module';
 import { ServicesComponent } from './services.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxSelectModule} from 'ngx-select-ex';
 @NgModule({
   imports: [
     CommonModule,
     ServicesRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),
+      NgxSelectModule,
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory
