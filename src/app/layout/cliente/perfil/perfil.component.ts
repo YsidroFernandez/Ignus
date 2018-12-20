@@ -35,16 +35,31 @@ export class PerfilComponent implements OnInit {
     lastName: "",
     email: "",
     birthDate: "",
+    phoneNumber: "",
     gender:1,
     state: "",
+    TypeServiceId: "",
     parish: "",
     municipality: "",
     }
+
+    typeservice: any;
 
 
   constructor(public globalService: GlobalService) { 
 
 this.nuevo = [];
+this.typeservice = [];
+
+this.globalService.getModel("/api/typeService").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista
+                this.typeservice = result['data'];
+                
+    }
+}, (err) => {
+    console.log(err);
+});
 
 this.globalService.getModel(`/api/state/`).then((result) => {
     if (result['status']) {
@@ -97,7 +112,8 @@ loadparish(municipality){
   identification: this.perfil.identification,
   birthDate: this.perfil.birthDate,
   email: this.perfil.email,
-  state: this.perfil.state,   
+  state: this.perfil.state,  
+  TypeServiceId: Number.parseInt(this.perfil2.TypeServiceId), 
   }; 
 
 console.log("result",this.nuevo);

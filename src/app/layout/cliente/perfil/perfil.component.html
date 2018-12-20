@@ -132,17 +132,19 @@
               <div class="text-secondary mb-3">
                 <small>Paso 2 de 5</small>
               </div>
+
               <div class="row">
                 <div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" class="form-control">
+                    <input type="text" [(ngModel)]="perfil2.firstName" class="form-control">
                   </div>
                 </div>
+
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
                       <label>Apellido(s)</label>
-                      <input type="text" class="form-control">
+                      <input type="text" [(ngModel)]="perfil2.lastName" class="form-control">
                     </div>
                   </div>
                  </div>
@@ -153,9 +155,10 @@
                             <div class="col-12 col-md-6 col-lg-6">
                               <div class="form-group">
                               <label>Cedula</label>
-                              <input type="text" class="form-control">
+                              <input type="text" [(ngModel)]="perfil2.indentification" class="form-control">
                              </div>
                         </div>
+
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
                         <label>Sexo</label>
@@ -168,10 +171,11 @@
                     </div>
                   </div>
                 </div>
+
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                           <label>Fecha de Nacimiento</label>
-                          <input type="text" class="form-control">
+                          <input type="text" [(ngModel)]="perfil2.birthDate" class="form-control">
                         </div>
                       </div>
                   </div>
@@ -181,7 +185,7 @@
                 <div class="col-12  col-lg-6">
                   <div class="form-group">
                     <label>Correo</label>
-                    <input type="text" class="form-control">
+                    <input type="text" [ngModel]="perfil2.email" class="form-control">
                   </div>
                 </div>
                 <div class="col-12 col-lg-6">
@@ -189,7 +193,7 @@
                      <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
                           <label>Numero de Telefono</label>
-                          <input type="text" class="form-control">
+                          <input type="text" [ngModel]="perfil2.phoneNumber" class="form-control">
                         </div>
                        </div>
 
@@ -238,13 +242,9 @@
               <div class="row">
                   <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
-                        <label  class="ng-tns-c12-9" for="solicitud">Tipo Solicitud: (*)</label>
-                        <select class="form-control" name="horas" id="tiposolicitud" required>
-                            <option value="0">Seleccione</option>
-                            <option value="1">Compra</option>
-                            <option value="2">Alquiler</option>
-                            <option value="3">Venta</option>
-                            <option value="4">Arrendamiento</option>
+                        <label  class="ng-tns-c12-9" for="typeservice">Tipo Solicitud: (*)</label>
+                        <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="perfil.TypeServiceId" required>
+                            <option *ngFor="let type of typeservice" [value]="type.id">{{type.name}}</option>
                           </select>
                       </div>
                     </div>
