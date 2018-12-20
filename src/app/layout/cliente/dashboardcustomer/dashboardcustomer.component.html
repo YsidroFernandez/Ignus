@@ -42,7 +42,7 @@
           <table class="card-body table table-hover">
             <thead>
               <tr>
-                <th style="vertical-align: middle;">Fecha de la transaccion</th>
+                <th style="vertical-align: middle;">Tipo </th>
                 <th style="vertical-align: middle;">Descripción</th>
                 <th style="vertical-align: middle;">Estado</th>
                 <th style="vertical-align: middle;">Ver Detalle</th>
@@ -50,17 +50,17 @@
             </thead>
             <tbody>
               
-               <tr *ngFor="let seguimiento of listSeguimiento; let i = index"> 
-                <td>{{seguimiento.fecha}}</td>
-                <td>{{ seguimiento.descripcion}}</td>    
-                <td>{{ seguimiento.estatus}}</td>
+              <tr *ngFor="let transaccion of listTransacciones"> 
+                <td>{{transaccion.typeService.name}}</td>
+                <td>{{transaccion.typeService.description}}</td>    
+                <td>{{transaccion.status}}</td>
                 
-              <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(content)">
-                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </td>
-                </tr>
+                <td>
+                  <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(content)">
+                  <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
     
             </tbody>
           </table>

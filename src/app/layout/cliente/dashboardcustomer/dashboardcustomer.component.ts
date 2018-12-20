@@ -26,8 +26,9 @@ export class DashboardcustomerComponent implements OnInit {
     submitType: string = 'Save';
     selectedRow: number;
 
-  public listSeguimiento:any;
+  public listTransacciones:any;
   public listSolicitudes:any;
+
 
 
   constructor(
@@ -79,11 +80,14 @@ export class DashboardcustomerComponent implements OnInit {
           console.log(error);
       })
 
-    this.listSeguimiento=[
-        { fecha: "16/11/2018", descripcion: 'Compra de Casa en el Este de Barqto', estatus:'	Esperando Recaudos'},
-        { fecha: "16/12/2018", descripcion: 'Alquiler de apartamento', estatus: 'Reserva realizada' }
-
-    ]; 
+      this.globalService.getModel('/api/client/transaction/'+ id)
+      .then(res=>{
+          this.listTransacciones=res['data'];
+          console.log("Las transacciones:",this.listTransacciones);
+      },
+      error=>{
+          console.log(error);
+      })
 
   }
 
