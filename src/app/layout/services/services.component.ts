@@ -82,54 +82,45 @@ export class ServicesComponent implements OnInit {
                 console.log(err);
             });
     }
-    //public doSelectOptions = (options) => console.log(this.ngxValue, options);
-
-    apiAction() {
-        if (this.submitType === "show") {
-            //no realizamos ninguna acciòn
-            console.log("show es")
-            
-        }
-        else {
-            
-            console.log(this.ngxActivities);
-            console.log(this.ngxRequirements);
-
-            //declaracion que permite enviar el nuevo json ya sea para crear o editar
-            this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
-            if (this.submitType === "create") {
-                //metodo que perimite enviar por post un nuevo servicio
-                this.globalService.addModel(this.nuevo, "/api/typeService")
-                    .then((result) => {
-                        console.log(result);
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es creado el service
-                            this.getServicios();
-                        }
-
-                    }, (err) => {
-                        console.log(err);
-                    });
 
 
-            } else {
-                //metodo que perimite enviar por put una actualizaciòn de un servicio
-                this.globalService.updateModel(this.service.id, this.service, "/api/typeService")
-                    .then((result) => {
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es editado el service
-                            this.getServicios();
-                        }
+    apiAction() { //metodo para realizar una accion ya sea crear, editar
 
-                    }, (err) => {
-                        console.log(err);
-                    });
 
-            }
+        //declaracion que permite enviar el nuevo json ya sea para crear o editar
+        this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
+        if (this.submitType === "create") {
+            //metodo que perimite enviar por post un nuevo servicio
+            this.globalService.addModel(this.nuevo, "/api/typeService")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es creado el service
+                        this.getServicios();
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+
+
+        } else {
+            //metodo que perimite enviar por put una actualizaciòn de un servicio
+            this.globalService.updateModel(this.service.id, this.nuevo, "/api/typeService")
+                .then((result) => {
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es editado el service
+                        this.getServicios();
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+
         }
 
-        // cerrar modal
-        this.showNew = false;
+
+        
 
 
     }
@@ -143,14 +134,34 @@ export class ServicesComponent implements OnInit {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
 
+
+
+
+
+        this.ngxActivities=[];
+        this.ngxRequirements=[];
         this.modalName = action;
         this.submitType = action;// variable que nos permite saber que accion podemos ejecutar ejemplo editar
         this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
         this.service = Object.assign({}, this.services[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-        console.log(this.service);
+
+        if (index != -1) { //el caso index -1 es cuando se solicita crear --ver html
+
+
+            for (let i in this.service.activities) {//ciclo necesario para mostar actividades
+                this.ngxActivities.push(this.service.activities[i].id);
+            }
+            for (let i in this.service.requirements) {//ciclo necesario para mostar requerimientos
+                this.ngxRequirements.push(this.service.requirements[i].id);
+            }
+        }
+
         if (action == 'show') {//si la accion es ver, desabilita los campos del modal
             this.disabled = true;
             this.modalIcon = "fa fa-close"
+
+
+
         }
         else
             if (action == 'create') {//si la accion es distinta de ver los campos del modal quedaran activados
@@ -164,7 +175,7 @@ export class ServicesComponent implements OnInit {
 
     }
 
-    private getDismissReason(reason: any): string {
+    private getDismissReason(reason: any): string { //metodo para establecer razones del cierre de modal
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
         } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
@@ -191,13 +202,7 @@ export class ServicesComponent implements OnInit {
                     console.log(result);
                     if (result['status']) {
                         //Para que actualice la lista una vez que es eliminado el service
-                        this.globalService.getModel("/api/typeService")
-                            .then((result) => {
-                                console.log(result);
-                                this.services = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
+                        this.getServicios();
                     }
 
                 }, (err) => {
