@@ -151,8 +151,8 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Recaudos</label>
-                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="name"
-                                        [disabled]="ngxDisabled" [(ngModel)]="ngxValue" placeholder="Seleccione los recaudos"
+                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="id" optionTextField='name'
+                                        [disabled]="ngxDisabled" [(ngModel)]="ngxRequirements" placeholder="Seleccione los recaudos"
                                         (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
                                     </ngx-select>
                                 </div>
@@ -160,8 +160,8 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Activities</label>
-                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true optionValueField="name"
-                                    [disabled]="ngxDisabled" [(ngModel)]="ngxValue" placeholder="Seleccione las actividades"
+                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true optionValueField="id" optionTextField='name'
+                                    [disabled]="ngxDisabled" [(ngModel)]="ngxActivities" placeholder="Seleccione las actividades"
                                     (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
                                 </ngx-select>
                                 </div>

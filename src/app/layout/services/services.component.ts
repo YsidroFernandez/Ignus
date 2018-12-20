@@ -33,6 +33,8 @@ export class ServicesComponent implements OnInit {
     activities: any;
     ngxValue: any = [];
     ngxDisabled = false;
+    ngxActivities: any = [];
+    ngxRequirements: any = [];
 
     constructor(private modalService: NgbModal, public globalService: GlobalService) {
         this.services = [];
@@ -80,17 +82,21 @@ export class ServicesComponent implements OnInit {
                 console.log(err);
             });
     }
-    public doSelectOptions = (options) => console.log(this.ngxValue, options);
+    //public doSelectOptions = (options) => console.log(this.ngxValue, options);
 
     apiAction() {
         if (this.submitType === "show") {
             //no realizamos ninguna acciòn
             console.log("show es")
-
+            
         }
         else {
+            
+            console.log(this.ngxActivities);
+            console.log(this.ngxRequirements);
+
             //declaracion que permite enviar el nuevo json ya sea para crear o editar
-            this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.service.requirements, activities: this.service.activities });
+            this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
             if (this.submitType === "create") {
                 //metodo que perimite enviar por post un nuevo servicio
                 this.globalService.addModel(this.nuevo, "/api/typeService")
@@ -98,7 +104,7 @@ export class ServicesComponent implements OnInit {
                         console.log(result);
                         if (result['status']) {
                             //Para que actualice la lista una vez que es creado el service
-                            this.ngOnInit();
+                            this.getServicios();
                         }
 
                     }, (err) => {
@@ -112,7 +118,7 @@ export class ServicesComponent implements OnInit {
                     .then((result) => {
                         if (result['status']) {
                             //Para que actualice la lista una vez que es editado el service
-                            this.ngOnInit();
+                            this.getServicios();
                         }
 
                     }, (err) => {
