@@ -16,78 +16,139 @@ import { GlobalService } from '../../../providers/global.service';
 export class PerfilComponent implements OnInit {
     closeResult: string;
     perfil: any;
-    
+    perfiles: any;
     nuevo: any;
+
+    states = []
+    municipalities = []
+    parishes = []
+
     showNew: Boolean = false;
     step: string;
-    
-
     submitType: string = 'Save';
     selectedRow: number;
 
-  constructor(private modalService: NgbModal, public globalService: GlobalService) { 
-  this.perfil = [];
-  this.nuevo = [];
-  this.step = '1';
+    perfil2 = {
+    username: "",
+    identification: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthDate: "",
+    phoneNumber: "",
+    gender:1,
+    state: "",
+    TypeServiceId: "",
+    parish: "",
+    municipality: "",
+    }
+
+    typeservice: any;
+
+
+  constructor(public globalService: GlobalService) { 
+
+this.nuevo = [];
+this.typeservice = [];
+
+this.globalService.getModel("/api/typeService").then((result) => {
+    if (result['status']) {
+        //Para que actualice la lista
+                this.typeservice = result['data'];
+                
+    }
+}, (err) => {
+    console.log(err);
+});
+
+this.globalService.getModel(`/api/state/`).then((result) => {
+    if (result['status']) {
+        this.states = result['data'];
+    }
+}, (err) => {
+    console.log(err);
+});
  
   }
 
+
+  //this method associate to reload states
+loadmunicipality(state){
+    this.municipalities = [];
+    this.parishes = [];
+    
+    this.globalService.getModel(`/api/state/municipality/${state}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            this. municipalities = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+
+loadparish(municipality){
+
+    console.log("muni ",municipality)
+    this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            this.parishes = result['data'];
+                    
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+
     //Metodo del boton Enviar
-  enviar() { 
-  if (this.submitType === "Save") {
-  this.nuevo = JSON.stringify({firstName: this.perfil.firstName, lastName: this.perfil.lastName, birthDate: this.perfil.birthDate, gender: this.perfil.gender, });
+ enviar() { 
+  
+  this.nuevo = {
+  lastName: this.perfil.lastName,
+  firstName: this.perfil.firstName,
+  identification: this.perfil.identification,
+  birthDate: this.perfil.birthDate,
+  email: this.perfil.email,
+  state: this.perfil.state,  
+  TypeServiceId: Number.parseInt(this.perfil2.TypeServiceId), 
+  }; 
+
+console.log("result",this.nuevo);
    this.globalService.addModel(this.nuevo,"/api/client")
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
-                        //Para que actualice la lista una vez que es creado el recaudo
-                        this.globalService.getModel("/api/client")
-                            .then((result) => {
-                                console.log(result);
-                                this.perfil = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
+                        //Para que actualice la lista
+                            console.log(result);                     
                     }
 
                 }, (err) => {
                     console.log(err);
                 });
-           }else{
-                this.globalService.updateModel(this.perfil.id, this.perfil, "/api/client")
-                    .then((result) => {
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es editado el perfil
-                            this.globalService.getModel("/api/client")
-                                .then((result) => {
-                                    console.log(result);
-                                    this.perfil = result['data'];
-                                }, (err) => {
-                                    console.log(err);
-                                });
-                        }
-
-                    }, (err) => {
-                        console.log(err);
-                    });
-
-            }
-
   alert("Agregado con exito")
-  this.showNew = false;
+  this.limpiar()
 }
 
-      private getDismissReason(reason: any): string {
-       if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
-          }
+limpiar(){
+  this.perfil = {
+    username: "",
+    identification: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    birthDate: "",
+    gender:1,
+    state: "",
+    parish: "",
+    municipality: "",
 
-          show() {
+  }
+}
+
+       show() {
         console.log("aqui va el loaer");
     }
 
