@@ -14,6 +14,7 @@ export class DashboardcustomerComponent implements OnInit {
     public numbPage: number;
     public numPage: number;
     public solicitudSelect: any;
+    public transaccionSelect: any;
     public pages = 1;
     public usuario : any;
     closeResult: string;
@@ -93,8 +94,13 @@ export class DashboardcustomerComponent implements OnInit {
 
     detallesSolicitud(solicitud){
         this.solicitudSelect=solicitud;
-        console.log("Esto es",this.solicitudSelect)
     }
+
+    detTransaccion(transaccion){
+        this.transaccionSelect = transaccion;
+        console.log("Es este",this.transaccionSelect)
+    }
+
   faEye = faEye;
 
 }
