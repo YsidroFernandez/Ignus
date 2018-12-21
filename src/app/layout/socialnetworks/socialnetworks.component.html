@@ -1,0 +1,135 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Redes Sociales'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
+        <div style="padding-bottom: 4%">
+                <div style="text-align: end; padding-top: 2%; padding-bottom: 2%">
+                        <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+        
+
+    
+
+        <div class="card mb-3" >
+            <div class="row">
+                
+                    <div *ngFor="let item of socialnetworks ; let i= index" class="col-md-6" (click)="onEdit(i)">
+                            <div class="card flex-md-row mb-4 shadow ">   
+                               <div class="card-body d-flex flex-column align-items-start">
+                                  <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
+                            
+                                  <div class="row"  style="padding-left: 10%">   
+                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                         (click)="open(editar)">
+                                         <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                     </button>
+                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                         (click)="onDelete(i)">
+                                         <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                     </button>
+                                  </div>
+                                  
+                               </div>
+                           <div class="card-body d-flex flex-column align-items-end">
+                              <img  class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{item.urlLogo}}" style="width: 85px; height: 100px; border-radius: 10%;" (click)="open(ver)">
+                            </div>   
+                       </div>  
+                    </div>
+            </div>
+         </div>
+    </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title ">Registrar Red Social</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="socialnetwork.name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">URL Logo</label>
+                                    <input type="text" [(ngModel)]="socialnetwork.urlLogo" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">URL Perfil de la Agencia</label>
+                                        <input type="text" [(ngModel)]="socialnetwork.urlAgencySocialNetwork" class="form-control" />
+                                    </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                    (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+            </div>
+        </ng-template>
+        <ng-template #editar let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title ">Editar Red Social</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">URL Perfil de la Agencia</label>
+                                <input type="text" [(ngModel)]="socialnetwork.urlAgencySocialNetwork" class="form-control" />
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                    (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+            </div>
+        </ng-template>
+        <ng-template #ver let-c="close" let-d="dismiss">
+            <div class="modal-header">
+                <h4 class="modal-title ">Red Social</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre</label>
+                                <input type="text" [(ngModel)]="socialnetwork.name" class="form-control" readonly="" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">URL Logo</label>
+                                <input type="text" [(ngModel)]="socialnetwork.urlLogo" class="form-control" readonly=""/>
+                            </div>
+                        </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="nombre">URL Perfil de la Agencia</label>
+                                <input type="text" [(ngModel)]="socialnetwork.urlAgencySocialNetwork" class="form-control" readonly=""/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
+                        style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+            </div>
+        </ng-template>
+        </div>

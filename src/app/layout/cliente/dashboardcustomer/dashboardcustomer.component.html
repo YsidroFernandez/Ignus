@@ -10,74 +10,73 @@
 
 <!--Transacciones-->
 <div class="row">
-  
-    <div class="container">
-      <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-        Transacciones
-      </div>
-      <div class="card mb-3">
-        <div class="row mb-3">
-          <div class="col col-sm-4" style="position: relative; top: 15px;">
-            <label>Mostrar
-              <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select> entradas
-            </label>
-          </div>
-          <div class="col col-sm-4" style="position: relative; top: 15px;">
-            <div class="input-group" style="align-content: center;">
-              <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-              <span class="input-group-btn">
-                <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px;">
-                  <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                </button>
-              </span>
-            </div>
+
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+      Transacciones
+    </div>
+
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <label>Mostrar
+            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select> entradas
+          </label>
+        </div>
+        
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <div class="input-group" style="align-content: center;">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+            <span class="input-group-btn">
+              <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px;">
+                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
           </div>
         </div>
-        <div class="card-body  table-responsive">
-          <table class="card-body table table-hover">
-            <thead>
-              <tr>
-                <th style="vertical-align: middle;">Fecha de la transaccion</th>
-                <th style="vertical-align: middle;">Descripción</th>
-                <th style="vertical-align: middle;">Estado</th>
-                <th style="vertical-align: middle;">Ver Detalle</th>
-              </tr>
-            </thead>
-            <tbody>
+      </div>
+      <div class="card-body  table-responsive">
+      <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th style="vertical-align: middle;">Tipo </th>
+              <th style="vertical-align: middle;">Descripción</th>
+              <th style="vertical-align: middle;">Estado</th>
+              <th style="vertical-align: middle;">Ver Detalle</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr *ngFor="let transaccion of listTransacciones" (click)="detTransaccion(transaccion)"> 
+              <td>{{transaccion.typeService.name}}</td>
+              <td>{{transaccion.typeService.description}}</td>    
+              <td>{{transaccion.status}}</td>
               
-               <tr *ngFor="let seguimiento of listSeguimiento; let i = index"> 
-                <td>{{seguimiento.fecha}}</td>
-                <td>{{ seguimiento.descripcion}}</td>    
-                <td>{{ seguimiento.estatus}}</td>
-                
               <td>
-                <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(content)">
-                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(modalTransacion)">
+                <fa-icon [icon]="faEye"></fa-icon>
                 </button>
               </td>
-                </tr>
-    
-            </tbody>
-          </table>
-        </div>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
- 
-
-        <div class="row mb-3">
-          <div class="col col-sm-8">
-            <!--esta columna está vacia-->
-          </div>
-          <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
-          </div>-->
+      <div class="row mb-3">
+        <div class="col col-sm-8">
+          <!--esta columna está vacia-->
         </div>
+        <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
+        </div>-->
       </div>
     </div>
+  </div>
 </div>
 
 
@@ -129,8 +128,8 @@
          <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="detallesSolicitud(solicitud)">
               <td>{{solicitud.wishDate}}</td>
               <td>{{solicitud.typeRequest.name}}</td>
-              <td>{{ solicitud.typeRequest.description}}</td>
-              <td>{{ solicitud.status}}</td>
+              <td>{{solicitud.typeRequest.description}}</td>
+              <td>{{solicitud.status}}</td>
 
               <td>
                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(modalSolicitud)">
@@ -156,81 +155,58 @@
 <!--Fin Solicitudes-->
 
 <!--Modal de transacciones-->
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <div class="col-md-12">
-      <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-        Recaudos
-      </div>
-    </div>
-    <!-- <h4  " class="modal-title ">Recaudos</h4>-->
+<ng-template #modalTransacion let-c="close" let-d="dismiss">
+   <div class="modal-header">
+    <h4 class="modal-title">Detalles</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="card  card-tasks">
-    <div class="card-header ">
-      <h5 class="card-category"></h5>
-    </div>
-    <div class="card-body ">
-      <p><strong>Compra de Casa en el Este de Barqto: </strong></p>
-      <div class="table-full-width table-responsive">
-        <table class="table">
-          <tbody>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" checked>
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-              </td>
-              <td class="text-left">Cédula y Rif del inquilino</td>
 
-            </tr>
-
-            <tr>
-              <td>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox">
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-              </td>
-              <td class="text-left">Carta de residencia emitida por el CNE
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="form-check">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" checked>
-                    <span class="form-check-sign"></span>
-                  </label>
-                </div>
-              </td>
-              <td class="text-left">Carta de buena conducta
-              </td>
-
-            </tr>
-          </tbody>
-        </table>
+  <div class="row">
+    <div class="col-xl-6 text-xs-center">
+      <div class="card-body">
+        <div class="form-group">
+          <label>Tipo: {{transaccionSelect.typeService.name}}</label>
+        </div>
       </div>
     </div>
-    <div class="card-footer ">
-      <hr>
-      <div class="stats">
-        <i class="now-ui-icons loader_refresh spin"></i> Actualizado hace 3 minutos
+    
+  </div>
+  
+  <div class="card-deck">
+    <div class="card bg-default">
+      <div class="card-body">
+        <h2 class="text-center">Actividades</h2>
+          <div class="row margen" *ngFor="let actividad of transaccionSelect.activities">
+            <div class="col-md-6 text-left">{{actividad.name}}</div>
+            <div class="col-md-6 text-right">
+              <input *ngIf="actividad.status!='Espera'" name="actividad" type="checkbox" disabled checked/>
+              <input *ngIf="actividad.status=='Espera'" name="actividad" type="checkbox" disabled />
+            </div>
+            <br/>
+          </div>        
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <div class="card-deck">
+    <div class="card bg-default">
+      <div class="card-body ">
+        <h2 class="text-center">Recaudos</h2>
+        <div class="row margen" *ngFor="let recaudo of transaccionSelect.requirements">
+          <div class="col-md-6 text-left">{{recaudo.name}}</div>
+          <div class="col-md-6 text-right">
+            <input *ngIf="recaudo.status!='Espera'" name="recaudo" type="checkbox" disabled checked />
+            <input *ngIf="recaudo.status=='Espera'" name="recaudo" type="checkbox" disabled />
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="modal-footer">
-    <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i style="color: white"
-        class="fa fa-close" aria-hidden="true"></i></button>
-  </div>
 </ng-template>
 
 <!--Fin modal de transacciones-->

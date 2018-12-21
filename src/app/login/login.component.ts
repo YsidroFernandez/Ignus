@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
         if(response['status']){ // evalúa el estatus de la respuesta de la peticion (si es true =>accede sino 'credenciales incorrectas' )
           localStorage.setItem('accessToken', response['data'].accessToken);
           localStorage.setItem('usuario', JSON.stringify(response['data']));
-          console.log('este es el usuario', localStorage.getItem('usuario'))
           this.router.navigate(['/dashboard']);
           console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
