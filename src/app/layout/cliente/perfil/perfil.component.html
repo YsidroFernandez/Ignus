@@ -44,7 +44,7 @@
 
 
         <form id="formOrder" class="tab-content">
-          <div id="account" class="tab-pane show active" *ngIf="step === '1'">
+          <div id="account" class="tab-pane show active">
             <div class="mb-3">
               <a href="#account-collapse" data-toggle="collapse">
                 <span class="font-lg">1.</span> Información de la cuenta
@@ -87,10 +87,6 @@
                   </div>
                   <div class="col-9 col-md-9 col-lg-9">
               <div class="row">
-<<<<<<< HEAD
-=======
-                
->>>>>>> 09359d77ff91687e6bbd6a787c8ec5815942ca7c
                 <div class="col-12 col-lg-10">
                   <div class="form-group">
                     <label>Correo</label>
@@ -123,7 +119,7 @@
               </div></div></div>
             </div>
           </div>
-          <div id="personal" class="tab-pane" *ngIf="step === '2'" >
+          <div id="personal" class="tab-pane">
             <div class="mb-3">
               <a href="#personal-collapse" data-toggle="collapse">
                 <span class="font-lg">2.</span> Información Personal
@@ -136,17 +132,19 @@
               <div class="text-secondary mb-3">
                 <small>Paso 2 de 5</small>
               </div>
+
               <div class="row">
                 <div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" class="form-control">
+                    <input type="text" [(ngModel)]="perfil2.firstName" class="form-control">
                   </div>
                 </div>
+
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
                       <label>Apellido(s)</label>
-                      <input type="text" class="form-control">
+                      <input type="text" [(ngModel)]="perfil2.lastName" class="form-control">
                     </div>
                   </div>
                  </div>
@@ -157,9 +155,10 @@
                             <div class="col-12 col-md-6 col-lg-6">
                               <div class="form-group">
                               <label>Cedula</label>
-                              <input type="text" class="form-control">
+                              <input type="text" [(ngModel)]="perfil2.indentification" class="form-control">
                              </div>
                         </div>
+
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
                         <label>Sexo</label>
@@ -172,74 +171,50 @@
                     </div>
                   </div>
                 </div>
+
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                           <label>Fecha de Nacimiento</label>
-                          <input type="text" class="form-control">
+                          <input type="text" [(ngModel)]="perfil2.birthDate" class="form-control">
                         </div>
                       </div>
                   </div>
-
+ 
 
               <div class="row">
                 <div class="col-12  col-lg-6">
                   <div class="form-group">
                     <label>Correo</label>
-                    <input type="text" class="form-control">
+                    <input type="text" [ngModel]="perfil2.email" class="form-control">
                   </div>
                 </div>
                 <div class="col-12 col-lg-6">
                   <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6">
-                      <div class="form-group">
-                        <label>Teléfono Fijo</label>
-                        <input type="text" class="form-control">
-                      </div>
-                     </div>
                      <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
-                          <label>Teléfono Celular</label>
-                          <input type="text" class="form-control">
+                          <label>Numero de Telefono</label>
+                          <input type="text" [ngModel]="perfil2.phoneNumber" class="form-control">
                         </div>
                        </div>
+
+                       <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Estado</label>
+                                <select class="form-control" name="state" id="state" [(ngModel)]="perfil2.state"
+                                    #estado="ngModel" (change)="loadmunicipality(perfil2.state)">
+                                    <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                </select>
+                            </div>
+                        </div>
                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-6">
-                  <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6">
-                      <div class="form-group">
-                        <label>Código Postal</label>
-                        <input type="text" class="form-control">
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-6">
-                      <div class="form-group">
-                        <label  class="ng-tns-c12-9" for="estado">Estado</label>
-                        <select class="form-control" name="estados" id="estados" required>
-                            <option value="0">Seleccione</option>
-                            <option value="1">Aragua</option>
-                            <option value="2">Carabobo</option>
-                            <option value="3">Lara</option>
-                            <option value="4">Yaracuy</option>
-                          </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-lg-6">
-                  <div class="form-group">
-                    <label>Dirección de casa</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
+                
               </div>
 
               <div class="d-none d-md-block">
                 <hr>
                 <div class="d-flex mb-3">
-                  <button type="button" class="btn btn-outline-success" data-form-step="#account" (click)="step === '1'">{{step ? 'Información de la Cuenta ': 'Información de la Cuenta'}}
+                  <button type="button" class="btn btn-outline-success" data-form-step=" #account" (click)="step === '1'">{{step ? 'Información de la Cuenta ': 'Información de la Cuenta'}}
                     <i class="icon-arrow-left font-sm"></i>
                     
                   </button>
@@ -251,7 +226,7 @@
               </div>
             </div>
           </div>
-          <div id="payment" class="tab-pane" *ngIf="step === '3'">
+          <div id="payment" class="tab-pane">
             <div class="mb-3">
               <a href="#payment-collapse" data-toggle="collapse">
                 <span class="font-lg">3.</span> Gustos y Preferencias
@@ -267,13 +242,9 @@
               <div class="row">
                   <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
-                        <label  class="ng-tns-c12-9" for="solicitud">Tipo Solicitud: (*)</label>
-                        <select class="form-control" name="horas" id="tiposolicitud" required>
-                            <option value="0">Seleccione</option>
-                            <option value="1">Compra</option>
-                            <option value="2">Alquiler</option>
-                            <option value="3">Venta</option>
-                            <option value="4">Arrendamiento</option>
+                        <label  class="ng-tns-c12-9" for="typeservice">Tipo Solicitud: (*)</label>
+                        <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="perfil.TypeServiceId" required>
+                            <option *ngFor="let type of typeservice" [value]="type.id">{{type.name}}</option>
                           </select>
                       </div>
                     </div>
@@ -291,7 +262,17 @@
                       </div>
               </div>
               <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6">
+
+                <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="tipos">Estado</label>
+                                <select class="form-control" name="state" id="state" [(ngModel)]="perfil2.state"
+                                    #estado="ngModel" (change)="loadmunicipality(perfil2.state)">
+                                    <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                 <!-- <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
                         <label  class="ng-tns-c12-9" for="estado">Estado</label>
                         <select class="form-control" name="estados" id="estados" required>
@@ -302,23 +283,26 @@
                             <option value="4">Yaracuy</option>
                           </select>
                       </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <div class="form-group">
-                          <label class="ng-tns-c12-9" for="inmueble">Municipio:</label>
-                          <select class="form-control" name="municipios" id="municipios" required>
-                            <option value="0">Seleccione</option>
-                            <option value="1">Iribarren</option>
-                            <option value="2">Palavecino</option>
-                            <option value="3">Torres</option>
-                            <option value="4">Urdaneta</option>
-
-                          </select>
+                    </div> -->
+                     <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="municipality">Municipios</label>
+                                <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil2.municipality"
+                                    #municipality="ngModel" (change)="loadparish(perfil2.municipality)">
+                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                </select>
+                            </div>
                         </div>
-                      </div>
               </div>
               <div class="row">
-                  <div class="col-12 col-md-6 col-lg-6">
+                <div class="col col-sm-6">
+                    <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                        <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil2.parish" required>
+                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                 <!-- <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-group">
                         <label  class="ng-tns-c12-9" for="parroquia">Parroquia</label>
                         <select class="form-control" name="tipoparroquia" id="tipoparroquia" required>
@@ -331,7 +315,7 @@
                             <option value="6">Unión</option>
                           </select>
                       </div>
-                    </div>
+                    </div> -->
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
                           <label class="ng-tns-c12-9" for="habitacion">Cantidad de Habitaciones:</label>
@@ -394,7 +378,7 @@
               </div>
             </div>
           </div>
-          <div id="social-network" class="tab-pane" *ngIf="step === '4'">
+          <div id="social-network" class="tab-pane">
               <div class="mb-3">
                 <a href="#payment-collapse" data-toggle="collapse">
                   <span class="font-lg">4.</span> Redes Sociales
@@ -451,7 +435,7 @@
                 </div>
               </div>
             </div>
-          <div id="confirmation" class="tab-pane" *ngIf="step === '5'">
+          <div id="confirmation" class="tab-pane">
             <div class="mb-3">
               <a href="#confirmation-collapse" data-toggle="collapse">
                 <span class="font-lg">5.</span> Confirme sus datos
