@@ -66,9 +66,7 @@ export class SocialnetworksComponent implements OnInit {
 
                 }, (err) => {
                     console.log(err);
-                })
-                this.submitType = 'Save'
-                this.socialnetwork = "";
+                });
 
         }
         // Hide Usuario entry section.
