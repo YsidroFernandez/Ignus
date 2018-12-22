@@ -165,24 +165,24 @@
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="firstName">Nombre</label>
                 <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.firstName"
-                    name="firstName" ng-model="firstName" type="text">
+                    name="firstName" ng-model="firstName" type="text" disabled>
             </div>
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="lastName">Apellido</label>
                 <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.lastName"
-                    name="lastName" ng-model="lastName" type="text">
+                    name="lastName" ng-model="lastName" type="text" disabled>
             </div>
         </div>
 
         <div class="row md-3">
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="email">Telefono</label>
-                <input class="form-control ng-untouched ng-pristine ng-valid" type="text">
+                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" disabled>
             </div>
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="name">Tipo de servicio</label>
                 <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.name"
-                    name="name" ng-model="lastName" type="text">
+                    name="name" ng-model="lastName" type="text" disabled>
             </div>
         </div>
 
@@ -193,30 +193,28 @@
                         <div class="form-group col-md-12">
                             <label class="ng-tns-c12-9" for="description">Descripcion</label>
                             <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.description"
-                                name="description" ng-model="description" type="text" rows="3">
+                                name="description" ng-model="description" type="text" rows="3" disabled>
                             </textarea>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="description">Fecha</label>
+                            <label for="requestDate">Fecha</label>
                             <div class="input-group">
                                 <input name="fecha" name="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                                    placeholder="Fecha de la Firma*" bsDatepicker autocomplete="off">
+                                    placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
+                                    autocomplete="off" disabled>
                             </div>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="description">Estado</label>
-                            <select class="form-control">
-                                <option *ngFor="let estado of estados" [value]="estado">
-                                    {{estado}}
-                                </option>
-                            </select>
+                            <label class="ng-tns-c12-9" for="status">Estado</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.status"
+                                name="status" ng-model="status"  type="text" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="photo">Fotos</label>
+                            <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
                             <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
-                                style="width: 350px; height: 200px; border-radius: 10%;">
+                                style="width: 350px; height: 200px; border-radius: 10%;" disabled>
                         </div>
                     </div>
                 </div>
