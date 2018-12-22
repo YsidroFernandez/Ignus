@@ -40,7 +40,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes| paginate: { itemsPerPage: numPage, currentPage: pages }">
+                        <tr *ngFor="let solicitud of solicitudes| paginate: { itemsPerPage: numPage, currentPage: pages }"
+                            (click)=openForEdit(solicitud)>
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
@@ -90,93 +91,68 @@
                 </nav>
             </pagination-template>
         </div>
-
-        <!-- <div class="card mb-3">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
-
-        
-                </div>
-            </div>
-        </div> -->
     </div>
+</div>
 
-
-    <ng-template #content let-c="close" let-d="dismiss">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
-                    aria-selected="true">Datos</a>
-            </li>
-            <li class="nav-item">
-                <!-- <a class="nav-link" id="cita-tab" data-toggle="tab" href="#cita" role="tab"
-                    aria-controls="cita" aria-selected="false">Cita</a> -->
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
-                <div class="modal-header">
-                    <h4 class="modal-title ">Agendar Cita</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="card mb-3">
-                    <div class="modal-body">
-
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label class="ng-tns-c12-9" for="titulo">Titulo</label>
-                                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                        [(ngModel)]="solicitudapprove.title" #titulo="ngModel" required>
-                                </div>
+<!-- aceptar solicitud -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
+                aria-selected="true">Datos</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
+            <div class="modal-header">
+                <h4 class="modal-title ">Agendar Cita</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label class="ng-tns-c12-9" for="titulo">Titulo</label>
+                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitudapprove.title"
+                                    #titulo="ngModel" required>
                             </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
-                                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                        [(ngModel)]="solicitud.description" #description="ngModel" required>
-                                </div>
-                            </div>
-
                         </div>
-
-
-
-                        <div class="row mb-3">
-                            <div class="col-12 col-sm-6">
-                                <label for="fechainicio">Fecha</label>
-                                <div class="input-group">
-                                    <input name="start" [(ngModel)]="solicitudapprove.start" name="start" [bsConfig]="datePickerConfig"
-                                        type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
-                                        autocomplete="off" required>
-                                </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
+                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.description"
+                                    #description="ngModel" required>
                             </div>
                         </div>
                     </div>
-
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-6">
+                            <label for="fechainicio">Fecha</label>
+                            <div class="input-group">
+                                <input name="start" [(ngModel)]="solicitudapprove.start" name="start" [bsConfig]="datePickerConfig"
+                                    type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
+                                    autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="c('Cross click')">
-                        <fa-icon [icon]="faCancel"></fa-icon>
-                    </button>
-                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="aceptar(1)">
-                        <fa-icon [icon]="faCheck"></fa-icon>
-                    </button>
-                </div>
-
             </div>
-            <!-- <div class="tab-pane fade" id="cita" role="tabpanel" aria-labelledby="cita-tab">
-                ...
-            </div> -->
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+                    <fa-icon [icon]="faCancel"></fa-icon>
+                </button>
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="aceptar(1)">
+                    <fa-icon [icon]="faCheck"></fa-icon>
+                </button>
+            </div>
         </div>
+    </div>
+</ng-template>
 
-    </ng-template>
-</div>
-<!-- 
+<!--ver-->
 <ng-template #ver let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
@@ -185,95 +161,107 @@
         </button>
     </div>
     <div class="modal-body">
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="firstName">Nombre</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.firstName"
+                    name="firstName" ng-model="firstName" type="text">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="lastName">Apellido</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.lastName"
+                    name="lastName" ng-model="lastName" type="text">
+            </div>
+        </div>
 
-        <div class="row mb-3">
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="email">Nombre</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                        #email="ngModel" required>
-                </div>
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="email">Telefono</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" type="text">
             </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="email">Apellido</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                        #email="ngModel" required>
-                </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="name">Tipo de servicio</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.name"
+                    name="name" ng-model="lastName" type="text">
             </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="email">Telefono</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                        #email="ngModel" required>
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="description">Tipo de servicio</label>
-                    <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                        <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                            ngbDropdownToggle>{{solicitud.tipo}}</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                            <button type="button" class="dropdown-item" *ngFor="let tipo of tipos" (click)="onChangetipo(tipo)">{{tipo}}</button>
+        </div>
+
+        <div class="row md-3">
+            <div class="col-md-12">
+                <div class="row md-3">
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                            <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.description"
+                                name="description" ng-model="description" type="text" rows="3">
+                            </textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="description">Fecha</label>
+                            <div class="input-group">
+                                <input name="fecha" name="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                    placeholder="Fecha de la Firma*" bsDatepicker autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="description">Estado</label>
+                            <select class="form-control">
+                                <option *ngFor="let estado of estados" [value]="estado">
+                                    {{estado}}
+                                </option>
+                            </select>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="description">Descripcion</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.description"
-                        #description="ngModel" required>
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group"><label class="ng-tns-c12-9" for="photo">Fotos</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="row mb-3">
-
-
-            <div class="col col-sm-6">
-                <label for="description">Fecha</label>
-
-                <div class="input-group">
-
-                    <input type="text" name="dob" [(ngModel)]="solicitud.fecha" ngbDatepicker #dob="ngbDatepicker"
-                        class="form-control" onchange="onChangefecha(this.text)" />
-                    <span class="input-group-btn">
-                        <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                            <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                        </button>
-                    </span>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col col-sm-6">
-            <div class="form-group">
-                <label for="description">Estado</label>
-                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                        ngbDropdownToggle>{{solicitud.estado}}</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                        <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label class="ng-tns-c12-9" for="photo">Fotos</label>
+                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
+                                style="width: 350px; height: 200px; border-radius: 10%;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+            <fa-icon [icon]="faCancel"></fa-icon>
+        </button>
     </div>
 </ng-template>
 
+<!-- eliminar -->
+<ng-template #delete let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <h4 class="modal-title"> Eliminar </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="form-control">
+                <div class="row">
+                    <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
+                </div>
+                <div class="row">
+                    <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+            <fa-icon [icon]="faCancel"></fa-icon>
+        </button>
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
+            <fa-icon [icon]="faCheck"></fa-icon>
+        </button>
+    </div>
+</ng-template>
+
+<!-- editar -->
 <ng-template #editar let-c="close" let-d="dismiss">
 
     <div class="modal-header">
@@ -334,36 +322,3 @@
         </button>
     </div>
 </ng-template>
-
-<ng-template #delete let-c="close" let-d="dismiss">
-
-    <div class="modal-header">
-        <h4 class="modal-title"> Eliminar </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-        <div class="form-group">
-            <div class="form-control">
-                <div class="row">
-                    <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
-                </div>
-                <div class="row">
-                    <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-            <fa-icon [icon]="faCancel"></fa-icon>
-        </button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
-            <fa-icon [icon]="faCheck"></fa-icon>
-        </button>
-    </div>
-</ng-template> -->

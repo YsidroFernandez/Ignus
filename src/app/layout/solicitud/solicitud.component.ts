@@ -24,19 +24,30 @@ export class SolicitudComponent implements OnInit {
     public numPage: number;
     public pages = 1;
     closeResult: string;
-    solicitudes: any;
-    solicitud: any;
-    // It maintains recaudos form display status. By default it will be false.
+    solicitudes = [];
+    
     showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
     submitType: string = 'Save';
     selectedRow: number;
+
+    solicitud: any = {
+        id: '',
+        client: {},
+        employee: {},
+        requestDate: '',
+        typeRequest: {},
+        typeService: {},
+        wishDate: '',
+        status:''
+    }
+
+    
     constructor(
         private globals: GlobalsProvider,
         private modalService: NgbModal,
         public globalService: GlobalService) {
-        this.solicitudes = [];
-        this.solicitud = [];
+        
+       
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
@@ -50,21 +61,13 @@ export class SolicitudComponent implements OnInit {
      
     }
 
-
-    solicitudapprove = {
-        EmployeeId: "",
-        title: "",
-        start: new Date(),
-        end: new Date(),
-        color: colors.red,
-        resizable: {
-            beforeStart: true,
-            afterEnd: true
-        },
-        draggable: true
+    allSolicitud() {        
+        this.globalService.getModel("/api/request/pending").then((result) => {           
+            this.solicitudes = result['data'];
+        }, (err) => {
+            console.log(err);
+        });
     }
-
-   
    
     onEdit(index: number) {
         this.selectedRow = index;
@@ -102,32 +105,51 @@ export class SolicitudComponent implements OnInit {
     }
 
 
+    // open(content) {
+    //     this.modalService.open(content).result.then((result) => {
+    //         this.closeResult = `Closed with: ${result}`;
+    //         if(this.selectedInmueble.id === 0){
+    //     this.selectedInmueble.id = this.Inmuebles.length + 1;
+    //     this.Inmuebles.push(this.selectedInmueble);
+    //     this.msg = 'Campo Agregado Exitosamente';
+    //     }
+    //      this.selectedInmueble = new Inmueble();
+    //     }, (reason) => {
+    //         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    //     });
+    // }
+
+    openForEdit(solicitud) {
+        this.solicitud = solicitud;
+        console.log(this.solicitud.id );
+    }
+
     open(content) {
         this.modalService.open(content).result.then((result) => {
+            console.log( result );
+            this.closeResult = `Closed with: ${result}`;         
+            console.log( this.closeResult );
 
-            this.closeResult = `Closed with: ${result}`;
-            if (this.submitType === 'save') {
-                // Push solicitud model object into solicitud list.
-                this.solicitudes.push(this.solicitud);
-                console.log(this.submitType);
-            } else {
-                this.submitType = 'update';
-                // Update the existing properties values based on model
-                this.solicitudes[this.selectedRow].email = this.solicitud.email;
-                this.solicitudes[this.selectedRow].type = this.solicitud.type;
-                this.solicitudes[this.selectedRow].description = this.solicitud.description;
-                this.solicitudes[this.selectedRow].state = this.solicitud.estate;
-                this.solicitudes[this.selectedRow].date = this.solicitud.date;
 
-                this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
-
-                console.log(this.solicitudes[this.selectedRow]);
-                console.log(this.submitType);
-            }
-            // Hide solicitud entry section.
-            this.showNew = false;
-        }
-            , (reason) => {
+            // if(this.selectedInmueble.id === 0){
+            //     this.selectedInmueble.id = this.Inmuebles.length + 1;
+            //     this.Inmuebles.push(this.selectedInmueble);
+            //     this.msg = 'Campo Agregado Exitosamente';
+            //     }
+            //      this.selectedInmueble = new Inmueble();
+            // if (this.submitType === 'save') {               
+            //     this.solicitudes.push(this.solicitud);          
+            // } else {
+            //     this.submitType = 'update';              
+            //     this.solicitudes[this.selectedRow].email = this.solicitud.email;
+            //     this.solicitudes[this.selectedRow].type = this.solicitud.type;
+            //     this.solicitudes[this.selectedRow].description = this.solicitud.description;
+            //     this.solicitudes[this.selectedRow].state = this.solicitud.estate;
+            //     this.solicitudes[this.selectedRow].date = this.solicitud.date;
+            //     this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);            
+            // }         
+            // this.showNew = false;
+        }, (reason) => {
                 this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
             });
     }
@@ -152,7 +174,6 @@ export class SolicitudComponent implements OnInit {
                     //Para que actualice la lista una vez que es eliminado la solicitud
                     console.log(result);
                 }
-
             }, (err) => {
                 console.log(err);
             });
@@ -169,12 +190,5 @@ export class SolicitudComponent implements OnInit {
     msg = '';
 
    
-    allSolicitud() {        
-        this.globalService.getModel("/api/request/pending").then((result) => {
-            console.log(result);
-            this.solicitudes = result['data'];
-        }, (err) => {
-            console.log(err);
-        });
-    }
+   
 }
