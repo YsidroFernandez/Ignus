@@ -11,9 +11,6 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 
 
-
-
-
 @Component({
     selector: 'app-registrosolicitud',
     templateUrl: './registrosolicitud.component.html',

@@ -6,13 +6,14 @@
 
         <div style="text-align: end; padding-top: 2%; padding-bottom: 2%">
 
-                <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1 ? 'Vista Card ' : 'Vista Tabla'}}</button>
-        
+            <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1
+                ? 'Vista Card ' : 'Vista Tabla'}}</button>
+
 
 
         </div>
-        <div  *ngIf="show1" class="card mb-3">
-         <br>
+        <div *ngIf="show1" class="card mb-3">
+            <br>
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
                     <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
@@ -20,8 +21,8 @@
                             <option value="25">25</option>
                             <option value="50">50</option>
                             <option value="100">100</option>
-                        </select> entradas</label>     
-                </div>  
+                        </select> entradas</label>
+                </div>
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
                     <div class="input-group">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
@@ -33,7 +34,7 @@
                 </div>
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -46,16 +47,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of services ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of services ; let i= index">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(ver)">
+                                    (click)="open(content,'show', i)">
                                     <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(editar)">
+                                    (click)="open(content,'edit', i)">
                                     <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
@@ -74,139 +75,112 @@
                     <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
             </div>
-            
-        </div>
-         
-
-        <div  *ngIf="!show1" class="card mb-3">
-                <div class="row">
-                    
-                        <div *ngFor="let item of services ; let i= index" class="col-md-6">
-                           <div class="card flex-md-row mb-4 shadow ">   
-                              <div class="card-body d-flex flex-column align-items-start">
-                                 <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
-                                 
-                                 <p class="card-text mb-auto">{{item.description}}</p>
-                                 <div class="row">
-                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(editar)">
-                                        <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="onDelete(i)">
-                                        <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                 </div>
-                                 
-                              </div>
-                              <div class="card-body d-flex flex-column align-items-end">
-                              <img  class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{item.urlImage}}" style="width: 300px; height: 400px; border-radius: 10%;">
-                           </div>   
-                        </div>  
-                        </div>
-                    
-                      
-
-
 
         </div>
 
 
-    </div>
+        <div *ngIf="!show1" class="card mb-3">
+            <div class="row">
+
+                <div *ngFor="let item of services ; let i= index" class="col-md-6">
+                    <div class="card flex-md-row mb-4 shadow ">
+                        <div class="card-body d-flex flex-column align-items-start">
+                            <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
+
+                            <p class="card-text mb-auto">{{item.description}}</p>
+                            <div class="row">
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(content,'show',i)">
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(content,'edit',i)">
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="onDelete(i)">
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-end">
+                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{item.urlImage}}"
+                                style="width: 300px; height: 400px; border-radius: 10%;">
+                        </div>
+                    </div>
+                </div>
 
 
 
-    <ng-template #content let-c="close" let-d="dismiss">
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header">
-                <h4 class="modal-title ">Crear service</h4>
+                <h4 class="modal-title ">{{modalTitle}}</h4>
                 <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="card mb-3">
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="tipos">Nombre</label>
-                                <input type="text" [(ngModel)]="service.name" class="form-control" />
+            <fieldset [disabled]='disabled'>
+                <div class="card mb-3">
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Nombre</label>
+                                    <input type="text" [(ngModel)]="service.name" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Descripción</label>
+                                    <input type="text" [(ngModel)]="service.description" class="form-control" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="nombre">Descripción</label>
-                                <input type="text" [(ngModel)]="service.description" class="form-control" />
+                        <!-- selectores automaticos -->
+                        <div class="row mb-3">
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="tipos">Recaudos</label>
+                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="id" optionTextField='name'
+                                        [disabled]="ngxDisabled" [(ngModel)]="ngxRequirements" placeholder="Seleccione los recaudos"
+                                        (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                                    </ngx-select>
+                                </div>
+                            </div>
+                            <div class="col col-sm-6">
+                                <div class="form-group">
+                                    <label for="nombre">Activities</label>
+                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true optionValueField="id" optionTextField='name'
+                                    [disabled]="ngxDisabled" [(ngModel)]="ngxActivities" placeholder="Seleccione las actividades"
+                                    (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                                </ngx-select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                    (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-            </div>
-        </ng-template>
-        <ng-template #editar let-c="close" let-d="dismiss">
-            <div class="modal-header">
-                <h4 class="modal-title ">Editar service</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Nombre</label>
-                            <input type="text" [(ngModel)]="service.name" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Descripción</label>
-                            <input type="text" [(ngModel)]="service.description" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                    (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
-            </div>
-        </ng-template>
-        <ng-template #ver let-c="close" let-d="dismiss">
-            <div class="modal-header">
-                <h4 class="modal-title ">Servicios</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="card mb-3">
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="tipos">Nombre</label>
-                                <input type="text" [(ngModel)]="service.name" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="nombre">Descripción</label>
-                                <input type="text" [(ngModel)]="service.description" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
 
+
+
+                    </div>
                 </div>
-            </div>
+            </fieldset>
             <div class="modal-footer">
-                <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
+                <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
                         style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                <div *ngIf="submitType!='show'">
+                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                        (click)="apiAction()"><i style="color: white" class={{modalIcon}} aria-hidden="true"></i></button>
+                </div>
             </div>
         </ng-template>
+
     </div>
