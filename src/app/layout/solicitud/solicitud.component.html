@@ -94,61 +94,48 @@
     </div>
 </div>
 
+<!-- Content -->
 <!-- aceptar solicitud -->
 <ng-template #content let-c="close" let-d="dismiss">
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos"
-                aria-selected="true">Datos</a>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">
-            <div class="modal-header">
-                <h4 class="modal-title ">Agendar Cita</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="modal-header">
+        <h4 class="modal-title"> Solicitud </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="title">Titulo</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" name="title" id="title" type="text"
+                    [(ngModel)]="solicitudAprov.title" ng-model="title" required>
             </div>
-            <div class="card mb-3">
-                <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label class="ng-tns-c12-9" for="titulo">Titulo</label>
-                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitudapprove.title"
-                                    #titulo="ngModel" required>
-                            </div>
-                        </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
-                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.description"
-                                    #description="ngModel" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-12 col-sm-6">
-                            <label for="fechainicio">Fecha</label>
-                            <div class="input-group">
-                                <input name="start" [(ngModel)]="solicitudapprove.start" name="start" [bsConfig]="datePickerConfig"
-                                    type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
-                                    autocomplete="off" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-                    <fa-icon [icon]="faCancel"></fa-icon>
-                </button>
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="aceptar(1)">
-                    <fa-icon [icon]="faCheck"></fa-icon>
-                </button>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitudAprov.description"
+                    name="description" ng-model="description" type="text" rows="3">
+                    </textarea>
             </div>
         </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="date_start">Fecha de atención</label>
+                <div class="input-group">
+                    <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        placeholder="Fecha de atención*" ng-model="date_start" bsDatepicker [(ngModel)]="solicitudAprov.date_start"
+                        autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+        </button>
     </div>
 </ng-template>
 
@@ -197,9 +184,9 @@
                             </textarea>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="requestDate">Fecha</label>
+                            <label for="requestDate">Fecha de la solicitud</label>
                             <div class="input-group">
-                                <input name="fecha" name="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
                                     placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
                                     autocomplete="off" disabled>
                             </div>
@@ -207,7 +194,7 @@
                         <div class="form-group col-md-12">
                             <label class="ng-tns-c12-9" for="status">Estado</label>
                             <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.status"
-                                name="status" ng-model="status"  type="text" disabled>
+                                name="status" ng-model="status" type="text" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">

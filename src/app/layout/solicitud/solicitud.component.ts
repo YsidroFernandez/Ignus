@@ -15,7 +15,7 @@ import * as datepicker from 'ngx-bootstrap/datepicker';
     selector: 'app-solicitud',
     templateUrl: './solicitud.component.html',
     styleUrls: ['./solicitud.component.scss'],
-    providers: [ GlobalsProvider],
+    providers: [GlobalsProvider],
     animations: [routerTransition()]
 })
 export class SolicitudComponent implements OnInit {
@@ -25,7 +25,7 @@ export class SolicitudComponent implements OnInit {
     public pages = 1;
     closeResult: string;
     solicitudes = [];
-    
+    nuevo: any;
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
@@ -38,16 +38,23 @@ export class SolicitudComponent implements OnInit {
         typeRequest: {},
         typeService: {},
         wishDate: '',
-        status:''
+        status: ''
     }
 
-    
+    solicitudAprov: any = {
+        title: '',
+        description: '',
+        date_start: '',
+        id_solicitud: ''
+    }
+
+
     constructor(
         private globals: GlobalsProvider,
         private modalService: NgbModal,
         public globalService: GlobalService) {
-        
-       
+
+
         this.datePickerConfig = Object.assign({},
             { containerClass: 'theme-dark-blue' },
             { showWeekNumbers: false },
@@ -56,25 +63,25 @@ export class SolicitudComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.numPage = this.globals.numPage;    
+        this.numPage = this.globals.numPage;
         this.allSolicitud();
-     
+
     }
 
-    allSolicitud() {        
-        this.globalService.getModel("/api/request/pending").then((result) => {           
+    allSolicitud() {
+        this.globalService.getModel("/api/request/pending").then((result) => {
             this.solicitudes = result['data'];
         }, (err) => {
             console.log(err);
         });
     }
-   
+
     onEdit(index: number) {
         this.selectedRow = index;
-       this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
+        this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
         console.log(this.solicitud)
         this.submitType = 'Actualizar';
-       this.showNew = true;
+        this.showNew = true;
     }
 
     onDelete(index: number) {
@@ -98,60 +105,37 @@ export class SolicitudComponent implements OnInit {
         this.solicitudes.splice(this.selectedRow, 1);
     }
 
-    // This method associate toCancel Button.
     onCancel() {
-        // Hide Usuario entry section.
         this.showNew = false;
     }
 
-
-    // open(content) {
-    //     this.modalService.open(content).result.then((result) => {
-    //         this.closeResult = `Closed with: ${result}`;
-    //         if(this.selectedInmueble.id === 0){
-    //     this.selectedInmueble.id = this.Inmuebles.length + 1;
-    //     this.Inmuebles.push(this.selectedInmueble);
-    //     this.msg = 'Campo Agregado Exitosamente';
-    //     }
-    //      this.selectedInmueble = new Inmueble();
-    //     }, (reason) => {
-    //         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    //     });
-    // }
-
     openForEdit(solicitud) {
         this.solicitud = solicitud;
-        console.log(this.solicitud.id );
+        this.solicitudAprov.id_solicitud = this.solicitud.id;
     }
 
     open(content) {
         this.modalService.open(content).result.then((result) => {
-            console.log( result );
-            this.closeResult = `Closed with: ${result}`;         
-            console.log( this.closeResult );
+            this.closeResult = `Closed with: ${result}`;
+            console.log(this.closeResult);
 
-
-            // if(this.selectedInmueble.id === 0){
-            //     this.selectedInmueble.id = this.Inmuebles.length + 1;
-            //     this.Inmuebles.push(this.selectedInmueble);
-            //     this.msg = 'Campo Agregado Exitosamente';
-            //     }
-            //      this.selectedInmueble = new Inmueble();
-            // if (this.submitType === 'save') {               
-            //     this.solicitudes.push(this.solicitud);          
-            // } else {
-            //     this.submitType = 'update';              
-            //     this.solicitudes[this.selectedRow].email = this.solicitud.email;
-            //     this.solicitudes[this.selectedRow].type = this.solicitud.type;
-            //     this.solicitudes[this.selectedRow].description = this.solicitud.description;
-            //     this.solicitudes[this.selectedRow].state = this.solicitud.estate;
-            //     this.solicitudes[this.selectedRow].date = this.solicitud.date;
-            //     this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);            
-            // }         
-            // this.showNew = false;
+            if (this.submitType === 'Save') {
+                this.nuevo = JSON.stringify({
+                    title: this.solicitudAprov.title,
+                    description: this.solicitudAprov.description,
+                    date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
+                    SolicitudId: this.solicitudAprov.id_solicitud
+                });
+                console.log(this.nuevo);
+                // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
+             
+                // }, (err) => {
+                //     console.log(err);
+                // });
+            }
         }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
     }
 
     private getDismissReason(reason: any): string {
@@ -189,6 +173,6 @@ export class SolicitudComponent implements OnInit {
     faCancel = faTimesCircle;
     msg = '';
 
-   
-   
+
+
 }
