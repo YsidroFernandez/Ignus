@@ -19,6 +19,7 @@ const routes: Routes = [
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'cliente', loadChildren: './customers/client.module#ClientModule' },
             { path: 'empleados', loadChildren: './employee/employee.module#EmployeeModule' },
+            { path: 'socialnetworks', loadChildren: './socialnetworks/socialnetworks.module#SocialNetworksModule' },
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
