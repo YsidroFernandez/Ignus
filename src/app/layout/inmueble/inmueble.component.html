@@ -29,7 +29,7 @@
 
             <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-              <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+              <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
             </button>
           </div>
 
@@ -37,7 +37,7 @@
         <div class="col col-sm-4 text-right">
           <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
             (click)="open(content)">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
           </button>
         </div>
       </div>
@@ -139,15 +139,15 @@
               <td>{{Inmueble.precio}}</td>
               <td>
                 <button aling="center" type="button" (click)="open(ver)" style="background: #1AB394; border-radius: 20px">
-                  <fa-icon style="color: white" [icon]="faEye"></fa-icon>
+                  <fa-icon style="color: white" [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon>
                 </button>
              
                 <button aling="center" type="button" style="background: #1AB394; border-radius: 20px" (click)="open(editar)">
-                  <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+                  <fa-icon style="color: white" [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon>
                 </button>
             
                 <button aling="center" (click)="delete()" type="button" style="background: #1AB394; border-radius: 20px">
-                  <fa-icon style="color: white" [icon]="faTrash"></fa-icon>
+                  <fa-icon style="color: white" [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon>
                 </button>
               </td>
             </tr>
@@ -235,7 +235,7 @@
     </div>
     <div class="modal-footer">
       <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-        <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+        <fa-icon style="color: white" [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
       </button>
     </div>
 

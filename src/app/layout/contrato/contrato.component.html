@@ -18,13 +18,13 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;  "
-                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -51,15 +51,15 @@
                             <td>{{contrato.warranties.name }}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(ver)">
+                                    (click)="open(ver)" data-toggle="tooltip" data-placement="top" title="Detalle">
                                     <fa-icon [icon]="faEye"></fa-icon>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(editar)">
+                                    (click)="open(editar)" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <fa-icon [icon]="faEdit"></fa-icon>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="onDelete(i)">
+                                    (click)="onDelete(i)" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                     <fa-icon [icon]="faTrash"></fa-icon>
                                 </button>
                             </td>
