@@ -91,15 +91,15 @@
                             <div class="row">
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(content,'show',i)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(content,'edit',i)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
                                 </button>
                             </div>
 
@@ -175,10 +175,10 @@
             </fieldset>
             <div class="modal-footer">
                 <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                        style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                        style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
                 <div *ngIf="submitType!='show'">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="apiAction()"><i style="color: white" class={{modalIcon}} aria-hidden="true"></i></button>
+                        (click)="apiAction()"><i style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
                 </div>
             </div>
         </ng-template>

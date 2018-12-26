@@ -17,13 +17,13 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -42,15 +42,15 @@
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(editar)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
                                 </button>
                             </td>
                         </tr>
@@ -157,7 +157,7 @@
              
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Guardar"></i></button>
                 </div>
             </ng-template>
             <ng-template #ver let-c="close" let-d="dismiss">
@@ -187,7 +187,7 @@
                 </div>
                 <div class="modal-footer">
                     <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
-                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                            style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
                 </div>
             </ng-template>
         </div>
