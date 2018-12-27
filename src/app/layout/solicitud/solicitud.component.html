@@ -18,7 +18,7 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true"data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
@@ -52,15 +52,15 @@
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)">
+                                        (click)="open(ver)" data-toggle="tooltip" data-placement="top" title="Detalle">
                                         <fa-icon [icon]="faEye"></fa-icon>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content)">
+                                        (click)="open(content)" data-toggle="tooltip" data-placement="top" title="Crear">
                                         <fa-icon [icon]="faCheck"></fa-icon>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(delete)">
+                                        (click)="open(delete)" data-toggle="tooltip" data-placement="top" title="Eliminar">
                                         <fa-icon [icon]="faCancel"></fa-icon>
                                     </button>
                                 </div>
@@ -100,7 +100,7 @@
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
         </button>
     </div>
     <div class="modal-body">
@@ -134,7 +134,7 @@
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
         </button>
     </div>
 </ng-template>
@@ -210,7 +210,7 @@
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-            <fa-icon [icon]="faCancel"></fa-icon>
+            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
     </div>
 </ng-template>
@@ -238,10 +238,10 @@
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-            <fa-icon [icon]="faCancel"></fa-icon>
+            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
-            <fa-icon [icon]="faCheck"></fa-icon>
+            <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
         </button>
     </div>
 </ng-template>
@@ -252,7 +252,7 @@
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
         </button>
     </div>
     <div class="modal-body">
@@ -303,7 +303,7 @@
     <div class="modal-footer">
 
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-            <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+            <fa-icon style="color: white" [icon]="faEdit" ></fa-icon>
         </button>
     </div>
 </ng-template>
