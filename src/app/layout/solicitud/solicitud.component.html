@@ -95,8 +95,8 @@
 </div>
 
 <!-- Content -->
-<!-- aceptar solicitud -->
-<ng-template #content let-c="close" let-d="dismiss">
+<!-- aceptar solicitud buy-->
+<ng-template #content let-c="close" let-d="dismiss" *ngIf="buy">
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
@@ -120,17 +120,28 @@
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="date_start">Fecha de atención</label>
-                <div class="input-group">
-                    <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                        placeholder="Fecha de atención*" ng-model="date_start" bsDatepicker [(ngModel)]="solicitudAprov.date_start"
-                        autocomplete="off">
-                </div>
+                <label>Asignar Agente</label>
+                <select name="userId" [(ngModel)]="solicitudAprov.id_employee" (ngModelChange)="clientChanged($event)"
+                    class="form-control">
+                    <option *ngFor="let listEmpleados of empleados" [value]="listEmpleados.userId">
+                        {{listEmpleados.firstName}}  {{listEmpleados.lastName}}
+                    </option>
+                </select>
             </div>
-            <div class="form-group col-md-6">
-
+            <div class="form-group col-md-6">                
             </div>
         </div>
+
+        <div class="row md-3">
+                <div class="form-group col-md-12">
+                        <label for="date_start">Fecha de atención</label>
+                        <div class="input-group">
+                            <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                placeholder="Fecha de atención*" ng-model="date_start" bsDatepicker [(ngModel)]="solicitudAprov.date_start"
+                                autocomplete="off">
+                        </div>
+                </div>                
+            </div>
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
@@ -138,6 +149,62 @@
         </button>
     </div>
 </ng-template>
+
+<!-- aceptar solicitud  sell -->
+<ng-template #content let-c="close" let-d="dismiss" *ngIf="sell">
+        <div class="modal-header">
+            <h4 class="modal-title"> Solicitud </h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="title">Titulo</label>
+                    <input class="form-control ng-untouched ng-pristine ng-valid" name="title" id="title" type="text"
+                        [(ngModel)]="solicitudAprov.title" ng-model="title" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                    <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitudAprov.description"
+                        name="description" ng-model="description" type="text" rows="3">
+                        </textarea>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label>Asignar Agente</label>
+                    <select name="userId" [(ngModel)]="solicitudAprov.id_employee" (ngModelChange)="clientChanged($event)"
+                        class="form-control">
+                        <option *ngFor="let listEmpleados of empleados" [value]="listEmpleados.userId">
+                            {{listEmpleados.firstName}}  {{listEmpleados.lastName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">                
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                    <div class="form-group col-md-12">
+                            <label for="date_start">Fecha de atención</label>
+                            <div class="input-group">
+                                <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                    placeholder="Fecha de atención*" ng-model="date_start" bsDatepicker [(ngModel)]="solicitudAprov.date_start"
+                                    autocomplete="off">
+                            </div>
+                    </div>                
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+                <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
+    </ng-template>
+
 
 <!--ver-->
 <ng-template #ver let-c="close" let-d="dismiss">
@@ -242,68 +309,6 @@
         </button>
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
             <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
-        </button>
-    </div>
-</ng-template>
-
-<!-- editar -->
-<ng-template #editar let-c="close" let-d="dismiss">
-
-    <div class="modal-header">
-        <h4 class="modal-title"> Solicitud </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-        <div class="form-group">
-            <label for="tipos">Nombres</label>
-            <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="nombre">Apellidos</label>
-            <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" [(ngModel)]="regModel.username" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="cargo">Cargo</label>
-            <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="fechaini">Fecha de Nacimiento</label>
-            <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
-                class="form-control" dateFormat="dd-MMM-yyyy" />
-            <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
-            </button>
-        </div>
-        <div class="form-group">
-            <label for="email">email</label>
-            <input type="text" [(ngModel)]="regModel.email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="state">Estado</label>
-            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                    ngbDropdownToggle>{{regModel.estado}}</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-            <fa-icon style="color: white" [icon]="faEdit" ></fa-icon>
         </button>
     </div>
 </ng-template>

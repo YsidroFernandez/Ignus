@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import {NgbModule,} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
@@ -21,13 +21,15 @@ import localeEs from "@angular/common/locales/es"
 import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSelectModule } from 'ngx-select-ex';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 registerLocaleData(localeEs);
 
 
 
 
 export function highchartsModules() {
-    return [ exporting ];
+    return [exporting];
 }
 import { ChartsModule } from 'ng2-charts';
 // AoT requires an exported function for factories
@@ -44,7 +46,7 @@ export const createTranslateLoader = (http: HttpClient) => {
         BrowserAnimationsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        FormsModule,  
+        FormsModule,
         NgbModule.forRoot(),
         ToastrModule.forRoot(),
         TimepickerModule.forRoot(),
@@ -57,12 +59,16 @@ export const createTranslateLoader = (http: HttpClient) => {
                 deps: [HttpClient]
             }
         }),
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        }),
         AppRoutingModule,
         ChartsModule,
         NgSelectModule,
         NgxSpinnerModule,
         NgxSelectModule,
-        
+
     ],
     declarations: [AppComponent],
     providers: [
