@@ -73,7 +73,8 @@ export class SocialnetworksComponent implements OnInit {
         this.showNew = false;
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    })
+    this.socialnetwork = "";
 }
 
 private getDismissReason(reason: any): string {
@@ -102,6 +103,11 @@ show() {
             });
   }
   faEdit = faEdit;
+
+  onClean(index: number) {
+      this.socialnetwork = "";
+  }
+  
 
   onEdit(index: number) {
     this.submitType = 'Update';
