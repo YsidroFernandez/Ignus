@@ -1,51 +1,120 @@
-<div class="card-deck">
-  <div class="card bg-default">
-    <div class="card-body text-center">
-      <h2>Actividades</h2>
-      <form method="get" action="">
-      <div class="row">
-          <div class="col-sm">Actividad #1</div>
-          <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-      </div>
-        <br />
-        <div class="row">
-          <div class="col-sm">Actividad #2</div>
-          <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-      </div>
-        <br />
-        <div class="row">
-          <div class="col-sm">Actividad #3</div>
-          <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-      </div>
-        <br />
-        <div class="row">
-          <div class="col-sm">Actividad #4</div>
-          <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-       </div>
-        <br />
-        <div class="row">
-          <div class="col-sm">Actividad #5</div>
-          <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-        </div>
-        </form>
-    </div>
+
+<div class="title" *ngIf="rol == 1">
+<h4> Hola Querido Agente</h4>
+</div>
+
+<div class="title" *ngIf="rol == 2">
+  <h4> Hola Querido Cliente</h4>
   </div>
-  <div class="card bg-default">
-    <div class="card-body text-center">
-      <h2>Recaudos</h2>
-      <fieldset class="form-group">
-        <div class="row">
-          <div class="col-sm">
-            <label for="exampleInputFile">Recaudo #1</label>
-          </div>
-          <div class="col-sm">
-            <input type="file" class="form-control-file" id="InputFile1">
-          </div>
+
+
+
+<div class="cliente" style="padding:0; margin:0;"  *ngIf="rol == 1">
+  <div class="card-deck">
+    <div class="card bg-default">
+      <div class="card-body text-center">
+        <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+          Actividades
         </div>
-        <br/>
-        <div class="row">
+        <div class="card-body table-responsive">
+          <table class="table">
+              <thead>
+              <tr> </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let actividad of actividades;">
+                  <td>{{actividad}}</td>
+                  <td><input name="actividad" type="checkbox" /></td>
+              </tr>
+
+              </tbody>
+          </table>
+      </div>
+
+      </div>
+    </div>
+    <div class="card bg-default">
+      <div class="card-body text-center">
+        <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+          Recaudos
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table">
+              <thead>
+              <tr> </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let recaudo of recaudos;">
+                <td><label for="exampleInputFile">{{recaudo}}</label></td>
+                <td> <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />
+
+                  <!--<button type="button" class="btn btn-success btn-s"
+                    (click)="uploader.uploadAll()"
+                    [disabled]="!uploader.getNotUploadedItems().length" >
+                        Subir Archivo
+                  </button>--> </td>
+              </tr>
+
+              </tbody>
+          </table>
+      </div>
+
+
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<form method="get" action="">
+    <div class="row">
+        <div class="col-sm">Actividad #1</div>
+        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
+    </div>
+      <br />
+      <div class="row">
+        <div class="col-sm">Actividad #2</div>
+        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
+    </div>
+      <br />
+      <div class="row">
+        <div class="col-sm">Actividad #3</div>
+        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
+    </div>
+      <br />
+      <div class="row">
+        <div class="col-sm">Actividad #4</div>
+        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
+     </div>
+      <br />
+      <div class="row">
+        <div class="col-sm">Actividad #5</div>
+        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
+      </div>
+
+
+        <fieldset class="form-group">
+          <div class="row">
             <div class="col-sm">
-              <label for="exampleInputFile">Recaudo #2</label>
+              <label for="exampleInputFile">Recaudo #1</label>
             </div>
             <div class="col-sm">
               <input type="file" class="form-control-file" id="InputFile1">
@@ -54,15 +123,24 @@
           <br/>
           <div class="row">
               <div class="col-sm">
-                <label for="exampleInputFile">Recaudo #3</label>
+                <label for="exampleInputFile">Recaudo #2</label>
               </div>
               <div class="col-sm">
                 <input type="file" class="form-control-file" id="InputFile1">
               </div>
             </div>
             <br/>
-    </fieldset>
-    </div>
-  </div>
+            <div class="row">
+                <div class="col-sm">
+                  <label for="exampleInputFile">Recaudo #3</label>
+                </div>
+                <div class="col-sm">
+                  <input type="file" class="form-control-file" id="InputFile1">
+                </div>
+              </div>
+              <br/>
+      </fieldset>
 
-</div>
+
+
+      </form> -->

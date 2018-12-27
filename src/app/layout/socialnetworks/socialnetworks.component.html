@@ -20,11 +20,11 @@
                                   <div class="row"  style="padding-left: 10%">   
                                      <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                          (click)="open(editar)">
-                                         <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                         <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                                      </button>
                                      <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                          (click)="onDelete(i)">
-                                         <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                         <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
                                      </button>
                                   </div>
                                   
@@ -92,7 +92,7 @@
             </div>
             <div class="modal-footer">
                 <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                    (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+                    (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Guardar"></i></button>
             </div>
         </ng-template>
         <ng-template #ver let-c="close" let-d="dismiss">

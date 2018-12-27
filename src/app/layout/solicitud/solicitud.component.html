@@ -18,7 +18,7 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true"data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
@@ -40,7 +40,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes; let i = index" (click)="open(content)">
+                        <tr *ngFor="let solicitud of solicitudes| paginate: { itemsPerPage: numPage, currentPage: pages }"
+                            (click)=openForEdit(solicitud)>
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
@@ -49,113 +50,96 @@
                             <td>Opcional</td>
                             <td>Pendiente</td>
                             <td>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(ver)">
-                                    <fa-icon [icon]="faEye"></fa-icon>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content)">
-                                    <fa-icon [icon]="faCheck"></fa-icon>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(delete)">
-                                    <fa-icon [icon]="faCancel"></fa-icon>
-                                </button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="open(ver)" data-toggle="tooltip" data-placement="top" title="Detalle">
+                                        <fa-icon [icon]="faEye"></fa-icon>
+                                    </button>
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="open(content)" data-toggle="tooltip" data-placement="top" title="Crear">
+                                        <fa-icon [icon]="faCheck"></fa-icon>
+                                    </button>
+                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                        (click)="open(delete)" data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                        <fa-icon [icon]="faCancel"></fa-icon>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="row mb-3">
-                <div class="col col-sm-8">
-                </div>
-                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-                </div>
-            </div>
-        </div>
+            <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                            </a>
+                        </li>
 
-        <div class="card mb-3">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
-                    
-                    <ng-template #content let-c="close" let-d="dismiss">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                              <a class="nav-link active" id="datos-tab" data-toggle="tab" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" id="cita-tab" data-toggle="tab" href="#cita" role="tab" aria-controls="cita" aria-selected="false">Cita</a>
-                            </li>
-                          </ul>
-                          <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-tab">                        
-                                <div class="modal-header">
-                                <h4 class="modal-title ">Agendar Cita</h4>
-                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="card mb-3">
-                                <div class="modal-body">
-    
-                                    <div class="row mb-3">
-                                        <div class="col col-sm-6">
-                                            <div class="form-group">
-                                                <label class="ng-tns-c12-9" for="titulo">Titulo</label>
-                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                    [(ngModel)]="solicitudapprove.title" #titulo="ngModel" required>
-                                            </div>
-                                        </div>
-                                        <div class="col col-sm-6">
-                                            <div class="form-group">
-                                                <label class="ng-tns-c12-9" for="nombre">Descripcion</label>
-                                                <input class="form-control ng-untouched ng-pristine ng-valid" type="text"
-                                                    [(ngModel)]="solicitud.description" #description="ngModel" required>
-                                            </div>
-                                        </div>
-    
-                                    </div>
-    
-    
-    
-                                    <div class="row mb-3">
-                                        <div class="col-12 col-sm-6">
-                                            <label for="fechainicio">Fecha</label>
-                                            <div class="input-group">
-                                                <input type="text" placeholder="dd-mm-yyyy" name="fechainicio" [(ngModel)]="solicitudapprove.start"
-                                                    ngbDatepicker #fechainicio="ngbDatepicker" class="form-control" />
-                                                <span class="input-group-btn">
-                                                    <button class="input-group-addon" (click)="fechainicio.toggle()" type="button">
-                                                        <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class="modal-footer">
-                                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="c('Cross click')"> <fa-icon [icon]="faCancel"></fa-icon></button>
-                                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                    (click)="aceptar(1)" ><fa-icon [icon]="faCheck"></fa-icon></button>
-                            </div>
-    
-    </div>
-                            <div class="tab-pane fade" id="cita" role="tabpanel" aria-labelledby="cita-tab">
-                                ...
-                            </div>
-                          </div>
-    
-                    </ng-template>
-                </div>
-            </div>
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                {{ page.label }} </a>
+                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination-template>
         </div>
     </div>
 </div>
 
+<!-- Content -->
+<!-- aceptar solicitud -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title"> Solicitud </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="title">Titulo</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" name="title" id="title" type="text"
+                    [(ngModel)]="solicitudAprov.title" ng-model="title" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitudAprov.description"
+                    name="description" ng-model="description" type="text" rows="3">
+                    </textarea>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="date_start">Fecha de atención</label>
+                <div class="input-group">
+                    <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        placeholder="Fecha de atención*" ng-model="date_start" bsDatepicker [(ngModel)]="solicitudAprov.date_start"
+                        autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
+        </button>
+    </div>
+</ng-template>
+
+<!--ver-->
 <ng-template #ver let-c="close" let-d="dismiss">
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
@@ -164,101 +148,111 @@
         </button>
     </div>
     <div class="modal-body">
-
-        <div class="row mb-3">
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="email">Nombre</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                        #email="ngModel" required>
-                </div>
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="firstName">Nombre</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.firstName"
+                    name="firstName" ng-model="firstName" type="text" disabled>
             </div>
-            <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label class="ng-tns-c12-9" for="email">Apellido</label>
-                        <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                            #email="ngModel" required>
-                    </div>
-                </div>
-                <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label class="ng-tns-c12-9" for="email">Telefono</label>
-                            <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.email"
-                                #email="ngModel" required>
-                        </div>
-                    </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="description">Tipo de servicio</label>
-                    <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                        <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                            ngbDropdownToggle>{{solicitud.tipo}}</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                            <button type="button" class="dropdown-item" *ngFor="let tipo of tipos" (click)="onChangetipo(tipo)">{{tipo}}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label class="ng-tns-c12-9" for="description">Descripcion</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="solicitud.description"
-                        #description="ngModel" required>
-                </div>
-            </div>
-            <div class="col col-sm-6">
-                <div class="form-group"><label class="ng-tns-c12-9" for="photo">Fotos</label>
-                    <input class="form-control ng-untouched ng-pristine ng-valid" type="file" required>
-                </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="lastName">Apellido</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.client.lastName"
+                    name="lastName" ng-model="lastName" type="text" disabled>
             </div>
         </div>
 
-
-
-        <div class="row mb-3">
-
-
-            <div class="col col-sm-6">
-                <label for="description">Fecha</label>
-
-                <div class="input-group">
-
-                    <input type="text" name="dob" [(ngModel)]="solicitud.fecha" ngbDatepicker
-                        #dob="ngbDatepicker" class="form-control" onchange="onChangefecha(this.text)"/>
-                    <span class="input-group-btn">
-                        <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                            <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                        </button>
-                    </span>
-                </div>
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="email">Telefono</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" type="text" disabled>
             </div>
-
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="name">Tipo de servicio</label>
+                <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.name"
+                    name="name" ng-model="lastName" type="text" disabled>
+            </div>
         </div>
 
-        <div class="col col-sm-6">
-            <div class="form-group">
-                <label for="description">Estado</label>
-                <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                    <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                        ngbDropdownToggle>{{solicitud.estado}}</button>
-                    <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                        <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
+        <div class="row md-3">
+            <div class="col-md-12">
+                <div class="row md-3">
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                            <textarea class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.typeService.description"
+                                name="description" ng-model="description" type="text" rows="3" disabled>
+                            </textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="requestDate">Fecha de la solicitud</label>
+                            <div class="input-group">
+                                <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                    placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
+                                    autocomplete="off" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="ng-tns-c12-9" for="status">Estado</label>
+                            <input class="form-control ng-untouched ng-pristine ng-valid" [(ngModel)]="solicitud.status"
+                                name="status" ng-model="status" type="text" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12">
+                            <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
+                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
+                                style="width: 350px; height: 200px; border-radius: 10%;" disabled>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
+        </button>
     </div>
 </ng-template>
 
+<!-- eliminar -->
+<ng-template #delete let-c="close" let-d="dismiss">
+
+    <div class="modal-header">
+        <h4 class="modal-title"> Eliminar </h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="form-control">
+                <div class="row">
+                    <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
+                </div>
+                <div class="row">
+                    <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
+        </button>
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
+            <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
+        </button>
+    </div>
+</ng-template>
+
+<!-- editar -->
 <ng-template #editar let-c="close" let-d="dismiss">
 
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
+            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
         </button>
     </div>
     <div class="modal-body">
@@ -309,38 +303,7 @@
     <div class="modal-footer">
 
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-            <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
+            <fa-icon style="color: white" [icon]="faEdit" ></fa-icon>
         </button>
-    </div>
-</ng-template>
-
-<ng-template #delete let-c="close" let-d="dismiss">
-
-    <div class="modal-header">
-        <h4 class="modal-title"> Eliminar </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-        <div class="form-group">
-            <div class="form-control">
-                <div class="row">
-            <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
-        </div>
-                    <div class="row">
-                            <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea> 
-                    </div>
-            
-        
-        </div>
-    </div>
-    </div>
-    <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-        (click)="c('Cross click')"><fa-icon [icon]="faCancel"></fa-icon></button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-            (click)="onDelete(1)" ><fa-icon [icon]="faCheck"></fa-icon></button>
     </div>
 </ng-template>

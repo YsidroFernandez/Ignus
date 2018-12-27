@@ -12,6 +12,7 @@ import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ defineLocale('es', esLocale);
       CommonModule, RegistroSolicitudRoutingModule,
        PageHeaderModule,
        FontAwesomeModule, NgbModule.forRoot(),
+       TabsModule.forRoot(),
         FormsModule, ReactiveFormsModule],
     declarations: [RegistroSolicitudComponent],
     providers: [
