@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
-
+ 
 
 
 @Component({
@@ -13,7 +13,7 @@ import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
     animations: [routerTransition()],
     styleUrls: ['./services.component.scss']
 })
-
+  
 
 export class ServicesComponent implements OnInit {
     //variables publicas
@@ -145,7 +145,7 @@ export class ServicesComponent implements OnInit {
         this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
         this.service = Object.assign({}, this.services[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
 
-        if (index != -1) { //el caso index -1 es cuando se solicita crear --ver html
+        if (index != -1) { //el caso index -1 es cuando se solicita crear, ver html
 
 
             for (let i in this.service.activities) {//ciclo necesario para mostar actividades
