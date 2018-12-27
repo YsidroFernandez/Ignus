@@ -151,7 +151,10 @@ export class SolicitudComponent implements OnInit {
 
     aceptar(i) {
         console.log(this.solicitudes[i - 1])
-        this.globalService.updateModel(this.solicitudes[i - 1].id, { EmployeeId: 1, date: "12/12/2018" }, "/api/request/pending/approve")
+        this.globalService.updateModel(
+            this.solicitudes[i - 1].id,
+             { EmployeeId: 1, date: "12/12/2018" },
+              "/api/request/pending/approve")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {

@@ -118,7 +118,7 @@
 
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/empleados']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                        <a [routerLink]="['/asignarpromociones']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Promociones' | translate }}</span>
@@ -179,6 +179,12 @@
                             <span>{{ 'Empleados' | translate }}</span>
                         </a>
                     </li>
+                    <li>
+                            <a [routerLink]="['/promociones']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-user"></i>&nbsp;
+                                <span>{{ 'Promociones' | translate }}</span>
+                            </a>
+                        </li>
                     <li>
                         <a [routerLink]="['/recaudo']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                             <i class="fa fa-building"></i>&nbsp;
