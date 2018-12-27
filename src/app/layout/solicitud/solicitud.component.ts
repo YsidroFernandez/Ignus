@@ -25,11 +25,13 @@ export class SolicitudComponent implements OnInit {
     public pages = 1;
     closeResult: string;
     solicitudes = [];
+    empleados = [];
     nuevo: any;
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
-
+    public buy: Boolean = false;
+    public sell: Boolean = false;
     solicitud: any = {
         id: '',
         client: {},
@@ -45,7 +47,8 @@ export class SolicitudComponent implements OnInit {
         title: '',
         description: '',
         date_start: '',
-        id_solicitud: ''
+        id_solicitud: '',
+        id_employee: ''
     }
 
 
@@ -65,8 +68,23 @@ export class SolicitudComponent implements OnInit {
     ngOnInit() {
         this.numPage = this.globals.numPage;
         this.allSolicitud();
+        this.allEmployee();
 
     }
+
+    clientChanged ($event) {
+        console.log($event);
+    }
+
+    allEmployee () {
+        this.globalService.getModel("/api/employee").then((result) => {
+            this.empleados = result['data'];
+            console.log(this.empleados);
+        }, (err) => {
+            console.log(err);
+        }); 
+    }
+    
 
     allSolicitud() {
         this.globalService.getModel("/api/request/pending").then((result) => {
@@ -80,7 +98,7 @@ export class SolicitudComponent implements OnInit {
         this.selectedRow = index;
         this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
         console.log(this.solicitud)
-        this.submitType = 'Actualizar';
+        // this.submitType = 'Actualizar';        
         this.showNew = true;
     }
 
@@ -111,31 +129,67 @@ export class SolicitudComponent implements OnInit {
 
     openForEdit(solicitud) {
         this.solicitud = solicitud;
+        console.log(this.solicitud.typeService.name);
         this.solicitudAprov.id_solicitud = this.solicitud.id;
+        if(this.solicitud.typeService.name == 'Venta' || this.solicitud.typeService.name == 'Alquiler'){
+            this.sell = true;
+        }
+        if(this.solicitud.typeService.name == 'Compra' || this.solicitud.typeService.name == 'Arrendamiento'){
+            this.buy = true;
+        }
+       
     }
 
     open(content) {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            console.log(this.closeResult);
-
-            if (this.submitType === 'Save') {
-                this.nuevo = JSON.stringify({
-                    title: this.solicitudAprov.title,
-                    description: this.solicitudAprov.description,
-                    date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
-                    SolicitudId: this.solicitudAprov.id_solicitud
-                });
-                console.log(this.nuevo);
-                // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
-             
-                // }, (err) => {
-                //     console.log(err);
-                // });
-            }
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+        // if(this.sell){
+            // this.modalService.open(content).result.then((result) => {
+            //     this.closeResult = `Closed with: ${result}`;
+            //     console.log(this.closeResult);
+    
+            //     if (this.submitType === 'Save') {
+            //         this.nuevo = JSON.stringify({
+            //             title: this.solicitudAprov.title,
+            //             description: this.solicitudAprov.description,
+            //             date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
+            //             SolicitudId: this.solicitudAprov.id_solicitud
+            //         });
+            //         console.log(this.nuevo);
+            //          this.allSolicitud();
+                    // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
+                 
+                    // }, (err) => {
+                    //     console.log(err);
+                    // });
+            //     }
+            // }, (reason) => {
+            //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            // });
+        // }
+        if(this.buy== true){
+            this.modalService.open(content).result.then((result) => {
+                this.closeResult = `Closed with: ${result}`;
+                console.log(this.closeResult);
+    
+                if (this.submitType === 'Save') {
+                    this.nuevo = JSON.stringify({
+                        title: this.solicitudAprov.title,
+                        description: this.solicitudAprov.description,
+                        date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
+                        SolicitudId: this.solicitudAprov.id_solicitud
+                    });
+                    console.log(this.nuevo);
+                     this.allSolicitud();
+                    // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
+                 
+                    // }, (err) => {
+                    //     console.log(err);
+                    // });
+                }
+            }, (reason) => {
+                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            });
+        }
+     
     }
 
     private getDismissReason(reason: any): string {
