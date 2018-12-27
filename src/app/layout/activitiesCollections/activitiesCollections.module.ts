@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FileSelectDirective } from 'ng2-file-upload';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -21,7 +22,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       })
     ],
 
-  declarations: [ActivitiesCollectionsComponent],
+  declarations: [ActivitiesCollectionsComponent, FileSelectDirective],
     providers: [
     NgbActiveModal,
   ]
