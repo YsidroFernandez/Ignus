@@ -8,10 +8,11 @@ import { AssignPromotionsRoutingModule } from './assignpromotions-routing.module
 import { AssignPromotionsComponent } from './assignpromotions.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import { DragulaModule } from 'ng2-dragula';
 @NgModule({
   imports: [
     CommonModule,
+    DragulaModule.forRoot(),
     AssignPromotionsRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),

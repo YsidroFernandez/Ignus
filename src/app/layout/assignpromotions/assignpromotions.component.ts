@@ -3,11 +3,14 @@ import { routerTransition } from '../../router.animations';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
+import { DragulaService } from 'ng2-dragula';
+
 
 @Component({
   selector: 'app-activities',
   templateUrl: './assignpromotions.component.html',
-  styleUrls: ['./assignpromotions.component.scss']
+  styleUrls: ['./assignpromotions.component.scss'],
+  animations: [routerTransition()]
 })
 export class AssignPromotionsComponent implements OnInit {
   closeResult: string;
@@ -20,12 +23,40 @@ export class AssignPromotionsComponent implements OnInit {
   submitType: string = 'Save';
   selectedRow: number;
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService) {
+    private modalService: NgbModal,
+     public globalService: GlobalService,
+     private dragula: DragulaService) {
       this.assignpromotions = [];
       this.assignpromotion = [];
       this.new = [];
+      this.dragula.createGroup("COLUMNS", {
+        direction: 'horizontal',
+        moves: (el, source, handle) => handle.className === "group-handle"
+      });
+      this.dragula.dropModel("VAMPIRES").subscribe(args => {
+        console.log(args);
+      });
    }
+   public groups:Array<any> = [
+    {
+      name: 'CATALOGO DE INMUEBLES',
+      items: [{name: 'Apartamento en el este'}, {name: 'Quinta en petare'}, {name: 'Rancho grande'}, {name: 'Alquiler de habitación en el cuji'}]
+    },
+    {
+      name: 'INMUEBLES PARA ASIGNAR',
+      items: [{name: ''},{name: ''},{name: ''}]
+    }
+  ];
 
+   vamps = [
+    { name: "Apartamento en el este" },
+    { name: "Quinta en petare" },
+    { name: "Rancho grande" },
+    { name: "Alquiler de habitación en el cuji" }
+  ];
+
+  vamps2 = [
+  ];
 
   open(content) {
     this.modalService.open(content).result.then((result) => {
