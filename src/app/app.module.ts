@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,7 +16,6 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
 import { ToastrModule } from 'ngx-toastr';
 //traslate general   actualmente utilizado en calendar
-import { registerLocaleData } from '@angular/common';
 import localeEs from "@angular/common/locales/es"
 import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -24,8 +23,8 @@ import { NgxSelectModule } from 'ngx-select-ex';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 registerLocaleData(localeEs);
-
-
+import localeVE from '@angular/common/locales/es-VE';
+registerLocaleData(localeVE);
 
 
 export function highchartsModules() {

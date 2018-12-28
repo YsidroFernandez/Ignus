@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
 import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -10,15 +10,68 @@ import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
 import { routerTransition } from '../../router.animations';
 import * as datepicker from 'ngx-bootstrap/datepicker';
+import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
+
 
 @Component({
     selector: 'app-solicitud',
     templateUrl: './solicitud.component.html',
     styleUrls: ['./solicitud.component.scss'],
     providers: [GlobalsProvider],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
+   
+
 })
 export class SolicitudComponent implements OnInit {
+
+    view: string = 'month';
+
+    viewDate: Date = new Date();
+  
+    events: CalendarEvent[] = [
+      {
+        title: 'Editable event',
+        color: colors.yellow,
+        start: new Date(),
+        actions: [
+          {
+            label: '<i class="fa fa-fw fa-pencil"></i>',
+            onClick: ({ event }: { event: CalendarEvent }): void => {
+              console.log('Edit event', event);
+            }
+          }
+        ]
+      },
+      {
+        title: 'Deletable event',
+        color: colors.blue,
+        start: new Date(),
+        actions: [
+          {
+            label: '<i class="fa fa-fw fa-times"></i>',
+            onClick: ({ event }: { event: CalendarEvent }): void => {
+              this.events = this.events.filter(iEvent => iEvent !== event);
+              console.log('Event deleted', event);
+            }
+          }
+        ]
+      },
+      {
+        title: 'Non editable and deletable event',
+        color: colors.red,
+        start: new Date()
+      }
+    ];
+
+
+
+
+
+
+
+
+
+
 
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public numPage: number;
@@ -30,8 +83,7 @@ export class SolicitudComponent implements OnInit {
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
-    public buy: Boolean = false;
-    public sell: Boolean = false;
+    public buy: Boolean;
     solicitud: any = {
         id: '',
         client: {},
@@ -72,19 +124,27 @@ export class SolicitudComponent implements OnInit {
 
     }
 
-    clientChanged ($event) {
+    beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+        body.forEach(day => {
+            if (day.date.getDate() % 2 === 1 && day.inMonth) {
+                day.cssClass = 'odd-cell';
+            }
+        });
+    }
+
+    clientChanged($event) {
         console.log($event);
     }
 
-    allEmployee () {
+    allEmployee() {
         this.globalService.getModel("/api/employee").then((result) => {
             this.empleados = result['data'];
             console.log(this.empleados);
         }, (err) => {
             console.log(err);
-        }); 
+        });
     }
-    
+
 
     allSolicitud() {
         this.globalService.getModel("/api/request/pending").then((result) => {
@@ -129,67 +189,41 @@ export class SolicitudComponent implements OnInit {
 
     openForEdit(solicitud) {
         this.solicitud = solicitud;
-        console.log(this.solicitud.typeService.name);
         this.solicitudAprov.id_solicitud = this.solicitud.id;
-        if(this.solicitud.typeService.name == 'Venta' || this.solicitud.typeService.name == 'Alquiler'){
-            this.sell = true;
-        }
-        if(this.solicitud.typeService.name == 'Compra' || this.solicitud.typeService.name == 'Arrendamiento'){
+        if (this.solicitud.typeService.name == 'Venta' || this.solicitud.typeService.name == 'Alquiler') {
+            this.buy = false;
+            console.log(this.buy);
+        } else if (this.solicitud.typeService.name == 'Compra' || this.solicitud.typeService.name == 'Arrendamiento') {
             this.buy = true;
+            console.log(this.buy);
         }
-       
+
     }
 
     open(content) {
-        // if(this.sell){
-            // this.modalService.open(content).result.then((result) => {
-            //     this.closeResult = `Closed with: ${result}`;
-            //     console.log(this.closeResult);
-    
-            //     if (this.submitType === 'Save') {
-            //         this.nuevo = JSON.stringify({
-            //             title: this.solicitudAprov.title,
-            //             description: this.solicitudAprov.description,
-            //             date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
-            //             SolicitudId: this.solicitudAprov.id_solicitud
-            //         });
-            //         console.log(this.nuevo);
-            //          this.allSolicitud();
-                    // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
-                 
-                    // }, (err) => {
-                    //     console.log(err);
-                    // });
-            //     }
-            // }, (reason) => {
-            //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            // });
-        // }
-        if(this.buy== true){
-            this.modalService.open(content).result.then((result) => {
-                this.closeResult = `Closed with: ${result}`;
-                console.log(this.closeResult);
-    
-                if (this.submitType === 'Save') {
-                    this.nuevo = JSON.stringify({
-                        title: this.solicitudAprov.title,
-                        description: this.solicitudAprov.description,
-                        date_start:  moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
-                        SolicitudId: this.solicitudAprov.id_solicitud
-                    });
-                    console.log(this.nuevo);
-                     this.allSolicitud();
-                    // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
-                 
-                    // }, (err) => {
-                    //     console.log(err);
-                    // });
-                }
-            }, (reason) => {
-                this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-            });
-        }
-     
+        this.modalService.open(content).result.then((result) => {
+            this.closeResult = `Closed with: ${result}`;
+            console.log(this.closeResult);
+
+            if (this.submitType === 'Save') {
+                this.nuevo = JSON.stringify({
+                    title: this.solicitudAprov.title,
+                    description: this.solicitudAprov.description,
+                    date_start: moment(this.solicitudAprov.date_start).format('DD/MM/YYYY'),
+                    SolicitudId: this.solicitudAprov.id_solicitud
+                });
+                console.log(this.nuevo);
+                this.allSolicitud();
+                // this.globalService.addModel(this.nuevo, "/api/").then((result) => {
+
+                // }, (err) => {
+                //     console.log(err);
+                // });
+            }
+        }, (reason) => {
+            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
+
     }
 
     private getDismissReason(reason: any): string {
