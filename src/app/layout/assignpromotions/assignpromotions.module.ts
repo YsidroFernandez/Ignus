@@ -4,29 +4,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr"
-import { ServicesRoutingModule } from './services-routing.module';
-import { ServicesComponent } from './services.component';
+import { AssignPromotionsRoutingModule } from './assignpromotions-routing.module';
+import { AssignPromotionsComponent } from './assignpromotions.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { NgxSelectModule} from 'ngx-select-ex';
-
+import { DragulaModule } from 'ng2-dragula';
 @NgModule({
   imports: [
     CommonModule,
-    ServicesRoutingModule, NgbModule.forRoot(),
+    DragulaModule.forRoot(),
+    AssignPromotionsRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),
-      NgxSelectModule,
-      
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory
       })
     ], 
 
-  declarations: [ServicesComponent],
+  declarations: [AssignPromotionsComponent],
     providers: [
-    NgbActiveModal,   
+    NgbActiveModal,
   ]
 })
-export class ServicesModule { }
+export class AssignPromotionsModule { }

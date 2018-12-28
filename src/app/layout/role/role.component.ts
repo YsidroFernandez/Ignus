@@ -56,6 +56,7 @@ export class RoleComponent implements OnInit {
     open(content) {
         console.log("aqui");
         this.modalService.open(content).result.then((result) => {
+            console.log("later");
             this.closeResult = `Closed with: ${result}`;
             if (this.submitType === "Save") {
                 this.nuevo = JSON.stringify({ name: this.rol.name, description: this.rol.description, functions: this.dataModel });
@@ -98,6 +99,7 @@ export class RoleComponent implements OnInit {
             // Hide Usuario entry section.
             this.showNew = false;
         }, (reason) => {
+            console.log("que imprime")
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
     }

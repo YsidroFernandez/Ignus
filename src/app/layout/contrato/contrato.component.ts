@@ -107,7 +107,7 @@ export class ContratoComponent implements OnInit {
     open(content) {
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
-            if (this.submitType === 'Guardar') {
+            if (this.submitType === 'Save') {
                 this.nuevo = JSON.stringify({
                     folioNumber: this.contract.folioNumber,
                     firmDate:  moment(this.contract.firmDate).format('DD/MM/YYYY'),

@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
-
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 
 @Component({
@@ -24,7 +24,8 @@ export class ServicesComponent implements OnInit {
     modalTitle: string = 'Servicio';
     modalIcon: string = 'fa fa-plus'
     modalName: any;
-    show1: Boolean = false;
+    modalTemplate: any;
+    show1: Boolean = false; //variable que permite intercalar ente las vistas de card y tabla
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
@@ -36,7 +37,7 @@ export class ServicesComponent implements OnInit {
     ngxActivities: any = [];
     ngxRequirements: any = [];
 
-    constructor(private modalService: NgbModal, public globalService: GlobalService) {
+    constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         this.services = [];
         this.service = [];
         this.nuevo = [];
@@ -120,32 +121,36 @@ export class ServicesComponent implements OnInit {
         }
 
 
-        
+
+
 
 
     }
 
-    open(content, action, index: number) {  //solo para abrir el modal establecieondo una accion determinada sea ver, editar, crear 
-
-
-        this.modalService.open(content).result.then((result) => { //promesa necesaria para abrir modal
+    //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear 
+    open(content, action, index: number) {
+        //==============================================================================
+        //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
+        //por ejemplo en los botones que se ejecuta la funcion C() se cierra el modal y se termina de cumplir la promesa
+        this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
+            this.apiAction(); //despues de cerrado el modal se ejecuta la accion de la api
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
+        //==============================================================================
 
 
 
-
-
-        this.ngxActivities=[];
-        this.ngxRequirements=[];
+        this.modalTemplate = content;
+        this.ngxActivities = [];
+        this.ngxRequirements = [];
         this.modalName = action;
         this.submitType = action;// variable que nos permite saber que accion podemos ejecutar ejemplo editar
         this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
         this.service = Object.assign({}, this.services[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
 
-        if (index != -1) { //el caso index -1 es cuando se solicita crear --ver html
+        if (index != -1) { //el caso index -1 es cuando se solicita crear, ver html
 
 
             for (let i in this.service.activities) {//ciclo necesario para mostar actividades
@@ -195,20 +200,29 @@ export class ServicesComponent implements OnInit {
         this.selectedRow = index;
         this.service = Object.assign({}, this.services[this.selectedRow]);
         this.showNew = true;
-        //Pendiente
-        if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            this.globalService.removeModel(this.service.id, "/api/typeService")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado el service
-                        this.getServicios();
-                    }
+       
 
-                }, (err) => {
-                    console.log(err);
-                });
-        }
+
+        this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples y elegantes 
+            .subscribe(res => {
+                if (res) {
+                    console.log(res);
+                    this.globalService.removeModel(this.service.id, "/api/typeService")
+                        .then((result) => {
+                            console.log(result);
+                            if (result['status']) {
+                                //Para que actualice la lista una vez que es eliminado el service
+                                this.getServicios();
+                            }
+
+                        }, (err) => {
+                            console.log(err);
+                        });
+                } else {
+                    console.log('You clicked Cancel. You smart.');
+                }
+            });
+
 
 
     }

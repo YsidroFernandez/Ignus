@@ -25,7 +25,7 @@
                     
                 <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-              <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+              <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
             </button>
            
                 </div>
@@ -34,7 +34,7 @@
     <div class="col col-sm-4 text-right">
           <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
             (click)="open(content)">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
           </button>
         </div>
       </div>
@@ -130,9 +130,9 @@
                             <td>{{Incidencia.cliente}}</td>
                             <td>{{Incidencia.transaccion}}</td>
                                                      
-                            <td><button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye"></fa-icon></button>
-                            <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" ><fa-icon [icon]="faEdit"></fa-icon></button>
-                            <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash"></fa-icon></button></td>
+                            <td><button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon></button>
+                            <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" ><fa-icon [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon></button>
+                            <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon></button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -198,7 +198,7 @@
                 </div>
 
                <div class="modal-footer">
-                    <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')"><fa-icon style="color: white" [icon]="faEdit"></fa-icon></button>
+                    <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')"><fa-icon style="color: white" [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon></button>
                 </div>
 </ng-template>
 

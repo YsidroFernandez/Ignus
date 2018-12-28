@@ -118,7 +118,7 @@
 
                 <ul class="submenu">
                     <li>
-                        <a [routerLink]="['/empleados']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+                        <a [routerLink]="['/asignarpromociones']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
                             <i class="fa fa-monument"></i>&nbsp;
                             <span>{{ 'Promociones' | translate }}</span>
@@ -180,6 +180,12 @@
                         </a>
                     </li>
                     <li>
+                            <a [routerLink]="['/promociones']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                                <i class="fa fa-user"></i>&nbsp;
+                                <span>{{ 'Promociones' | translate }}</span>
+                            </a>
+                        </li>
+                    <li>
                         <a [routerLink]="['/recaudo']" [routerLinkActive]="['router-link-active']" class="list-group-item">
                             <i class="fa fa-building"></i>&nbsp;
                             <span>{{ 'Recaudos' | translate }}</span>
@@ -188,8 +194,14 @@
                     <li>
                         <a [routerLink]="['/actividades']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-check"></i>&nbsp;
                             <span>{{ 'Actividades' | translate }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/socialnetworks']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+                            <i class="fa fa-network-wired"></i>&nbsp;
+                            <span>{{ 'Redes Sociales' | translate }}</span>
                         </a>
                     </li>
 
@@ -207,7 +219,7 @@
                     <li>
                         <a [routerLink]="['/services']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-briefcase"></i>&nbsp;
                             <span>{{ 'Servicios' | translate }}</span>
                         </a>
                     </li>
@@ -215,21 +227,21 @@
                     <li>
                         <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-shield"></i>&nbsp;
                             <span>{{ 'Roles' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-file"></i>&nbsp;
                             <span>{{ 'Configuración Web' | translate }}</span>
                         </a>
                     </li>
                     <li>
                         <a [routerLink]="['/role']" [routerLinkActive]="['router-link-active']" class="list-group-item"
                             href="javascript:void(0)">
-                            <i class="fa fa-monument"></i>&nbsp;
+                            <i class="fa fa-mobile"></i>&nbsp;
                             <span>{{ 'Configuración Móvil' | translate }}</span>
                         </a>
                     </li>
