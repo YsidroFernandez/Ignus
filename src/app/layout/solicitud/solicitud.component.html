@@ -18,7 +18,8 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                    data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
@@ -95,15 +96,16 @@
 </div>
 
 <!-- Content -->
-<!-- aceptar solicitud -->
+<!-- aceptar solicitud buy-->
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title"> Solicitud </h4>
+        <h4 class="modal-title" *ngIf="buy"> Solicitud de compa o arrendamiento </h4>
+        <h4 class="modal-title" *ngIf="!buy"> Solicitud de venta o alquiler </h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="buy">
         <div class="row md-3">
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="title">Titulo</label>
@@ -120,6 +122,20 @@
 
         <div class="row md-3">
             <div class="form-group col-md-6">
+                <label>Asignar Agente</label>
+                <select name="userId" [(ngModel)]="solicitudAprov.id_employee" (ngModelChange)="clientChanged($event)"
+                    class="form-control">
+                    <option *ngFor="let listEmpleados of empleados" [value]="listEmpleados.userId">
+                        {{listEmpleados.firstName}} {{listEmpleados.lastName}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+            </div>
+        </div>
+
+        <!-- <div class="row md-3">
+            <div class="form-group col-md-12">
                 <label for="date_start">Fecha de atención</label>
                 <div class="input-group">
                     <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
@@ -127,14 +143,53 @@
                         autocomplete="off">
                 </div>
             </div>
-            <div class="form-group col-md-6">
+        </div> -->
 
+        <div class="btn-group">
+                <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                  (viewDateChange)="viewDateChange.next(viewDate)">
+                  Previous
+                </div>
+                <div
+                  class="btn btn-outline-secondary"
+                  mwlCalendarToday
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="viewDateChange.next(viewDate)">
+                  Today
+                </div>
+                <div
+                  class="btn btn-primary"
+                  mwlCalendarNextView
+                  [view]="view"
+                  [(viewDate)]="viewDate"
+                  (viewDateChange)="viewDateChange.next(viewDate)">
+                  Next
+                </div>
+              </div>
             </div>
+            <div class="col-md-4">
+              <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+            </div>
+
+
+
+
+        <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate"> </mwl-demo-utils-calendar-header>
+
+        <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [activeDayIsOpen]="true">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
+            </mwl-calendar-day-view>
         </div>
+
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" *ngIf="buy">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                title="Agregar"></i>
         </button>
     </div>
 </ng-template>
@@ -242,68 +297,6 @@
         </button>
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
             <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
-        </button>
-    </div>
-</ng-template>
-
-<!-- editar -->
-<ng-template #editar let-c="close" let-d="dismiss">
-
-    <div class="modal-header">
-        <h4 class="modal-title"> Solicitud </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-        <div class="form-group">
-            <label for="tipos">Nombres</label>
-            <input type="text" [(ngModel)]="regModel.nombre" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="nombre">Apellidos</label>
-            <input type="text" [(ngModel)]="regModel.apellido" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" [(ngModel)]="regModel.username" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="cargo">Cargo</label>
-            <input type="text" [(ngModel)]="regModel.cargo" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="fechaini">Fecha de Nacimiento</label>
-            <input type="text" placeholder="dd-mm-yyyy" name="dob" [(ngModel)]="regModel.dob" ngbDatepicker #dob="ngbDatepicker"
-                class="form-control" dateFormat="dd-MMM-yyyy" />
-            <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
-            </button>
-        </div>
-        <div class="form-group">
-            <label for="email">email</label>
-            <input type="text" [(ngModel)]="regModel.email" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña</label>
-            <input type="text" [(ngModel)]="regModel.contrasena" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="state">Estado</label>
-            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                    ngbDropdownToggle>{{regModel.estado}}</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-            <fa-icon style="color: white" [icon]="faEdit" ></fa-icon>
         </button>
     </div>
 </ng-template>
