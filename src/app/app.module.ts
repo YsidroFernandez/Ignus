@@ -15,6 +15,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import exporting from 'highcharts/modules/exporting.src.js';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxCoolDialogsModule } from 'ngx-cool-dialogs';
 //traslate general   actualmente utilizado en calendar
 import localeEs from "@angular/common/locales/es"
 import { ModalModule, TimepickerModule, DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
@@ -52,6 +53,18 @@ export const createTranslateLoader = (http: HttpClient) => {
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         Ng4LoadingSpinnerModule.forRoot(),
+        NgxCoolDialogsModule.forRoot({
+            theme: 'material', // available themes: 'default' | 'material' | 'dark'
+            okButtonText: 'Si',
+            cancelButtonText: 'No',
+            color: '#1AB394',
+            titles: {
+                
+                confirm: 'Confirmar',
+                
+              }
+            
+          }),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

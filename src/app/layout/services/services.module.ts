@@ -9,6 +9,7 @@ import { ServicesComponent } from './services.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSelectModule} from 'ngx-select-ex';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,6 +17,7 @@ import { NgxSelectModule} from 'ngx-select-ex';
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),
       NgxSelectModule,
+      
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory

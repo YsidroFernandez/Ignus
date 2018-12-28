@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
-
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class ServicesComponent implements OnInit {
     ngxActivities: any = [];
     ngxRequirements: any = [];
 
-    constructor(private modalService: NgbModal, public globalService: GlobalService) {
+    constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         this.services = [];
         this.service = [];
         this.nuevo = [];
@@ -200,20 +200,29 @@ export class ServicesComponent implements OnInit {
         this.selectedRow = index;
         this.service = Object.assign({}, this.services[this.selectedRow]);
         this.showNew = true;
-        //Pendiente
-        if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            this.globalService.removeModel(this.service.id, "/api/typeService")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado el service
-                        this.getServicios();
-                    }
+       
 
-                }, (err) => {
-                    console.log(err);
-                });
-        }
+
+        this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples y elegantes 
+            .subscribe(res => {
+                if (res) {
+                    console.log(res);
+                    this.globalService.removeModel(this.service.id, "/api/typeService")
+                        .then((result) => {
+                            console.log(result);
+                            if (result['status']) {
+                                //Para que actualice la lista una vez que es eliminado el service
+                                this.getServicios();
+                            }
+
+                        }, (err) => {
+                            console.log(err);
+                        });
+                } else {
+                    console.log('You clicked Cancel. You smart.');
+                }
+            });
+
 
 
     }
