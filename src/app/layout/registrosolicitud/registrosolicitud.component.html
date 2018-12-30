@@ -3,26 +3,24 @@
     <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
     <tabset #tabset>
         <tab tab1 heading="Datos" id="first" #first (click)="habilitar=false">
-            <div class="col col-sm-12">
-                <div class="form-control">
-                    <div class="row">
-                        <div class="col col-sm-6">
-                            <div class="form-group"><label class="ng-tns-c12-9" for="typeservice">Tipo Servicio</label>
-                                <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="solicitud.TypeServiceId">
-                                    <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
-                                </select>
-                            </div>
+            <div class="col col-md-12">
+                <div class="form-control row">
+                    <div class="col col-md-6">
+                        <div class="form-group"><label class="ng-tns-c12-9" for="typeservice">Tipo Servicio</label>
+                            <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="solicitud.TypeServiceId">
+                                <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
+                            </select>
                         </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group"><label class="ng-tns-c12-9" for="fechapreferencial">Fecha
-                                    Preferencial</label>
-                                <!--<input name="fechapreferencial" formControlName="fechareferencial" type="text" class="form-control"
+                    </div>
+                    <div class="col col-sm-6">
+                        <div class="form-group"><label class="ng-tns-c12-9" for="fechapreferencial">Fecha
+                                Preferencial</label>
+                            <!--<input name="fechapreferencial" formControlName="fechareferencial" type="text" class="form-control"
                                   placeholder="Hoy" [bsConfig]="datePickerConfig" bsDatepicker autocomplete="off" required
                                   [(ngModel)]="solicitud.wishDate">-->
-                                <input name="firmDate" [(ngModel)]="solicitud.wishDate" name="firmDate" [bsConfig]="datePickerConfig"
-                                    type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
-                                    autocomplete="off" required>
-                            </div>
+                            <input name="firmDate" [(ngModel)]="solicitud.wishDate" name="firmDate" [bsConfig]="datePickerConfig"
+                                type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
+                                autocomplete="off" required>
                         </div>
                     </div>
                 </div>
@@ -190,15 +188,16 @@
             </div>
         </tab>
 
-        <tab tab2 heading="Cita" id="second" select="!disableSwitching && second.active = true" #second (click)="habilitar=true" [disabled]="false">
+        <tab tab2 heading="Cita" id="second" select="!disableSwitching && second.active = true" #second (click)="habilitar=true"
+            [disabled]="false">
             <div class="row">
-                    <div class="col col-sm-6">
-                            <div class="form-group"><label class="ng-tns-c12-9" for="employe">Empleados</label>
-                                <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud2.employee">
-                                    <option *ngFor="let emp of employes" [value]="emp.id">{{emp.firstName}} {{emp.lastName}}</option>
-                                </select>
-                            </div>
-                        </div>
+                <div class="col col-sm-6">
+                    <div class="form-group"><label class="ng-tns-c12-9" for="employe">Empleados</label>
+                        <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud2.employee">
+                            <option *ngFor="let emp of employes" [value]="emp.id">{{emp.firstName}} {{emp.lastName}}</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </tab>
     </tabset>

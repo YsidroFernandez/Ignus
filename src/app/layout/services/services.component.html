@@ -49,8 +49,11 @@
                     <tbody>
                         <tr *ngFor="let item of services ; let i= index">
                             <td>{{item.name}}</td>
-                            <td>{{item.description}}</td>
                             <td>
+                                <p>{{item.description}}</p>
+                            </td>
+                            <td>
+                                    <div class="row ">
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(content,'show', i)">
                                     <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
@@ -63,6 +66,7 @@
                                     (click)="onDelete(i)">
                                     <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
+                                    </div>
                             </td>
                         </tr>
                     </tbody>
@@ -88,25 +92,30 @@
                             <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
 
                             <p class="card-text mb-auto">{{item.description}}</p>
-                            <div class="row">
+
+
+                        </div>
+                        <div class="card-body d-flex flex-column align-items-center">
+                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x350]" src="{{item.urlImage}}"
+                                style="width: 300px; height: 350px; border-radius: 10%;">
+                            <br>
+                            <div class="row ">
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(content,'show',i)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Detalle"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(content,'edit',i)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Editar"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Eliminar"></i>
                                 </button>
                             </div>
-
-                        </div>
-                        <div class="card-body d-flex flex-column align-items-end">
-                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{item.urlImage}}"
-                                style="width: 300px; height: 400px; border-radius: 10%;">
                         </div>
                     </div>
                 </div>
@@ -142,32 +151,35 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Descripción</label>
-                                    <input type="text" [(ngModel)]="service.description" class="form-control" />
+                                    <textarea class="form-control" rows="2"  [(ngModel)]="service.description"></textarea>
                                 </div>
                             </div>
                         </div>
                         <!-- selectores automaticos -->
+                        <!-- =============================================================== -->
                         <div class="row mb-3">
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="tipos">Recaudos</label>
-                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="id" optionTextField='name'
-                                        [disabled]="ngxDisabled" [(ngModel)]="ngxRequirements" placeholder="Seleccione los recaudos"
-                                        (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="id" 
+                                        optionTextField='name' [disabled]="ngxDisabled" [(ngModel)]="ngxRequirements"
+                                        placeholder="Seleccione los recaudos" (selectionChanges)="doSelectOptions($event)"
+                                        >
                                     </ngx-select>
                                 </div>
                             </div>
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="nombre">Activities</label>
-                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true optionValueField="id" optionTextField='name'
-                                    [disabled]="ngxDisabled" [(ngModel)]="ngxActivities" placeholder="Seleccione las actividades"
-                                    (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
-                                </ngx-select>
+                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true
+                                        optionValueField="id" optionTextField='name' [disabled]="ngxDisabled"
+                                        [(ngModel)]="ngxActivities" placeholder="Seleccione las actividades"
+                                        (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                                    </ngx-select>
                                 </div>
                             </div>
                         </div>
-
+                        <!-- =================================================================== -->
 
 
                     </div>
@@ -175,10 +187,12 @@
             </fieldset>
             <div class="modal-footer">
                 <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                        style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
+                        style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Cancelar"></i></button>
                 <div *ngIf="submitType!='show'">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="apiAction()"><i style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
+                        (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
                 </div>
             </div>
         </ng-template>

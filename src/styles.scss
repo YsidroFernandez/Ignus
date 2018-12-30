@@ -1,4 +1,5 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../node_modules/dragula/dist/dragula.css";
 // regular style toast
 @import '~ngx-toastr/toastr.css';
 @import "~@ng-select/ng-select/themes/default.theme.css";
@@ -7,7 +8,6 @@
 // or import a bootstrap 4 alert styled design (SASS ONLY)
 // should be after your bootstrap imports, it uses bs4 variables, mixins, functions
 @import '~ngx-toastr/toastr-bs4-alert';
-
 // if you'd like to use it without importing all of bootstrap it requires
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
@@ -37,4 +37,45 @@ body > app-root > app-layout > section > app-usuario > ng4-loading-spinner > div
   opacity: 0.6;
   transition: opacity 0.3s linear;
 
+}
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+  left: -9999px !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+.deck {
+  background: #FAFFB2;
+  margin: 1em;
+  display: flex;
+}
+
+.card {
+  background: #96FFE2;
+  height: 100px;
+  width: 100px;
+  margin: 1em;
+  flex: 0 0 100px;
 }
