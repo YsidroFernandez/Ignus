@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
-
+import { GlobalService } from '../../providers/global.service';
 
 const URL = 'http://localhost:3000/api/upload';
 
@@ -13,23 +13,39 @@ export class ActivitiesCollectionsComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
+
+  status: any;
+  test: any;
+  transaction: any;
+  disabled: boolean;
+  btnEdit:any;
   files:File[] = [];
   rol: number;
   actividades:string[]=["Actividad 1","Actividad 2","Actividad 3","Actividad 4"];
 
   recaudos:string[]=["Recaudo 1","Recaudo 2","Recaudo 3","Recaudo 4"];
 
-  constructor() {
+  constructor(public globalService: GlobalService) {
     this.rol = 1;
   }
 
   ngOnInit() {
 
-    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-         console.log('ImageUpload:uploaded:', item, status, response);
-         alert('File uploaded successfully');
-     };
+      console.log("init");
+    this.globalService.getModel("/api/transaction/")
+    .then((result) => {
+      console.log(result);
+      this.transaction=result['data'];
+      console.log(this.transaction);
+
+      this.test = result['data'][0].client.firstName;
+
+      console.log(this.test);
+
+    }, (err) => {
+      console.log(err);
+      //this.loader.dismiss();
+    });
 
   }
 
