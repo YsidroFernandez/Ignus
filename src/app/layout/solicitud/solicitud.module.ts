@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import localeVE from '@angular/common/locales/es-VE';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+// import localeFr from '@angular/common/locales/fr';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -14,7 +15,7 @@ import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-
+registerLocaleData(localeEs);
 @NgModule({
   imports: [
     NgxPaginationModule,
@@ -24,6 +25,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
       provide: DateAdapter,
       useFactory: adapterFactory
     }),
+    
     BsDatepickerModule.forRoot(), // ToastrModule added        
     DatepickerModule.forRoot(),
     FontAwesomeModule, NgbModule.forRoot(),

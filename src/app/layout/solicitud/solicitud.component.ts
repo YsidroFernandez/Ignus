@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
 import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -8,69 +8,67 @@ import { solicitud, actions, calendariocita, colors } from '../../../environment
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { routerTransition } from '../../router.animations';
 import * as datepicker from 'ngx-bootstrap/datepicker';
-import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK } from 'angular-calendar';
+import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 
 @Component({
     selector: 'app-solicitud',
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './solicitud.component.html',
     styleUrls: ['./solicitud.component.scss'],
-    providers: [GlobalsProvider],
+    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider],
     animations: [routerTransition()],
-   
+
 
 })
 export class SolicitudComponent implements OnInit {
 
-    view: string = 'month';
-
+    view: CalendarView = CalendarView.Month;  
+    CalendarView = CalendarView;
+    
+    refresh: Subject<any> = new Subject();
     viewDate: Date = new Date();
-  
+    locale: string = 'es';
+    modalData: any;
+    activeDayIsOpen: boolean = true;
     events: CalendarEvent[] = [
-      {
-        title: 'Editable event',
-        color: colors.yellow,
-        start: new Date(),
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-pencil"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              console.log('Edit event', event);
-            }
-          }
-        ]
-      },
-      {
-        title: 'Deletable event',
-        color: colors.blue,
-        start: new Date(),
-        actions: [
-          {
-            label: '<i class="fa fa-fw fa-times"></i>',
-            onClick: ({ event }: { event: CalendarEvent }): void => {
-              this.events = this.events.filter(iEvent => iEvent !== event);
-              console.log('Event deleted', event);
-            }
-          }
-        ]
-      },
-      {
-        title: 'Non editable and deletable event',
-        color: colors.red,
-        start: new Date()
-      }
+        {
+            title: 'Editable event',
+            color: colors.yellow,
+            start: new Date(),
+            actions: [
+                {
+                    label: '<i class="fa fa-fw fa-pencil"></i>',
+                    onClick: ({ event }: { event: CalendarEvent }): void => {
+                        console.log('Edit event', event);
+                    }
+                }
+            ]
+        },
+        {
+            title: 'Deletable event',
+            color: colors.blue,
+            start: new Date(),
+            actions: [
+                {
+                    label: '<i class="fa fa-fw fa-times"></i>',
+                    onClick: ({ event }: { event: CalendarEvent }): void => {
+                        this.events = this.events.filter(iEvent => iEvent !== event);
+                        console.log('Event deleted', event);
+                    }
+                }
+            ]
+        },
+        {
+            title: 'Non editable and deletable event',
+            color: colors.red,
+            start: new Date()
+        }
     ];
-
-
-
-
-
-
-
-
-
 
 
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
@@ -121,7 +119,42 @@ export class SolicitudComponent implements OnInit {
         this.numPage = this.globals.numPage;
         this.allSolicitud();
         this.allEmployee();
+    }
+    @ViewChild('modalContent')
+    modalContent: TemplateRef<any>;
 
+    dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+        if (isSameMonth(date, this.viewDate)) {
+            this.viewDate = date;
+            if (
+                (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+                events.length === 0
+            ) {
+                this.activeDayIsOpen = false;
+            } else {
+                this.activeDayIsOpen = true;
+            }
+        }
+    }
+
+    eventTimesChanged({
+        event,
+        newStart,
+        newEnd
+    }: CalendarEventTimesChangedEvent): void {
+        event.start = newStart;
+        event.end = newEnd;
+        this.handleEvent(event);
+        this.refresh.next();
+    }
+
+    handleEvent(event: CalendarEvent): void {
+        this.modalData = event;
+        console.log(this.modalData.title)
+        // this.selactores()
+
+        // console.log(inmueble[0])
+        this.modalService.open(this.modalContent, { size: 'lg' });
     }
 
     beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
@@ -241,8 +274,8 @@ export class SolicitudComponent implements OnInit {
         console.log(this.solicitudes[i - 1])
         this.globalService.updateModel(
             this.solicitudes[i - 1].id,
-             { EmployeeId: 1, date: "12/12/2018" },
-              "/api/request/pending/approve")
+            { EmployeeId: 1, date: "12/12/2018" },
+            "/api/request/pending/approve")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {
