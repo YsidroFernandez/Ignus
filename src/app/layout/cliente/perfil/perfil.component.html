@@ -29,7 +29,7 @@
                 <span class="font-lg">4.</span> Redes Sociales
                 <small class="d-block text-secondary">
 
-                </small> 
+                </small>
               </a>
             </li>
           <li class="nav-item">
@@ -43,7 +43,7 @@
         </ul>
 
 
-        <form id="formOrder" class="tab-content">
+        <form id="formOrder" class="tab-content" [(ngModel)]="client[0]">
           <div id="account" class="tab-pane show active">
             <div class="mb-3">
               <a href="#account-collapse" data-toggle="collapse">
@@ -61,7 +61,7 @@
                   <div class="col-3 col-md-3 col-sm-3 mb-3">
                       <div class="form-group team-member mb-3">
                           <div align="center"><img class="mx-auto rounded-circle" style=" width: 150px; " src="\assets\images\avatar1.jpg" alt=""></div>
-                              <div class="clearfix" align="center">Sara Smith</div>
+                              <div class="clearfix" align="center"><p>{{client[0].firstName}}</p></div>
 
                                <h2>
                                  <ul class="list-inline social-buttons" align="center">
@@ -87,24 +87,24 @@
                   </div>
                   <div class="col-9 col-md-9 col-lg-9">
               <div class="row">
-                <div class="col-12 col-lg-10">
-                  <div class="form-group">
+                <div class="col-12 col-lg-10" >
+                  <div class="form-group" >
                     <label>Correo</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" placeholder="{{client[0].username}}">
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-9 col-md-5 col-lg-5">
+                <div class="col-9 col-md-5 col-lg-5" >
                   <div class="form-group">
                     <label>Contraseña</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" placeholder="{{client[0].bankAccount}}">
                   </div>
                 </div>
-                <div class="col-9 col-md-5 col-lg-5">
-                  <div class="form-group">
+                <div class="col-9 col-md-5 col-lg-5" >
+                  <div class="form-group" >
                     <label>Confirma Contraseña</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" placeholder="{{client[0].bankName}}">
                   </div>
                 </div>
               </div>
@@ -137,14 +137,14 @@
                 <div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Nombre(s)</label>
-                    <input type="text" [(ngModel)]="perfil2.firstName" class="form-control">
+                    <input type="text" placeholder="{{client[0].firstName}}"   class="form-control">
                   </div>
                 </div>
 
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
                       <label>Apellido(s)</label>
-                      <input type="text" [(ngModel)]="perfil2.lastName" class="form-control">
+                      <input type="text" placeholder="{{client[0].lastName}}" class="form-control">
                     </div>
                   </div>
                  </div>
@@ -155,7 +155,7 @@
                             <div class="col-12 col-md-6 col-lg-6">
                               <div class="form-group">
                               <label>Cedula</label>
-                              <input type="text" [(ngModel)]="perfil2.indentification" class="form-control">
+                              <input type="text" placeholder="{{client[0].identification}}"  class="form-control">
                              </div>
                         </div>
 
@@ -163,7 +163,7 @@
                       <div class="form-group">
                         <label>Sexo</label>
                         <select class="form-control">
-                          <option></option>
+                          <option >{{client[0].gender}}</option>
                           <option>Femenino</option>
                           <option>Masculino</option>
                         </select>
@@ -175,25 +175,20 @@
                     <div class="col-12 col-lg-6">
                         <div class="form-group">
                           <label>Fecha de Nacimiento</label>
-                          <input type="text" [(ngModel)]="perfil2.birthDate" class="form-control">
+                          <input type="text" placeholder="{{client[0].birthDate}}"  class="form-control">
                         </div>
                       </div>
                   </div>
- 
+
 
               <div class="row">
-                <div class="col-12  col-lg-6">
-                  <div class="form-group">
-                    <label>Correo</label>
-                    <input type="text" [ngModel]="perfil2.email" class="form-control">
-                  </div>
-                </div>
+
                 <div class="col-12 col-lg-6">
                   <div class="row">
                      <div class="col-12 col-md-6 col-lg-6">
                         <div class="form-group">
                           <label>Numero de Telefono</label>
-                          <input type="text" [ngModel]="perfil2.phoneNumber" class="form-control">
+                          <input type="text"  class="form-control">
                         </div>
                        </div>
 
@@ -208,7 +203,7 @@
                         </div>
                    </div>
                 </div>
-                
+
               </div>
 
               <div class="d-none d-md-block">
@@ -216,7 +211,7 @@
                 <div class="d-flex mb-3">
                   <button type="button" class="btn btn-outline-success" data-form-step=" #account" (click)="step === '1'">{{step ? 'Información de la Cuenta ': 'Información de la Cuenta'}}
                     <i class="icon-arrow-left font-sm"></i>
-                    
+
                   </button>
                   <button type="button" class="btn btn-success ml-auto" data-form-step="#confirmation">
                       Gustos y Preferencias
@@ -455,7 +450,7 @@
                       <label class="text-secondary">Nombre de Usuario</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">Sara Smith</div>
+                      <div class="mb-2">{{client[0].firstName}}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -463,7 +458,7 @@
                       <label class="text-secondary">Correo</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">Sara Smith@email.com</div>
+                      <div class="mb-2">{{client[0].username}}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -471,7 +466,7 @@
                       <label class="text-secondary">Nombre Completo</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">Sara Smith Estremaydorio</div>
+                      <div class="mb-2">{{client[0].firstName}}{{client[0].lastName}}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -479,7 +474,7 @@
                       <label class="text-secondary">Genero</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">Femenino</div>
+                      <div class="mb-2">{{client[0].gender}}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -487,7 +482,7 @@
                       <label class="text-secondary">Fecha de Nacimiento</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">9 Noviembre 1993</div>
+                      <div class="mb-2">{{client[0].birthDate}}</div>
                     </div>
                   </div>
                   <div class="row">
@@ -495,7 +490,7 @@
                       <label class="text-secondary">Numero de Telefono</label>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="mb-2">Sara Smith</div>
+                      <div class="mb-2">0964332</div>
                     </div>
                   </div>
                   <div class="row">
