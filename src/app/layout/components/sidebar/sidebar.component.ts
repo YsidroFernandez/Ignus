@@ -17,7 +17,89 @@ export class SidebarComponent {
     showMenuSubAte: string = '';
     showMenuConf: string = '';
     pushRightClass: string = 'push-right';
-    //menu: Menu[] = [];
+    menu:[
+          {
+            "name": "Dashboard",
+            "link": "/dashboard",
+            "icon": "fa fa-fw fa-dashboard",
+            "sub": null
+          },
+          {
+            "name": "Dashboard (Cliente)",
+            "link": "/dashboardcustomer",
+            "icon": "fa fa-fw fa-dashboard",
+            "sub": null
+          },
+          {
+            "name": "Transacciones",
+            "link": "1",
+            "icon": "fa fa-address-book",
+            "sub": [
+              {
+                "name": "Solicitud",
+                "link": null,
+                "icon": "fa fa-address-book",
+                "sub": [
+                  {
+                    "name": "Registro",
+                    "link": "/registrosolicitud",
+                    "icon": "fa fa-user",
+                    "sub": null
+                  },
+                  {
+                    "name": "Atención",
+                    "link": "/solicitud",
+                    "icon": "fa fa-building",
+                    "sub": null
+                  },
+                  {
+                    "name": "Citas",
+                    "link": "/citas",
+                    "icon": "fa fa-calendar",
+                    "sub": null
+                  },
+                  {
+                    "name": "Visitas",
+                    "link": "/visita",
+                    "icon": "fa fa-calendar",
+                    "sub": null
+                  }
+                ]
+              },
+              {
+                "name": "Actividades y reacudos",
+                "link": "/activitiesCollections",
+                "icon": "fa fa-address-book",
+                "sub": null
+              },
+              {
+                "name": "Reserva",
+                "link": "/reserva",
+                "icon": "fa fa-list-alt",
+                "sub": null
+              },
+              {
+                "name": "Registro",
+                "link": "/inmueble",
+                "icon": "fa fa-user",
+                "sub": null
+              },
+              {
+                "name": "Contrato",
+                "link": "/contrato",
+                "icon": "fa fa-fw fa-edit",
+                "sub": null
+              },
+              {
+                "name": "Calificación del servicio",
+                "link": "/valoracion",
+                "icon": "fa fa-star",
+                "sub": null
+              }
+            ]
+          }
+        ];
+      
     @Output() collapsedEvent = new EventEmitter<boolean>();
     
 
