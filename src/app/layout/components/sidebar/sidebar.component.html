@@ -3,30 +3,28 @@
   [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
 >
   <div class="list-group">
-    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-    <!-- <div *ngFor="let item of menu; let i = index" class="i">
+    <!-- ++++++++++++++++Menu Json con diversas iteraciones+++++++++++++ -->
+    
+    <div *ngFor="let item of menu; let i = index" class="nested-menu">
       <a
         *ngIf="item.link"
         class="list-group-item"
         [routerLink]="[item.link]"
         [routerLinkActive]="['router-link-active']"
-        class="list-group-item"
-        ><i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }}</span></a
+        ><i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }} </span></a
       >
       <a
         *ngIf="!item.link"
         class="list-group-item"
-        class="list-group-item"
         href="javascript:void(0)"
-        (click)="addExpandClass(item.name)"
+        (click)="addExpandClassConf(item.name)"
       >
-        <i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }}</span>
+        <i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }}</span>&nbsp;&nbsp;<i class="{{directionIcon}}"></i>
       </a>
       <li
         *ngIf="item.sub"
         class="nested"
-        [class.expand]="showMenu == item.name"
+        [class.expand]="showMenuConf === item.name"
       >
         <ul class="submenu">
           <div *ngFor="let item2 of item.sub; let j = index" class="nested-menu1">
@@ -45,7 +43,7 @@
               (click)="addExpandClassSubAte(item2.name)"
             >
               <i class="{{ item2.icon }}"></i>&nbsp;
-              <span>{{ item2.name }}</span>
+              <span>{{ item2.name }}</span>&nbsp;&nbsp;<i class="{{directionIcon}}"></i>
             </a>
 
             <li class="nested1" [class.expand1]="showMenuSubAte === item2.name">
@@ -65,11 +63,11 @@
           </div>
         </ul>
       </li>
-    </div> -->
+    </div>
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-    <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+    <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
         <i class="fa fa-fw fa-dashboard"></i>&nbsp;
         <span>{{ 'Dashboard' | translate }}</span>
     </a>
@@ -479,7 +477,7 @@
                 </ul>
             </li>
         </div>
-    </div>
+    </div> -->
 
   </div>
   <div

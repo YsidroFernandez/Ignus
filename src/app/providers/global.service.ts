@@ -69,18 +69,18 @@ export class GlobalService {
     this.spinner.show();
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
-        if (data.status)
-          this.toastr.success('', data.message.text, {
-            timeOut: 5000,
-            progressBar: true,
-            positionClass: 'toast-bottom-right'
-          });
-        else
-          this.toastr.error('', data.message.text, {
-            timeOut: 5000,
-            progressBar: true,
-            positionClass: 'toast-bottom-right'
-          });
+        // if (data.status)
+        //   this.toastr.success('', data.message.text, {
+        //     timeOut: 5000,
+        //     progressBar: true,
+        //     positionClass: 'toast-bottom-right'
+        //   });
+        // else
+        //   this.toastr.error('', data.message.text, {
+        //     timeOut: 5000,
+        //     progressBar: true,
+        //     positionClass: 'toast-bottom-right'
+        //   });
         this.spinner.hide();
         resolve(data);
 
