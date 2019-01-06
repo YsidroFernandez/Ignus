@@ -33,8 +33,8 @@ export class GlobalService {
   tipo: String;
 
   constructor(public http: HttpClient, private toastr: ToastrService, private spinner: NgxSpinnerService) {
-    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io';
-    // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io';
+    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io'; //endpoint de la nube
+   // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io'; //endpoint de desarrollo
   }
 
   getHeaderClear() {

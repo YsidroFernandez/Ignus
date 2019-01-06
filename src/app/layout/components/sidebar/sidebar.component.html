@@ -1,6 +1,70 @@
-<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive, collapsed: collapsed}">
-    <div class="list-group">
-        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+<nav
+  class="sidebar"
+  [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+>
+  <div class="list-group">
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    <div *ngFor="let item of menu; let i = index" class="1">
+      <a
+        class="list-group-item"
+        [routerLink]="[item.link]"
+        [routerLinkActive]="['router-link-active']"
+        class="list-group-item"
+        href="javascript:void(0)"
+        (click)="addExpandClass(i)"
+      >
+        <i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }}</span>
+      </a>
+      <li *ngIf="item.sub" class="nested" [class.expand]="showMenu === i">
+        <ul class="submenu">
+         
+          <div
+            *ngFor="let item2 of item.sub; let j = index"
+            class="nested-menu1"
+          >
+            <a *ngIf="item2.link"
+              class="list-group-item"
+              [routerLink]="[item2.link]"
+              [routerLinkActive]="['router-link-active']"
+              (click)="addExpandClassSubAte(j)"
+            >
+              <i class="{{ item2.icon }}"></i>&nbsp;
+              <span>{{ item2.name }}</span>
+            </a>
+            <a *ngIf="!item2.link"
+              class="list-group-item"
+              (click)="addExpandClassSubAte(j)"
+            >
+              <i class="{{ item2.icon }}"></i>&nbsp;
+              <span>{{ item2.name }}</span>
+            </a>
+
+
+            <li class="nested1" [class.expand1]="showMenuSubAte === j">
+              <ul class="submenu1">
+                <li *ngFor="let item3 of item2.sub; let k = index">
+                  <a
+                    [routerLink]="[item3.link]"
+                    [routerLinkActive]="['router-link-active']"
+                    class="list-group-item"
+                  >
+                    <i class="{{ item3.icon }}"></i>&nbsp;
+                    <span>{{ item3.name }}</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </div>
+         
+        </ul>
+      </li>
+    </div>
+
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+    
+        <!-- <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard' | translate }}</span>
         </a>
@@ -10,21 +74,8 @@
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;
             <span>{{ 'Dashboard (Cliente)' }}</span>
         </a>
-        <!-- Esto es Para trabajar el menú desde un menuJson está en fase de desarrollo -->
 
-        <!-- <div  items="menu" (itemClick)="menuItemClick($event)">
-            <div *ngFor="let item of menu" >
-                {{item}}
-                <div *ngFor="let childItem of item.menu" >
-                        {{childItem}}
-                    <div *ngFor="let childItem2 of childItem.menu" >
-                            {{childItem2}}
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        
-        <div class="nested-menu">
+        <div class="1">
             <a class="list-group-item" [routerLink]="['null']" [routerLinkActive]="['router-link-active']" class="list-group-item"
             href="javascript:void(0)" (click)="addExpandClass('pages1')">
                 <i class="fa fa-address-book"></i>&nbsp;
@@ -111,7 +162,7 @@
             <i class="fa fa-fw fa-edit"></i>&nbsp;
             <span>{{ 'Incidencias' | translate }}</span>
         </a>
-        <div class="nested-menu">
+        <div class="1">
             <a class="list-group-item" (click)="addExpandClass('pages6')">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Post-Servicio' | translate }}</span>
@@ -143,7 +194,7 @@
                 </ul>
             </li>
         </div>
-        <div class="nested-menu">
+        <div class="1">
             <a class="list-group-item" (click)="addExpandClassConf('pages7')">
                 <i class="fa fa-cog"></i>&nbsp;
                 <span>{{ 'Configuración del Negocio' | translate }}</span>
@@ -211,7 +262,7 @@
             </li>
         </div>
 
-        <div class="nested-menu">
+        <div class="1">
             <a class="list-group-item" (click)="addExpandClass('4')">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Configuracion del Sistema' | translate }}</span>
@@ -253,7 +304,7 @@
             </li>
         </div>
 
-        <div class="nested-menu">
+        <div class="1">
             <a class="list-group-item" (click)="addExpandClass('pages10')">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Reportes' | translate }}</span>
@@ -349,7 +400,7 @@
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
             </a>
-            <div class="nested-menu">
+            <div class="1">
                 <a class="list-group-item" (click)="addExpandClass('languages')">
                     <span><i class="fa fa-language"></i>&nbsp; {{ 'Language' | translate }} <b class="caret"></b></span>
                 </a>
@@ -393,7 +444,7 @@
                     </ul>
                 </li>
             </div>
-            <div class="nested-menu">
+            <div class="1">
                 <a class="list-group-item" (click)="addExpandClass('profile')">
                     <span><i class="fa fa-user"></i>&nbsp; John Smith</span>
                 </a>
@@ -422,10 +473,14 @@
                     </ul>
                 </li>
             </div>
-        </div>
-    </div>
-    <div class="toggle-button" [ngClass]="{collapsed: collapsed}" (click)="toggleCollapsed()">
-        <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
-        <span>{{ 'Collapse Sidebar' | translate }}</span>
-    </div>
+        </div> -->
+  </div>
+  <div
+    class="toggle-button"
+    [ngClass]="{ collapsed: collapsed }"
+    (click)="toggleCollapsed()"
+  >
+    <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
+    <span>{{ "Collapse Sidebar" | translate }}</span>
+  </div>
 </nav>

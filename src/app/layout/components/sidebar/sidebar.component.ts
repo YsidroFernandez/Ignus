@@ -17,88 +17,7 @@ export class SidebarComponent {
     showMenuSubAte: string = '';
     showMenuConf: string = '';
     pushRightClass: string = 'push-right';
-    menu:[
-          {
-            "name": "Dashboard",
-            "link": "/dashboard",
-            "icon": "fa fa-fw fa-dashboard",
-            "sub": null
-          },
-          {
-            "name": "Dashboard (Cliente)",
-            "link": "/dashboardcustomer",
-            "icon": "fa fa-fw fa-dashboard",
-            "sub": null
-          },
-          {
-            "name": "Transacciones",
-            "link": "1",
-            "icon": "fa fa-address-book",
-            "sub": [
-              {
-                "name": "Solicitud",
-                "link": null,
-                "icon": "fa fa-address-book",
-                "sub": [
-                  {
-                    "name": "Registro",
-                    "link": "/registrosolicitud",
-                    "icon": "fa fa-user",
-                    "sub": null
-                  },
-                  {
-                    "name": "Atención",
-                    "link": "/solicitud",
-                    "icon": "fa fa-building",
-                    "sub": null
-                  },
-                  {
-                    "name": "Citas",
-                    "link": "/citas",
-                    "icon": "fa fa-calendar",
-                    "sub": null
-                  },
-                  {
-                    "name": "Visitas",
-                    "link": "/visita",
-                    "icon": "fa fa-calendar",
-                    "sub": null
-                  }
-                ]
-              },
-              {
-                "name": "Actividades y reacudos",
-                "link": "/activitiesCollections",
-                "icon": "fa fa-address-book",
-                "sub": null
-              },
-              {
-                "name": "Reserva",
-                "link": "/reserva",
-                "icon": "fa fa-list-alt",
-                "sub": null
-              },
-              {
-                "name": "Registro",
-                "link": "/inmueble",
-                "icon": "fa fa-user",
-                "sub": null
-              },
-              {
-                "name": "Contrato",
-                "link": "/contrato",
-                "icon": "fa fa-fw fa-edit",
-                "sub": null
-              },
-              {
-                "name": "Calificación del servicio",
-                "link": "/valoracion",
-                "icon": "fa fa-star",
-                "sub": null
-              }
-            ]
-          }
-        ];
+    menu:any;
       
     @Output() collapsedEvent = new EventEmitter<boolean>();
     
@@ -118,6 +37,277 @@ export class SidebarComponent {
                 this.toggleSidebar();
             }
         });
+
+        this.menu= [
+            {
+              "name": "Dashboard",
+              "link": "/dashboard",
+              "icon": "fa fa-fw fa-dashboard",
+              "sub": null
+            },
+            {
+              "name": "Dashboard (Cliente)",
+              "link": "/dashboardcustomer",
+              "icon": "fa fa-fw fa-dashboard",
+              "sub": null
+            },
+            {
+              "name": "Transacciones",
+              "link": null,
+              "icon": "fa fa-address-book",
+              "sub": [
+                {
+                  "name": "Solicitud",
+                  "link": null,
+                  "icon": "fa fa-address-book",
+                  "sub": [
+                    {
+                      "name": "Registro",
+                      "link": "/registrosolicitud",
+                      "icon": "fa fa-user",
+                      "sub": null
+                    },
+                    {
+                      "name": "Atención",
+                      "link": "/solicitud",
+                      "icon": "fa fa-building",
+                      "sub": null
+                    },
+                    {
+                      "name": "Citas",
+                      "link": "/citas",
+                      "icon": "fa fa-calendar",
+                      "sub": null
+                    },
+                    {
+                      "name": "Visitas",
+                      "link": "/visita",
+                      "icon": "fa fa-calendar",
+                      "sub": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Actividades y reacudos",
+                  "link": "/activitiesCollections",
+                  "icon": "fa fa-address-book",
+                  "sub": null
+                },
+                {
+                  "name": "Reserva",
+                  "link": "/reserva",
+                  "icon": "fa fa-list-alt",
+                  "sub": null
+                },
+                {
+                  "name": "Registro",
+                  "link": "/inmueble",
+                  "icon": "fa fa-user",
+                  "sub": null
+                },
+                {
+                  "name": "Contrato",
+                  "link": "/contrato",
+                  "icon": "fa fa-fw fa-edit",
+                  "sub": null
+                },
+                {
+                  "name": "Calificación del servicio",
+                  "link": "/valoracion",
+                  "icon": "fa fa-star",
+                  "sub": null
+                }
+              ]
+            },
+            {
+              "name": "Incidencias",
+              "link": "/incidencias",
+              "icon": "fa fa-fw fa-edit",
+              "sub": null
+            },
+            {
+              "name": "Post-Servicio",
+              "link": null,
+              "icon": "fa fa-address-book",
+              "sub": [
+                {
+                  "name": "Promociones",
+                  "link": "/asignarpromociones",
+                  "icon": "fa fa-user",
+                  "sub": null
+                },
+                {
+                  "name": "Sugerencias",
+                  "link": "/sugerencias",
+                  "icon": "fa fa-user-circle-o",
+                  "sub": null
+                },
+                {
+                  "name": "Reclamos",
+                  "link": "/reclamos",
+                  "icon": "fa fa-calendar",
+                  "sub": null
+                }
+              ]
+            },
+            {
+              "name": "Configuración del negocio",
+              "link": null,
+              "icon": "fa fa-cog",
+              "sub": [
+                {
+                  "name": "Inmobiliaria",
+                  "link": "/agency",
+                  "icon": "fa fa-building",
+                  "sub": null
+                },
+                {
+                  "name": "Inmuebles",
+                  "link": "/inmueble",
+                  "icon": "fa fa-building",
+                  "sub": null
+                },
+                {
+                  "name": "Usuarios",
+                  "link": "/cliente",
+                  "icon": "fa fa-user",
+                  "sub": null
+                },
+                {
+                  "name": "Clientes",
+                  "link": "/cliente",
+                  "icon": "fa fa-user",
+                  "sub": null
+                },
+                {
+                  "name": "Empleados",
+                  "link": "/empleados",
+                  "icon": "fa fa-calendar",
+                  "sub": null
+                },
+                {
+                  "name": "Promociones",
+                  "link": "/promociones",
+                  "icon": "fa fa-bullhorn",
+                  "sub": null
+                },
+                {
+                  "name": "Recaudos",
+                  "link": "/recaudo",
+                  "icon": "fa fa-calendar-plus-o",
+                  "sub": null
+                },
+                {
+                  "name": "Actividades",
+                  "link": "/actividades",
+                  "icon": "fa fa-check",
+                  "sub": null
+                },
+                {
+                  "name": "Redes Sociales",
+                  "link": "/socialnetworks",
+                  "icon": "fa fa-comments",
+                  "sub": null
+                }
+              ]
+            },
+            {
+              "name": "Configuración del sistema",
+              "link": null,
+              "icon": "fa fa-cogs",
+              "sub": [
+                {
+                  "name": "Servicios",
+                  "link": "/services",
+                  "icon": "fa fa-home",
+                  "sub": null
+                },
+                {
+                  "name": "Roles",
+                  "link": "/role",
+                  "icon": "fa fa-user-circle-o",
+                  "sub": null
+                },
+                {
+                  "name": "Configuración Web",
+                  "link": "/reclamos",
+                  "icon": "fa fa-file",
+                  "sub": null
+                },
+                {
+                  "name": "Configuración Movil",
+                  "link": "/reclamos",
+                  "icon": "fa fa-mobile",
+                  "sub": null
+                }
+              ]
+            },
+            {
+              "name": "Reportes",
+              "link": null,
+              "icon": "fa fa-bar-chart",
+              "sub": [
+                {
+                  "name": "Estadisticos",
+                  "link": null,
+                  "icon": "fa fa-bar-chart",
+                  "sub": [
+                    {
+                      "name": "Mas Solicitado",
+                      "link": "/promedio",
+                      "icon": "fa fa-user",
+                      "sub": null
+                    },
+                    {
+                      "name": "Reclamos",
+                      "link": "/reclamo",
+                      "icon": "fa fa-building",
+                      "sub": null
+                    },
+                    {
+                      "name": "Calificación",
+                      "link": "/calificacion",
+                      "icon": "fa fa-calendar",
+                      "sub": null
+                    },
+                    {
+                      "name": "Solicitudes",
+                      "link": "/solicitudes",
+                      "icon": "fa fa-calendar",
+                      "sub": null
+                    },
+                    {
+                      "name": "Cita",
+                      "link": "/cita",
+                      "icon": "fa fa-calendar",
+                      "sub": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Estructurados",
+                  "link": null,
+                  "icon": "fa fa-address-book",
+                  "sub": [
+                    {
+                      "name": "Post-servicio",
+                      "link": "/post-servico",
+                      "icon": "fa fa-list-alt",
+                      "sub": null
+                    }
+                  ]
+                },
+                {
+                  "name": "No Estructurados",
+                  "link": "/reserva",
+                  "icon": "fa fa-list-alt",
+                  "sub": null
+                }
+              ]
+            }
+          ];
+          
+          console.log(this.menu[2].sub[0].sub);
     }
 
     eventCalled() {
