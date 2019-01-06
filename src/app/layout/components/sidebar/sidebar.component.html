@@ -23,8 +23,10 @@
                 </div>
             </div>
         </div> -->
+        
         <div class="nested-menu">
-            <a class="list-group-item" (click)="addExpandClass('pages1')">
+            <a class="list-group-item" [routerLink]="['null']" [routerLinkActive]="['router-link-active']" class="list-group-item"
+            href="javascript:void(0)" (click)="addExpandClass('pages1')">
                 <i class="fa fa-address-book"></i>&nbsp;
                 <span>{{ 'Transacciones' | translate }}</span>
             </a>

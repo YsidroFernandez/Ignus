@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-md-12 col-sm-12 mb-12">
     <div class="form-group team-member mb-3">
-      <div align="center" *ngIf="usuario"><img class="mx-auto rounded-circle" [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" src="\assets\images\avatar1.jpg" width="150px" alt="">
+      <div align="center" *ngIf="usuario"><img class="mx-auto rounded-circle" [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" src="\assets\images\avatar1.jpg" title="Editar Perfil" width="150px" alt="">
           <div class="clearfix" align="center">{{usuario.person.firstName}} {{usuario.person.lastName}} </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
             </select> entradas
           </label>
         </div>
-        
+
         <div class="col col-sm-4" style="position: relative; top: 15px;">
           <div class="input-group" style="align-content: center;">
             <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
@@ -51,12 +51,12 @@
             </tr>
           </thead>
           <tbody>
-            
-            <tr *ngFor="let transaccion of listTransacciones" (click)="detTransaccion(transaccion)"> 
+
+            <tr *ngFor="let transaccion of listTransacciones" (click)="detTransaccion(transaccion)">
               <td>{{transaccion.typeService.name}}</td>
-              <td>{{transaccion.typeService.description}}</td>    
+              <td>{{transaccion.typeService.description}}</td>
               <td>{{transaccion.status}}</td>
-              
+
               <td>
                 <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(modalTransacion)">
                 <fa-icon [icon]="faEye"></fa-icon>
@@ -72,7 +72,7 @@
           <!--esta columna está vacia-->
         </div>
         <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
         </div>-->
       </div>
     </div>
@@ -136,7 +136,7 @@
                   <fa-icon [icon]="faEye"></fa-icon>
                 </button>
               </td>
-            </tr> 
+            </tr>
 
           </tbody>
         </table>
@@ -146,7 +146,7 @@
           <!--esta columna está vacia-->
         </div>
         <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination> 
+            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
           </div>-->
       </div>
     </div>
@@ -171,9 +171,9 @@
         </div>
       </div>
     </div>
-    
+
   </div>
-  
+
   <div class="card-deck">
     <div class="card bg-default">
       <div class="card-body">
@@ -185,7 +185,7 @@
               <input *ngIf="actividad.status=='Espera'" name="actividad" type="checkbox" disabled />
             </div>
             <br/>
-          </div>        
+          </div>
       </div>
     </div>
 
@@ -231,7 +231,7 @@
         </div>
       </div>
       <div class="col-xl-6 text-xs-center">
-        <div class="card-body"> 
+        <div class="card-body">
           <div class="form-group">
             <label for="nombre">Nombre</label>
             <input disabled="" [(ngModel)]="solicitudSelect.typeRequest.name" type="text" name="nombre" ng-model="nombre" class="form-control" />

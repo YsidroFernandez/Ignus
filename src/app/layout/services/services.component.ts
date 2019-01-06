@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
-import { modalConfigDefaults } from 'ngx-bootstrap/modal/modal-options.class';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 
@@ -34,10 +32,12 @@ export class ServicesComponent implements OnInit {
     activities: any;
     ngxValue: any = [];
     ngxDisabled = false;
+    //estas variables son para cargar la opciones en los selectores multiples
     ngxActivities: any = [];
     ngxRequirements: any = [];
 
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+        
         this.services = [];
         this.service = [];
         this.nuevo = [];
@@ -131,7 +131,7 @@ export class ServicesComponent implements OnInit {
     open(content, action, index: number) {
         //==============================================================================
         //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
-        //por ejemplo en los botones que se ejecuta la funcion C() se cierra el modal y se termina de cumplir la promesa
+        //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
             this.apiAction(); //despues de cerrado el modal se ejecuta la accion de la api
@@ -200,10 +200,10 @@ export class ServicesComponent implements OnInit {
         this.selectedRow = index;
         this.service = Object.assign({}, this.services[this.selectedRow]);
         this.showNew = true;
-       
 
 
-        this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples y elegantes 
+
+        this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
             .subscribe(res => {
                 if (res) {
                     console.log(res);
