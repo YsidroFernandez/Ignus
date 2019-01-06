@@ -206,20 +206,21 @@ export class SolicitudComponent implements OnInit {
         this.selectedRow = index;
         this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
         this.showNew = true;
+        console.log( this.solicitud);
         //Pendiente
-        if (confirm('¿Estas seguro de eliminar este usuario?')) {
-            this.globalService.updateModel(this.solicitud.id, { message: "no a guta" }, "/api/request/reject")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //this.solicitudes.splice(this.selectedRow, 1);                     
-                    }
+        // if (confirm('¿Estas seguro de eliminar este usuario?')) {
+        //     this.globalService.updateModel(this.solicitud.id, { message: "no a guta" }, "/api/request/reject")
+        //         .then((result) => {
+        //             console.log(result);
+        //             if (result['status']) {
+        //                 this.solicitudes.splice(this.selectedRow, 1);                     
+        //             }
 
-                }, (err) => {
-                    console.log(err);
-                });
-        }
-        this.solicitudes.splice(this.selectedRow, 1);
+        //         }, (err) => {
+        //             console.log(err);
+        //         });
+        // }
+        // this.solicitudes.splice(this.selectedRow, 1);
     }
 
     onCancel() {

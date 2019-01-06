@@ -137,7 +137,7 @@
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">Estado</label>
+                <label for="tipos">Parroquia</label>
                 <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
                     disabled>
             </div>
@@ -198,6 +198,57 @@
             <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
     </div>
+
+<div class="modal-body" *ngIf="!buy">
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label>Agente seleccionado</label>
+                    <input class="form-control" name="title" id="title" type="text" [(ngModel)]="solicitud.employee.name"
+                        ng-model="title" autocomplete="off" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="date_start">Fecha de atención</label>
+                    <div class="input-group">
+                        <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                            ng-model="date_start" bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label for="tipos">Estado</label>
+                    <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
+                </div>
+    
+                <div class="form-group col-md-6">
+                    <label for="tipos">Municipio</label>
+                    <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                        disabled>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label for="tipos">Parroquia</label>
+                    <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                        disabled>
+                </div>
+    
+                <div class="form-group col-md-6">
+                </div>
+            </div>        
+    
+        </div>
+        <div class="modal-footer" *ngIf="!buy">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+                <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Agregar"></i>
+            </button>
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+                <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
+            </button>
+        </div>
 </ng-template>
 
 <!--ver-->
@@ -304,5 +355,6 @@
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
             <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
+
     </div>
 </ng-template>
