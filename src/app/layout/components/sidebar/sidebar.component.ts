@@ -307,7 +307,7 @@ export class SidebarComponent {
             }
           ];
           
-          console.log(this.menu[2].sub[0].sub);
+         
     }
 
     eventCalled() {
