@@ -123,7 +123,8 @@
                 </div>
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Agregar" ></i></button>
                 </div>
             </ng-template>
             <ng-template #editar let-c="close" let-d="dismiss">
@@ -175,7 +176,7 @@
                 </div>
                 <div class="modal-footer">
                     <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Guardar"></i></button>
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Guardar" ></i></button>
                 </div>
             </ng-template>
             <ng-template #ver let-c="close" let-d="dismiss">
@@ -227,7 +228,8 @@
                 </div>
                 <div class="modal-footer">
                     <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
-                            style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
+                            style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Cancelar" ></i></button>
                 </div>
             </ng-template>
         </div>
