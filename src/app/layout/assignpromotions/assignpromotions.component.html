@@ -66,78 +66,96 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!--Contenido -->
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Asignar Promociones</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <!--   <div class="flex">
-                    <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps">
-                        <div class="vamp" *ngFor="let vamp of vamps">{{ vamp.name }}</div>
-                    </div>
-                    <div class="container" dragula="VAMPIRES" [(dragulaModel)]="vamps2">
-                        <div class="vamp" *ngFor="let vamp of vamps2">{{ vamp.name }}</div>
-                    </div>
-                </div>-->
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Promociones</label>
-                            <select name="nombreAgent" [(ngModel)]="test.id" (ngModelChange)="promotionChanged($event)"
-                                class="form-control">
-                                <option *ngFor="let list of promotions" [value]="list.id">
-                                    {{list.name}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="card-body">
-                        <div class="form-group" style="text-align: -webkit-center;">
-                            <label for="tipos">Asignación de Promociones</label>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-4">
-                                <bs-sortable [(ngModel)]="inmuebles" fieldName="name" itemClass="sortable-item"
-                                    itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item"
-                                    wrapperClass="sortable-wrapper"></bs-sortable>
-                            </div>
-                            <div class="col-md-4">
-                                <bs-sortable [(ngModel)]="test.properties" fieldName="name" itemClass="sortable-item"
-                                    itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item"
-                                    wrapperClass="sortable-wrapper"></bs-sortable>
-                            </div>
-                            <div class="col-md-2"> </div>
-                        </div>
-
-                    </div>
+<!--Contenido -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Asignar Promociones</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Promociones</label>
+                    <select name="nombreAgent" [(ngModel)]="id_promotion" (ngModelChange)="promotionChanged($event)"
+                        class="form-control">
+                        <option *ngFor="let list of promotions" [value]="list.id">
+                            {{list.name}}
+                        </option>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+        <div class="row mb-3">
+            <div class="col-md-12" style="text-align: -webkit-center;">
+                <label for="tipos">Asignación de Promociones</label>
+            </div>
         </div>
-    </ng-template>
+        <div class="row  mb-3">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 form-group">
+                <bs-sortable [(ngModel)]="inmuebles" fieldName="name" itemClass="sortable-item" itemActiveClass="sortable-item-active"
+                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+            </div>
+            <div class="col-md-4 form-group">
+                <bs-sortable [(ngModel)]="properties" fieldName="name" itemClass="sortable-item" itemActiveClass="sortable-item-active"
+                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+            </div>
+            <div class="col-md-2"> </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </div>
+</ng-template>
 
 
-    <!--editar -->
-    <ng-template #editar let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Editar Promoción</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<!--editar -->
+<ng-template #editar let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Editar Promoción</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row mb-3">
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="tipos">Nombre</label>
+                    <input type="text" [(ngModel)]="assignpromotion.name" class="form-control" />
+                </div>
+            </div>
+            <div class="col col-sm-6">
+                <div class="form-group">
+                    <label for="nombre">Descripción</label>
+                    <input type="text" [(ngModel)]="assignpromotion.description" class="form-control" />
+                </div>
+            </div>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
+    </div>
+</ng-template>
+
+<!--ver -->
+<ng-template #ver let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Promoción</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
         <div class="modal-body">
             <div class="row mb-3">
                 <div class="col col-sm-6">
@@ -153,51 +171,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-edit" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
 
-    <!--ver -->
-    <ng-template #ver let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Promoción</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Nombre</label>
-                            <input type="text" [(ngModel)]="assignpromotion.name" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Descripción</label>
-                            <input type="text" [(ngModel)]="assignpromotion.description" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-close" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
-
-    <!-- <div class="wrapper" dragula="COLUMNS" [(dragulaModel)]="groups">
-                                    <div class="container-draga" *ngFor="let group of groups">
-                                    <span class="group-handle">{{group.name}}</span>
-                                    <div class="container-draga" dragula="ITEMS" [(dragulaModel)]="group.items">
-                                        <div *ngFor="let item of group.items" [innerHtml]="item.name"></div>
-                                    </div>
-                                    </div>
-                            </div> -->
+    </div>
+    <div class="modal-footer">
+        <button style=" border-radius: 20px" type="button" class="btn btn-danger" (click)="c('Close click')"><i style="color: white"
+                class="fa fa-close" aria-hidden="true"></i></button>
+    </div>
+</ng-template>

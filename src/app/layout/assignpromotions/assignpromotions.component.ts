@@ -20,34 +20,14 @@ export class AssignPromotionsComponent implements OnInit {
 
     inmuebles: any = [];
     new: any;
+    public id_promotion: any;
+    public properties: any = [];   
 
-    public test: any = {
-        id:'',
-        properties:[{
-            id: ''
-        }]
-
-    }
-    itemObjectsLeft: any[] = [
-        { id: 1, name: 'Windstorm' },
-        { id: 2, name: 'Bombasto' },
-        { id: 3, name: 'Magneta' }
-    ];
-
-    itemObjectsRight: any[] = [
-        { id: 4, name: 'Tornado' },
-        { id: 5, name: 'Mr. O' },
-        { id: 6, name: 'Tomato' }
-    ];
-
-    itemStringsRight = ['Mr. O', 'Tomato'];
-    // It maintains activities form display status. By default it will be false.
-    showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
+   
+    showNew: Boolean = false; 
     submitType: string = 'Save';
-
-
     selectedRow: number;
+
     constructor(private modalService: NgbModal,
         public globalService: GlobalService) {
 
