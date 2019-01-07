@@ -9,8 +9,11 @@ import { AssignPromotionsComponent } from './assignpromotions.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
+import { SortableModule } from 'ngx-bootstrap/sortable';
+
 @NgModule({
   imports: [
+    SortableModule.forRoot(),
     CommonModule,
     DragulaModule.forRoot(),
     AssignPromotionsRoutingModule, NgbModule.forRoot(),
