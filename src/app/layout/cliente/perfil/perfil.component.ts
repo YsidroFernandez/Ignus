@@ -44,18 +44,29 @@ export class PerfilComponent implements OnInit {
     }
 
     typeservice: any;
+    client:any;
 
-
-  constructor(public globalService: GlobalService) { 
+  constructor(public globalService: GlobalService) {
 
 this.nuevo = [];
 this.typeservice = [];
+
+this.globalService.getModel("/api/client").then((result)=>{
+  console.log(result);
+      this.client=result['data'];
+      console.log(this.client);
+},(err) => {
+  console.log(err);
+
+}
+);
+
 
 this.globalService.getModel("/api/typeService").then((result) => {
     if (result['status']) {
         //Para que actualice la lista
                 this.typeservice = result['data'];
-                
+
     }
 }, (err) => {
     console.log(err);
@@ -68,7 +79,7 @@ this.globalService.getModel(`/api/state/`).then((result) => {
 }, (err) => {
     console.log(err);
 });
- 
+
   }
 
 
@@ -76,16 +87,16 @@ this.globalService.getModel(`/api/state/`).then((result) => {
 loadmunicipality(state){
     this.municipalities = [];
     this.parishes = [];
-    
+
     this.globalService.getModel(`/api/state/municipality/${state}`).then((result) => {
         if (result['status']) {
-            //Para que actualice la lista una vez que es creado el recaudo
+            //municipios
             this. municipalities = result['data'];
         }
     }, (err) => {
         console.log(err);
     });
-    
+
 }
 
 loadparish(municipality){
@@ -95,26 +106,26 @@ loadparish(municipality){
         if (result['status']) {
             //Para que actualice la lista una vez que es creado el recaudo
             this.parishes = result['data'];
-                    
+
         }
     }, (err) => {
         console.log(err);
     });
-    
+
 }
 
     //Metodo del boton Enviar
- enviar() { 
-  
+ enviar() {
+
   this.nuevo = {
   lastName: this.perfil.lastName,
   firstName: this.perfil.firstName,
   identification: this.perfil.identification,
   birthDate: this.perfil.birthDate,
   email: this.perfil.email,
-  state: this.perfil.state,  
-  TypeServiceId: Number.parseInt(this.perfil2.TypeServiceId), 
-  }; 
+  state: this.perfil.state,
+  TypeServiceId: Number.parseInt(this.perfil2.TypeServiceId),
+  };
 
 console.log("result",this.nuevo);
    this.globalService.addModel(this.nuevo,"/api/client")
@@ -122,7 +133,7 @@ console.log("result",this.nuevo);
                     console.log(result);
                     if (result['status']) {
                         //Para que actualice la lista
-                            console.log(result);                     
+                            console.log(result);
                     }
 
                 }, (err) => {

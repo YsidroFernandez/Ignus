@@ -5,11 +5,11 @@ import { GlobalService } from '../../providers/global.service';
 const URL = 'http://localhost:3000/api/upload';
 
 @Component({
-  selector: 'app-activitiesCollections',
-  templateUrl: './activitiesCollections.component.html',
-  styleUrls: ['./activitiesCollections.component.scss']
+  selector: 'app-activitiesCollectionsEmployee',
+  templateUrl: './activitiesCollectionsEmployee.component.html',
+  styleUrls: ['./activitiesCollectionsEmployee.component.scss']
 })
-export class ActivitiesCollectionsComponent implements OnInit {
+export class ActivitiesCollectionsEmployeeComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({url: URL, itemAlias: 'photo'});
 
@@ -21,12 +21,10 @@ export class ActivitiesCollectionsComponent implements OnInit {
   btnEdit:any;
   files:File[] = [];
   rol: number;
-  actividades:string[]=["Actividad 1","Actividad 2","Actividad 3","Actividad 4"];
 
-  recaudos:string[]=["Recaudo 1","Recaudo 2","Recaudo 3","Recaudo 4"];
 
   constructor(public globalService: GlobalService) {
-    this.rol = 1;
+
   }
 
   ngOnInit() {
