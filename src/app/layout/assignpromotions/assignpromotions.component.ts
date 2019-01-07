@@ -4,24 +4,31 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { DragulaService } from 'ng2-dragula';
-
+import { GlobalsProvider } from '../../shared';
 
 @Component({
     selector: 'app-activities',
     templateUrl: './assignpromotions.component.html',
     styleUrls: ['./assignpromotions.component.scss'],
+    providers: [GlobalsProvider],
     animations: [routerTransition()]
 })
 export class AssignPromotionsComponent implements OnInit {
-    closeResult: string;
+    closeResult: string;   
+    assignpromotion: any = [{
+        id:''
+    }];
+    public numPage: number;
+    public pages = 1;
+
     promotions: any = [];
-    assignpromotion: any = [];
-
-
+    promotionsFill: any =[];
     inmuebles: any = [];
     new: any;
     public id_promotion: any;
+    public property: any = [];
     public properties: any = [];   
+   
 
    
     showNew: Boolean = false; 
@@ -29,7 +36,8 @@ export class AssignPromotionsComponent implements OnInit {
     selectedRow: number;
 
     constructor(private modalService: NgbModal,
-        public globalService: GlobalService) {
+        public globalService: GlobalService,
+        private globals: GlobalsProvider) {
 
       
         this.assignpromotion = [];
@@ -38,33 +46,58 @@ export class AssignPromotionsComponent implements OnInit {
     }
     
     ngOnInit() {
-        this.show();        
+        this.show(); 
+        this.numPage = this.globals.numPage;              
         this.allPromotion();
         this.allInmuebles();
+        this.allPromotionFill();
     }
 
-    promotionChanged ($event){
+    changeStatus($event){
         console.log($event);
+    //     this.globalService.getModel("/api/promotion").then((result) => {         
+    //     this.promotions = [];
+    //     this.promotions = result['data'];
+    //     console.log(this.promotions);
+    // }, (err) => {
+    //     console.log(err);
+    // });
+    }
+
+    promotionChanged ($event){      
+        this.id_promotion = $event;
     }
 
     allPromotion(){
         this.globalService.getModel("/api/promotion").then((result) => {         
                 this.promotions = [];
-                this.promotions = result['data'];
-                console.log(this.promotions);
+                this.promotions = result['data'];                
+            }, (err) => {
+                console.log(err);
+            });           
+    }
+
+    allPromotionFill(){
+        this.globalService.getModel("/api/promotion/fill").then((result) => {         
+                this.promotionsFill = [];
+                this.promotionsFill = result['data'];
+                console.log(this.promotionsFill);
             }, (err) => {
                 console.log(err);
             });           
     }
 
     allInmuebles(){
-        this.globalService.getModel("/api/property").then((result) => {         
+        this.globalService.getModel("/api/property/catalogue").then((result) => {         
                 this.inmuebles = [];
-                this.inmuebles = result['data'];
-                console.log(this.inmuebles);
+                this.inmuebles = result['data'];               
             }, (err) => {
                 console.log(err);
             });           
+    }
+
+    changeData(property){
+        console.log(property);
     }
 
     open(content) {
@@ -72,43 +105,45 @@ export class AssignPromotionsComponent implements OnInit {
 
             this.closeResult = `Closed with: ${result}`;
             if (this.submitType === "Save") {
-                this.new = JSON.stringify({ name: this.assignpromotion.name, description: this.assignpromotion.description });
-                this.globalService.addModel(this.new, "/api/assignpromotion")
+
+                for(var i=0;i<this.property.length;i++){
+                    this.properties.push(this.property[i].id);
+                }
+                this.globalService.updateModel(this.id_promotion, {properties: this.properties}, "/api/promotion/properties")
                     .then((result) => {
                         console.log(result);
-                        if (result['status']) {
+                        if (result['status']) {      
+                            this.allInmuebles();
+                            this.allPromotionFill();
+                            this.property = [];
+                            this.id_promotion = '';
                             //Para que actualice la lista una vez que es creado el promotion
-                            this.globalService.getModel("/api/assignpromotion")
-                                .then((result) => {
-                                    console.log(result);
-                                    this.promotions = result['data'];
-                                }, (err) => {
-                                    console.log(err);
-                                });
+                            
                         }
 
                     }, (err) => {
                         console.log(err);
                     });
-            } else {
-                this.globalService.updateModel(this.assignpromotion.id, this.assignpromotion, "/api/assignpromotion")
-                    .then((result) => {
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es editado el promotion
-                            this.globalService.getModel("/api/assignpromotion")
-                                .then((result) => {
-                                    console.log(result);
-                                    this.promotions = result['data'];
-                                }, (err) => {
-                                    console.log(err);
-                                });
-                        }
+            } 
+            // else {
+            //     this.globalService.updateModel(this.assignpromotion.id, this.assignpromotion, "/api/assignpromotion")
+            //         .then((result) => {
+            //             if (result['status']) {
+            //                 //Para que actualice la lista una vez que es editado el promotion
+            //                 this.globalService.getModel("/api/assignpromotion")
+            //                     .then((result) => {
+            //                         console.log(result);
+            //                         this.promotions = result['data'];
+            //                     }, (err) => {
+            //                         console.log(err);
+            //                     });
+            //             }
 
-                    }, (err) => {
-                        console.log(err);
-                    });
+            //         }, (err) => {
+            //             console.log(err);
+            //         });
 
-            }
+            // }
             // Hide Usuario entry section.
             this.showNew = false;
         }, (reason) => {
