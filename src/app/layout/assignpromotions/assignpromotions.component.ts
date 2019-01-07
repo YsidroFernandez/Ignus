@@ -14,9 +14,20 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class AssignPromotionsComponent implements OnInit {
     closeResult: string;
-    assignpromotions: any = [];
+    promotions: any = [];
     assignpromotion: any = [];
+
+
+    inmuebles: any = [];
     new: any;
+
+    public test: any = {
+        id:'',
+        properties:[{
+            id: ''
+        }]
+
+    }
     itemObjectsLeft: any[] = [
         { id: 1, name: 'Windstorm' },
         { id: 2, name: 'Bombasto' },
@@ -45,21 +56,35 @@ export class AssignPromotionsComponent implements OnInit {
         this.new = [];
 
     }
-
+    
     ngOnInit() {
         this.show();        
-        this.allAsigPromotion();
+        this.allPromotion();
+        this.allInmuebles();
     }
 
-    allAsigPromotion(){
-        this.globalService.getModel("api/promotion").then((result) => {
-                console.log(result);
-                this.assignpromotions = [];
-                this.assignpromotions = result['data'];
-                console.log(this.assignpromotions);
+    promotionChanged ($event){
+        console.log($event);
+    }
+
+    allPromotion(){
+        this.globalService.getModel("/api/promotion").then((result) => {         
+                this.promotions = [];
+                this.promotions = result['data'];
+                console.log(this.promotions);
             }, (err) => {
                 console.log(err);
-            });
+            });           
+    }
+
+    allInmuebles(){
+        this.globalService.getModel("/api/property").then((result) => {         
+                this.inmuebles = [];
+                this.inmuebles = result['data'];
+                console.log(this.inmuebles);
+            }, (err) => {
+                console.log(err);
+            });           
     }
 
     open(content) {
@@ -76,7 +101,7 @@ export class AssignPromotionsComponent implements OnInit {
                             this.globalService.getModel("/api/assignpromotion")
                                 .then((result) => {
                                     console.log(result);
-                                    this.assignpromotions = result['data'];
+                                    this.promotions = result['data'];
                                 }, (err) => {
                                     console.log(err);
                                 });
@@ -93,7 +118,7 @@ export class AssignPromotionsComponent implements OnInit {
                             this.globalService.getModel("/api/assignpromotion")
                                 .then((result) => {
                                     console.log(result);
-                                    this.assignpromotions = result['data'];
+                                    this.promotions = result['data'];
                                 }, (err) => {
                                     console.log(err);
                                 });
@@ -132,7 +157,7 @@ export class AssignPromotionsComponent implements OnInit {
     onEdit(index: number) {
         this.submitType = 'Update';
         this.selectedRow = index;
-        this.assignpromotion = Object.assign({}, this.assignpromotions[this.selectedRow]);
+        this.assignpromotion = Object.assign({}, this.promotions[this.selectedRow]);
         this.showNew = true;
     }
 
@@ -140,7 +165,7 @@ export class AssignPromotionsComponent implements OnInit {
     onDelete(index: number) {
         console.log('eliminando');
         this.selectedRow = index;
-        this.assignpromotion = Object.assign({}, this.assignpromotions[this.selectedRow]);
+        this.assignpromotion = Object.assign({}, this.promotions[this.selectedRow]);
         this.showNew = true;
         //Pendiente
         if (confirm('¿Estas seguro de eliminar esta promotion?')) {
@@ -152,7 +177,7 @@ export class AssignPromotionsComponent implements OnInit {
                         this.globalService.getModel("/api/assignpromotion")
                             .then((result) => {
                                 console.log(result);
-                                this.assignpromotions = result['data'];
+                                this.promotions = result['data'];
                             }, (err) => {
                                 console.log(err);
                             });
