@@ -35,17 +35,12 @@ export class ClientComponent implements OnInit {
   submitType: string = "Save";
   selectedRow: number;
   disabled: boolean;
-  data = {
-    state: "",
-    municipality: "",
-    parish: ""
-  };
-  ngxValue: any = [];
-    ngxDisabled = false;
-    ngxStates: any = [];
+  
+    //Arreglo para la seleccion del sexo en editar cliente
     gender = [
       {id: 1, name: 'Masculino'},
       {id: 2, name: 'Femenino'}  ];
+    
    
   constructor(
     private modalService: NgbModal,
@@ -104,7 +99,6 @@ export class ClientComponent implements OnInit {
   }
 
   loadparish(municipality) {
-    console.log("muni ", municipality);
     this.globalService.getModel(`/api/municipality/parish/${municipality}`)
       .then(
         result => {
@@ -121,8 +115,8 @@ export class ClientComponent implements OnInit {
   apiAction() {
     //metodo para realizar una accion ya sea crear, editar
       //declaracion que permite enviar el nuevo json ya sea para crear o editar
-      // this.new = JSON.stringify({ birthDate:this.client.birthDate, firstName: this.client.name, lastName: this.client.lastName, bankName: this.client.bankName, bankAccount: this.client.bankAccount, gender:this.client.gender ,states: this.ngxStates });
-    console.log(this.client.userId);
+      // this.new = JSON.stringify({ birthDate:this.client.birthDate, firstName: this.client.name, lastName: this.client.lastName, bankName: this.client.bankName, bankAccount: this.client.bankAccount, gender:this.defaultOption, });
+    console.log(this.client);
     this.globalService.updateModel(this.client.userId, this.client, "/api/client")
       .then(
         result => {
@@ -155,9 +149,8 @@ export class ClientComponent implements OnInit {
     this.modalTemplate = content;
     this.modalName = action;
     this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
-    this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
+    this.selectedRow = index; 
     this.client = Object.assign({}, this.customers[this.selectedRow]); //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-      console.log(this.submitType);
       
     if (action == 'show') {
       //si la accion es ver, desabilita los campos del modal

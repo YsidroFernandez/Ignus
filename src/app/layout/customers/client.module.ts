@@ -8,15 +8,13 @@ import { ClientComponent } from './client.component';
 import { PageHeaderModule } from '../../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
-import { NgxSelectModule} from 'ngx-select-ex';
 
 @NgModule({
     imports: [CommonModule, ClientRoutingModule,
        PageHeaderModule,
        Ng4LoadingSpinnerModule.forRoot(),
        FontAwesomeModule, NgbModule.forRoot(),
-        FormsModule, ReactiveFormsModule,
-        NgxSelectModule],
+        FormsModule, ReactiveFormsModule],
     declarations: [ClientComponent],
     providers: [
     NgbActiveModal,
