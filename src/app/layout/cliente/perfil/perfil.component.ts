@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,11 @@ export class PerfilComponent implements OnInit {
     perfil: any;
     perfiles: any;
     nuevo: any;
+    requirements:any;
+  activities:any;
+  employee:any;
+  transaction:any;
+  test:any;
 
     states = []
     municipalities = []
@@ -37,29 +42,44 @@ export class PerfilComponent implements OnInit {
     birthDate: "",
     phoneNumber: "",
     gender:1,
-    state: "",
     TypeServiceId: "",
     parish: "",
     municipality: "",
     }
 
     typeservice: any;
-    client:any;
+    public client :any = [];
+    public state:any = [];
 
   constructor(public globalService: GlobalService) {
 
 this.nuevo = [];
 this.typeservice = [];
 
-this.globalService.getModel("/api/client").then((result)=>{
-  console.log(result);
-      this.client=result['data'];
-      console.log(this.client);
-},(err) => {
-  console.log(err);
 
-}
-);
+  const userId = JSON.parse(localStorage.user).id;
+      console.log(userId);
+    this.globalService.getModel_Id(userId, '/api/client')
+    .then((result) => {
+      console.log(result);
+
+
+       this.client = result['data'];
+       this.state = result['data']['state'];
+       this.requirements = result['data']['requirements'];
+       this.activities = result['data']['activities'];
+       this.employee = result['data']['employee'];
+
+      //this.transaction = result['data'];
+      //console.log(this.transaction);
+
+
+  console.log(this.client.firstName);
+
+    }, (err) => {
+      console.log(err);
+      // this.loader.dismiss();
+    });
 
 
 this.globalService.getModel("/api/typeService").then((result) => {
@@ -133,7 +153,8 @@ console.log("result",this.nuevo);
                     console.log(result);
                     if (result['status']) {
                         //Para que actualice la lista
-                            console.log(result);
+                            console.log
+(result);
                     }
 
                 }, (err) => {
