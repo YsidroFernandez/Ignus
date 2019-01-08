@@ -64,6 +64,7 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
     this.new = JSON.stringify({identification : this.employee.identification ,firstName: this.employee.firstName,lastName: this.employee.lastName ,gender: this.employee.gender, username: this.employee.username});
     if (this.submitType === "create") {
+        console.log(this.new);
         //metodo que perimite enviar por post un nuevo empleado
         this.globalService.addModel(this.new, "/api/user/employee")
             .then((result) => {
@@ -80,7 +81,7 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
 
     } else {
         //metodo que perimite enviar por put una actualizaciòn de un servicio
-        this.globalService.updateModel(this.employee.id, this.new, "/api/employee")
+        this.globalService.updateModel(this.employee.userId, this.new, "/api/employee")
             .then((result) => {
                 if (result['status']) {
                     //Para que actualice la lista una vez que es editado el service
