@@ -113,19 +113,10 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
     this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
     this.employee = Object.assign({}, this.employes[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
 
-    if (index != -1) { //el caso index -1 es cuando se solicita crear, ver html
-
-
-        // for (let i in this.service.activities) {//ciclo necesario para mostar actividades
-        //     this.ngxActivities.push(this.service.activities[i].id);
-        // }
-        // for (let i in this.service.requirements) {//ciclo necesario para mostar requerimientos
-        //     this.ngxRequirements.push(this.service.requirements[i].id);
-        // }
-    }
 
     if (action == 'show') {//si la accion es ver, desabilita los campos del modal
         this.disabled = true;
+        this.showView = false;
         this.modalIcon = "fa fa-close"
 
 
@@ -139,7 +130,8 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
         } else
             if (action == 'edit') {//si la accion es distinta de ver los campos del modal quedaran activados
                 this.disabled = false;
-                this.modalIcon = "fa fa-edit"
+                this.modalIcon = "fa fa-edit";
+                this.showView = false;
             }
 
 }
