@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Contratos'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
 
-        <div class="card-header" style="text-align: -webkit-center;">Contratos Registrados</div>
+        <div class="card-header" style="text-align: -webkit-center;">Contratos aqui Registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -134,7 +134,7 @@
                     <select name="nombreCli" [(ngModel)]="contract.client.firstName" (ngModelChange)="clientChanged($event)"
                         class="form-control">
                         <option *ngFor="let listClient of clients" [value]="listClient.id">
-                            {{listClient.firstName}}
+                            {{listClient.firstName}} {{listClient.lastName}}
                         </option>
                     </select>
                 </div>
@@ -146,7 +146,7 @@
                     <select name="nombreAgent" [(ngModel)]="contract.agent.firstName" (ngModelChange)="agentChanged($event)"
                         class="form-control">
                         <option *ngFor="let listAgente of employees" [value]="listAgente.id">
-                            {{listAgente.firstName}}
+                            {{listAgente.firstName}} {{listAgente.lastName}}
                         </option>
                     </select>
                 </div>

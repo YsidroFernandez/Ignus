@@ -41,7 +41,8 @@
                                     </div>
                                     <div class="col col-sm-3">
                                         <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
+                                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Buscar"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -88,8 +89,6 @@
                                             <b><label>Ubicacion</label></b>
                                         </div>
                                     </div>
-
-
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Estado</label>
@@ -177,8 +176,6 @@
                                             <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
                                                 (click)="limpiar()">Limpiar</button>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
@@ -191,16 +188,58 @@
         <tab tab2 heading="Cita" id="second" select="!disableSwitching && second.active = true" #second (click)="habilitar=true"
             [disabled]="false">
             <div class="row">
-                <div class="col col-sm-6">
-                    <div class="form-group"><label class="ng-tns-c12-9" for="employe">Empleados</label>
-                        <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud2.employee">
-                            <option *ngFor="let emp of employes" [value]="emp.id">{{emp.firstName}} {{emp.lastName}}</option>
-                        </select>
+                <div class="form-group col-md-4">
+                    <label class="ng-tns-c12-9" for="employe">Empleados</label>
+                    <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud2.employee">
+                        <option *ngFor="let emp of employes" [value]="emp.id">{{emp.firstName}} {{emp.lastName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-8">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4" style="text-align: center;">
+                    <div class="btn-group ">
+                        <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                            (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                            Anterior
+                        </div>
+                        <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
+                            Hoy
+                        </div>
+                        <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                            (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                            Siguiente
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4" style="text-align: center;">
+                    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+                </div>
+                <div class="col-md-4">
+                    <div class="alert alert-info">
+                        Click on a day on the view.
+                        <strong *ngIf="clickedDate">You clicked on this day: {{ clickedDate | date:'medium' }}</strong>
                     </div>
                 </div>
             </div>
+            <div [ngSwitch]="view">
+                <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh" [events]="events"
+                    (eventTimesChanged)="eventTimesChanged($event)"
+                    (dayClicked)="dayClicked($event.day)">
+                </mwl-calendar-month-view>               
+            </div>           
         </tab>
     </tabset>
-
-
 </div>
