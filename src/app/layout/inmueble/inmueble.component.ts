@@ -7,6 +7,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {faPlus} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -63,13 +64,14 @@ this.tipSelect= 4;
     faEye = faEye;
     faEdit = faEdit;
     faTrash = faTrash;
+    faPlus= faPlus;
 
     msg = '';
 
     Inmuebles:Inmueble[] = [
-    { id:1, tipo:"casa", nombre:"blanca", descripcion:"tiene 3 cuartos, 2 baños,cocina  empotrada... ",ubicacion:"caracas",precio:1000},
-    { id:2, tipo:"Edificio", nombre:'gemelo', descripcion:"tiene 30 pisos, 15 habitaciones,2 acensores...",ubicacion:"barquisimeto",precio:2000},
-    { id:3, tipo:"terreno", nombre:"rocafelex", descripcion:"tiene 900 mts2... ",ubicacion:"zulia",precio:3000},
+    { transaccion:"Venta",id:1, tipo:"casa", nombre:"blanca", descripcion:"tiene 3 cuartos, 2 baños,cocina  empotrada... ",ubicacion:"caracas",precio:1000},
+    { transaccion: "Alquiler",id:2, tipo:"Edificio", nombre:'gemelo', descripcion:"tiene 30 pisos, 15 habitaciones,2 acensores...",ubicacion:"barquisimeto",precio:2000},
+    { transaccion: "Venta", id:3, tipo:"terreno", nombre:"rocafelex", descripcion:"tiene 900 mts2... ",ubicacion:"zulia",precio:3000},
     ];
 
     selectedInmueble: Inmueble = new Inmueble();
@@ -95,12 +97,14 @@ this.tipSelect= 4;
 
       }
 
-       delete(index: number) {
+      /* delete(index: number) {
        if(confirm('¿Estas seguro de eliminar este Inmueble?')){
         this.Inmuebles.splice(index, 1);
         this.msg = 'Campo Eliminado Exitosamente';
       }
-      }
+      }*/
+
+
       closeAlert(): void{
       this.msg = '';
       }
