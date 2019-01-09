@@ -60,10 +60,10 @@
             <tr
               *ngFor="let item of customers; let i = index"
             >
-              <td>{{ item.identification }}</td>
-              <td>{{ item.firstName }}</td>
-              <td>{{ item.lastName }}</td>
-              <td>{{ item.gender }}</td>
+              <td>{{ item.person.identification }}</td>
+              <td>{{ item.person.firstName }}</td>
+              <td>{{ item.person.lastName }}</td>
+              <td>{{ item.person.gender }}</td>
               <td>
                 <div class="row ">
             <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
@@ -118,7 +118,7 @@
                     <label for="tipos">Identificación</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.identification"
+                      [(ngModel)]="client.person.identification"
                       class="form-control"
                     />
                   </div>
@@ -128,7 +128,7 @@
                     <label for="tipos">Fecha de Nacimiento</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.birthDate"
+                      [(ngModel)]="client.person.birthDate"
                       class="form-control"
                     />
                   </div>
@@ -140,7 +140,7 @@
                     <label for="tipos">Nombre</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.firstName"
+                      [(ngModel)]="client.person.firstName"
                       class="form-control"
                     />
                   </div>
@@ -150,7 +150,7 @@
                     <label for="nombre">Apellidos</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.lastName"
+                      [(ngModel)]="client.person.lastName"
                       class="form-control"
                     />
                   </div>
@@ -162,7 +162,7 @@
                     <label for="tipos">Banco</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.bankName"
+                      [(ngModel)]="client.person.bankName"
                       class="form-control"
                     />
                   </div>
@@ -172,7 +172,7 @@
                     <label for="nombre">Cuenta Bancaria</label>
                     <input
                       type="text"
-                      [(ngModel)]="client.bankAccount"
+                      [(ngModel)]="client.person.bankAccount"
                       class="form-control"
                     />
                   </div>
@@ -185,12 +185,12 @@
                     <select
                       class="form-control"
                       name="gender"
-                      [(ngModel)]="client.gender"                      
+                      [(ngModel)]="client.person.gender"                      
                     >
                       <option
                         *ngFor="let sex of gender"
                         [ngValue]="sex.name"
-                        [selected]="client.gender"
+                        [selected]="client.person.gender"
                         >{{ sex.name }}</option
                       >
                     </select>
@@ -222,13 +222,13 @@
                     <select
                       class="form-control"
                       name="municipality"
-                      [(ngModel)]="client.state.municipality.name"
-                      (change)="loadparish(client.state.municipality.id)"  
+                      [(ngModel)]="client.municipality.id"
+                      (change)="loadparish(client.municipality.id)"  
                     >
                       <option
                         *ngFor="let mun of municipalities"
                         [ngValue]="mun.id"
-                        [selected]="client.state.municipality.name"
+                        [selected]="client.municipality.name"
                         >{{ mun.name }}</option
                       >
                     </select>
@@ -241,12 +241,12 @@
                     <select
                       class="form-control"
                       name="parish"
-                      [(ngModel)]="client.state.municipality.parish.name"
+                      [(ngModel)]="client.parish.name"
                     >
                       <option
                         *ngFor="let parish of parishes"
                         [ngValue]="parish.id"
-                        [selected]="client.state.municipality.parish.name"
+                        [selected]="client.parish.name"
                         >{{ parish.name }}</option
                       >
                     </select>
