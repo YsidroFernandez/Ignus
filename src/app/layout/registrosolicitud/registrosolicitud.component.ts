@@ -230,12 +230,31 @@ export class RegistroSolicitudComponent implements OnInit {
     modalContent: TemplateRef<any>;
 
     loadSpecifications(type){
+        console.log(this.typeSpecifications)
+        document.getElementById("tabspecification").setAttribute("style","")
         this.typeSpecifications = [];
 
         this.globalService.getModel(`/api/typeProperty/specification/${type}`).then((result) => {
             if (result['status']) {
+                
+                
                 //Para que actualice la lista una vez que es creado el recaudo
-                this.typeSpecifications = result['data'];
+                for ( var d in result['data']){
+                    var check = [];
+                    var number = [];
+                    for(var esp in result['data'][d].specifications){
+                        var especification = result['data'][d].specifications[esp]
+                        if(especification.typeInput=="number"){
+                            number.push(especification)
+                        }
+                        if(especification.typeInput=="checkbox"){
+                            check.push(especification)
+                        }
+                        
+                    }
+                    result['data'][d].specifications = {number: number,check: check}
+                }
+                this.typeSpecifications = result['data']
             }
         }, (err) => {
             console.log(err);
