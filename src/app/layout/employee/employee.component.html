@@ -1,199 +1,266 @@
 <div [@routerTransition]>
-        <app-page-header [heading]="'Empleados'" [icon]="'fa-edit'"></app-page-header>
-        <div class="container">
-          <div class="card-header" style="text-align: -webkit-center;">
-            Empleados Registrados
-          </div>
-          <div class="card mb-3">
-            <div class="row mb-3">
-              <div class="col col-sm-4" style="position: relative; top: 15px;">
-                <label
-                  >Mostrar
-                  <select
-                    name="DataTables_Table_0_length"
-                    aria-controls="DataTables_Table_0"
-                    class=""
-                  >
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select>
-                  entradas</label
-                >
-              </div>
-              <div class="col col-sm-4" style="position: relative; top: 15px;">
-                <div class="input-group">
-                  <input
-                    class="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Buscar..."
-                    aria-label="Search"
-                  />
-                  <span class="input-group-btn">
-                    <button
-                      style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
-                    >
-                      <i
-                        style="color: white"
-                        class="fa fa-search"
-                        aria-hidden="true"
-                      ></i>
-                    </button>
-                  </span>
-                </div>
-                
-              </div>
-              <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-            </div>
-            <div class="card-body  table-responsive">
-              <table class="card-body table table-hover">
-                <thead>
-                  <tr>
-                    <th>Identificación</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Sexo</th>
-                    <th colspan="4">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    *ngFor="let item of employes; let i = index"
-                  >
-                    <td>{{ item.identification }}</td>
-                    <td>{{ item.firstName }}</td>
-                    <td>{{ item.lastName }}</td>
-                    <td>{{ item.gender }}</td>
-                    <td>
-                      <div class="row ">
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="open(content,'show', i)">
-                      <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="open(content,'edit', i)">
-                      <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                  </button>
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="onDelete(i)">
-                      <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                  </button>
-                      </div>
-              </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="row mb-3">
-              <div class="col col-sm-8"></div>
-              <div
-                class="col col-sm-4 text-right"
-                style="position: relative; top: 15px; "
+  <app-page-header [heading]="'Empleados'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center;">
+      Empleados Registrados
+    </div>
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <label
+            >Mostrar
+            <select
+              name="DataTables_Table_0_length"
+              aria-controls="DataTables_Table_0"
+              class=""
+            >
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            entradas</label
+          >
+        </div>
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <div class="input-group">
+            <input
+              class="form-control mr-sm-2"
+              type="text"
+              placeholder="Buscar..."
+              aria-label="Search"
+            />
+            <span class="input-group-btn">
+              <button
+                style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
               >
-                <ngb-pagination
-                  [collectionSize]="70"
-                  [(page)]="defaultPagination"
-                  style="position: relative; right: 100px;"
-                ></ngb-pagination>
-              </div>
-            </div>
-            <ng-template #content let-c="close" let-d="dismiss">
-              <div class="modal-header">
-                <h4 class="modal-title ">{{modalTitle}}</h4>
-                <button
-                  type="button"
-                  class="close"
-                  aria-label="Close"
-                  (click)="d('Cross click')"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <fieldset [disabled]="disabled">
-                <div class="card mb-3">
-                  <div class="modal-body">
-                    <div class="row mb-3">
-                      <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Identificación</label>
-                          <input
-                            type="text"
-                            [(ngModel)]="employee.identification"
-                            class="form-control"
-                          />
-                        </div>
-                      </div>
-                      <div class="col col-sm-6">
-                            <div class="form-group">
-                              <label for="tipos">Nombre</label>
-                              <input
-                                type="text"
-                                [(ngModel)]="employee.firstName"
-                                class="form-control"
-                              />
-                            </div>
-                          </div>
-                    </div>
-                    <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                    <div class="form-group">
-                                      <label for="nombre">Apellidos</label>
-                                      <input
-                                        type="text"
-                                        [(ngModel)]="employee.lastName"
-                                        class="form-control"
-                                      />
-                                    </div>
-                                  </div>
-                      <div class="col col-sm-6">
-                            <div class="form-group">
-                              <label for="tipos">Sexo</label>
-                              <select
-                                class="form-control"
-                                name="gender"
-                                [(ngModel)]="employee.gender"                      
-                              >
-                                <option
-                                  *ngFor="let sex of gender"
-                                  [ngValue]="sex.name"
-                                  [selected]="employee.gender"
-                                  >{{ sex.name }}</option
-                                >
-                              </select>
-                            </div>
-                          </div>
-                    </div>
-                    <div *ngIf="showView" class="row mb-3">
-                             <div class="col col-sm-6">
-                                <div class="form-group">
-                                  <label for="nombre">Username</label>
-                                      <input
-                                        type="text"
-                                        [(ngModel)]="employee.username"
-                                        class="form-control"
-                                      />
-                                    </div>
-                            </div>
-                    </div>
-                  </div>
-                </div>
-              </fieldset>
-              <div class="modal-footer">
-                  <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                          style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                          data-placement="top" title="Cancelar"></i></button>
-                  <div *ngIf="submitType!='show'">
-                      <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                          (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
-                              data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
-                  </div>
-              </div>
-            </ng-template>
+                <i
+                  style="color: white"
+                  class="fa fa-search"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            </span>
           </div>
         </div>
+        <div class="col col-sm-4 text-right">
+          <button
+            style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content, 'create', -1)"
+          >
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
-      
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th>Identificación</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Sexo</th>
+              <th colspan="4">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of employes; let i = index">
+              <td>{{ item.person.identification }}</td>
+              <td>{{ item.person.firstName }}</td>
+              <td>{{ item.person.lastName }}</td>
+              <td>{{ item.person.gender }}</td>
+              <td>
+                <div class="row ">
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="open(content, 'show', i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-search"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="open(content, 'edit', i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-edit"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="onDelete(i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-trash"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mb-3">
+        <div class="col col-sm-8"></div>
+        <div
+          class="col col-sm-4 text-right"
+          style="position: relative; top: 15px; "
+        >
+          <ngb-pagination
+            [collectionSize]="70"
+            [(page)]="defaultPagination"
+            style="position: relative; right: 100px;"
+          ></ngb-pagination>
+        </div>
+      </div>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title ">{{ modalTitle }}</h4>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="d('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <fieldset [disabled]="disabled">
+          <div class="card mb-3">
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Identificación</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="employee.identification"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Nombre</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="employee.firstName"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="nombre">Apellidos</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="employee.lastName"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Sexo</label>
+                    <select
+                      class="form-control"
+                      name="gender"
+                      [(ngModel)]="employee.gender"
+                    >
+                      <option
+                        *ngFor="let sex of gender"
+                        [ngValue]="sex.name"
+                        [selected]="employee.gender"
+                        >{{ sex.name }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+
+               
+              </div>
+              
+              <div  class="row mb-3">
+                <div *ngIf="showView"class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="nombre">Username</label>
+                    <input
+                      type="email"
+                      [(ngModel)]="employee.username"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Roles</label>
+                    <ngx-select
+                      [multiple]="true"
+                      [items]="role"
+                      optionValueField="id"
+                      optionTextField="name"
+                      [disabled]="ngxDisabled"
+                      [(ngModel)]="ngxRole"
+                      placeholder="Seleccione los roles"
+                      
+                    >
+                    </ngx-select>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="modal-footer">
+          <button
+            style="border-radius: 20px"
+            type="button"
+            class="btn btn-danger"
+            (click)="d('Cross click')"
+          >
+            <i
+              style="color: white"
+              class="fa fa-close"
+              aria-hidden="true"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Cancelar"
+            ></i>
+          </button>
+          <div *ngIf="submitType != 'show'">
+            <button
+              style="background: #1AB394; border-radius: 20px"
+              type="button"
+              class="btn btn-success"
+              (click)="c('Close click')"
+            >
+              <i
+                style="color: white"
+                class="{{ modalIcon }}"
+                aria-hidden="true"
+                data-toggle="tooltip"
+                data-placement="top"
+                title="Editar"
+              ></i>
+            </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

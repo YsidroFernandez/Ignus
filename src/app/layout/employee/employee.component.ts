@@ -19,6 +19,7 @@ export class EmployeeComponent implements OnInit {
   modalTemplate: any;
   employes: any;
   employee: any;
+  role: any;
   new: any;
   showView:Boolean = false;
   // It maintains employes form display status. By default it will be false.
@@ -32,7 +33,7 @@ export class EmployeeComponent implements OnInit {
   gender = [
     {id: 1, name: 'Masculino'},
     {id: 2, name: 'Femenino'}  ];
-  
+    ngxRole: any = [];
 
   constructor(
     private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
@@ -52,17 +53,27 @@ export class EmployeeComponent implements OnInit {
         console.log(err);
     });
    }
+   getListRole(){
+    this.globalService.getModel("/api/role")
+    .then((result) => {
+        console.log(result);
+        this.role = result['data'];
+        console.log(this.role);
+    }, (err) => {
+        console.log(err);
+    });
+   }
 
    
 ngOnInit() {
     this.getListEmployees();
-   
+    this.getListRole();
 }
 
 apiAction() { //metodo para realizar una accion ya sea crear, editar
 
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
-    this.new = JSON.stringify({identification : this.employee.identification ,firstName: this.employee.firstName,lastName: this.employee.lastName ,gender: this.employee.gender, username: this.employee.username});
+    this.new = JSON.stringify({identification : this.employee.identification ,firstName: this.employee.firstName,lastName: this.employee.lastName ,gender: this.employee.gender, username: this.employee.username, roles: this.ngxRole});
     if (this.submitType === "create") {
         console.log(this.new);
         //metodo que perimite enviar por post un nuevo empleado
@@ -106,12 +117,28 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
     //==============================================================================
-
+    console.log(action)
+    this.ngxRole=[];
+    this.employee=[];
+    this.disabled=false;
     this.modalTemplate = content;
     this.modalName = action;
-    this.submitType = action;// variable que nos permite saber que accion podemos ejecutar ejemplo editar
-    this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
-    this.employee = Object.assign({}, this.employes[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    this.submitType = action;    // variable que nos permite saber que accion podemos ejecutar ejemplo editar
+    this.selectedRow = index;    //aca se toma el indice de el servicio seleccionado
+   
+    
+    if (index != -1) { //el caso index -1 es cuando se solicita crear, ver html
+        this.employee = Object.assign({}, this.employes[this.selectedRow].person);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+        this.employee.username=this.employes[this.selectedRow].user.username;
+        for (let i in this.employes[this.selectedRow].roles) {//ciclo necesario para mostrar roles
+            this.ngxRole.push(this.employes[this.selectedRow].roles[i].id);
+             
+        }
+        console.log(this.ngxRole)
+    }
+
+
+
 
 
     if (action == 'show') {//si la accion es ver, desabilita los campos del modal
@@ -152,7 +179,7 @@ private getDismissReason(reason: any): string {
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
-    this.employee = Object.assign({}, this.employes[this.selectedRow]);
+    this.employee = Object.assign({}, this.employes[this.selectedRow].person);
     this.showNew = true;
 
 

@@ -115,9 +115,9 @@ export class ClientComponent implements OnInit {
   apiAction() {
     //metodo para realizar una accion ya sea crear, editar
       //declaracion que permite enviar el nuevo json ya sea para crear o editar
-      // this.new = JSON.stringify({ birthDate:this.client.birthDate, firstName: this.client.name, lastName: this.client.lastName, bankName: this.client.bankName, bankAccount: this.client.bankAccount, gender:this.defaultOption, });
-    console.log(this.client);
-    this.globalService.updateModel(this.client.userId, this.client, "/api/client")
+    this.new = JSON.stringify({ identification :this.client.person.identification, firstName: this.client.person.firstName, lastName: this.client.person.lastName, bankName: this.client.person.bankName, bankAccount: this.client.person.bankAccount, gender:this.client.person.gender, parish_id: this.client.parish.name  });
+    console.log(this.new);
+    this.globalService.updateModel(this.client.user.id, this.new, "/api/client")
       .then(
         result => {
           if (result["status"]) {
@@ -151,7 +151,8 @@ export class ClientComponent implements OnInit {
     this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
     this.selectedRow = index; 
     this.client = Object.assign({}, this.customers[this.selectedRow]); //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-      
+    this.loadmunicipality(this.client.state.id);
+    this.loadparish(this.client.municipality.id);
     if (action == 'show') {
       //si la accion es ver, desabilita los campos del modal
       this.disabled = true;
@@ -180,6 +181,7 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     this.loadListClient();
     this.loadStates();
+    
   }
   
   // This method associate to Delete Button.
