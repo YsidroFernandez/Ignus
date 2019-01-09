@@ -164,9 +164,6 @@ export class ServicesComponent implements OnInit {
         if (action == 'show') {//si la accion es ver, desabilita los campos del modal
             this.disabled = true;
             this.modalIcon = "fa fa-close"
-
-
-
         }
         else
             if (action == 'create') {//si la accion es distinta de ver los campos del modal quedaran activados
