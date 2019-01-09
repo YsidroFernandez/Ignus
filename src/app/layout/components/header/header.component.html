@@ -19,78 +19,23 @@
                 </a>
             </li> &nbsp;
 
-             <li class="nav-item dropdown" ngbDropdown>
-                <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
-                    <i class="fa fa-envelope"></i> <b class="caret"></b><span class="sr-only">(current)</span>
-                </a>
-                <ul class="dropdown-menu-right messages" ngbDropdownMenu>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="assets/images/avatar-mini-3.jpg"
-                        >
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Ayer a las 4:32 PM</p>
-                            <p class="last"> Buenos tardes quisiera solicitar un inmueble con vista al mar</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="assets/images/avatar-mini-2.jpg"
-                        >
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Sara Perez</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> hoy a las 1:32 PM</p>
-                            <p class="last">Buenas que informacion me tienen con respecto a casas de 3 pisos </p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                           src="assets/images/avatar-mini-4.jpg"
-                        />
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Carlos Rodriguez</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Ayer a las 9:32 aM</p>
-                            <p class="last">Buenas como puedo contactar a Sara Smith</p>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+             
             <li class="nav-item dropdown" ngbDropdown>
-                <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
-                    <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
+                 <a class="notification nav-link" href="javascript:void(0)" ngbDropdownToggle>
+                    <span class="badge">4</span> <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                 <ul class="dropdown-menu-right messages" ngbDropdownMenu>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="assets/images/avatar-mini-3.jpg"
+                    <li *ngFor="let item of notifications" class="media">
+                        <img class="d-flex align-self-center mr-3" width="40px" height="40px" 
+                            src="{{item.urlImage}}"
                         >
                         <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Ayer a las 4:32 PM</p>
-                            <p class="last"> Solicitar cita</p>
+                            <h5 class="mt-0 mb-1">{{item.type}}</h5>
+                            <p class="small text-muted"><i class="fa fa-clock-o"></i> {{item.date}}</p>
+                            <p class="last">{{item.text}}</p>
                         </div>
                     </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                            src="assets/images/avatar-mini-2.jpg"
-                        >
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Sara Perez</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> hoy a las 1:32 PM</p>
-                            <p class="last">Solicitar inmueble</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3"
-                           src="assets/images/avatar-mini-4.jpg"
-                        />
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">Carlos Rodriguez</h5>
-                            <p class="small text-muted"><i class="fa fa-clock-o"></i> Ayer a las 9:32 aM</p>
-                            <p class="last"> Reserva de inmueble</p>
-                        </div>
-                    </li>
+                    
                 </ul>
             </li>
 
@@ -115,7 +60,7 @@
                     </a>
                 </div>
             </li>-->
-            <li class="nav-item dropdown" ngbDropdown>
+            <!-- <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-language"></i> {{ 'Language' | translate }} <b class="caret"></b>
                 </a>
@@ -145,7 +90,7 @@
                         {{ 'Chinese' | translate }}
                     </a>
                 </div>
-            </li>
+            </li> -->
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <span class="photo"><img src="assets/images/avatar1.jpg" width="35px" height="30px" />  Sara Smith <b class="caret"></b></span>
@@ -167,7 +112,7 @@
             </li>
              <li>
                <div  style="padding: 0px 15px"></div> 
-                >
+                
             </li>
         </ul>
     </div>

@@ -9,7 +9,6 @@ import { PageHeaderModule } from '../../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
-
 @NgModule({
     imports: [CommonModule, ClientRoutingModule,
        PageHeaderModule,
