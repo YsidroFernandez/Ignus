@@ -1,10 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { solicitud, actions, calendariocita, colors } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
@@ -72,25 +67,25 @@ export class RegistroSolicitudComponent implements OnInit {
     activeDayIsOpen: boolean = true;
     excludeDays: number[] = [0, 6];
     viewDate: Date = new Date();
-
+    listspecification: any[]
     events: any = [
         {
             start: startOfDay('2019/01/04'),
             title: 'jajajaaj',
             turno: 'AM',
-            color: colors.red
+            color: this.colors.red
         },
         {
             start: startOfDay('2019/01/04'),
             title: 'test2',
             turno: 'PM',
-            color: colors.yellow
+            color: this.colors.yellow
         },
         {
             start: startOfDay('2019/01/08'),
             title: 'otros',
             turno: 'AM',
-            color: colors.yellow
+            color: this.colors.yellow
         }
     ];
 
@@ -330,11 +325,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         start: startOfDay(this.test.fecha),
                         title: 'jajajaaj',
                         turno: 'AM',
-                        color: colors.red,
-                        resizable: {
-                            beforeStart: true,
-                            afterEnd: true
-                        }
+                        color: this.colors.red,
                     });           
                     this.hideChildModal();
                     this.refresh.next();
@@ -365,11 +356,7 @@ export class RegistroSolicitudComponent implements OnInit {
                             start: startOfDay(this.test.fecha),
                             title: 'jajajaaj',
                             turno: 'PM',
-                            color: colors.red,
-                            resizable: {
-                                beforeStart: true,
-                                afterEnd: true
-                            }
+                            color: this.colors.red,
                         });                      
                         this.hideChildModal();
                         this.refresh.next();
@@ -393,4 +380,14 @@ export class RegistroSolicitudComponent implements OnInit {
     hideChildModal(): void {
         this.childModal.hide();
     }
+/*
+    agregar(data: any) {
+          this.listspecification.push(data.id);
+          console.log(data)
+      }
+    
+      quitar(data) {
+        this.listspecification = this.listspecification.filter(s => s !== data);
+        console.log(this.listspecification);
+      }*/
 }
