@@ -1,4 +1,5 @@
 export class Inmueble{
+    transaccion :string;
     id: number = 0;
     tipo: string;
     nombre: string;
