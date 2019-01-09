@@ -1,6 +1,41 @@
 <div [@routerTransition]>
+
         <app-page-header [heading]="'Valoracion'" [icon]="'fa-edit'"></app-page-header>
 
-  
+        <div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
 
-</div>
+        <div class="container">
+
+
+                <div class="row mb-3" *ngFor="let item of valorations; let i=index">
+                        <div class="col col-sm-6">
+                                <label for="descripcion"><B>{{item.name}}</B></label>
+                        </div>
+
+                </div>
+
+
+
+
+                <div class="row mb-3">
+                        <div class="col col-sm-12">
+                                <div class="form-group">
+                                        <label for="tipos">Observaciones</label>
+                                        <input type="textarea" class="form-control" />
+                                </div>
+                        </div>
+                </div>
+                <hr>
+                <div>
+                        <div class="row">
+                                <div class="col-6">
+                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                                                (click)="limpiar()">Limpiar</button>
+                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                                                (click)="enviar()">Enviar Valoracion</button>
+                                </div>
+
+                        </div>
+
+                </div>
+        </div>
