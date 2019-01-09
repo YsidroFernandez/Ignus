@@ -49,7 +49,7 @@
 
                         <tabset id="tabspecification" style="display:none">
                             <tab *ngFor="let te of typeSpecifications" [heading]="te.name" [id]="te.id">
-                                
+
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-4" *ngFor="let esp of te.specifications.number"
                                         [id]="esp.id">
@@ -57,7 +57,7 @@
                                             <label class="ng-tns-c12-9" [for]="esp.name">{{esp.name}}: </label>
                                             <input [type]="esp.typeInput" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
                                         </div>
-                                        
+
                                     </div>
 
                                 </div>
@@ -68,48 +68,49 @@
                                             <label class="ng-tns-c12-9" [for]="esp.name">{{esp.name}}: </label>
                                             <input type="checkbox" [name]="esp.name" [(ngModel)]="esp.quantity">
                                         </div>
-                                    </div>    
+                                    </div>
                                 </div>
 
 
                             </tab>
-                        <tab heading="Ubicacion" id="u">
+                            <tab heading="Ubicacion" id="u">
                                 <div class="row">
-                                        <div class="col col-sm-12">
-                                            <div class="row">
-                                                <div class="col col-sm-8">
-                                                    <div class="form-group">
-                                                        <b><label>Ubicacion</label></b>
-                                                    </div>
+                                    <div class="col col-sm-12">
+                                        <div class="row">
+                                            <div class="col col-sm-8">
+                                                <div class="form-group">
+                                                    <b><label>Ubicacion</label></b>
                                                 </div>
-                                                <div class="col col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="tipos">Estado</label>
-                                                        <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
-                                                            #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
-                                                            <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
-                                                        </select>
-                                                    </div>
+                                            </div>
+                                            <div class="col col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="tipos">Estado</label>
+                                                    <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
+                                                        #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
+                                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                                    </select>
                                                 </div>
-                                                <div class="col col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="municipality">Municipios</label>
-                                                        <select class="form-control" name="municipality" id="municipality"
-                                                            [(ngModel)]="solicitud.municipality" #municipality="ngModel" (change)="loadparish(solicitud.municipality)">
-                                                            <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
-                                                        </select>
-                                                    </div>
+                                            </div>
+                                            <div class="col col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="municipality">Municipios</label>
+                                                    <select class="form-control" name="municipality" id="municipality"
+                                                        [(ngModel)]="solicitud.municipality" #municipality="ngModel"
+                                                        (change)="loadparish(solicitud.municipality)">
+                                                        <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                                    </select>
                                                 </div>
-            
-                                                <div class="col col-sm-6">
-                                                    <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
-                                                        <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
-                                                            required>
-                                                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
-                                                        </select>
-                                                    </div>
+                                            </div>
+
+                                            <div class="col col-sm-6">
+                                                <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                                                    <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
+                                                        required>
+                                                        <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                                                    </select>
                                                 </div>
-                                                <!--
+                                            </div>
+                                            <!--
                                       <div class="col col-sm-6">
                                       <div class="form-group">
                                           <label for="pais">Pais</label>
@@ -139,16 +140,16 @@
                                           </select>
                                       </div>
                                   </div> -->
-                                                <div class="col col-sm-12">
-                                                    <label class="ng-tns-c12-9" for="referencia">Referencia</label>
-                                                    <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" id="referencia"
-                                                        required style="width: 700px; height: 200px; "></textarea>
-                                                </div>
+                                            <div class="col col-sm-12">
+                                                <label class="ng-tns-c12-9" for="referencia">Referencia</label>
+                                                <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text"
+                                                    id="referencia" required style="width: 700px; height: 200px; "></textarea>
                                             </div>
                                         </div>
                                     </div>
-                        </tab>
-                        <tab heading="Descripcion" id="descripcion">
+                                </div>
+                            </tab>
+                            <tab heading="Descripcion" id="descripcion">
                                 <div class="row">
                                     <div class="col col-sm-12">
                                         <div class="form-group">
@@ -175,7 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                </tab>
+                            </tab>
                         </tabset>
 
                     </div>
@@ -202,7 +203,7 @@
                 <div class="col-md-4" style="text-align: center;">
                     <div class="btn-group ">
                         <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                            (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                            (viewDateChange)="activeDayIsOpen = false"  style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
                             Anterior
                         </div>
                         <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
@@ -224,13 +225,13 @@
                 <div class="col-md-4" style="text-align: center;">
                     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
                 </div>
-                <div class="col-md-4">                   
+                <div class="col-md-4">
                 </div>
             </div>
             <div [ngSwitch]="view">
                 <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-                    [events]="events" (dayClicked)="dayClicked($event.day)">
-                </mwl-calendar-month-view>
+                    [events]="events" (dayClicked)="dayClicked($event.day)" (beforeViewRender)="beforeMonthViewRender($event)">
+                </mwl-calendar-month-view>                
             </div>
         </tab>
     </tabset>
@@ -249,19 +250,21 @@
             <div class="modal-body" style="text-align: center;">
                 <div class="btn-group" role="group" aria-label="Basic example">
                     <div class="form-check">
-                        <input [disabled]="dispAM"  (change)="turnoAsignadoAM($event)"  class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <input [disabled]="dispAM" (change)="turnoAsignadoAM($event)" class="form-check-input" type="checkbox"
+                            value="" id="defaultCheck1">
                         <label class="form-check-label" for="defaultCheck1" style="padding-right: 35px;">
                             Mañana
                         </label>
                     </div>
                     <div class="form-check">
-                        <input [disabled]="dispPM" (change)="turnoAsignadoPM($event)" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                        <input [disabled]="dispPM" (change)="turnoAsignadoPM($event)" class="form-check-input" type="checkbox"
+                            value="" id="defaultCheck2">
                         <label class="form-check-label" for="defaultCheck2">
                             Tarde
                         </label>
                     </div>
                 </div>
-            </div>           
+            </div>
         </div>
     </div>
 </div>

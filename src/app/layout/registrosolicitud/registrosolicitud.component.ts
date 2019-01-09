@@ -9,7 +9,7 @@ import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { startOfDay,subMonths,  startOfMonth, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { startOfDay,subMonths,addMonths, startOfWeek, subWeeks, startOfMonth,endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { routerTransition } from '../../router.animations';
 import * as datepicker from 'ngx-bootstrap/datepicker';
 import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
@@ -19,7 +19,39 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
-  
+
+type CalendarPeriod = 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths
+  }[period](date, amount);
+}
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth
+  }[period](date);
+}  
 @Component({
     selector: 'app-registrosolicitud',
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,22 +82,14 @@ export class RegistroSolicitudComponent implements OnInit {
             secondary: '#FDF1BA'
         }
     };
+    minDate: Date;    
 
-    minDate: Date = subMonths(new Date(), 1);
     prevBtnDisabled: boolean = false;
     nextBtnDisabled: boolean = false;
 
-
-    // disableSwitching: boolean;
-    // @ViewChild('tabset', { read: ElementRef }) tabsetEl: ElementRef;
-    // @ViewChild('tabset') tabset: TabsetComponent;
-    // @ViewChild('first') first: TabDirective;
-    // @ViewChild('second') second: TabDirective;
-
     @ViewChild('childModal') childModal: ModalDirective;
   
-    view: CalendarView = CalendarView.Month;
-    // CalendarView = CalendarView;
+    view: CalendarPeriod = 'month';
 
     refresh: Subject<any> = new Subject();   
     locale: string = 'es';
@@ -129,15 +153,15 @@ export class RegistroSolicitudComponent implements OnInit {
     submitType: string = 'Save';
     selectedRow: number;
 
-
     constructor(private modalService: NgbModal,
         public globalService: GlobalService,
         private coolDialogs: NgxCoolDialogsService) {
-
+        this.dateOrViewChanged();
     }
 
     ngOnInit() {
 
+        this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
         this.globalService.getModel(`/api/state/`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
@@ -386,11 +410,58 @@ export class RegistroSolicitudComponent implements OnInit {
 
             }
     }
-
     showChildModal(): void {
         this.childModal.show();
     }
     hideChildModal(): void {
         this.childModal.hide();
     }
+
+    // increment(): void {
+    //     this.changeDate(addPeriod(this.view, this.viewDate, 1));
+    //   }
+    
+    //   decrement(): void {
+    //     this.changeDate(subPeriod(this.view, this.viewDate, 1));
+    //   }
+    
+      today(): void {
+        this.changeDate(new Date());
+      }
+    
+      dateIsValid(date: Date): boolean {
+        return date >= this.minDate;
+      }
+    
+      changeDate(date: Date): void {
+        this.viewDate = date;
+        this.dateOrViewChanged();
+      }
+    
+    
+      changeView(view: CalendarPeriod): void {
+        this.view = view;
+        this.dateOrViewChanged();
+      }
+    
+      dateOrViewChanged(): void {
+        this.prevBtnDisabled = !this.dateIsValid(
+          endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+        );
+        this.nextBtnDisabled = !this.dateIsValid(
+          startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+        );
+        if (this.viewDate < this.minDate) {
+          this.changeDate(this.minDate);
+        }
+      }
+    
+      beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+        body.forEach(day => {
+          if (!this.dateIsValid(day.date)) {
+            day.cssClass = 'cal-disabled';
+          }
+        });
+      }
+
 }
