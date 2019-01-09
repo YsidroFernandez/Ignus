@@ -70,12 +70,13 @@ export class AgencyComponent implements OnInit {
       console.log(this.disabled);
     } else if (this.btnEdit == "Guardar") {
       console.log(this.agency);
-
       const uploadData = new FormData();
+      if(this.selectedFile!=null){
       uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
+      }
       uploadData.append("agency", JSON.stringify(this.agency));
-
-      this.globalService
+      
+        this.globalService
         .updateModel(this.agency.id, uploadData, "/api/agency", this.globalService.getHeaderClear())
         .then(
           result => {
@@ -90,6 +91,8 @@ export class AgencyComponent implements OnInit {
             //this.loader.dismiss();
           }
         );
+      
+      
     }
   }
 }
