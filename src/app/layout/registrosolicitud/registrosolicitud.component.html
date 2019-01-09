@@ -11,18 +11,7 @@
                                 <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group"><label class="ng-tns-c12-9" for="fechapreferencial">Fecha
-                                Preferencial</label>
-                            <!--<input name="fechapreferencial" formControlName="fechareferencial" type="text" class="form-control"
-                                  placeholder="Hoy" [bsConfig]="datePickerConfig" bsDatepicker autocomplete="off" required
-                                  [(ngModel)]="solicitud.wishDate">-->
-                            <input name="firmDate" [(ngModel)]="solicitud.wishDate" name="firmDate" [bsConfig]="datePickerConfig"
-                                type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker
-                                autocomplete="off" required>
-                        </div>
-                    </div>
+                    </div>                   
                 </div>
                 <br>
                 <div class="row mb-3">
@@ -50,8 +39,8 @@
                             <div class="col col-sm-6">
                                 <div class="form-group">
                                     <label for="typeproperty">tipo de inmueble</label>
-                                    <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud2.typeproperty"
-                                        #typeproperty="ngModel" (change)="loadSpecifications(solicitud2.typeproperty)">
+                                    <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud.typeproperty"
+                                        #typeproperty="ngModel" (change)="loadSpecifications(solicitud.typeproperty)">
                                         <option *ngFor="let tp of typeProperties" [value]="tp.id">{{tp.name}}</option>
                                     </select>
                                 </div>
@@ -92,8 +81,8 @@
                                     <div class="col col-sm-6">
                                         <div class="form-group">
                                             <label for="tipos">Estado</label>
-                                            <select class="form-control" name="state" id="state" [(ngModel)]="solicitud2.state"
-                                                #estado="ngModel" (change)="loadmunicipality(solicitud2.state)">
+                                            <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
+                                                #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
                                                 <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
                                             </select>
                                         </div>
@@ -102,7 +91,7 @@
                                         <div class="form-group">
                                             <label for="municipality">Municipios</label>
                                             <select class="form-control" name="municipality" id="municipality"
-                                                [(ngModel)]="solicitud2.municipality" #municipality="ngModel" (change)="loadparish(solicitud2.municipality)">
+                                                [(ngModel)]="solicitud.municipality" #municipality="ngModel" (change)="loadparish(solicitud.municipality)">
                                                 <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
                                             </select>
                                         </div>
@@ -110,7 +99,7 @@
 
                                     <div class="col col-sm-6">
                                         <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
-                                            <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud2.parish"
+                                            <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
                                                 required>
                                                 <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
                                             </select>
@@ -159,7 +148,7 @@
                                 <div class="form-group">
                                     <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
                                     <textarea id="description" class="form-control ng-untouched ng-pristine ng-valid"
-                                        type="text" [(ngModel)]="solicitud2.description" #description="ngModel"
+                                        type="text" [(ngModel)]="solicitud.description" #description="ngModel"
                                         required style="width: 700px; height: 200px; "></textarea>
                                 </div>
                             </div>
@@ -185,12 +174,11 @@
             </div>
         </tab>
 
-        <tab tab2 heading="Cita" id="second" select="!disableSwitching && second.active = true" #second (click)="habilitar=true"
-            [disabled]="false">
+        <tab tab2 heading="Cita" id="second" #second [disabled]="false">
             <div class="row">
                 <div class="form-group col-md-4">
                     <label class="ng-tns-c12-9" for="employe">Empleados</label>
-                    <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud2.employee">
+                    <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud.employee">
                         <option *ngFor="let emp of employes" [value]="emp.id">{{emp.firstName}} {{emp.lastName}}
                         </option>
                     </select>
@@ -227,19 +215,44 @@
                 <div class="col-md-4" style="text-align: center;">
                     <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
                 </div>
-                <div class="col-md-4">
-                    <div class="alert alert-info">
-                        Click on a day on the view.
-                        <strong *ngIf="clickedDate">You clicked on this day: {{ clickedDate | date:'medium' }}</strong>
-                    </div>
+                <div class="col-md-4">                   
                 </div>
             </div>
             <div [ngSwitch]="view">
-                <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh" [events]="events"
-                    (eventTimesChanged)="eventTimesChanged($event)"
-                    (dayClicked)="dayClicked($event.day)">
-                </mwl-calendar-month-view>               
-            </div>           
+                <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
+                    [events]="events"(dayClicked)="dayClicked($event.day)">
+                </mwl-calendar-month-view>
+            </div>
         </tab>
     </tabset>
+</div>
+
+
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 id="dialog-child-name" class="modal-title pull-left">Seleccione un turno disponible</h6>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <div class="form-check">
+                        <input [disabled]="dispAM"  (change)="turnoAsignadoAM($event)"  class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1" style="padding-right: 35px;">
+                            Mañana
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input [disabled]="dispPM" (change)="turnoAsignadoPM($event)" class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                        <label class="form-check-label" for="defaultCheck2">
+                            Tarde
+                        </label>
+                    </div>
+                </div>
+            </div>           
+        </div>
+    </div>
 </div>
