@@ -10,8 +10,8 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
-  animations: [routerTransition()],
+  styleUrls: ['./contact.component.scss'],
+  animations: [routerTransition()]
 }) 
 export class ContactComponent implements OnInit {
 
