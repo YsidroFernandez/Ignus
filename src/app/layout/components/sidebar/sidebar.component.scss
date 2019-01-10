@@ -22,17 +22,18 @@ $topnav-background-color: white;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     // border-top: 1px solid rgba(255,255,255,0.3);
+    font:'Monaco';
     .list-group {
         a.list-group-item {
             background: $topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #93948e;
+            color: #555555;
             text-decoration: none;
-            font-size:14px;
+            font-size:13px;
             font-family:'Helvetica','Verdana','Monaco',sans-serif;
             .fa {
-                margin-right: 10px;
+                margin-top: 2px;
             }
         }
         a:hover {
@@ -139,9 +140,8 @@ color: white;
 
 }
 
-
 .nav-item{
-background-image: url(assets/images/fondo4.png);
+background-image: url('/assets/images/fondo4.png');
 }
 
 .logo {
@@ -174,7 +174,7 @@ background-color:#1FB5AD;
             height: auto;
             li {
                 a {
-                    color: #fff;
+                    color: grey;
                     padding: 20px;
                     display: block;
                 }
@@ -221,7 +221,7 @@ background-color:#1FB5AD;
     bottom: 0;
     color: #93948e;
     background: white;
-    font-size:14px;
+    font-size:13px;
     i {
         font-size: 23px;
     }

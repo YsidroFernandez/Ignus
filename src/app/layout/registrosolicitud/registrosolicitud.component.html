@@ -1,4 +1,4 @@
-<div [@routerTransition]>
+ <div [@routerTransition]>
     <app-page-header [heading]="'Solicitud de Servicio'" [icon]="'fa-edit'"></app-page-header>
     <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
     <tabset #tabset>
@@ -74,6 +74,7 @@
                                         </label>
                                     </div>
                                 </div>
+<<<<<<< HEAD
                             </div>
                         </tab>
                         <tab heading="Ubicacion" id="u">
@@ -83,6 +84,28 @@
                                         <div class="col col-sm-8">
                                             <div class="form-group">
                                                 <b><label>Ubicacion</label></b>
+=======
+    
+    
+                            </tab>
+                            <tab heading="Ubicacion" id="u">
+                                <div class="row">
+                                    <div class="col col-sm-12">
+                                        <div class="row">
+                                            <div class="col col-sm-8">
+                                                <div class="form-group">
+                                                    <b><label>Ubicacion</label></b>
+                                                 </div>
+                                            </div>
+                                            <div class="col col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="tipos">Estado</label>
+                                                    <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
+                                                        #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
+                                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                                    </select>
+                                                </div>
+>>>>>>> 50b2111a342dd45d2c460689c09d6d5c77d6c022
                                             </div>
                                         </div>
                                         <div class="col col-sm-6">

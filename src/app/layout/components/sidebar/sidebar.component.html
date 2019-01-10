@@ -4,6 +4,7 @@
 >
   <div class="list-group">
     <!-- ++++++++++++++++Menu Json con diversas iteraciones+++++++++++++ -->
+   <div style="margin-top: 5px "> 
 
     <li class="nav-item dropdown" ngbDropdown>
                 <div href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
@@ -24,6 +25,7 @@
                     </a>
                 </div>
             </li>
+      </div>
     
     <div *ngFor="let item of menu; let i = index" class="nested-menu">
       <a
@@ -90,12 +92,12 @@
    
 
   </div>
-  <div
+  <!--<div
     class="toggle-button"
     [ngClass]="{ collapsed: collapsed }"
     (click)="toggleCollapsed()"
   >
     <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
     <span>{{ "Collapse Sidebar" | translate }}</span>
-  </div>
+  </div>-->
 </nav>

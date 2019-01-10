@@ -2,11 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { Router, NavigationEnd } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { GlobalService } from "../../../providers/global.service";
-
+import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  styleUrls: ["./header.component.scss"],
+  providers: [NgbDropdownConfig]
 })
 export class HeaderComponent implements OnInit {
   pushRightClass: string = "push-right";
@@ -15,8 +16,11 @@ export class HeaderComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     public router: Router,
-    public globalService: GlobalService
+    public globalService: GlobalService,
+    public config: NgbDropdownConfig
   ) {
+    config.placement = 'bottom-right';
+    config.autoClose = false;
     this.translate.addLangs([
       "en",
       "fr",
@@ -73,7 +77,7 @@ export class HeaderComponent implements OnInit {
           
         }
       );
-    }, 5000);
+    }, 10000);
   }
 
   getNotifications() {
