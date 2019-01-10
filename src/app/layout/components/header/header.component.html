@@ -21,9 +21,10 @@
 
              
             <li class="nav-item dropdown" ngbDropdown>
-                 <a class="notification nav-link" href="javascript:void(0)" ngbDropdownToggle>
-                    <span class="badge">4</span> <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
+                 <a class="notification nav-link" (click)="getNotifications()" href="javascript:void(0)" ngbDropdownToggle>
+                    <span *ngIf="checkNotification!=null"class="badge">{{checkNotification.cantNewNotifications}}</span> <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
+                      
                 <ul class="dropdown-menu-right messages" ngbDropdownMenu>
                     <li *ngFor="let item of notifications" class="media">
                         <img class="d-flex align-self-center mr-3" width="40px" height="40px" 
@@ -35,62 +36,13 @@
                             <p class="last">{{item.text}}</p>
                         </div>
                     </li>
-                    
+                    <li *ngIf="notifications==null" >
+                        <img class="" width="250px" height="80px" 
+                        src="assets/images/loadergif.gif">
+                    </li>
                 </ul>
             </li>
 
-
-           <!-- <li class="nav-item dropdown" ngbDropdown>
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
-                </a>
-                <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'Tarea' | translate }} <span class="badge badge-info">6</span>
-                    </a>
-                    <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'In queue' | translate }} <span class="badge badge-info"> 13</span>
-                    </a>
-                    <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'Mail' | translate }} <span class="badge badge-info"> 45</span>
-                    </a>
-                    <li class="dropdown-divider"></li>
-                    <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'View All' | translate }}
-                    </a>
-                </div>
-            </li>-->
-            <!-- <li class="nav-item dropdown" ngbDropdown>
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-language"></i> {{ 'Language' | translate }} <b class="caret"></b>
-                </a>
-                <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">
-                        {{ 'English' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('fr')">
-                        {{ 'French' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('ur')">
-                        {{ 'Urdu' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('es')">
-                        {{ 'Spanish' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('it')">
-                        {{ 'Italian' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('fa')">
-                        {{ 'Farsi' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('de')">
-                        {{ 'German' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('zh-CHS')">
-                        {{ 'Chinese' | translate }}
-                    </a>
-                </div>
-            </li> -->
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <span class="photo"><img src="assets/images/avatar1.jpg" width="35px" height="30px" />  Sara Smith <b class="caret"></b></span>
