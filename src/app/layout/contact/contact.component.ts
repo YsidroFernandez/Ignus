@@ -15,7 +15,7 @@ import * as moment from 'moment';
 }) 
 export class ContactComponent implements OnInit {
 
-	closeResult: string;
+    closeResult: string;
     contacto: any;
     nuevo: any;
 

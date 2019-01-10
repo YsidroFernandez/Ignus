@@ -1,8 +1,27 @@
-h3 {
-  margin: 0 0 10px;
+.btn-register {
+  float: right;
+  position: relative;
+  bottom: 0px;
+  right: 10px;
 }
 
-pre {
-  background-color: #f5f5f5;
-  padding: 15px;
+// .btn-ignus,.active{
+//     color: #fff;
+//     background-color: #17A185;
+//     border-color: #AEAEAE;
+// }
+
+// .btn-ignusgris{
+//     color: #fff;
+//     background-color: #AEAEAE;
+//     border-color: #AEAEAE;
+// }
+
+.cal-disabled {
+  background-color: #eee;
+  pointer-events: none;
+}
+
+.cal-disabled .cal-day-number {
+  opacity: 0.1;
 }
