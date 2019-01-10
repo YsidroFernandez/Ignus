@@ -25,7 +25,7 @@
                     <span *ngIf="checkNotification!=null"class="badge">{{checkNotification.cantNewNotifications}}</span> <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
                       
-                <ul class="dropdown-menu-right messages" ngbDropdownMenu>
+                <ul class="dropdown-menu messages" ngbDropdownMenu>
                     <li *ngFor="let item of notifications" class="media">
                         <img class="d-flex align-self-center mr-3" width="40px" height="40px" 
                             src="{{item.urlImage}}"
