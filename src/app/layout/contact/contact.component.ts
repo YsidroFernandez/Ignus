@@ -10,38 +10,36 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
-  animations: [routerTransition()],
+  styleUrls: ['./contact.component.scss'],
+  animations: [routerTransition()]
 }) 
 export class ContactComponent implements OnInit {
 
     closeResult: string;
-    contacto: any;
+    contacts: any;
     nuevo: any;
-
+    new : any;
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
-
-contacto = {
-    name: "",
-    typeContactId: 1,
-    subjectId: 5,
-    description: "",
-}
 
 typeContact: any=[];
 descripcion: any;
 subjectArray: any=[];
 TypeContactId: 0;
 SubjectId: 0;
-
+contact: any;
  constructor(
     private modalService: NgbModal, public globalService: GlobalService) {
       
     let now = moment().format();
-      this.contacts = [];
-      this.contact = [];
+      this.contact = {
+          id: '',
+        name: '',
+        typeContactId: 1,
+        subjectId: 5,
+        description: ""
+      };
       this.new = [];
     this.typeContact = []; 
     this.subjectArray = []; 
@@ -77,7 +75,7 @@ this.globalService.getModel("/api/subject").then((result) => {
         this.closeResult = `Closed with: ${result}`;
         if (this.submitType === "Save") {
             this.new = JSON.stringify({name: this.contact.name , 
-                TypeContactId: Number.parseInt(this.contacto.typeContactId),
+                TypeContactId: Number.parseInt(this.contact.typeContactId),
                 SubjectId: Number.parseInt(this.contact.subjectId),
                 description:this.contact.description});
             this.globalService.addModel(this.new,"/api/contact")
@@ -87,8 +85,9 @@ this.globalService.getModel("/api/subject").then((result) => {
                     //Para que actualice la lista una vez que es creado el promotion
                     this.globalService.getModel("/api/contact")
                         .then((result) => {
-                            console.log(result);
+                            
                             this.contacts = result['data'];
+                            
                         }, (err) => {
                             console.log(err);
                         });
@@ -138,15 +137,17 @@ show() {
 }
 
   ngOnInit() {
+      
    this.show(); 
    this.allContact();
   }
 
 allContact(){
+    
     this.globalService.getModel("/api/contact")
     .then((result) => {
-        console.log(result);
-        this.contacts = result['data'];
+    
+        this.contacts = JSON.parse(result['data']);
         console.log(this.contacts);
     }, (err) => {
         console.log(err);
