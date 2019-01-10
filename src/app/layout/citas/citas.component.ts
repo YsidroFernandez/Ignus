@@ -1,190 +1,183 @@
-import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
-import { routerTransition } from '../../router.animations';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
-import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK } from 'angular-calendar';
-import { Subject } from 'rxjs';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { calendariocita, actions,colors } from '../../../environments/environment';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { solicitud, actions, calendariocita, colors } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { startOfDay, subMonths, addMonths, startOfWeek, subWeeks, startOfMonth, endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { routerTransition } from '../../router.animations';
 import * as datepicker from 'ngx-bootstrap/datepicker';
+import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
+import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+
+
+
+type CalendarPeriod = 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths
+  }[period](date, amount);
+}
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth
+  }[period](date);
+}
 
 @Component({
   selector: 'app-citas',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './citas.component.html',
   styleUrls: ['./citas.component.scss'],
   animations: [routerTransition()],
   providers: [GlobalsProvider]
 })
-export class CitasComponent implements OnInit {
+export class CitasComponent implements OnInit { 
 
-  @ViewChild('modalContent')
-  modalContent: TemplateRef<any>;
-  datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
-  public numPage: number;
-  public pages = 1;
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
-  viewDate: Date = new Date();
+  @ViewChild('childModal') childModal: ModalDirective;
+
+  view: CalendarPeriod = 'month';
+  refresh: Subject<any> = new Subject();
   locale: string = 'es';
-  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
-  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
-  cita:any;
-  citas:any;
-  nuevo: any;
-  // It maintains recaudos form display status. By default it will be false.
-  showNew: Boolean = false;
-  // It will be either 'Save' or 'Update' based on operation.
+  activeDayIsOpen: boolean = true;
+  excludeDays: number[] = [0, 6];
+  viewDate: Date = new Date();
+  public minDate: Date;
+  prevBtnDisabled: boolean = false;
+  nextBtnDisabled: boolean = false;
+  modalRef: BsModalRef;
+  message: string;  
+  closeResult: string; 
   submitType: string = 'Save';
   selectedRow: number;
+  user : any;
 
-  actions: CalendarEventAction[] = [
+  colors: any = {
+    red: {
+      primary: '#ad2121',
+      secondary: '#FAE3E3'
+    },
+    blue: {
+      primary: '#1e90ff',
+      secondary: '#D1E8FF'
+    },
+    yellow: {
+      primary: '#e3bc08',
+      secondary: '#FDF1BA'
+    }
+  }; 
+
+  events: any = [
     {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Editado', event);
-      }
+      start: startOfDay('2019/01/04'),
+      title: 'jajajaaj',
+      turno: 'AM',
+      color: colors.red
     },
     {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Borrado', event);
-      }
+      start: startOfDay('2019/01/04'),
+      title: 'test2',
+      turno: 'PM',
+      color: colors.yellow
+    },
+    {
+      start: startOfDay('2019/01/08'),
+      title: 'otros',
+      turno: 'AM',
+      color: colors.yellow
     }
   ];
+  
 
-  refresh: Subject<any> = new Subject();
-  events: CalendarEvent[] = calendariocita
-  activeDayIsOpen: boolean = true;
-  closeResult: string;
-  msg = '';
-
-  constructor(private modal: NgbModal,  private globals: GlobalsProvider, public globalService: GlobalService) {
-
-    this.datePickerConfig = Object.assign({},
-      { containerClass: 'theme-dark-blue' },
-      { showWeekNumbers: false },
-      { dateInputFormat: 'DD/MM/YYYY' },
-      { locale: 'es' });
-  }
-
-  open(content) {
-    this.modal.open(content).result.then((result) => {
-    this.closeResult = `Closed with: ${result}`;
-   }
-, (reason) => {
-    this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-});
-}
-
-  private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
-    }
-
-  delete(index: number) {
-       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.cita.splice(index, 1);
-        this.msg = 'Campo Eliminado Exitosamente';
-      }
-      }
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.viewDate = date;
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-    }
-  }
-
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd
-  }: CalendarEventTimesChangedEvent): void {
-    event.start = newStart;
-    event.end = newEnd;
-    this.handleEvent('Dropped or resized', event);
-    this.refresh.next();
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    calendariocita.push({
-      title: "this.nuevacita.title",
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true,
-      emailclient: "this.nuevacita.email",
-      emailagent: "this.nuevacita.agent"
-     });
-    this.refresh.next();
+  constructor(
+    private modalService: NgbModal,
+    public globalService: GlobalService,
+    private coolDialogs: NgxCoolDialogsService) {
+    this.dateOrViewChanged();
   }
 
   ngOnInit() {
-    this.numPage = this.globals.numPage;     
+   this.user =  JSON.parse(localStorage.getItem('user')); 
+   console.log(this.user);
   }
 
-  // faEye = faEye;
-  // faEdit = faEdit;
-  // faTrash = faTrash;
+  dayClicked({ date, events }: { date: Date; events: any[] }): void {
+   
+  }
 
-  onDelete(index: number) {
-    console.log('eliminando');
-    this.selectedRow = index;
-    this.cita = Object.assign({}, this.citas[this.selectedRow]);
-    this.showNew = true;
-    //Pendiente
-    if(confirm('¿Estas seguro de eliminar esta cita?')){
-        this.globalService.removeModel(this.cita.id, "/api/requirement")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado la cita
-                        this.globalService.getModel("/api/requirement")
-                            .then((result) => {
-                                console.log(result);
-                                this.citas= result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
-                    }
+  showChildModal(): void {
+    this.childModal.show();
+  }
 
-                }, (err) => {
-                    console.log(err);
-                });
-        }
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
 
-}
+  today(): void {
+    this.changeDate(new Date());
+  }
 
+  dateIsValid(date: Date): boolean {
+    return date >= this.minDate;
+  }
+
+  changeDate(date: Date): void {
+    this.viewDate = date;
+    this.dateOrViewChanged();
+  }
+
+  changeView(view: CalendarPeriod): void {
+    this.view = view;
+    this.dateOrViewChanged();
+  }
+
+  dateOrViewChanged(): void {
+    this.prevBtnDisabled = !this.dateIsValid(
+      endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+    );
+    this.nextBtnDisabled = !this.dateIsValid(
+      startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+    );
+    if (this.viewDate < this.minDate) {
+      this.changeDate(this.minDate);
+    }
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach(day => {
+      if (!this.dateIsValid(day.date)) {
+        day.cssClass = 'cal-disabled';
+      }
+    });
+  }
 }
