@@ -20,6 +20,7 @@ export class InmuebleComponent implements OnInit {
   faTrash = faTrash;
   immovables: any;
   property: any;
+  typeService: any;
   new: any;
   modalTitle: string = "Cliente";
   modalIcon: string = "fa fa-close";
@@ -51,8 +52,22 @@ export class InmuebleComponent implements OnInit {
     );
   }
 
+  getTypesServices(){
+    this.globalService.getModel("/api/typeService").then(
+      result => {
+        console.log(result);
+        this.typeService = result["data"];
+        console.log(this.typeService);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   ngOnInit() {
     this.getListProperty();
+    this.getTypesServices();
   }
 
   apiAction() {

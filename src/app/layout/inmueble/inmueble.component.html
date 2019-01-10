@@ -135,17 +135,27 @@
                       <label for="tipos">Type Service</label>
                       <select
                         class="form-control"
-                        name="gender"
-                        [(ngModel)]="property.TypeService.name"                      
+                        name="TypeService"
+                        [(ngModel)]="property.TypeService.id"                      
                       >
                         <option
-                          *ngFor="let item of property.TypeService"
+                          *ngFor="let item of typeService"
                           [ngValue]="item.id"
-                          [selected]="property.TypeService.name"
-                          >{{ sex.name }}</option
+                          [selected]="property.TypeService.id"
+                          >{{ item.name }}</option
                         >
                       </select>
                     </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Propietario</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="property.owner[0].firstName"
+                      class="form-control"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
