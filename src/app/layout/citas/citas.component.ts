@@ -1,19 +1,55 @@
-import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
+import {Component,OnInit,ChangeDetectionStrategy,ViewChild,TemplateRef, ViewEncapsulation, ElementRef} from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,DAYS_OF_WEEK } from 'angular-calendar';
+import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { calendariocita, actions,colors } from '../../../environments/environment';
+import { startOfDay,subMonths,addMonths, startOfWeek, subWeeks, startOfMonth,endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
-import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
+
+type CalendarPeriod = 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths
+  }[period](date, amount);
+}
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth
+  }[period](date);
+}  
 
 @Component({
   selector: 'app-citas',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './citas.component.html',
   styleUrls: ['./citas.component.scss'],
   animations: [routerTransition()],
@@ -64,7 +100,7 @@ export class CitasComponent implements OnInit {
   ];
 
   refresh: Subject<any> = new Subject();
-  events: CalendarEvent[] = calendariocita
+  events: CalendarEvent[] = []
   activeDayIsOpen: boolean = true;
   closeResult: string;
   msg = '';
@@ -132,23 +168,6 @@ export class CitasComponent implements OnInit {
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    calendariocita.push({
-      title: "this.nuevacita.title",
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true,
-      emailclient: "this.nuevacita.email",
-      emailagent: "this.nuevacita.agent"
-     });
-    this.refresh.next();
   }
 
   ngOnInit() {
