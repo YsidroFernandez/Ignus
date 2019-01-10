@@ -116,24 +116,6 @@ export class RegistroSolicitudComponent implements OnInit {
         turno: ''
     }   
     closeResult: string;
-
-    public solicitud: any = {
-        ClientId: JSON.parse(localStorage.user).id,
-        employeeId: '',
-        wishDate: '',
-        turn: '',
-        typeProperty: '',
-        TypeServiceId: '',
-        TypeRequestId: 3,
-        state: '',
-        municipality: '',
-        parish: '',
-        reference: '',
-        description: '',
-        typeSpecifications: [],
-        
-
-    };
     
     public solicitudes: any;
     public nuevo: any;
@@ -143,10 +125,25 @@ export class RegistroSolicitudComponent implements OnInit {
     public parishes = [];
 
     public typeService: any;
-    public typeSpecifications: any = [];
     public typeProperties = [];
     public typeProperty: any;
 
+    public solicitud: any = {
+        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: '',
+        wishDate: '',
+        turn: '',
+        typeProperty: '',
+        TypeServiceId: '',
+        TypeRequestId: 3,
+        state: '',
+        municipality: '',
+        parish: '',
+        direction: '',
+        description: '',
+        typeSpecifications: [],
+    };
+    
     submitType: string = 'Save';
     selectedRow: number;
 
@@ -200,27 +197,14 @@ export class RegistroSolicitudComponent implements OnInit {
             console.log(err);
         });
 
-        this.globalService.getModel("/api/typeSpecification").then((result) => {
-            if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.typeSpecifications = 0;
-                this.typeSpecifications = result['data'];
-                console.log(this.typeSpecifications);
-            }
-        }, (err) => {
-            console.log(err);
-        });
     }  
 
     loadSpecifications(type){
-        console.log(this.typeSpecifications)
         document.getElementById("tabspecification").setAttribute("style","")
-        this.typeSpecifications = [];
-
+        this.solicitud.typeSpecifications = [];
         this.globalService.getModel(`/api/typeProperty/specification/${type}`).then((result) => {
-            if (result['status']) {
-                
-                this.typeSpecifications = result['data']
+            if (result['status']) {        
+                this.solicitud.typeSpecifications = result['data']
                 }
                 
         }, (err) => {
@@ -245,7 +229,6 @@ export class RegistroSolicitudComponent implements OnInit {
     }
 
     loadparish(municipality) {
-        console.log("muni ", municipality)
         this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
@@ -260,12 +243,19 @@ export class RegistroSolicitudComponent implements OnInit {
 
     // This method associate to New Button.
     enviar() {
-        this.nuevo = [];
+        this.nuevo = {};
         this.nuevo = {
-            ClientId: this.solicitud.ClientId,
-            TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
-            wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
-            TypeRequestId: this.solicitud.TypeRequestId
+            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: Number.parseInt(this.solicitud.employeeId),
+        wishDate: this.solicitud.wishDate,
+        turn: this.solicitud.turn,
+        typeProperty: Number.parseInt(this.solicitud.typeProperty),
+        TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
+        TypeRequestId: this.solicitud.TypeRequestId,
+        parish: Number.parseInt(this.solicitud.parish),
+        direction: this.solicitud.direction,
+        description: this.solicitud.description,
+        typeSpecifications: this.solicitud.typeSpecifications
         };
         console.log("result", this.nuevo);
         this.globalService.addModel(this.nuevo, "/api/request/pending")
@@ -277,33 +267,25 @@ export class RegistroSolicitudComponent implements OnInit {
                 }
             }, (err) => {
                 console.log(err);
-            });
-        // this.solicitud2.tipo = options[select.value-1].text
-        //solicitud.push(this.solicitud2)
-        alert("Agregado con exito")
+            });        
+            alert("Agregado con exito")
         this.limpiar()
     }
 
     limpiar() {
-
         this.solicitud = {
-            /*  cliente: "1",
-              inmueble: {
-              tipo: "",
-              pisos:"",
-              banos: "",
-              habitaciones: "",
-              descripcion: "",
-              direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
-              estado: "En espera",
-              fotos: []
-              },
-              fecha: "",
-              tipo: "" */
-            ClientId: 1,
-            TypeServiceId: "",
-            wishDate: "",
-            TypeRequestId: 3
+        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: '',
+        wishDate: '',
+        turn: '',
+        typeProperty: '',
+        TypeServiceId: '',
+        TypeRequestId: 3,
+        state: '',
+        municipality: '',
+        parish: '',
+        direction: '',
+        description: '',
         }
     }
 
@@ -441,5 +423,25 @@ export class RegistroSolicitudComponent implements OnInit {
 
     buscarxcodigo(){
         console.log(this.solicitud)
+     
+    }
+
+    transform_check(valor,tipo,indicador){
+  
+        for(var te in valor){
+            if(valor[te].name==tipo){
+                for(var esp in valor[te].specifications_checkbox){
+                    if(valor[te].specifications_checkbox[esp].name==indicador){
+                        if(valor[te].specifications_checkbox[esp].bin_quantity == "true"){
+                            valor[te].specifications_checkbox[esp].bin_quantity = false    
+                        }else{
+                        valor[te].specifications_checkbox[esp].bin_quantity = true
+                    }
+                    console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
+                    }
+                }
+            }
+        }
+       
     }
 }
