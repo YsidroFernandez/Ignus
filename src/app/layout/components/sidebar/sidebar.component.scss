@@ -29,7 +29,7 @@ $topnav-background-color: white;
             border-radius: 0;
             color: #93948e;
             text-decoration: none;
-            font-size:14px;
+            font-size:13px;
             font-family:'Helvetica','Verdana','Monaco',sans-serif;
             .fa {
                 margin-right: 10px;
@@ -141,7 +141,7 @@ color: white;
 
 
 .nav-item{
-background-image: url(assets/images/fondo4.png);
+background-image: url('/assets/images/fondo4.png');
 }
 
 .logo {
@@ -221,7 +221,7 @@ background-color:#1FB5AD;
     bottom: 0;
     color: #93948e;
     background: white;
-    font-size:14px;
+    font-size:13px;
     i {
         font-size: 23px;
     }
