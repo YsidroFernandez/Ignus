@@ -1,0 +1,178 @@
+<div [@routerTransition]>
+    
+    <app-page-header [heading]="'Atenciones de Cliente'" [icon]="'fa-edit'"></app-page-header>
+
+<div class="card-header" style="text-align: -webkit-center;">Atenciones de Clientes Registrados</div>
+
+<div class="container">
+
+           <div class="alert alert-success alert-dismissible" *ngIf="msg"  >
+                 <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                {{msg}}
+            </div>
+
+     <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          
+                    <label >Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
+                </div>
+         
+         <div class="col col-sm-4" style="position: relative; top: 15px;">
+                <div class="input-group">
+                    
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+               <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+              <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
+            </button>
+           
+                </div>
+            </div>
+      </div>
+
+            <br />
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Tema</th>
+                            <th>Estatus</th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of listsugerencias ; let i= index" (click)="onEdit(i)">
+                            <td>{{item.contactDate}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.typeContact.name}}</td>
+                            <td>{{item.subject.name}}</td>
+                            <td>{{item.status}}</td>
+                            <td>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(ver)">
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="open(content,'Update',i)">
+                                    <i style="color: white" class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Responder" ></i>
+                                </button>
+                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                    (click)="onDelete(i)">
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar" ></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+                <div class="row mb-3">
+        <div class="col col-sm-8">
+        </div>
+        <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+        </div>
+      </div>
+
+            </div>
+   
+</div>
+
+</div>
+<!--responder -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Respuesta</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col col-sm-12">
+                    <div class="form-group">
+                        <label for="tipos">Mensaje</label>
+                        <input type="text" [(ngModel)]="listsugerencia.message" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
+                style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
+                data-placement="top" title="Cerrar"></i></button>
+        <div *ngIf="submitType!='show'">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
+                    data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
+        </div>
+    </div>
+</ng-template>
+
+<!--ver -->
+<ng-template #ver let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Detalles</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="tipos">Fecha</label>
+                        <input disabled type="text" [(ngModel)]="listsugerencia.contactDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="nombre">Cliente</label>
+                        <input disabled type="text" [(ngModel)]="listsugerencia.user.firstName" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="tipos">Nombre</label>
+                            <input disabled type="text" [(ngModel)]="listsugerencia.name" class="form-control" />
+                        </div>
+                    </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="tipos">Tipo</label>
+                        <input disabled type="text" [(ngModel)]="listsugerencia.typeContact.name" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                    <div class="col col-sm-6"> 
+                        <div class="form-group">
+                            <label for="nombre">Tema</label>
+                            <input disabled type="text" [(ngModel)]="listsugerencia.subject.name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="nombre">Descripción</label>
+                            <input disabled type="text" [(ngModel)]="listsugerencia.description" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
+                style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
+                data-placement="top" title="Cerrar"></i></button>
+    </div>
+</ng-template>
