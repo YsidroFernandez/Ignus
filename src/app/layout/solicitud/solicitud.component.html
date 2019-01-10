@@ -319,6 +319,29 @@
                 </div>
             </div>
         </div>
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="tipos">Estado</label>
+                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="tipos">Municipio</label>
+                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                    disabled>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="tipos">Parroquia</label>
+                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                    disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">

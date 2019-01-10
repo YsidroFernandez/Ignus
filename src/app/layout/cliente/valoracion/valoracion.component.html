@@ -1,67 +1,67 @@
 <div [@routerTransition]>
+
         <app-page-header [heading]="'Valoracion'" [icon]="'fa-edit'"></app-page-header>
 
-        <svg id="roboto" height="500px" width="800px">
-                <!-- <rect width="72" height="144" fill="gray" x="23" y="76"></rect>
-                <rect width="72" height="144" fill="gray" x="123" y="76"></rect>            -->
+        <div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
 
-               
-                <symbol id="muy_mal" viewBox="0 0 68 68">
-                        <path d="m10 34a24 24 0 0 1 48 0 24 24  0 0 1 -48 0z m14 -5a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m15 0a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m-15 18a11 11 0 0 1 20 0"
-                                fill="none" stroke-width="4" stroke-linecap="round"></path>
-                </symbol>
-                <symbol id="mal" viewBox="0 0 68 68">
-                        <path d="m10 34a24 24 0 0 1 48 0 24 24  0 0 1 -48 0z m14 -5a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m15 0a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m-14 17a12 12 0 0 1 18 0"
-                                fill="none" stroke-width="4" stroke-linecap="round"></path>
-                </symbol>
-                <symbol id="neutral" viewBox="0 0 68 68">
-                        <path d="m10 34a24 24 0 0 1 48 0 24 24  0 0 1 -48 0z m14 -5a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m15 0a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m-14 15h18"
-                                fill="none" stroke-width="4" stroke-linecap="round"></path>
-                </symbol>
-                <symbol id="feliz" viewBox="0 0 68 68">
-                        <path d="m10 34a24 24 0 0 1 48 0 24 24  0 0 1 -48 0z m14 -5a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m15 0a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m-15 13a12 12 0 0 0 20 0"
-                                fill="none" stroke-width="4" stroke-linecap="round"></path>
-                </symbol>
-                <symbol id="muy_feliz" viewBox="0 0 68 68">
-                        <path d="m10 34a24 24 0 0 1 48 0 24 24  0 0 1 -48 0z m14 -5a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m15 0a2 2 0 0 1 4 0 2 2 0 0 1  -4 0z m-16 11a11 11 0 0 0 22 0z"
-                                fill="none" stroke-width="4" stroke-linecap="round"></path>
-                </symbol>
+        <div class="container">
+
+
+                <div class="row mb-3" *ngFor="let item of valorations; let i=index">
+                        <div class="col col-sm-6">
+                                <label for="descripcion"><B>{{item.name}}</B></label>
+                        </div>
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                        
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input id="radio1" type="radio" class="custom-control-input" name="radios"  value="" >
+                                            <label class="custom-control-label" for="radio1">  Bueno </label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                                <input id="radio2" type="radio" class="custom-control-input" name="radios"  value="" >
+                                                <label class="custom-control-label" for="radio2">  Regular </label>
+                                              </div> 
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                                <input id="radio3" type="radio" class="custom-control-input" name="radios"  value="" >
+                                                <label class="custom-control-label" for="radio3">  Malo </label>
+                                                </div>  
+
+                                               
+        
+                        
+                        
+                        </div>
+         
+            
+                      
               
-        </svg>
-        <form id="calificar" action="post" class="emogi">
-                <!-- <div class="opcional"> -->
-                        <fieldset class="field_options">
-                                <legend>¿CÓMO SE SIENTE?:</legend>
-                                <div class="auto center">
-                                        <input type="radio" name="estado" id="MuyMal" class="emoti" value="0">
-                                        <label for="MuyMal"><svg class="cara">
-                                                        <use href="#muy_mal"></use>
-                                                </svg>MUY MAL</label>
-                                        <input type="radio" name="estado" id="Mal" class="emoti" value="1">
-                                        <label for="Mal"><svg class="cara">
-                                                        <use href="#mal"></use>
-                                                </svg>MAL</label>
-                                        <input type="radio" name="estado" id="Neutral" class="emoti" value="2">
-                                        <label for="Neutral"><svg class="cara">
-                                                        <use href="#neutral"></use>
-                                                </svg>NEUTRAL</label>
-                                        <input type="radio" name="estado" id="Bien" class="emoti" value="3">
-                                        <label for="Bien"><svg class="cara">
-                                                        <use href="#feliz"></use>
-                                                </svg>BIEN</label>
-                                        <input type="radio" name="estado" id="MuyBien" class="emoti" value="4">
-                                        <label for="MuyBien"><svg class="cara">
-                                                        <use href="#muy_feliz"></use>
-                                                </svg>MUY BIEN</label>
-                                </div>
-
-                        </fieldset>  
-                <!-- </div> -->
-        </form>
-
-        <!-- <div id="test" style="content: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2OCA2OCI+PHBhdGggZD0ibTEwIDM0YTI0IDI0IDAgMCAxIDQ4IDAgMjQgMjQgIDAgMCAxIC00OCAweiBtMTQgLTVhMiAyIDAgMCAxIDQgMCAyIDIgMCAwIDEgIC00IDB6IG0xNSAwYTIgMiAwIDAgMSA0IDAgMiAyIDAgMCAxICAtNCAweiBtLTE1IDE4YTExIDExIDAgMCAxIDIwIDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48L3BhdGg+PC9zdmc+); width: 100px; height: 100px;"
-                onclick="ocultar()">
-        </div> -->
-       
+              
+                        
 
 </div>
+<div class="row mb-3">
+                <div class="col col-sm-12">
+              <div class="form-group">
+                <label for="tipos">Observaciones</label>
+                <textarea disabled="" [(ngModel)]="selectedIncidencia.motivo"  type="text"   class="form-control"></textarea>
+             </div>
+             
+              
+                <hr>
+                <div>
+                        <div class="row">
+                                <div class="col-6">
+                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                                                (click)="limpiar()">Limpiar</button>
+                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
+                                                (click)="enviar()">Enviar Valoracion</button>
+
+                                                
+                                                
+                                </div>
+
+                        </div>
+
+                </div>
+        </div>
