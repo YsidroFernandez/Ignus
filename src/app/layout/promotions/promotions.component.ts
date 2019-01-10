@@ -88,14 +88,10 @@ private getDismissReason(reason: any): string {
     }
 }
 
-show() {
-    console.log("aqui va el loader");
-}
-
-ngOnInit() {
-    this.show();   
+ngOnInit() { 
    this.allPromotion();
 }
+
 faEdit = faEdit;
 
 
@@ -104,7 +100,7 @@ faEdit = faEdit;
     .then((result) => {
         console.log(result);
         this.promotions = result['data'];
-        console.log(this.promotions);
+        console.log("Esto"+ this.promotions);
     }, (err) => {
         console.log(err);
     });
@@ -147,13 +143,15 @@ onDelete(index: number) {
     
       
 }
-
-
 // This method associate toCancel Button.
 onCancel() {
     // Hide Usuario entry section.
     this.showNew = false;
 }
 
+    
+
 
 }
+
+

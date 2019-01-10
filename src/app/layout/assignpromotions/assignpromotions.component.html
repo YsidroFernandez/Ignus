@@ -42,12 +42,11 @@
                             (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
-                            <td>{{item.properties.length}}</td>
+                            <td style="text-align: center;">{{item.properties.length}}</td>
                             <td class="text-center">
-                                <label class="switch switch-sm switch-3d switch-primary" tooltip="habilita o desabilita ">
-                                    <input type="checkbox" [value]="true" (change)="changeStatus($event)" class="switch-input"
-                                        checked>
-                                    <span class="switch-slider"></span>
+                                <label class="switch" for="checkbox">
+                                    <input type="checkbox" id="checkbox" [value]="item.bin_status" [(ngModel)]="item.bin_status" (change)="changeStatus(item)" checked />
+                                    <div class="slider round"></div>
                                 </label>
                             </td>
                             <td>
