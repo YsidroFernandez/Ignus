@@ -8,6 +8,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
+  animations: [routerTransition()],
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent implements OnInit {

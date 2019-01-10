@@ -1,72 +1,66 @@
 <div>
-    <app-page-header [heading]="'  Sugerencias'" [icon]="'fa-edit'"></app-page-header>
-<div><span>Sus observaciones son importantes para que podamos mejorar nuestro sitio web.
+    <app-page-header [heading]="'Sugerencias'" [icon]="'fa-edit'">
+    </app-page-header>
+    <div><span>Sus observaciones son importantes para que podamos mejorar nuestro sitio web.
          Por favor complete el formulario de sugerencias y envíenoslo.
         </span>
-        <hr>
-</div>
+     <hr>
+     </div>
 
-<div class="col col-sm-12">
- <div class="form-control">
+ <form role="form" #contratoForm="ngForm" (ngSubmit)="submit()" id="form" class="form-horizontal"> 
+
   <div class="row mb-3">
-
-    <div class="col col-sm-12">
-     <div class="form-group">
+    <div class="col-md-12">       
         <b><label>Campos Obligatorios (*)</label></b>
      </div> 
-    </div>
+  </div>
 
-       <div class="col col-sm-6">
-          <div class="form-group">
-          <label for="titulo">Titulo:</label>
-           <input type="text" class="form-control" />
-         </div>
-        </div>
+<div class="row mb-3">
 
-    <div class="col col-sm-6">
-              <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Sugerencia(*):</label>
-                <select class="form-control" name="horas" id="tiposugerencia" required>
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Respecto al Servicio</option>
-                    <option value="2">Atencion al cliente</option>
-                    <option value="3">Promociones y Ofertas</option>
+ <div class="form-group col-md-6">
+    <label class="col-sm-6 col-form-label">Titulo:</label>
+    <input type="text" [(ngModel)]="sugerencias.title" name="title" class="form-control" />           
+ </div>
+
+  <div class="form-group col-md-6">
+    <label class="col-sm-6 col-form-label">Tipo de Sugerencia(*):</label>
+    <select class="form-control" [(ngModel)]="sugerencias.type" name="horas" id="tiposugerencia" required>
+    <option value="0">Seleccionar</option>
+    <option value="1">Respecto al Servicio</option>
+    <option value="2">Atencion al cliente</option>
+    <option value="3">Promociones y Ofertas</option>
                     <option value="4">Graficas y Contenido</option>
                     <option value="5">Tiempos de Respuesta</option>
                     <option value="6">Aplicacion Web</option>
                     <option value="7">Aplicacion Movil</option>
                     <option value="8">Otros</option>
-                </select>
-              </div>
-            </div>
-
-         <div class="col col-sm-12">
-            <label class="ng-tns-c12-9" for="descripcion">Escriba el detalle de su Reclamo:</label>
-            <textarea class="form-control ng-untouched ng-pristine ng-valid" 
-                type="text" required style="width: 700px; height: 200px; "></textarea>
-        </div>
-        <br>
-        <br>
-        <div class="col col-sm-12">
-          <div class="form-group">
-        <label><b>E-mail:</b>(Indique una dirección de correo si desea contestación)</label>
-            <input type="text" class="form-control" />
-         </div>
-        </div>
-<br>
+    </select>         
   </div>
-  <div class="row">
-    <div class="col-6">
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Sugerencias</button>
+</div>
+
+<div class="row mb-3">
+<div class="form-group col-md-6"> 
+ <label class="col-sm-6 col-form-label" >Escriba el detalle de su Reclamo:</label>
+  <textarea class="form-control" name="description" rows="4" id="description"[(ngModel)]="sugerencias.description" required>
+  </textarea>
+</div>
+  </div>
+
+<br>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+      <button type="button" type="button" class="btn btn-primary"  style="background: #1AB394; color: white padding-right: 20px; margin-right: 20px;" (click)="limpiar()">Limpiar
+      </button>
+      <button type="submit" type="button" class="btn btn-primary" style="background: #1AB394; color: white" (click)="Enviar()">Enviar Sugerencias
+      </button>
+   
      </div>
-    </div>
+  </div>
 
-    <br>
- </div>
+</form>
 </div>
-
-</div>
-    
+  
 
     
  
