@@ -1,93 +1,63 @@
- <div [@routerTransition]>
-  <app-page-header [heading]="'Reclamos'" [icon]="'fa-edit'"></app-page-header>  
- </div>
+<div [@routerTransition]>
+    <app-page-header [heading]="'Reclamos'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
 
-<div class="col col-sm-12">
- <div class="form-control">
-  <div class="row mb-3">
-    <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-      Campos Obligatorios (*)
-    </div>
-       <div class="col col-sm-12">
-         <div class="form-group">
-           <b><label></label></b>
-         </div> 
-       </div>
+        <div class="card-header" style="text-align: -webkit-center;">Reclamos del Cliente</div>
+     
+      <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select> entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                        </span>
+                    </div>
+                </div>
 
-       <div class="col col-sm-6">
-          <div class="form-group">
-          <label for="titulo">Titulo:</label>
-           <input type="text" [(ngModel)]="reclamos2.name" class="form-control" />   
-         </div>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                         ><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Reclamos</th>
+                            <th> Estatus </th>
+                            <th colspan="4">ver detalles</th>
+                        </tr>
+                    </thead>
+                   
+                </table>
+            </div>
         </div>
-
-   <!--     <div class="col col-sm-6">
-        <div class="form-group">
-            <label for="correo">Correo Electronico: (*)</label>
-            <input type="text" class="form-control" />
-         </div>
-       </div>
-
-       <div class="col col-sm-6">
-         <div class="form-group">
-          <label for="telefono">Teléfono de contacto</label>
-           <input type="text" class="form-control" />
-         </div>
-        </div> -->
-
-   <!--     <div class="col col-sm-6"> 
-          <div class="form-group"><label class="ng-tns-c12-9" for="area">Area de Servicio:(*)</label>
-                <select class="form-control" name="horas" id="tipoarea" required>
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Area de Solicitudes</option>
-                    <option value="2">Recepcion de Documentos</option>
-                    <option value="3">Recursos Humanos</option>
-                    <option value="4">Protocolizacion</option>
-                    <option value="5">Atencion al cliente</option>
-                    <option value="8">Otros</option>
-                </select>
-          </div>
         </div>
-       --> 
-     <!--  <div class="col col-sm-6"> 
-          <div class="form-group"><label class="ng-tns-c12-9" for="sede">Sede:(*)</label>
-              <select class="form-control" name="horas" id="tipoarea" required>
-                    <option value="0">Seleccionar</option>
-                    <option value="1">Este</option>
-                    <option value="2">Oeste</option>
-                    <option value="2">Centro</option>
-                    <option value="8">Otros</option>
-             </select>
-          </div>
-       </div>
--->
-        <div class="col col-sm-6">
-              <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Tipo de Reclamo</label>
-                  <select class="form-control" name="typeIncidence" id="typeIncidence" required [(ngModel)]="reclamos2.TypeIncidenceId">
-                            <option *ngFor="let type of typeIncidence" [value]="type.id">{{type.name}}</option>
-                 </select>
-              </div>
-          </div>
-
-
-          <div class="col col-sm-12">
-            <label class="ng-tns-c12-9" for="descripcion">Escriba aquí su mensaje:</label>
-            <textarea id="descripcion" class="form-control ng-untouched ng-pristine ng-valid" 
-                type="text" [(ngModel)]="reclamos2.descripcion" 
-                #descripcion="ngModel" required style="width: 700px; height: 200px; "></textarea>
+        
+<!--Contenido -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <h4 class="modal-title ">Crear Reclamo</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <br>
-    </div>
-    <br>
-    <div class="row">
-    <div class="col-6">
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="limpiar()">Limpiar</button>
-      <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar Reclamo</button>
-     </div>
-    </div>
-<br>
-</div>
-</div>
-<br>
+      
+        <div class="modal-footer">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
+    </ng-template>
 
-    
+        </div>

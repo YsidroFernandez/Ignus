@@ -1,248 +1,226 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { solicitud, actions, calendariocita, colors } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { startOfDay, subMonths, addMonths, startOfWeek, subWeeks, startOfMonth, endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { routerTransition } from '../../router.animations';
-import * as datepicker from 'ngx-bootstrap/datepicker';
 import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 
+type CalendarPeriod = 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+    return {
+        day: addDays,
+        week: addWeeks,
+        month: addMonths
+    }[period](date, amount);
+}
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+    return {
+        day: subDays,
+        week: subWeeks,
+        month: subMonths
+    }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+    return {
+        day: startOfDay,
+        week: startOfWeek,
+        month: startOfMonth
+    }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+    return {
+        day: endOfDay,
+        week: endOfWeek,
+        month: endOfMonth
+    }[period](date);
+}
 @Component({
     selector: 'app-registrosolicitud',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
-    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider],
+    providers: [GlobalsProvider],
     animations: [routerTransition()]
-   
+
 })
 export class RegistroSolicitudComponent implements OnInit {
+    @ViewChild('childModal') childModal: ModalDirective;
     modalRef: BsModalRef;
     message: string;
-
+    public dispAM = false;
+    public dispPM = false;
+    public solicitudes: any;
+    public nuevo: any;
+    public employes = [];
+    public states = [];
+    public municipalities = [];
+    public parishes = [];
+    public typeService = [];
+    public typeProperties = [];
+    public typeProperty: any;
     colors: any = {
         red: {
-          primary: '#ad2121',
-          secondary: '#FAE3E3'
+            primary: '#ad2121',
+            secondary: '#FAE3E3'
         },
         blue: {
-          primary: '#1e90ff',
-          secondary: '#D1E8FF'
+            primary: '#1e90ff',
+            secondary: '#D1E8FF'
         },
         yellow: {
-          primary: '#e3bc08',
-          secondary: '#FDF1BA'
+            primary: '#e3bc08',
+            secondary: '#FDF1BA'
         }
-      };
+    };
+    minDate: Date;
 
-    disableSwitching: boolean;
-    @ViewChild('tabset', {read: ElementRef}) tabsetEl: ElementRef;
-    @ViewChild('tabset') tabset: TabsetComponent;
-    @ViewChild('first') first: TabDirective;
-    @ViewChild('second') second: TabDirective;
+    prevBtnDisabled: boolean = false;
+    nextBtnDisabled: boolean = false;
 
-    view: CalendarView = CalendarView.Month;  
-    CalendarView = CalendarView;
+    
+    public viewCalendar = false;
+    view: CalendarPeriod = 'month';
+
     refresh: Subject<any> = new Subject();
-    viewDate: Date = new Date();
     locale: string = 'es';
-    modalData: any;
     activeDayIsOpen: boolean = true;
-
-    clickedDate: Date;
-
-    actions: CalendarEventAction[] = [
+    excludeDays: number[] = [0, 6];
+    viewDate: Date = new Date();
+    listspecification: any[]
+    events: any = [
         {
-          label: '<i class="fa fa-fw fa-pencil"></i>',
-          onClick: ({ event }: { event: CalendarEvent }): void => {
-            this.handleEvent('Edited', event);
-          }
+            start: startOfDay('2019/01/11'),
+            title: 'jajajaaj',
+            turno: 'AM',
+            color: '#FAE3E3'
         },
         {
-          label: '<i class="fa fa-fw fa-times"></i>',
-          onClick: ({ event }: { event: CalendarEvent }): void => {
-            this.events = this.events.filter(iEvent => iEvent !== event);
-            this.handleEvent('Deleted', event);
-          }
+            start: startOfDay('2019/01/14'),
+            title: 'test2',
+            turno: 'PM',
+            color: '#FAE3E3'
+        },
+        {
+            start: startOfDay('2019/01/14'),
+            title: 'otros',
+            turno: 'AM',
+            color: '#FAE3E3'
         }
-      ];
+    ];
 
-    events: CalendarEvent[] = [
-        {
-          start: startOfDay('2019/01/04'),    
-          title: 'jajajaaj',
-          color: colors.red,
-          actions: this.actions,      
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        },
-        {
-          start: startOfDay('2019/01/04'),
-          title: 'test2',
-          color: colors.yellow,
-          actions: this.actions,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        },
-        {
-         start: startOfDay('2019/01/08'),
-          title: 'otros',
-          color: colors.yellow,
-          actions: this.actions,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        }
-      ];
-
-      public test: any = {
-          fecha: '',
-          descripcion: '',
-          turno: ''
-      }
-
-    datePickerConfig: Partial<BsDatepickerConfig>;
+    public test: any = {
+        fecha: '',
+        descripcion: '',
+        turno: ''
+    }
     closeResult: string;
-    solicitud: any;
-    solicitudes: any;
-    nuevo: any;
-    employes = [];
-    states = [];
-    municipalities = [];
-    parishes = [];
 
 
-    typeService: any;
-    typeSpecifications: any = [];
-    especificaciones: any;
-    typeProperties = [];
-    typeProperty: any;
-    habilitar: false;
-    // It maintains recaudos form display status. By default it will be false.
-    showNew: Boolean = false;
-    // It will be either 'Save' or 'Update' based on operation.
+
+    public solicitud: any = {
+        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: '',
+        wishDate: '',
+        turn: '',
+        typeProperty: '',
+        TypeServiceId: '',
+        TypeRequestId: 3,
+        state: '',
+        municipality: '',
+        parish: '',
+        direction: '',
+        description: '',
+        typeSpecifications: [],
+    };
+
     submitType: string = 'Save';
     selectedRow: number;
 
-    solicitud2 = {
-        type: "",
-        ClientId: 1,
-        TypeServiceId: "",
-        wishDate: "",
-        TypeRequestId: 3,
-        state: "",
-        municipality: "",
-        parish: "",
-        typeProperty: "",
-        description: "",
-        employee: ""
-    }
-
 
     constructor(private modalService: NgbModal,
-                public globalService: GlobalService) {
-
-       this.datePickerConfig = Object.assign({},
-            { containerClass: 'theme-dark-blue' },
-            { showWeekNumbers: false },
-            { dateInputFormat: 'DD/MM/YYYY' },
-            { locale: 'es' });
-
-            this.solicitud = {
-                ClientId: 1,
-                TypeServiceId: "",
-                wishDate: "",
-                TypeRequestId: 3
-            } 
+        public globalService: GlobalService,
+        private coolDialogs: NgxCoolDialogsService) {
+        this.dateOrViewChanged();
     }
 
     ngOnInit() {
+        this.typeServices();
+        this.allStates();
+        this.alltypeProperty();
+        this.allEmployee();
+        this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
+    }
 
-        this.globalService.getModel(`/api/state/`).then((result) => {
-            if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.states = result['data'];
-            }
-        }, (err) => {
-            console.log(err);
-        });
-
+    typeServices() {
         this.globalService.getModel("/api/typeService").then((result) => {
             if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.typeService= [];
+                this.typeService = [];
                 this.typeService = result['data'];
             }
         }, (err) => {
             console.log(err);
         });
+    }
 
+    allStates() {
+        this.globalService.getModel(`/api/state/`).then((result) => {
+            if (result['status']) {
+                this.states = [];
+                this.states = result['data'];
+            }
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    alltypeProperty() {
         this.globalService.getModel(`/api/typeProperty`).then((result) => {
             if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
                 this.typeProperties = [];
                 this.typeProperties = result['data'];
             }
         }, (err) => {
             console.log(err);
         });
+    }
 
+    allEmployee() {
         this.globalService.getModel(`/api/employee`).then((result) => {
             if (result['status']) {
-                console.log(result['data'])
-                //Para que actualice la lista una vez que es creado el recaudo
+                this.employes = [];
                 this.employes = result['data'];
-            }
-        }, (err) => {
-            console.log(err);
-        });
-
-        this.globalService.getModel("/api/typeSpecification").then((result) => {
-            if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.typeSpecifications = 0;
-                this.typeSpecifications = result['data'];
-                console.log(this.typeSpecifications);
+                console.log("este es el buscado", this.employes);
             }
         }, (err) => {
             console.log(err);
         });
     }
 
-    @ViewChild('modalContent')
-    modalContent: TemplateRef<any>;
-
-    loadSpecifications(type){
-        this.typeSpecifications = [];
-
+    loadSpecifications(type) {
+        document.getElementById("tabspecification").setAttribute("style", "")
+        this.solicitud.typeSpecifications = [];
         this.globalService.getModel(`/api/typeProperty/specification/${type}`).then((result) => {
             if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.typeSpecifications = result['data'];
+                this.solicitud.typeSpecifications = result['data']
             }
+
         }, (err) => {
             console.log(err);
         });
 
     }
-    //this method associate to reload states
+
     loadmunicipality(state) {
         this.municipalities = [];
         this.parishes = [];
@@ -259,12 +237,10 @@ export class RegistroSolicitudComponent implements OnInit {
     }
 
     loadparish(municipality) {
-        console.log("muni ", municipality)
         this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
                 this.parishes = result['data'];
-
             }
         }, (err) => {
             console.log(err);
@@ -274,12 +250,19 @@ export class RegistroSolicitudComponent implements OnInit {
 
     // This method associate to New Button.
     enviar() {
-        this.nuevo = [];
+        this.nuevo = {};
         this.nuevo = {
-            ClientId: this.solicitud.ClientId,
+            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+            employeeId: Number.parseInt(this.solicitud.employeeId),
+            wishDate: this.solicitud.wishDate,
+            turn: this.solicitud.turn,
+            typeProperty: Number.parseInt(this.solicitud.typeProperty),
             TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
-            wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
-            TypeRequestId: this.solicitud.TypeRequestId
+            TypeRequestId: this.solicitud.TypeRequestId,
+            parish: Number.parseInt(this.solicitud.parish),
+            direction: this.solicitud.direction,
+            description: this.solicitud.description,
+            typeSpecifications: this.solicitud.typeSpecifications
         };
         console.log("result", this.nuevo);
         this.globalService.addModel(this.nuevo, "/api/request/pending")
@@ -292,87 +275,179 @@ export class RegistroSolicitudComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             });
-        // this.solicitud2.tipo = options[select.value-1].text
-        //solicitud.push(this.solicitud2)
         alert("Agregado con exito")
         this.limpiar()
     }
 
     limpiar() {
-
         this.solicitud = {
-            /*  cliente: "1",
-              inmueble: {
-              tipo: "",
-              pisos:"",
-              banos: "",
-              habitaciones: "",
-              descripcion: "",
-              direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
-              estado: "En espera",
-              fotos: []
-              },
-              fecha: "",
-              tipo: "" */
-            ClientId: 1,
-            TypeServiceId: "",
-            wishDate: "",
-            TypeRequestId: 3
+            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+            employeeId: '',
+            wishDate: '',
+            turn: '',
+            typeProperty: '',
+            TypeServiceId: '',
+            TypeRequestId: 3,
+            state: '',
+            municipality: '',
+            parish: '',
+            direction: '',
+            description: '',
         }
     }
 
-    fechaClick($event) {
-         console.log($event);
-     }
-   
-     // Este metodo escucha el calendario y envia el evento mas la fecha
-    dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-       
-        console.log(date);
-        console.log(events);
-        this.test.fecha = moment(date).format('DD/MM/YYYY');
-        console.log(this.test.fecha);
-        if(events.length<2){
-            console.log("hola");
-           
-        }else{
-            console.log("hola 2");
+    // Este metodo escucha el calendario y envia el evento mas la fecha
+    dayClicked({ date, events }: { date: Date; events: any[] }): void {
+        this.dispAM = false;
+        this.dispPM = false;
+        this.test.fecha = date;
+        if (events.length < 2) {
+            for (var i = 0; i < events.length; i++) {
+                if (events[i].turno == 'AM') {
+                    this.dispAM = true;
+                } else
+                    if (events[i].turno == 'PM') {
+                        this.dispPM = true;
+                    }
+            }
+            this.showChildModal();
         }
     }
 
-     // Este metodo guarda 
-    addEvent(): void {
-        this.events.push({
-          title: 'New event',
-          start: startOfDay(new Date()),      
-          color: colors.red,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true
-          }
-        });
-        this.refresh.next();
+    turnoAsignadoAM($event) {
+        if ($event.target.checked == true) {
+            this.coolDialogs.confirm('Esta seguro que desea reservar este turno?')
+                .subscribe(res => {
+                    if (res) {
+                        this.dispPM = false;
+                        this.solicitud.turn = 'AM';
+                        this.solicitud.wishDate = moment(this.test.fecha).format('DD/MM/YYYY');
+                        this.events.push({
+                            start: startOfDay(this.test.fecha),
+                            title: 'jajajaaj',
+                            turno: 'AM',
+                            color: this.colors.red,
+                        });
+                        this.hideChildModal();
+                        this.refresh.next();
+                    } else {
+                        this.dispPM = false;
+                        $event.target.checked = false;
+                        this.hideChildModal();
+                        this.refresh.next();
+                    }
+                });
+        } else
+            if ($event.target.checked == false) {
+                this.dispPM = true;
+                this.hideChildModal();
+            }
+        console.log(this.solicitud);
     }
-    
+
+    turnoAsignadoPM($event) {
+        if ($event.target.checked == true) {
+            this.coolDialogs.confirm('Esta seguro que desea reservar este turno?')
+                .subscribe(res => {
+                    if (res) {
+                        this.dispAM = true;
+                        this.solicitud.turn = 'PM';
+                        this.solicitud.wishDate = moment(this.test.fecha).format('DD/MM/YYYY');
+                        this.events.push({
+                            start: startOfDay(this.test.fecha),
+                            title: 'jajajaaj',
+                            turno: 'PM',
+                            color: this.colors.red,
+                        });
+                        this.hideChildModal();
+                        this.refresh.next();
+                    } else {
+                        this.dispAM = false;
+                        $event.target.checked = false;
+                        this.hideChildModal();
+                        this.refresh.next();
+                    }
+                });
+        } else
+            if ($event.target.checked == false) {
+                this.dispAM = false;
+
+            }
+    }
+    showChildModal(): void {
+        this.childModal.show();
+    }
+    hideChildModal(): void {
+        this.childModal.hide();
+    }
+
+    today(): void {
+        this.changeDate(new Date());
+    }
+
+    dateIsValid(date: Date): boolean {
+        return date >= this.minDate;
+    }
+
+    changeDate(date: Date): void {
+        this.viewDate = date;
+        this.dateOrViewChanged();
+    }
+
+
+    changeView(view: CalendarPeriod): void {
+        this.view = view;
+        this.dateOrViewChanged();
+    }
+
+    dateOrViewChanged(): void {
+        this.prevBtnDisabled = !this.dateIsValid(
+            endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+        );
+        this.nextBtnDisabled = !this.dateIsValid(
+            startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+        );
+        if (this.viewDate < this.minDate) {
+            this.changeDate(this.minDate);
+        }
+    }
+
     beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
         body.forEach(day => {
-            if (day.date.getDate() % 2 === 1 && day.inMonth) {
-                day.cssClass = 'odd-cell';
+            if (!this.dateIsValid(day.date)) {
+                day.cssClass = 'cal-disabled';
             }
         });
     }
 
-    handleEvent(action: string, event: CalendarEvent): void {
-        console.log(action);
-        console.log(event);
-        this.modalData = { event, action };
-        this.modalService.open(this.modalContent, { size: 'lg' });
-    }   
+    buscarxcodigo() {
+        console.log(this.solicitud)
 
-    eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
-        event.start = newStart;
-        event.end = newEnd;
-        this.handleEvent('Dropped or resized', event);
-        this.refresh.next();
-    }    
+    }
+
+    transform_check(valor, tipo, indicador) {
+
+        for (var te in valor) {
+            if (valor[te].name == tipo) {
+                for (var esp in valor[te].specifications_checkbox) {
+                    if (valor[te].specifications_checkbox[esp].name == indicador) {
+                        if (valor[te].specifications_checkbox[esp].bin_quantity == "true") {
+                            valor[te].specifications_checkbox[esp].bin_quantity = false
+                        } else {
+                            valor[te].specifications_checkbox[esp].bin_quantity = true
+                        }
+                        console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
+                    }
+                }
+            }
+        }
+
+    }
+
+    selectAgente($event) {
+        console.log($event.target.value);
+        if ($event.target.value != '') {
+            this.viewCalendar = true;
+        }
+    }
 }

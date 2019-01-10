@@ -17,6 +17,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeEs from '@angular/common/locales/es';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 registerLocaleData(localeEs);
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
     imports: [
@@ -24,6 +25,7 @@ registerLocaleData(localeEs);
         provide: DateAdapter,
         useFactory: adapterFactory
       }),
+      ModalModule.forRoot(),
       BsDatepickerModule.forRoot(), // ToastrModule added        
       DatepickerModule.forRoot(),
       CommonModule, RegistroSolicitudRoutingModule,

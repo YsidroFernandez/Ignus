@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
@@ -53,16 +53,18 @@ export class AssignPromotionsComponent implements OnInit {
         this.allPromotionFill();
     }
 
-    changeStatus($event){
-        console.log($event);
-    //     this.globalService.getModel("/api/promotion").then((result) => {         
-    //     this.promotions = [];
-    //     this.promotions = result['data'];
-    //     console.log(this.promotions);
-    // }, (err) => {
-    //     console.log(err);
-    // });
-    }
+    changeStatus(list){
+        console.log(list.bin_status);
+        console.log(list.id);
+        this.globalService.updateModel(list.id, {activate: list.bin_status},"/api/promotion/activate").then((result) => {         
+     
+        console.log("RESPONSE", result);
+        this.allPromotionFill();
+        console.log(this.promotions);
+    }, (err) => {
+        console.log(err);
+    });
+}
 
     promotionChanged ($event){      
         this.id_promotion = $event;
@@ -212,6 +214,8 @@ export class AssignPromotionsComponent implements OnInit {
         // Hide Usuario entry section.
         this.showNew = false;
     }
+
+   
 
 
 }
