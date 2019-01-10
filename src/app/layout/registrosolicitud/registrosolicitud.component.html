@@ -3,241 +3,210 @@
     <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
     <tabset #tabset>
         <tab heading="Datos" id="first">
-            <div class="form-control row">
-                <div class="col col-md-6">
-                    <div class="form-group"><label class="ng-tns-c12-9" for="typeservice">Tipo de Servicio</label>
-                        <select class="form-control" name="typeservice" id="typeservice" required [(ngModel)]="solicitud.TypeServiceId">
-                            <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
-                        </select>
-                    </div>
+
+            <div class="row  mb-3">
+                <div class="col-md-6 form-group">
+                    <label>Tipo de Servicio</label>
+                    <select class="form-control" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId">
+                        <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
+                    </select>
                 </div>
             </div>
-            
+
             <br>
             <div class="row mb-3">
-                    <div class="form-control">
-                        <div class="row">
-                            <div class="col col-sm-8">
-                                <div class="form-group">
-                                    <b><label>Inmueble</label></b>
-                                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col col-sm-8">
+                            <div class="form-group">
+                                <b><label>Inmueble</label></b>
                             </div>
-                            <div class="col col-sm-4">
-                                <div class="row">
-                                    <div class="col col-sm-9">
-                                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                                    </div>
-                                    <div class="col col-sm-3">
-                                        <button (click)="buscarxcodigo()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                                data-placement="top" title="Buscar"></i>
-                                        </button>
-                                    </div>
+                        </div>
+                        <div class="col col-sm-4">
+                            <div class="row">
+                                <div class="col col-sm-9">
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                                 </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="typeproperty">Tipo de Inmueble</label>
-                                    <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud.typeProperty"
-                                        #typeproperty="ngModel" (change)="loadSpecifications(solicitud.typeProperty)">
-                                        <option *ngFor="let tp of typeProperties" [value]="tp.id">{{tp.name}}</option>
-                                    </select>
+                                <div class="col col-sm-3">
+                                    <button (click)="buscarxcodigo()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+                                        <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                            data-placement="top" title="Buscar"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-    
-                        <tabset id="tabspecification" style="display:none">
-    
-                            <tab *ngFor="let te of solicitud.typeSpecifications" [heading]="te.name" [id]="te.id">
-    <br>
-                                <div class="row">
-                                    <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number"
-                                        [id]="esp.id">
-                                        <div class="form-group">
-                                            <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
-                                            <input  [type]="esp.typeInput" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
-                                        </div>
-    
-                                    </div>
-    
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox"
-                                        [id]="esp.id">
-                                        <div class="form-group row">
-                                            <label class="form-check-label col-8" >{{esp.name}} : </label>
-                                            <label class="switch" [for]="esp.name">
-                                                <input class="form-check-input " [id]="esp.name" [type]="esp.typeInput" [name]="esp.name" [value]="esp.bin_quantity"
-                                                [(ngModel)]="esp.bin_quantity" (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
-                                                <div class="slider round"></div>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-    
-    
-                            </tab>
-                            <tab heading="Ubicacion" id="u">
-                                <div class="row">
-                                    <div class="col col-sm-12">
-                                        <div class="row">
-                                            <div class="col col-sm-8">
-                                                <div class="form-group">
-                                                    <b><label>Ubicacion</label></b>
-                                                </div>
-                                            </div>
-                                            <div class="col col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="tipos">Estado</label>
-                                                    <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
-                                                        #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
-                                                        <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="municipality">Municipio</label>
-                                                    <select class="form-control" name="municipality" id="municipality"
-                                                        [(ngModel)]="solicitud.municipality" #municipality="ngModel"
-                                                        (change)="loadparish(solicitud.municipality)">
-                                                        <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-    
-                                            <div class="col col-sm-6">
-                                                <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
-                                                    <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
-                                                        required>
-                                                        <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--
-                                          <div class="col col-sm-6">
-                                          <div class="form-group">
-                                              <label for="pais">Pais</label>
-                                              <select class="form-control" name="pais" id="paises"  [(ngModel)]="solicitud.inmueble.direccion.pais" #pais="ngModel" (change)="cargarestados()">
-                                                  <option *ngFor="let pais of paises"value="pais">{{pais}}</option>
-                                              </select>
-                                          </div>
-                                      </div>
-                                      <div class="col col-sm-6">
-                                          <div class="form-group">
-                                              <label for="nombre">Municipio</label>
-                                              <select class="form-control" name="municipio" id="municipio" [(ngModel)]="solicitud.direccion.municipio" #municipio="ngModel">
-                                                  <option *ngFor="let mun of municipios" value="mun">{{mun}}</option>
-                                              </select>
-                                          </div>
-                                      </div>
-                                      
-                                      <div class="col col-sm-6">
-                                          <div class="form-group"><label class="ng-tns-c12-9" for="descripcion">Parroquia</label>
-                                              <select class="form-control" name="horas" id="tiposolicitud" required>
-                                                  <option value="1">Concepción</option>
-                                                  <option value="2">Catedral</option>
-                                                  <option value="3">Juan de Villegas</option>
-                                                  <option value="4">Unión</option>
-                                                  <option value="5">Tamaca</option>
-                                                  <option value="6">El Cují</option>
-                                              </select>
-                                          </div>
-                                      </div> -->
-                                            <div class="col col-sm-12 form-group">
-                                                <label class="ng-tns-c12-9" for="direccion">Dirección Exacta</label>
-                                                <textarea class=" ng-untouched ng-pristine ng-valid" type="text" id="direccion"
-                                                    required style="width: 700px; height: 200px;" [(ngModel)]="solicitud.direction"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </tab>
-                            <tab heading="Descripcion" id="descripcion">
-                                <div class="row">
-                                    <div class="col col-sm-12">
-                                        <div class="form-group">
-                                            <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
-                                            <textarea id="description" class="form-control ng-untouched ng-pristine ng-valid"
-                                                type="text" [(ngModel)]="solicitud.description" #description="ngModel"
-                                                required style="width: 700px; height: 200px; "></textarea>
-                                        </div>
-                                    </div>
-    
-                                </div>
-                            </tab>
-                        </tabset>
-    
-                        <div class="row">
-                            <div class="col-3">
-                            </div>
-                            <div class="col-6">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
-                                            (click)="enviar()">Enviar</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
-                                            (click)="limpiar()">Limpiar</button>
-                                    </div>
-                                </div>
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                                <label for="typeproperty">Tipo de Inmueble</label>
+                                <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud.typeProperty"
+                                    #typeproperty="ngModel" (change)="loadSpecifications(solicitud.typeProperty)">
+                                    <option *ngFor="let tp of typeProperties" [value]="tp.id">{{tp.name}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-    
+
+                    <tabset id="tabspecification" style="display:none">
+
+                        <tab *ngFor="let te of solicitud.typeSpecifications" [heading]="te.name" [id]="te.id">
+                            <br>
+                            <div class="row">
+                                <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number"
+                                    [id]="esp.id">
+                                    <div class="form-group">
+                                        <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
+                                        <input [type]="esp.typeInput" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox"
+                                    [id]="esp.id">
+                                    <div class="form-group row">
+                                        <label class="form-check-label col-8">{{esp.name}} : </label>
+                                        <label class="switch" [for]="esp.name">
+                                            <input class="form-check-input " [id]="esp.name" [type]="esp.typeInput"
+                                                [name]="esp.name" [value]="esp.bin_quantity" [(ngModel)]="esp.bin_quantity"
+                                                (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
+                                            <div class="slider round"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Ubicacion" id="u">
+                            <div class="row">
+                                <div class="col col-sm-12">
+                                    <div class="row">
+                                        <div class="col col-sm-8">
+                                            <div class="form-group">
+                                                <b><label>Ubicacion</label></b>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label for="tipos">Estado</label>
+                                                <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
+                                                    #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
+                                                    <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label for="municipality">Municipio</label>
+                                                <select class="form-control" name="municipality" id="municipality"
+                                                    [(ngModel)]="solicitud.municipality" #municipality="ngModel"
+                                                    (change)="loadparish(solicitud.municipality)">
+                                                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-sm-6">
+                                            <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                                                <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
+                                                    required>
+                                                    <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col col-sm-12 form-group">
+                                            <label class="ng-tns-c12-9" for="direccion">Dirección Exacta</label>
+                                            <textarea class=" ng-untouched ng-pristine ng-valid" type="text" id="direccion"
+                                                required style="width: 700px; height: 200px;" [(ngModel)]="solicitud.direction"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Descripcion" id="descripcion">
+                            <div class="row">
+                                <div class="col col-sm-12">
+                                    <div class="form-group">
+                                        <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
+                                        <textarea id="description" class="form-control ng-untouched ng-pristine ng-valid"
+                                            type="text" [(ngModel)]="solicitud.description" #description="ngModel"
+                                            required style="width: 700px; height: 200px; "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
                 </div>
+            </div>
         </tab>
 
         <tab tab2 heading="Cita" id="second">
-            <div class="row">
-                <div class="form-group col-md-4">
-                    <label class="ng-tns-c12-9" for="employe">Empleados</label>
-                    <select class="form-control" name="employee" id="employee" required [(ngModel)]="solicitud.employeeId">
-                        <option *ngFor="let emp of employes" [value]="emp.person.id">{{emp.person.firstName}}
-                            {{emp.person.lastName}}
-                        </option>
-                    </select>
+            <div class="card">
+                <div class="row" style="margin-left: 15px;">
+                    <div class="form-group col-md-4">
+                        <label class="ng-tns-c12-9" for="employe">Empleados</label>
+                        <select (change)="selectAgente($event)" class="form-control" name="employee" id="employee"
+                            required [(ngModel)]="solicitud.employeeId">
+                            <option *ngFor="let emp of employes" [value]="emp.person.id">{{emp.person.firstName}}
+                                {{emp.person.lastName}}
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-8">
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-4">
+                <div class="card-body" *ngIf="viewCalendar">
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4" style="text-align: center;">
+                            <div class="btn-group ">
+                                <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                                    (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                                    Anterior
+                                </div>
+                                <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
+                                    Hoy
+                                </div>
+                                <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                                    (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                                    Siguiente
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4" style="text-align: center;">
+                            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                    <div [ngSwitch]="view">
+                        <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale"
+                            [refresh]="refresh" [events]="events" (beforeViewRender)="beforeMonthViewRender($event)"
+                            (dayClicked)="dayClicked($event.day)" [excludeDays]="excludeDays">
+                        </mwl-calendar-month-view>
+                    </div>
                 </div>
-                <div class="col-md-4" style="text-align: center;">
-                    <div class="btn-group ">
-                        <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                            (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
-                            Anterior
+                <div class="card-footer text-muted">
+                    <div class="row">
+                        <div class="col-md-3">
                         </div>
-                        <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
-                            Hoy
-                        </div>
-                        <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                            (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
-                            Siguiente
+                        <div class="col-md-6" style="text-align: center; margin-top: 40px;">
+
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
+                                (click)="enviar()">Enviar</button>
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
+                                (click)="limpiar()">Limpiar</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4" style="text-align: center;">
-                    <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-            <div [ngSwitch]="view">
-                <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-                    [events]="events" (dayClicked)="dayClicked($event.day)">
-                </mwl-calendar-month-view>
             </div>
         </tab>
     </tabset>
