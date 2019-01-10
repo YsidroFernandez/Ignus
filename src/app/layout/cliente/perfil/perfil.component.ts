@@ -5,6 +5,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { GlobalService } from '../../../providers/global.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 @Component({
   selector: 'app-perfil',

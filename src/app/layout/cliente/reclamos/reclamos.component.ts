@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
+//import { routerTransition } from '../../router.animations';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -25,7 +26,6 @@ export class ReclamosComponent implements OnInit {
   reclamos2= {
 
     name: "",
-    clienteId:1,
     typeIncidenceId: 3,
     descripcion: "",
     
@@ -56,7 +56,8 @@ this.globalService.getModel("/api/typeIncidence").then((result) => {
 
 enviar() { 
   
-  this.nuevo = {  name: this.reclamo.clienteId,
+  this.nuevo = {  
+    name: this.reclamo.idname,
     TypeIncidencesId: Number.parseInt(this.reclamo.TypeIncidencesId), 
     descripcion: this.reclamo.descripcion,
   }; 
@@ -82,7 +83,6 @@ limpiar(){
  this.reclamo= {
   
     name: "",
-    clienteId:1,
     typeIncidenceId: 3,
     descripcion: "",
 }

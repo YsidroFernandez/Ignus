@@ -30,12 +30,14 @@ const routes: Routes = [
             { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
             { path: 'services', loadChildren: './services/services.module#ServicesModule' },
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
-             { path: 'reserva', loadChildren: './reserva/reserva.module#ReservaModule' },
+            { path: 'reserva', loadChildren: './reserva/reserva.module#ReservaModule' },
+            { path: 'contact', loadChildren: './contact/contact.module#ContactModule' },
             { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
             { path: 'role', loadChildren: './role/role.module#RoleModule' },
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
             { path: 'citas', loadChildren: './citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './scheduler/scheduler.module#SchedulerModule' },
+
             { path: 'solicitud', loadChildren: './solicitud/solicitud.module#SolicitudModule' },
             { path: 'registrosolicitud', loadChildren: './registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
             //cliente
