@@ -69,18 +69,7 @@ export class GlobalService {
     this.spinner.show();
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
-        // if (data.status)
-        //   this.toastr.success('', data.message.text, {
-        //     timeOut: 5000,
-        //     progressBar: true,
-        //     positionClass: 'toast-bottom-right'
-        //   });
-        // else
-        //   this.toastr.error('', data.message.text, {
-        //     timeOut: 5000,
-        //     progressBar: true,
-        //     positionClass: 'toast-bottom-right'
-        //   });
+        
         this.spinner.hide();
         resolve(data);
 
@@ -186,6 +175,20 @@ export class GlobalService {
           positionClass: 'toast-bottom-right'
         });
         this.spinner.hide();
+      })
+    })
+  }
+
+
+  getModel_Id_Notification(id: String, tipo: String, httpOptions = httpOptionsDefault) {
+    
+    return new Promise(resolve => {
+      this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
+        resolve(data);
+
+      }, (err: any) => {
+       // console.log(err);
+        
       })
     })
   }

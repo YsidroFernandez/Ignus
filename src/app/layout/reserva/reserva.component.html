@@ -1,7 +1,6 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Reservar'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-
         <div class="card-header" style="text-align: -webkit-center;">Reserva de inmuebles</div>
      
       <div class="card mb-3">
@@ -29,6 +28,7 @@
                 </div>
             </div>
             <div class="card-body  table-responsive">
+                <h4>las transacciones del empleado, aún no tienen asociados los inmuebles</h4>
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
@@ -39,7 +39,19 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
-                   
+                    <tbody>
+                        <tr *ngFor="let item of transactions; let i=index">
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.nameForClient }}</td>
+                            <td>{{ item.nameForEmployee }}</td>
+                            <td>---Status</td>
+                            <td>---Acciones
+                               <!--  <button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon></button>
+                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" ><fa-icon [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon></button>
+                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon></button> -->
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
            
