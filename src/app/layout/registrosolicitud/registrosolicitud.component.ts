@@ -1,20 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-import { faEye, faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { solicitud, actions, calendariocita, colors } from '../../../environments/environment';
 import { GlobalService } from '../../providers/global.service';
 import { GlobalsProvider } from '../../shared';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { startOfDay,subMonths,addMonths, startOfWeek, subWeeks, startOfMonth,endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { routerTransition } from '../../router.animations';
-import * as datepicker from 'ngx-bootstrap/datepicker';
 import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
-
-import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
@@ -96,25 +88,25 @@ export class RegistroSolicitudComponent implements OnInit {
     activeDayIsOpen: boolean = true;
     excludeDays: number[] = [0, 6];
     viewDate: Date = new Date();
-
+    listspecification: any[]
     events: any = [
         {
             start: startOfDay('2019/01/04'),
             title: 'jajajaaj',
             turno: 'AM',
-            color: colors.red
+            color: this.colors.red
         },
         {
             start: startOfDay('2019/01/04'),
             title: 'test2',
             turno: 'PM',
-            color: colors.yellow
+            color: this.colors.yellow
         },
         {
             start: startOfDay('2019/01/08'),
             title: 'otros',
             turno: 'AM',
-            color: colors.yellow
+            color: this.colors.yellow
         }
     ];
 
@@ -124,20 +116,7 @@ export class RegistroSolicitudComponent implements OnInit {
         turno: ''
     }   
     closeResult: string;
-    public solicitud: any = {
-        ClientId: 1,
-        TypeServiceId: '',
-        wishDate: '',
-        TypeRequestId: 3,
-        turn: '',
-        type: '',      
-        state: '',
-        municipality: '',
-        parish: '',
-        typeProperty: '',
-        description: '',
-        employee: ''
-    };
+    
     public solicitudes: any;
     public nuevo: any;
     public employes = [];
@@ -146,13 +125,29 @@ export class RegistroSolicitudComponent implements OnInit {
     public parishes = [];
 
     public typeService: any;
-    public typeSpecifications: any = [];
     public typeProperties = [];
     public typeProperty: any;
 
+    public solicitud: any = {
+        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: '',
+        wishDate: '',
+        turn: '',
+        typeProperty: '',
+        TypeServiceId: '',
+        TypeRequestId: 3,
+        state: '',
+        municipality: '',
+        parish: '',
+        direction: '',
+        description: '',
+        typeSpecifications: [],
+    };
+    
     submitType: string = 'Save';
     selectedRow: number;
 
+    
     constructor(private modalService: NgbModal,
         public globalService: GlobalService,
         private coolDialogs: NgxCoolDialogsService) {
@@ -196,50 +191,22 @@ export class RegistroSolicitudComponent implements OnInit {
                 console.log(result['data'])
                 //Para que actualice la lista una vez que es creado el recaudo
                 this.employes = result['data'];
+                
             }
         }, (err) => {
             console.log(err);
         });
 
-        this.globalService.getModel("/api/typeSpecification").then((result) => {
-            if (result['status']) {
-                //Para que actualice la lista una vez que es creado el recaudo
-                this.typeSpecifications = 0;
-                this.typeSpecifications = result['data'];
-                console.log(this.typeSpecifications);
-            }
-        }, (err) => {
-            console.log(err);
-        });
     }  
 
     loadSpecifications(type){
-        console.log(this.typeSpecifications)
         document.getElementById("tabspecification").setAttribute("style","")
-        this.typeSpecifications = [];
-
+        this.solicitud.typeSpecifications = [];
         this.globalService.getModel(`/api/typeProperty/specification/${type}`).then((result) => {
-            if (result['status']) {
-                
-                
-                //Para que actualice la lista una vez que es creado el recaudo
-                for ( var d in result['data']){
-                    var check = [];
-                    var number = [];
-                    for(var esp in result['data'][d].specifications){
-                        var especification = result['data'][d].specifications[esp]
-                        if(especification.typeInput=="number"){
-                            number.push(especification)
-                        }
-                        if(especification.typeInput=="checkbox"){
-                            check.push(especification)
-                        }
-                        
-                    }
-                    result['data'][d].specifications = {number: number,check: check}
+            if (result['status']) {        
+                this.solicitud.typeSpecifications = result['data']
                 }
-                this.typeSpecifications = result['data']
-            }
+                
         }, (err) => {
             console.log(err);
         });
@@ -262,7 +229,6 @@ export class RegistroSolicitudComponent implements OnInit {
     }
 
     loadparish(municipality) {
-        console.log("muni ", municipality)
         this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
             if (result['status']) {
                 //Para que actualice la lista una vez que es creado el recaudo
@@ -277,12 +243,19 @@ export class RegistroSolicitudComponent implements OnInit {
 
     // This method associate to New Button.
     enviar() {
-        this.nuevo = [];
+        this.nuevo = {};
         this.nuevo = {
-            ClientId: this.solicitud.ClientId,
-            TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
-            wishDate: moment(this.solicitud.wishDate).format('DD/MM/YYYY'),
-            TypeRequestId: this.solicitud.TypeRequestId
+            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: Number.parseInt(this.solicitud.employeeId),
+        wishDate: this.solicitud.wishDate,
+        turn: this.solicitud.turn,
+        typeProperty: Number.parseInt(this.solicitud.typeProperty),
+        TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
+        TypeRequestId: this.solicitud.TypeRequestId,
+        parish: Number.parseInt(this.solicitud.parish),
+        direction: this.solicitud.direction,
+        description: this.solicitud.description,
+        typeSpecifications: this.solicitud.typeSpecifications
         };
         console.log("result", this.nuevo);
         this.globalService.addModel(this.nuevo, "/api/request/pending")
@@ -294,33 +267,25 @@ export class RegistroSolicitudComponent implements OnInit {
                 }
             }, (err) => {
                 console.log(err);
-            });
-        // this.solicitud2.tipo = options[select.value-1].text
-        //solicitud.push(this.solicitud2)
-        alert("Agregado con exito")
+            });        
+            alert("Agregado con exito")
         this.limpiar()
     }
 
     limpiar() {
-
         this.solicitud = {
-            /*  cliente: "1",
-              inmueble: {
-              tipo: "",
-              pisos:"",
-              banos: "",
-              habitaciones: "",
-              descripcion: "",
-              direccion: {pais: "",estado:"",municipio:"",parroquia:"",ciudad:"",referencia:""},
-              estado: "En espera",
-              fotos: []
-              },
-              fecha: "",
-              tipo: "" */
-            ClientId: 1,
-            TypeServiceId: "",
-            wishDate: "",
-            TypeRequestId: 3
+        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        employeeId: '',
+        wishDate: '',
+        turn: '',
+        typeProperty: '',
+        TypeServiceId: '',
+        TypeRequestId: 3,
+        state: '',
+        municipality: '',
+        parish: '',
+        direction: '',
+        description: '',
         }
     }
 
@@ -354,11 +319,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         start: startOfDay(this.test.fecha),
                         title: 'jajajaaj',
                         turno: 'AM',
-                        color: colors.red,
-                        resizable: {
-                            beforeStart: true,
-                            afterEnd: true
-                        }
+                        color: this.colors.red,
                     });           
                     this.hideChildModal();
                     this.refresh.next();
@@ -389,11 +350,7 @@ export class RegistroSolicitudComponent implements OnInit {
                             start: startOfDay(this.test.fecha),
                             title: 'jajajaaj',
                             turno: 'PM',
-                            color: colors.red,
-                            resizable: {
-                                beforeStart: true,
-                                afterEnd: true
-                            }
+                            color: this.colors.red,
                         });                      
                         this.hideChildModal();
                         this.refresh.next();
@@ -464,4 +421,27 @@ export class RegistroSolicitudComponent implements OnInit {
         });
       }
 
+    buscarxcodigo(){
+        console.log(this.solicitud)
+     
+    }
+
+    transform_check(valor,tipo,indicador){
+  
+        for(var te in valor){
+            if(valor[te].name==tipo){
+                for(var esp in valor[te].specifications_checkbox){
+                    if(valor[te].specifications_checkbox[esp].name==indicador){
+                        if(valor[te].specifications_checkbox[esp].bin_quantity == "true"){
+                            valor[te].specifications_checkbox[esp].bin_quantity = false    
+                        }else{
+                        valor[te].specifications_checkbox[esp].bin_quantity = true
+                    }
+                    console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
+                    }
+                }
+            }
+        }
+       
+    }
 }
