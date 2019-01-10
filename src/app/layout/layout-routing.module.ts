@@ -22,6 +22,8 @@ const routes: Routes = [
             { path: 'socialnetworks', loadChildren: './socialnetworks/socialnetworks.module#SocialNetworksModule' },
             { path: 'promociones', loadChildren: './promotions/promotions.module#PromotionsModule' },
             { path: 'asignarpromociones', loadChildren: './assignpromotions/assignpromotions.module#AssignPromotionsModule' },
+            { path: 'atencionclientes', loadChildren: './listsugerencias/listsugerencias.module#ListSugerenciasModule' },
+
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
