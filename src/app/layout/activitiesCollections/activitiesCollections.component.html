@@ -63,13 +63,19 @@
                 <td><img src="assets/images/{{listReq.status}}.png" style="width: 50px; height: 50px;"></td>
                 <td><label for="exampleInputFile">{{listReq.name}}</label></td>
                 <td><label for="exampleInputFile">{{listReq.reviewDate}}</label></td>
-                <td >  <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'" class="fa fa-cloud-upload" aria-hidden="true"></i></label>
-                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile"  (change)="onFileChangeRecaudo($event.target.files, listReq.id)">
-                </td>  
-               
-                   <!-- <i class="fa fa-cloud-download" aria-hidden="true"></i> <label *ngIf="listReq.status!='Aceptado'" style="background-color: darkorange;">aqui va</label> -->
-               </tr> 
-               <tr COLSPAN=4>Sales</tr> 
+                <td>
+                   <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'"  style="font-size: 25px;"  class="fa fa-cloud-upload"
+                      aria-hidden="true"></i></label>
+                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile" 
+                  (change)="onFileChangeRecaudo($event.target.files, listReq.id)">   
+                 <a [href]="listReq.urlFileRequirement" target="_blank" [download]="listReq.name" > <i class="fa fa-cloud-download" *ngIf="listReq.urlFileRequirement"    style="font-size: 25px;"  aria-hidden="true"></i></a>
+                  <tr *ngIf="listReq.status=='Rechazado'" style="color:red;" colspan=4>{{listReq.observation}}</tr>
+              </td>
+
+              <!--   <i class="fa fa-cloud-download"  for="file_name" aria-hidden="true"> 
+                </i>
+              -->
+              </tr>
             </tbody>
           </table>
         </div>
