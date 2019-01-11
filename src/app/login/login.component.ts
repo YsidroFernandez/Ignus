@@ -4,6 +4,7 @@ import { routerTransition } from '../router.animations';
 import { AuthService } from "../providers/auth.service";
 import { GlobalService } from "../providers/global.service";
 import { HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private global: GlobalService,
     public route: Router,
+    private toastr: ToastrService
    
   ) { }
 
@@ -57,16 +59,31 @@ export class LoginComponent implements OnInit {
           console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
           localStorage.setItem('user',JSON.stringify(response['data'].user));
+          localStorage.setItem('person',JSON.stringify(response['data'].person));
         }else{
-           this.presentToast("Usuario y Contraseña Incorectos");
+           this.toastr.error('',"Usuario o Contraseña Incorrectos",{
+            timeOut: 5000,
+            progressBar: true,
+            positionClass: 'toast-bottom-right'
+           });
            
         }
       },err=>{
         console.log(err);
+        this.toastr.error('',err,{
+          timeOut: 5000,
+          progressBar: true,
+          positionClass: 'toast-bottom-right'
+         });
+
       })
     }
     else {
-      this.presentToast("Por favor ingresa usuario y contraseña para iniciar sesión");
+      this.toastr.error('',"Por favor ingresa usuario y contraseña para iniciar sesión",{
+        timeOut: 5000,
+        progressBar: true,
+        positionClass: 'toast-bottom-right'
+      });
     }
   }
 

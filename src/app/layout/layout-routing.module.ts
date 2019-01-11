@@ -23,11 +23,13 @@ const routes: Routes = [
             { path: 'promociones', loadChildren: './promotions/promotions.module#PromotionsModule' },
             { path: 'asignarpromociones', loadChildren: './assignpromotions/assignpromotions.module#AssignPromotionsModule' },
             { path: 'atencionclientes', loadChildren: './listsugerencias/listsugerencias.module#ListSugerenciasModule' },
+            { path: 'atencionincidencias', loadChildren: './listincidences/listincidences.module#ListIncidencesModule' },
 
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
             { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
+            { path: 'activitiesEmployee', loadChildren: './activitiesCollectionsEmployee/activitiesCollectionsEmployee.module#ActivitiesCollectionsEmployeeModule' },
             { path: 'services', loadChildren: './services/services.module#ServicesModule' },
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
             { path: 'reserva', loadChildren: './reserva/reserva.module#ReservaModule' },

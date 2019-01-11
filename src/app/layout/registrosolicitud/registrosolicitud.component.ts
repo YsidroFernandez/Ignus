@@ -126,8 +126,6 @@ export class RegistroSolicitudComponent implements OnInit {
     }
     closeResult: string;
 
-
-
     public solicitud: any = {
         userId: Number.parseInt(JSON.parse(localStorage.user).id),
         employeeId: '',
