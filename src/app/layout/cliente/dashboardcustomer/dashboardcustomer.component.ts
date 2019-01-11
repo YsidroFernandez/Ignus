@@ -21,6 +21,7 @@ export class DashboardcustomerComponent implements OnInit {
     clientes: any;
     cliente: any;
     nuevo: any;
+    user:any;
     // It maintains recaudos form display status. By default it will be false.
     showNew: Boolean = false;
     // It will be either 'Save' or 'Update' based on operation.
@@ -40,7 +41,7 @@ export class DashboardcustomerComponent implements OnInit {
     this.clientes = [];
     this.cliente = [];
     this.nuevo = [];
-    
+    this.user = JSON.parse(localStorage.user);
   } 
 
  open(content) {

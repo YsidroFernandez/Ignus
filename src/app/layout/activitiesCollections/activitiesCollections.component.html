@@ -1,21 +1,21 @@
-<div class="title" style=" border-style: groove; border-color: rgb(11, 175, 140);">
-    <h5>Cliente: {{client.firstName}} {{client.lastName}} </h5>
-</div>
-
-<div class="row">
+<div class="row" style="margin-top: 15px;">
   <div class="col-12 col-lg-12">
     <div class="form-group">
-      <label for="tipos">Transacción</label>
-      <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil2.transaction" transaction="ngModel" (change)="load_transaction(perfil2.transaction)">
-          <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
+      <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
+        Transacción
+      </div>
+      <!-- <label for="tipos"></label> -->
+      <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
+        (change)="dataChanged($event)">
+        <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
       </select>
     </div>
   </div>
 
 </div>
 
-<div class="cliente" style="padding:0; margin:0;"  >
-  <div class="card-deck" >
+<div class="cliente" style="padding:0; margin:0;" *ngIf="calendar">
+  <div class="card-deck">
     <div class="card bg-default" style=" border-style: groove; border-color: rgb(11, 175, 140);">
       <div class="card-body text-center">
         <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
@@ -23,131 +23,123 @@
         </div>
         <div class="card-body table-responsive">
           <table class="table">
-              <thead>
+            <thead>
               <tr>
-                <div>
-                  <td>Estado</td>
-                  <td>Actividad</td></div>
-                </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let list of activities" name="actividad" id="actividad" >
-                <div>
-                  <td><img src="assets/images/{{list.status}}.png" style="width: 50px; height: 50px;"></td>
-                  <td >{{list.name}}</td>
-                </div>
+                <td>Estado</td>
+                <td>Actividad</td>
+                <td>Fecha</td>
               </tr>
-
-              </tbody>
+            </thead>
+            <tbody>
+              <tr *ngFor="let listAct of transaction.activities" name="actividad" id="actividad">
+                <td><img src="assets/images/{{listAct.status}}.png" style="width: 50px; height: 50px;"></td>
+                <td>{{listAct.name}}</td>
+                <td>{{listAct.reviewDate}}</td>
+              </tr>
+            </tbody>
           </table>
-      </div>
+        </div>
 
       </div>
     </div>
     <div class="card bg-default">
-      <div class="card-body text-center"  style=" border-style: groove; border-color: rgb(11, 175, 140);">
+      <div class="card-body text-center" style=" border-style: groove; border-color: rgb(11, 175, 140);">
         <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
           Recaudos
         </div>
         <div class="card-body table-responsive">
           <table class="table">
-              <thead>
+            <thead>
               <tr>
-                <div>
-                  <td>Estado</td>
-                  <td>Recaudo</td></div>
+                <td>Estado</td>
+                <td>Recaudo</td>
+                <td>Fecha</td>
+                <td>Accion</td>
               </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let t of transaction; let i= index;">
-                  <div *ngFor="let r of t.requirements">
-                      <td><img src="assets/images/{{r.status}}.png" style="width: 50px; height: 50px;"></td>
-                    <td><label for="exampleInputFile">{{r.name}}</label></td>
-                   <!-- <td> <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />-->
+            </thead>
+            <tbody>
+              <tr *ngFor="let listReq of transaction.requirements">
+                <td><img src="assets/images/{{listReq.status}}.png" style="width: 50px; height: 50px;"></td>
+                <td><label for="exampleInputFile">{{listReq.name}}</label></td>
+                <td><label for="exampleInputFile">{{listReq.reviewDate}}</label></td>
+                <td>
+                  <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'" style="font-size: 25px;"
+                      class="fa fa-cloud-upload" aria-hidden="true"></i></label>
+                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile" (change)="onFileChangeRecaudo($event.target.files, listReq.id)">
+                  <a [href]="listReq.urlFileRequirement" target="_blank" [download]="listReq.name"> <i class="fa fa-cloud-download"
+                      *ngIf="listReq.urlFileRequirement" style="font-size: 25px;" aria-hidden="true"></i></a>
+              <tr *ngIf="listReq.status=='Rechazado'" style="color:red;" colspan=4>{{listReq.observation}}</tr>
+              </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-                  <!--<button type="button" class="btn btn-success btn-s"
+<!-- <td> <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />-->
+
+<!--<button type="button" class="btn btn-success btn-s"
                     (click)="uploader.uploadAll()"
                     [disabled]="!uploader.getNotUploadedItems().length" >
                         Subir Archivo
                   </button> </td> -->
-                  </div>
-              </tr>
-
-              </tbody>
-          </table>
-      </div>
-
-
-
-      </div>
-    </div>
-
-  </div>
-  </div>
-  <!-- Footer -->
+<!-- Footer -->
 <footer class="page-footer font-small teal pt-2" style="background-color:rgb(11, 175, 140); color: honeydew;">
-    <div class=" text-center py-1">
-        <h2>Leyenda</h2>
-      </div>
-    <!-- Footer Text -->
-    <div class="container-fluid text-center text-md-left">
+  <div class=" text-center py-1">
+    <h2>Leyenda</h2>
+  </div>
+  <!-- Footer Text -->
+  <div class="container-fluid text-center text-md-left">
 
 
 
-        <!-- Grid column -->
-        <div class="col-md-12 mt-md-0 mt-3">
+    <!-- Grid column -->
+    <div class="col-md-12 mt-md-0 mt-3">
 
-          <!-- Grid row -->
+      <!-- Grid row -->
       <div class="row">
+        <!-- Content -->
+        <div class="col-md-4 mt-md-0 mt-3">
+
           <!-- Content -->
-          <div class="col-md-4 mt-md-0 mt-3">
-
-              <!-- Content -->
-              <h5 class="text-uppercase font-weight-bold" style="color:white;">Aceptado</h5>
-              <p><img src="assets/images/Aceptado.png" alt="" style="width: 100px; height: 100px;"></p>
-
-            </div>
-            <div class="col-md-4 mt-md-0 mt-3">
-
-                <!-- Content -->
-                <h5 class="text-uppercase font-weight-bold">En Espera</h5>
-                <p><img src="assets/images/Espera.png" alt="" style="width: 100px; height: 100px;"></p>
-
-              </div>
-              <div class="col-md-4 mt-md-0 mt-3">
-
-                  <!-- Content -->
-                  <h5 class="text-uppercase font-weight-bold">Rechazado</h5>
-                  <p><img src="assets/images/Rechazado.png" alt style="width: 100px; height: 100px;"p>
-
-                </div>
-
-                </div>
-                <!-- Grid row -->
+          <h5 class="text-uppercase font-weight-bold" style="color:white;">Aceptado</h5>
+          <p><img src="assets/images/Aceptado.png" alt="" style="width: 100px; height: 100px;"></p>
 
         </div>
-        <!-- Grid column -->
+        <div class="col-md-4 mt-md-0 mt-3">
 
-        <hr class="clearfix w-100 d-md-none pb-3">
-        <!-- Grid column -->
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">En Espera</h5>
+          <p><img src="assets/images/Espera.png" alt="" style="width: 100px; height: 100px;"></p>
 
+        </div>
+        <div class="col-md-4 mt-md-0 mt-3">
 
+          <!-- Content -->
+          <h5 class="text-uppercase font-weight-bold">Rechazado</h5>
+          <p><img src="assets/images/Rechazado.png" alt style="width: 100px; height: 100px;" p>
+
+        </div>
+
+      </div>
+      <!-- Grid row -->
 
     </div>
-    <!-- Footer Text -->
+    <!-- Grid column -->
 
-  </footer>
-  <!-- Footer -->
-
-
+    <hr class="clearfix w-100 d-md-none pb-3">
+    <!-- Grid column -->
 
 
 
+  </div>
+  <!-- Footer Text -->
 
-
-
-
-
+</footer>
+<!-- Footer -->
 
 
 
@@ -155,7 +147,17 @@
 
 
 
-  <!--<form method="get" action="">
+
+
+
+
+
+
+
+
+
+
+<!--<form method="get" action="">
     <div class="row">
         <div class="col-sm">Actividad #1</div>
         <div class="col-sm"><input name="actividad" type="checkbox" /></div>

@@ -16,13 +16,14 @@ import { NgxCoolDialogsService } from "ngx-cool-dialogs";
 export class InmuebleComponent implements OnInit {
   closeResult: string;
   faEye = faEye;
+  item: any;  
   faEdit = faEdit;
   faTrash = faTrash;
   immovables: any;
   property: any;
   typeService: any;
   new: any;
-  modalTitle: string = "Cliente";
+  modalTitle: string = "Inmuebles";
   modalIcon: string = "fa fa-close";
   modalName: any;
   modalTemplate: any;
@@ -42,9 +43,7 @@ export class InmuebleComponent implements OnInit {
   getListProperty() {
     this.globalService.getModel("/api/property").then(
       result => {
-        console.log(result);
         this.immovables = result["data"];
-        console.log(this.immovables);
       },
       err => {
         console.log(err);
@@ -55,9 +54,7 @@ export class InmuebleComponent implements OnInit {
   getTypesServices(){
     this.globalService.getModel("/api/typeService").then(
       result => {
-        console.log(result);
         this.typeService = result["data"];
-        console.log(this.typeService);
       },
       err => {
         console.log(err);
@@ -74,26 +71,11 @@ export class InmuebleComponent implements OnInit {
     //metodo para realizar una accion ya sea crear, editar
 
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
-    // this.new = JSON.stringify({identification: this.employee.identification,firstName: this.employee.firstName,lastName: this.employee.lastName,gender: this.employee.gender,username: this.employee.username});
-    if (this.submitType === "create") {
-      console.log(this.new);
-      //metodo que perimite enviar por post un nuevo empleado
-      this.globalService.addModel(this.new, "/api/user/employee").then(
-        result => {
-          console.log(result);
-          if (result["status"]) {
-            //Para que actualice la lista una vez que es creado el empleado
-            this.getListProperty();
-          }
-        },
-        err => {
-          console.log(err);
-        }
-      );
-    } else {
+    this.new = JSON.stringify({ubication: this.property.ubication, buildDate: this.property.buildDate, specifications_number: this.property.specifications_number, ClientId: this.property.owner[0].id ,TypeServiceId: this.property.TypeService, specifications_checkbox: this.property.specifications_checkbox});
       //metodo que perimite enviar por put una actualizaciòn de un servicio
+      console.log(this.new);
       this.globalService
-        .updateModel(this.property.id, this.new, "/api/employee")
+        .updateModel(this.property.id, this.new, "/api/property")
         .then(
           result => {
             if (result["status"]) {
@@ -105,7 +87,7 @@ export class InmuebleComponent implements OnInit {
             console.log(err);
           }
         );
-    }
+   
   }
 
   //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear
@@ -190,6 +172,24 @@ export class InmuebleComponent implements OnInit {
       });
   }
 
+  transform_check(valor, tipo, indicador) {
+
+    
+        if (valor.name == tipo) {
+            for (var esp in valor.specifications_checkbox) {
+                if (valor.specifications_checkbox[esp].name == indicador) {
+                    if (valor.specifications_checkbox[esp].bin_quantity == "true") {
+                        valor.specifications_checkbox[esp].bin_quantity = false
+                    } else {
+                        valor.specifications_checkbox[esp].bin_quantity = true
+                    }
+                    console.log(valor.specifications_checkbox[esp])
+                }
+            }
+        }
+    
+
+}
   // This method associate toCancel Button.
   onCancel() {
     // Hide employee entry section.
