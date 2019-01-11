@@ -1,108 +1,175 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-
-import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
-import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-
-
-import { clientes } from './modelo/clientes';
-
-import { Incidencia } from './modelo/incidencia';
-
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalService } from '../../providers/global.service';
 @Component({
-  selector: 'app-incidencias',
+  selector: 'app-activities',
   templateUrl: './incidencias.component.html',
   styleUrls: ['./incidencias.component.scss'],
-  animations: [routerTransition()],
-    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
-
+  animations: [routerTransition()]
 })
 export class IncidenciasComponent implements OnInit {
+  closeResult: string;
+  incidencias: any;
+  incidencia: any;
+  tipoincidencias: any;
+  tipoincidencia: any;
+  new: any;
+  // It maintains activities form display status. By default it will be false.
+  showNew: Boolean = false;
+  // It will be either 'Save' or 'Update' based on operation.
+  submitType: string = 'Save';
+  selectedRow: number;
 
-   closeResult: string;
-    constructor(private modalService: NgbModal) {}
- 
-    open(content) {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            if(this.selectedIncidencia.id === 0){
-        this.selectedIncidencia.id = this.IncidenciaArray.length + 1;
-        this.IncidenciaArray.push(this.selectedIncidencia);
-        this.msg = 'Campo Agregado Exitosamente';
+  transaction = [
+    {id: 1, name: 'que'},
+    {id: 2, name: 'ladilla'}  ];
+
+  
+  constructor(
+    private modalService: NgbModal, public globalService: GlobalService) {
+      this.incidencias = [];
+      this.incidencia = [];
+      this.tipoincidencias = [];
+      this.tipoincidencia = [];
+
+      this.new = [];
+   }
+
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      
+        this.closeResult = `Closed with: ${result}`;
+        if (this.submitType === "Save") {
+            this.new = JSON.stringify({name: this.incidencia.name , description:this.incidencia.description});
+            this.globalService.addModel(this.new,"/api/incidence")
+            .then((result) => {
+                console.log(result);
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es creado el promotion
+                    this.globalService.getModel("/api/incidence")
+                        .then((result) => {
+                            console.log(result);
+                            this.incidencias = result['data'];
+                        }, (err) => {
+                            console.log(err);
+                        });
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+        }else{
+            this.globalService.updateModel(this.incidencia.id, this.incidencia, "/api/incidence")
+                .then((result) => {
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es editado el promotion
+                        this.globalService.getModel("/api/incidence")
+                            .then((result) => {
+                                console.log(result);
+                                this.incidencias = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+
         }
-         this.selectedIncidencia = new Incidencia();
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
+        // Hide Usuario entry section.
+        this.showNew = false;
+    }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+}
+
+private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+    } else {
+        return `with: ${reason}`;
     }
+}
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
-    }
+ngOnInit() { 
+   this.allPromotion();
+   this.getIncidencias();
+}
 
-    cliente:clientes[];
-  cliSelect:Number;
-
-    ngOnInit() {
-      this.cliente =[
-          {Id:1, Name:"Jesus"},
-          {Id:2, Name:"Pedro"},
-          {Id:3, Name:"Jhonatan"},
-          {Id:4, Name:"Ysidro"}
-
-    ];
-
-    this.cliSelect= 4;
-
-    }
-
-       faEye = faEye;
-    faEdit = faEdit;
-    faTrash = faTrash;
-
-     msg = '';
-
-      IncidenciaArray:Incidencia[] = [
-        {id:1,
-	fecha: "28-10-2018",
-	motivo: "Tuberias rotas",
-	cliente: "Jesus",transaccion: "Solicitud"},
-        {id:2,
-	fecha: "15-11-2018",
-	motivo: "Falla electrica",
-	cliente: "Pedro",transaccion: "visita"},
-	{id:3,
-	fecha: "01-11-2018",
-	motivo: "Falta de agua",
-	cliente: "Juan",transaccion: "Visita"},
+faEdit = faEdit;
 
 
-    ];
+ allPromotion(){
+    this.globalService.getModel("/api/incidence")
+    .then((result) => {
+        console.log(result);
+        this.incidencias = result['data'];
+        console.log("Esto"+ this.incidencias);
+    }, (err) => {
+        console.log(err);
+    });
+ }
 
-    selectedIncidencia: Incidencia = new Incidencia();
-
-    openForEdit(incidencia: Incidencia) {
-      this.selectedIncidencia = incidencia;
+getIncidencias() {
+    this.globalService.getModel("/api/typeIncidence")
+    .then((result) => {
+        console.log(result);
+        this.tipoincidencias = result['data'];
+        console.log("Esto"+ this.tipoincidencias);
+    }, (err) => {
+        console.log(err);
+    });
 
 }
-  delete(i) {
-       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.IncidenciaArray.splice(i, 1);
-        this.msg = 'Campo Eliminado Exitosamente';
-      }
-      }
-       closeAlert(): void{
-      this.msg = '';
-      }
+onEdit(index: number) {
+    this.submitType = 'Update';
+    this.selectedRow = index;
+    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);
+    this.showNew = true;
+}
+
+// This method associate to Delete Button.
+onDelete(index: number) {
+    console.log('eliminando');
+    this.selectedRow = index;
+    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);
+    this.showNew = true;
+    //Pendiente
+    if(confirm('¿Estas seguro de eliminar esta promotion?')){
+        this.globalService.removeModel(this.incidencia.id, "/api/incidence")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es eliminado la promotion
+                        this.globalService.getModel("/api/incidence")
+                            .then((result) => {
+                                console.log(result);
+                                this.incidencias = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+        }
+    
+      
+}
+// This method associate toCancel Button.
+onCancel() {
+    // Hide Usuario entry section.
+    this.showNew = false;
+}
+
+    
+
 
 }
