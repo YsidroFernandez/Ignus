@@ -1,39 +1,38 @@
 <nav class="navbar navbar-expand-lg fixed-top">
-     <img src="assets/images/ignus4.png" width="80px" height="50px" /> 
+    <img src="assets/images/ignus4.png" width="80px" height="50px" />
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()">
         <!-- <span class="navbar-toggler-icon"></span> -->
         <i class="fa fa-bars text-muted" aria-hidden="true"></i>
-    </button> 
+    </button>
     <div class="collapse navbar-collapse">
         <!-- <form  style="padding: 0.375rem 1rem !important;" class="form-inline my-2 my-lg-0">
             <input  class="form-control mr-sm-2" type="text" placeholder="{{ 'Search' | translate }}" >
         </form> -->
         <ul class="navbar-nav ml-auto">
-             
+
             <li class="nav-item dropdown" ngbDropdown>
-                 <a class="notification nav-link" (click)="getNotifications()" href="javascript:void(0)" ngbDropdownToggle>
-                    <span *ngIf="checkNotification!=null"class="badge">{{checkNotification.cantNewNotifications}}</span> <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
+                <a class="notification nav-link" (click)="getNotifications()" href="javascript:void(0)"
+                    ngbDropdownToggle>
+                    <span *ngIf="checkNotification!=null" class="badge">{{checkNotification.cantNewNotifications}}</span>
+                    <i class="fa fa-bell"></i> <b class="caret"></b><span class="sr-only">(current)</span>
                 </a>
-                      
+
                 <ul class="dropdown-menu messages" ngbDropdownMenu>
                     <li *ngFor="let item of notifications" class="media">
-                        <img class="d-flex align-self-center mr-3" width="40px" height="40px" 
-                            src="{{item.urlImage}}"
-                        >
+                        <img class="d-flex align-self-center mr-3" width="40px" height="40px" src="{{item.urlImage}}">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{item.type}}</h5>
                             <p class="small text-muted"><i class="fa fa-clock-o"></i> {{item.date}}</p>
                             <p class="last">{{item.text}}</p>
                         </div>
                     </li>
-                    <li *ngIf="notifications==null" >
-                        <img class="" width="250px" height="80px" 
-                        src="assets/images/loadergif.gif">
+                    <li *ngIf="notifications==null">
+                        <img class="" width="250px" height="80px" src="assets/images/loadergif.gif">
                     </li>
                 </ul>
             </li>
 
-          <!--  <li class="nav-item dropdown" ngbDropdown>
+            <!--  <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <span class="photo"><img src="assets/images/avatar1.jpg" width="35px" height="30px" />  Sara Smith <b class="caret"></b></span>
                 </a>
@@ -52,7 +51,7 @@
                     </a>
                 </div>
             </li>-->
-          
+
         </ul>
     </div>
 </nav>
