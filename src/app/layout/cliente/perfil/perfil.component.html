@@ -1,5 +1,203 @@
- <div [@routerTransition]>
-    <div class="card-header" style="text-align: -webkit-center;">Perfil</div>
-<tableset>
-	</tableset> 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Cliente</li>
+    <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
+  </ol>
+</nav>
+
+<div class="form-control">
+	<div class="container">
+	<div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+      Informacion de la Cuenta
+    </div>
+    <hr>
+		<div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Nombre de Usuario</label>
+                <input type="text" class="form-control" placeholder="YsidroFernandez3012@gmail.com" name="username">
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Correo</label>
+                <input type="email" class="form-control" placeholder="ysidroFernandez3012@gmail.com" name="email" >
+              </div>
+            </div>
+          </div>
+           <div class="row">
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" class="form-control" placeholder="12345" name="identification">
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Confirme Contraseña</label>
+                <input type="password" class="form-control" placeholder="12345">
+              </div>
+            </div>
+          </div>
+	</div>
+</div>
+<br>
+<div class="form-control">
+	<div class="container">
+	<div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
+     Información Personal
+    </div>
+    <hr>
+    <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Nombres Completos</label>
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="perfil2.firstName">
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Apellidos Completos</label>
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="perfil2.lastName">
+              </div>
+            </div>
+           </div>
+           <div class="row">
+                <div class="col-12 col-lg-6">
+                  <div class="form-group">
+                    <label>Genero</label>
+                    <select class="form-control" name="gender" [(ngModel)]="perfil2.gender">
+                      <option></option>
+                      <option>Femenino</option>
+                      <option>Masculino</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                  <div class="form-group">
+                    <label>Fecha de Nacimiento</label>
+                    <input type="text" class="form-control" [(ngModel)]="perfil2.birthDate" name="birthDate">
+                  </div>
+                </div>
+                 <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Número de Telefono</label>
+                <input type="text" class="form-control" [(ngModel)]="perfil2.phoneNumber">
+              </div>
+            </div>
+                <!--<div class="col-12 col-lg-6">
+                  <div class="form-group">
+                    <label>Estado</label>
+                    <select class="form-control" [(ngModel)]="perfil2.state" name="state">
+                      <option>{{state.name}}</option>
+                      <option *ngFor="let est of state">{{est.name}}</option>
+                    </select>
+                  </div>
+                 </div>-->
+                 <div class="col col-sm-4 text-right">
+           <button style=" background: #1AB394; border-radius: 100%;font-size:24px; "
+                         (click)="open(enviar)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="enviar"></i></button>
+                </div>
+             </div>
+             
+	</div>
+</div>
+<br>
+<div class="form-control">
+  <div class="containet">
+    <div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
+     Gustos y Preferencias
+    </div>
+<hr>
+    <div class="row">
+            <div class="col-12 col-md-8 col-lg-7">
+              <div class="form-group">
+                <label>Tipo Solicitud: (*)</label>
+                <select class="form-control" name="typeservice" id="typeservice" required>
+                    <option *ngFor="let type of typeservice" [value]="type.id">{{type.name}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-5">
+              <div class="form-group">
+                <label class="" for="inmueble">Tipo de Inmueble:</label>
+                <select class="form-control" name="horas" id="tipoinmueble" required>
+                  <option value="0">Seleccione</option>
+                  <option value="1">Casa</option>
+                  <option value="2">Edificio</option>
+                  <option value="3">Terreno</option>
+                  <option value="4">Parcela</option>
+                </select>
+              </div>
+            </div>
+          </div>
+           <div class="row">
+            <div class="col-12 col-lg-7">
+              <div class="form-group">
+                <label for="tipos">Estado</label>
+                <select class="form-control" name="state" id="state" [(ngModel)]="perfil2.state"
+                    #estado="ngModel" (change)="loadmunicipality(perfil2.state)">
+                    <option *ngFor="let sta of states" [value]="sta.id">{{sta.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-lg-5">
+              <div class="row">
+                <div class="col-12 col-md-4 col-lg-6">
+                  <div class="form-group">
+                    <label for="municipality">Municipios</label>
+                    <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil2.municipality"
+                        #municipality="ngModel" (change)="loadparish(perfil2.municipality)">
+                        <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-6">
+                  <div class="form-group">
+                    <label class="" for="parish">Parroquia</label>
+                    <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil2.parish" required>
+                        <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-12 col-md-8 col-lg-7">
+             <h5>Otras Preferencias</h5>
+
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+                <div class="form-group">
+                <input type="checkbox" name="terraza" value="terraza">Terraza<br>
+                </div>
+                </div>
+
+                <div class="col col-sm-6">
+                 <div class="form-group">
+                <input type="checkbox" name="jardin" value="jardin">Jardin<br>
+                </div>
+                </div>
+
+                 <div class="col col-sm-6">
+                 <div class="form-group">
+                 <input type="checkbox" name="piscina" value="piscina">Piscina<br>
+                 </div>
+                 </div>
+
+                 <div class="col col-sm-6">
+                  <div class="form-group">
+                 <input type="checkbox" name="mascotas" value="mascotas">Mascotas<br>
+                 </div>
+                 </div>
+            </div>
+          </div>
+  </div>
+  <div class="col col-sm-4 text-right">
+           <button style=" background: #1AB394; border-radius: 100%;font-size:24px; "
+                         (click)="open()"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="enviar"></i></button>
+                </div>
+</div>
 </div>
