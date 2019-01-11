@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { GlobalService } from '../../providers/global.service';
 
-const URL = 'http://localhost:3000/api/upload';
 
 @Component({
   selector: 'app-activitiesCollections',
@@ -13,8 +11,7 @@ const URL = 'http://localhost:3000/api/upload';
 
 export class ActivitiesCollectionsComponent implements OnInit {
 
-  public uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'photo' });
-
+ 
   user: any;
   status: any;
   test: any;
