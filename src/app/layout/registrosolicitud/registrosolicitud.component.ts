@@ -270,13 +270,13 @@ export class RegistroSolicitudComponent implements OnInit {
                 console.log(result);
                 if (result['status']) {
                     //Para que actualice la lista una vez que es creado el recaudo
-                    console.log(result);
+                    
+                    setInterval(location.href="./dashboardcustomer",3000)
                 }
             }, (err) => {
                 console.log(err);
             });
-        alert("Agregado con exito")
-        this.limpiar()
+            
     }
 
     limpiar() {
@@ -431,10 +431,10 @@ export class RegistroSolicitudComponent implements OnInit {
             if (valor[te].name == tipo) {
                 for (var esp in valor[te].specifications_checkbox) {
                     if (valor[te].specifications_checkbox[esp].name == indicador) {
-                        if (valor[te].specifications_checkbox[esp].bin_quantity == "true") {
-                            valor[te].specifications_checkbox[esp].bin_quantity = false
+                        if (valor[te].specifications_checkbox[esp].quantity == "true") {
+                            valor[te].specifications_checkbox[esp].quantity = false
                         } else {
-                            valor[te].specifications_checkbox[esp].bin_quantity = true
+                            valor[te].specifications_checkbox[esp].quantity = true
                         }
                         console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
                     }

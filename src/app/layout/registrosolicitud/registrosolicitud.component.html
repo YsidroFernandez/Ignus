@@ -68,7 +68,7 @@
                                         <label class="form-check-label col-8">{{esp.name}} : </label>
                                         <label class="switch" [for]="esp.name">
                                             <input class="form-check-input " [id]="esp.name" [type]="esp.typeInput"
-                                                [name]="esp.name" [value]="esp.bin_quantity" [(ngModel)]="esp.bin_quantity"
+                                                [name]="esp.name" [value]="esp.quantity" [(ngModel)]="esp.quantity"
                                                 (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
                                             <div class="slider round"></div>
                                         </label>
