@@ -24,7 +24,9 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
   requirementId: any;
   transactionId: any;
   descripcion: any;
-
+  id_requirement: any;
+  id_activity: any;
+  public type: boolean;
   public activities: any = [];
   public client: any = [];
   public transactions: any = [];
@@ -140,33 +142,101 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
   }
 
 
-  rejectRequirement(id) {
+  rejectRequirement(id) {    
+      this.showChildModal();   
+      this.id_requirement = id;
+      this.type= true;
+  }
 
-      this.showChildModal();
-
+  acceptActivity(id) {
     const body={
-      requirementId: id,
-      observation: this.descripcion
+      activityId: id
+    }
+    this.globalService.updateModel(this.transaction_id, body, "/api/transaction/activity/approve")
+    .then(
+      result => {
+        console.log(result);
+        this.globalService.getModel(`/api/transaction/${ this.transaction_id}`).then((result) => {
+          if (result['status']) {
+            this.transaction = result['data'];
+            console.log(this.transaction);
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );   
+  }
+
+  rejectActivity(id) {
+    this.showChildModal();   
+    this.id_activity = id;
+    this.type = false;
+  }
+
+  saveActivity(descripcion){
+   
+    const body={
+      activityId: this.id_activity,
+      observation: descripcion
     }
 
-    // this.globalService.updateModel(this.transaction_id, body, "/api/transaction/requirement/approve")
-    // .then(
-    //   result => {
-    //     console.log(result);
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-    // );
+    this.globalService.updateModel(this.transaction_id, body, "/api/transaction/activity/reject")
+    .then(
+      result => {
+        console.log(result);
+        this.hideChildModal();
+        this.globalService.getModel(`/api/transaction/${ this.transaction_id}`).then((result) => {
+          if (result['status']) {
+            this.transaction = result['data'];
+            console.log(this.transaction);
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
 
-  acceptActivity($event) {
-    
+
+
+  saveRequiment(descripcion) 
+  {
+    console.log(descripcion);
+
+    const body={
+      requirementId: this.id_requirement,
+      observation: descripcion
+    }
+
+    this.globalService.updateModel(this.transaction_id, body, "/api/transaction/requirement/reject")
+    .then(
+      result => {
+        console.log(result);
+        this.hideChildModal();
+        this.globalService.getModel(`/api/transaction/${ this.transaction_id}`).then((result) => {
+          if (result['status']) {
+            this.transaction = result['data'];
+            console.log(this.transaction);
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    )
+
   }
 
-
-  rejectActivity($event) {
-   
+  close() {
+    this.hideChildModal();
   }
-
 }
