@@ -23,7 +23,7 @@ export class ActivitiesCollectionsComponent implements OnInit {
   files: File[] = [];
   requirements: any;
   employee: any;
-
+  calendar = false;
 
   public activities: any = [];
   public client: any = [];
@@ -98,15 +98,19 @@ export class ActivitiesCollectionsComponent implements OnInit {
   //this method associate to reload states
   dataChanged($event) {
     console.log($event.target.value);
-    this.transaction_id = $event.target.value;
-    this.globalService.getModel(`/api/transaction/${$event.target.value}`).then((result) => {
-      if (result['status']) {
-        this.transaction = result['data'];
-        console.log(this.transaction);
-      }
-    }, (err) => {
-      console.log(err);
-    });
+    if($event.target.value!=''){
+      this.calendar = true;
+      this.transaction_id = $event.target.value;
+      this.globalService.getModel(`/api/transaction/${$event.target.value}`).then((result) => {
+        if (result['status']) {
+          this.transaction = result['data'];
+          console.log(this.transaction);
+        }
+      }, (err) => {
+        console.log(err);
+      });
+    }
+   
 
   }
 
