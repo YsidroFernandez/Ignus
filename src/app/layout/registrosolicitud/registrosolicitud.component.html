@@ -1,4 +1,4 @@
- <div [@routerTransition] class="container">
+ <div [@routerTransition] class="card">
     <app-page-header [heading]="'Solicitud de Servicio'" [icon]="'fa-edit'"></app-page-header>
     <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
     <tabset #tabset>
@@ -14,20 +14,20 @@
             </div>
 
             <br>
-            <div class="row mb-3">
+            <div class="card-body">
                 <div class="form-control">
                     <div class="row">
-                        <div class="col col-sm-8">
+                        <div class="col col-sm-4">
                             <div class="form-group">
                                 <b><label>Inmueble</label></b>
                             </div>
                         </div>
-                        <div class="col col-sm-4">
+                        <div class="col col-sm-6">
                             <div class="row">
-                                <div class="col col-sm-9">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                                <div class="col col-sm-9" >
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" >
                                 </div>
-                                <div class="col col-sm-3">
+                                <div class="col col-sm-3" >
                                     <button (click)="buscarxcodigo()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
                                         <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
                                             data-placement="top" title="Buscar"></i>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-sm-6">
+                        <div class="col col-sm-4">
                             <div class="form-group">
                                 <label for="typeproperty">Tipo de Inmueble</label>
                                 <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud.typeProperty"

@@ -1,17 +1,17 @@
-<div class="row">
+<div class="row" style="margin-top: 15px;">
   <div class="col-12 col-lg-12">
     <div class="form-group">
-      <label for="tipos">Transacción</label>
+      <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
+        Transacción
+      </div>
       <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
         (change)="dataChanged($event)">
-        <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForEmployee}}</option>
+        <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
       </select>
     </div>
   </div>
-
 </div>
-
-<div class="cliente" style="padding:0; margin:0;">
+<div class="cliente" style="padding:0; margin:0;" *ngIf="calendar">
   <div class="card-deck">
     <div class="card bg-default" style=" border-style: groove; border-color: rgb(11, 175, 140);">
       <div class="card-body text-center">
@@ -25,6 +25,7 @@
                 <td>Estado</td>
                 <td>Actividad</td>
                 <td>Fecha</td>
+                <td>Acciones</td>
               </tr>
             </thead>
             <tbody>
@@ -32,11 +33,18 @@
                 <td><img src="assets/images/{{listAct.status}}.png" style="width: 50px; height: 50px;"></td>
                 <td>{{listAct.name}}</td>
                 <td>{{listAct.reviewDate}}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="First group">
+                    <i class="fa fa-check" (change)="acceptActivity($event)" style="color: #1bbd1b; text-shadow: 1px 1px 1px #1e1f1d; font-size: 25px; margin-right: 10px;"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-times" (change)="rejectActivity($event)" style="color: #dc0f0f; text-shadow: 1px 1px 1px #1e1f1d; font-size: 25px;  margin-right: 10px;"
+                      aria-hidden="true"></i>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
     <div class="card bg-default">
@@ -59,25 +67,25 @@
                 <td><img src="assets/images/{{listReq.status}}.png" style="width: 50px; height: 50px;"></td>
                 <td><label for="exampleInputFile">{{listReq.name}}</label></td>
                 <td><label for="exampleInputFile">{{listReq.reviewDate}}</label></td>
-                <td >  <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'" class="fa fa-cloud-upload" aria-hidden="true"></i></label>
-                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile"  (change)="onFileChangeRecaudo($event.target.files, listReq.id)">
-
-                </td>
-                          <!-- <i class="fa fa-cloud-download" aria-hidden="true"></i> <label *ngIf="listReq.status!='Aceptado'" style="background-color: darkorange;">aqui va</label> -->
-               </tr>
+                <td>
+                  <div class="btn-group" role="group" aria-label="First group">
+                    <i class="fa fa-check" (click)="acceptRequirement(listReq.id)" style="color: #1bbd1b; text-shadow: 1px 1px 1px #1e1f1d; font-size: 25px; margin-right: 10px;"
+                      aria-hidden="true"></i>
+                    <i class="fa fa-times" (click)="rejectRequirement(listReq.id)" style="color: #dc0f0f; text-shadow: 1px 1px 1px #1e1f1d; font-size: 25px;  margin-right: 10px;"
+                      aria-hidden="true"></i>
+                  </div>
+                  <a [href]="listReq.urlFileRequirement" target="_blank" [download]="listReq.name"> <i class="fa fa-cloud-download"
+                      *ngIf="listReq.urlFileRequirement" style="font-size: 25px;" aria-hidden="true"></i></a>
+              <tr *ngIf="listReq.status=='Rechazado'" style="color:red;" colspan=4>{{listReq.observation}}</tr>
+              </td>
+              </tr>
             </tbody>
           </table>
         </div>
-
-
-
       </div>
     </div>
-
   </div>
 </div>
-
-
 <!-- Footer -->
 <footer class="page-footer font-small teal pt-2" style="background-color:rgb(11, 175, 140); color: honeydew;">
   <div class=" text-center py-1">
@@ -85,61 +93,60 @@
   </div>
   <!-- Footer Text -->
   <div class="container-fluid text-center text-md-left">
-
-
-
     <!-- Grid column -->
     <div class="col-md-12 mt-md-0 mt-3">
-
       <!-- Grid row -->
       <div class="row">
         <!-- Content -->
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold" style="color:white;">Aceptado</h5>
           <p><img src="assets/images/Aceptado.png" alt="" style="width: 100px; height: 100px;"></p>
-
         </div>
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold">En Espera</h5>
           <p><img src="assets/images/Espera.png" alt="" style="width: 100px; height: 100px;"></p>
-
         </div>
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold">Rechazado</h5>
           <p><img src="assets/images/Rechazado.png" alt style="width: 100px; height: 100px;" p>
-
         </div>
-
       </div>
       <!-- Grid row -->
-
     </div>
     <!-- Grid column -->
-
     <hr class="clearfix w-100 d-md-none pb-3">
     <!-- Grid column -->
-
-
-
   </div>
   <!-- Footer Text -->
-
 </footer>
 <!-- Footer -->
 
-
-
-
-
-
-
-
-
-
-
+<div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-child-name">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-child-name" class="modal-title pull-left">Motivo de rechazo</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row col-md-12" style="margin-left: 5px;">
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea class="form-control" [(ngModel)]="descripcion" id="descripcion" name="descripcion" rows="3"></textarea>
+              </div>
+        </div>          
+      </div>
+      <div class="modal-footer">
+          <div class="row col-md-12">
+              <button type="button" class="btn btn-primary" style="margin-right: 25px;">Enviar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>   
+        </div>
+    </div>
+  </div>

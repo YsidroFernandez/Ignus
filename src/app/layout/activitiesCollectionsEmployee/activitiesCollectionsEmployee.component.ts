@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GlobalService } from '../../providers/global.service';
-
-const URL = 'http://localhost:3000/api/upload';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-activitiesCollectionsEmployee',
@@ -11,7 +9,8 @@ const URL = 'http://localhost:3000/api/upload';
 })
 export class ActivitiesCollectionsEmployeeComponent implements OnInit {
 
-  public uploader: FileUploader = new FileUploader({ url: URL, itemAlias: 'photo' });
+
+  @ViewChild('childModal') childModal: ModalDirective;
 
   user: any;
   status: any;
@@ -21,7 +20,10 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
   files: File[] = [];
   requirements: any;
   employee: any;
-
+  calendar = false;
+  requirementId: any;
+  transactionId: any;
+  descripcion: any;
 
   public activities: any = [];
   public client: any = [];
@@ -49,18 +51,25 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
     activities: ""
   }
 
-
   constructor(public globalService: GlobalService) {
     this.user = JSON.parse(localStorage.user).id;
-
   }
 
   ngOnInit() {
     this.allTransaction();
   }
 
+ 
+  showChildModal(): void {
+    this.childModal.show();
+  }
+ 
+  hideChildModal(): void {
+    this.childModal.hide();
+  }
 
   allTransaction() {
+
     this.globalService.getModel_Id(this.user, '/api/employee/transaction')
       .then((result) => {
         this.transactions = [];
@@ -71,22 +80,22 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
       });
   }
 
-
   //this method associate to reload states
   dataChanged($event) {
     console.log($event.target.value);
-    this.transaction_id = $event.target.value;
-    this.globalService.getModel(`/api/transaction/${$event.target.value}`).then((result) => {
-      if (result['status']) {
-        this.transaction = result['data'];
-        console.log(this.transaction);
-      }
-    }, (err) => {
-      console.log(err);
-    });
-
+    if ($event.target.value != '') {
+      this.calendar = true;
+      this.transaction_id = $event.target.value;
+      this.globalService.getModel(`/api/transaction/${$event.target.value}`).then((result) => {
+        if (result['status']) {
+          this.transaction = result['data'];
+          console.log(this.transaction);
+        }
+      }, (err) => {
+        console.log(err);
+      });
+    }
   }
-
   onFileChangeRecaudo(files: FileList, requirementId) {
 
     this.fileToUploadRecaudo = files.item(0);
@@ -106,5 +115,58 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
       );
   }
 
+
+  acceptRequirement(id) {
+    const body={
+      requirementId: id
+    }
+    this.globalService.updateModel(this.transaction_id, body, "/api/transaction/requirement/approve")
+    .then(
+      result => {
+        console.log(result);
+        this.globalService.getModel(`/api/transaction/${ this.transaction_id}`).then((result) => {
+          if (result['status']) {
+            this.transaction = result['data'];
+            console.log(this.transaction);
+          }
+        }, (err) => {
+          console.log(err);
+        });
+      },
+      err => {
+        console.log(err);
+      }
+    );   
+  }
+
+
+  rejectRequirement(id) {
+
+      this.showChildModal();
+
+    const body={
+      requirementId: id,
+      observation: this.descripcion
+    }
+
+    // this.globalService.updateModel(this.transaction_id, body, "/api/transaction/requirement/approve")
+    // .then(
+    //   result => {
+    //     console.log(result);
+    //   },
+    //   err => {
+    //     console.log(err);
+    //   }
+    // );
+  }
+
+  acceptActivity($event) {
+    
+  }
+
+
+  rejectActivity($event) {
+   
+  }
 
 }
