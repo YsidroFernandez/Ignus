@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
    
-    this.getCantNewNotifications();
+    // this.getCantNewNotifications();
   }
 
 
@@ -67,10 +67,10 @@ export class HeaderComponent implements OnInit {
     this.globalService.getModel_Id_Notification(obj.id.toString(), "/api/notification/check")
       .then(
         result => {
-          console.log(result);
+          // console.log(result);
           
           this.checkNotification = result["data"];
-          console.log(this.checkNotification);
+          // console.log(this.checkNotification);
         },
         err => {
           console.log(err);
