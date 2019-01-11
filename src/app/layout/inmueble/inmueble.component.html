@@ -2,7 +2,7 @@
   <app-page-header [heading]="'Inmuebles'" [icon]="'fa-edit'"></app-page-header>
   <div class="container">
     <div class="card-header" style="text-align: -webkit-center;">
-      Inmuebles Registrados
+      Inmuebles Registrar
     </div>
     <div class="card mb-3">
       <div class="row mb-3">
@@ -48,7 +48,9 @@
         <table class="card-body table table-hover">
           <thead>
             <tr>
+              <th>Propetario</th>
               <th>Ubicación</th>
+              <th>Descrpción</th>
               <th>Fecha de Construcción</th>
               <th colspan="4">Acciones</th>
             </tr>
@@ -57,7 +59,9 @@
             <tr
               *ngFor="let item of immovables; let i = index"
             >
+              <td>{{ item.owner[0].firstName }}</td>
               <td>{{ item.ubication }}</td>
+              <td>{{ item.nameDisplay }}</td>
               <td>{{ item.buildDate }}</td>
               <td>
                 <div class="row ">
@@ -158,6 +162,29 @@
                   </div>
                 </div>
               </div>
+              <div class="row mb-3" >
+                  <div class="col col-sm-6" *ngFor="let item of property.specifications_number">
+                      <div class="form-group">
+                        <label for="tipos">{{item.name}}</label>
+                        <input
+                          type="item.typeIput"
+                          [(ngModel)]="item.quantity"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                </div>
+                <div class="row mb-3" >
+                    <div class="col-12 col-xs-12 col-sm-6 col-md-5" *ngFor="let item of property.specifications_checkbox">
+                            <label class="form-check-label col-8">{{item.name}} : </label>
+                            <label class="switch" [for]="item.name">
+                                <input class="form-check-input " [id]="item.name" [type]="item.typeInput"
+                                    [name]="item.name" [value]="item.bin_quantity" [(ngModel)]="item.bin_quantity"
+                                    (change)="transform_check(this.property,property.name,item.name)">
+                                <div class="slider round"></div>
+                            </label>
+                      </div>
+                  </div>
             </div>
           </div>
         </fieldset>

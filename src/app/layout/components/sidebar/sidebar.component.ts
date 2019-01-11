@@ -320,9 +320,9 @@ export class SidebarComponent {
       console.log(obj.id);
       this.globalService.getModel_Id(obj.id.toString(),"/api/user/menu/intranet").then(
         result => {
-          console.log(result);
+        //   console.log(result);
           this.menu = result["data"];
-          console.log(this.menu);
+        //   console.log(this.menu);
   
           
         },
