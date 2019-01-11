@@ -28,7 +28,6 @@
                 </div>
             </div>
             <div class="card-body  table-responsive">
-                <h4>las transacciones del empleado, aún no tienen asociados los inmuebles</h4>
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
@@ -44,11 +43,11 @@
                             <td>{{ item.status }}</td>
                             <td>{{ item.nameForClient }}</td>
                             <td>{{ item.nameForEmployee }}</td>
-                            <td>---Status</td>
-                            <td>---Acciones
-                               <!--  <button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon></button>
+                            <td>Status</td>
+                            <td>
+                                <button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon></button>
                                 <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" ><fa-icon [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon></button>
-                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon></button> -->
+                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon></button>
                             </td>
                         </tr>
                     </tbody>
