@@ -44,8 +44,8 @@
                             <td>{{item.description}}</td>
                             <td style="text-align: center;">{{item.properties.length}}</td>
                             <td class="text-center">
-                                <label class="switch" for="checkbox">
-                                    <input type="checkbox" id="checkbox" [value]="item.bin_status" [(ngModel)]="item.bin_status" (change)="changeStatus(item)" checked />
+                                <label class="switch" [for]="item.id">
+                                    <input type="checkbox" [id]="item.id" [value]="item.bin_status" [(ngModel)]="item.bin_status" (change)="changeStatus(item)" checked />
                                     <div class="slider round"></div>
                                 </label>
                             </td>
