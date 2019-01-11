@@ -127,12 +127,13 @@ export class CitasComponent implements OnInit {
   }
 
   ngOnInit() {
+   this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
    this.user =  JSON.parse(localStorage.getItem('user')); 
    console.log(this.user);
   }
 
   dayClicked({ date, events }: { date: Date; events: any[] }): void {
-   
+    this.showChildModal();
   }
 
   showChildModal(): void {
