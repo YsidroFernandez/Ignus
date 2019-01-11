@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FileSelectDirective } from 'ng2-file-upload';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -9,6 +8,9 @@ import { ActivitiesCollectionsEmployeeRoutingModule } from './activitiesCollecti
 import { ActivitiesCollectionsEmployeeComponent } from './activitiesCollectionsEmployee.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+
 
 @NgModule({
   imports: [
@@ -16,13 +18,14 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     ActivitiesCollectionsEmployeeRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),
+      ModalModule.forRoot(),
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory
       })
     ],
 
-  declarations: [ActivitiesCollectionsEmployeeComponent, FileSelectDirective],
+  declarations: [ActivitiesCollectionsEmployeeComponent],
     providers: [
     NgbActiveModal,
   ]

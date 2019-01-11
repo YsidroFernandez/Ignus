@@ -4,14 +4,12 @@
       <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
         Transacción
       </div>
-      <!-- <label for="tipos"></label> -->
       <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
         (change)="dataChanged($event)">
         <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
       </select>
     </div>
   </div>
-
 </div>
 
 <div class="cliente" style="padding:0; margin:0;" *ngIf="calendar">
@@ -39,7 +37,6 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
     <div class="card bg-default">
@@ -78,14 +75,6 @@
     </div>
   </div>
 </div>
-
-<!-- <td> <input type="file" name="photo" ng2FileSelect [uploader]="uploader" />-->
-
-<!--<button type="button" class="btn btn-success btn-s"
-                    (click)="uploader.uploadAll()"
-                    [disabled]="!uploader.getNotUploadedItems().length" >
-                        Subir Archivo
-                  </button> </td> -->
 <!-- Footer -->
 <footer class="page-footer font-small teal pt-2" style="background-color:rgb(11, 175, 140); color: honeydew;">
   <div class=" text-center py-1">
@@ -93,127 +82,33 @@
   </div>
   <!-- Footer Text -->
   <div class="container-fluid text-center text-md-left">
-
-
-
     <!-- Grid column -->
     <div class="col-md-12 mt-md-0 mt-3">
-
       <!-- Grid row -->
       <div class="row">
         <!-- Content -->
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold" style="color:white;">Aceptado</h5>
           <p><img src="assets/images/Aceptado.png" alt="" style="width: 100px; height: 100px;"></p>
-
         </div>
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold">En Espera</h5>
           <p><img src="assets/images/Espera.png" alt="" style="width: 100px; height: 100px;"></p>
-
         </div>
         <div class="col-md-4 mt-md-0 mt-3">
-
           <!-- Content -->
           <h5 class="text-uppercase font-weight-bold">Rechazado</h5>
           <p><img src="assets/images/Rechazado.png" alt style="width: 100px; height: 100px;" p>
-
         </div>
-
       </div>
       <!-- Grid row -->
-
     </div>
     <!-- Grid column -->
-
     <hr class="clearfix w-100 d-md-none pb-3">
     <!-- Grid column -->
-
-
-
   </div>
   <!-- Footer Text -->
-
 </footer>
 <!-- Footer -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<form method="get" action="">
-    <div class="row">
-        <div class="col-sm">Actividad #1</div>
-        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-    </div>
-      <br />
-      <div class="row">
-        <div class="col-sm">Actividad #2</div>
-        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-    </div>
-      <br />
-      <div class="row">
-        <div class="col-sm">Actividad #3</div>
-        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-    </div>
-      <br />
-      <div class="row">
-        <div class="col-sm">Actividad #4</div>
-        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-     </div>
-      <br />
-      <div class="row">
-        <div class="col-sm">Actividad #5</div>
-        <div class="col-sm"><input name="actividad" type="checkbox" /></div>
-      </div>
-
-
-        <fieldset class="form-group">
-          <div class="row">
-            <div class="col-sm">
-              <label for="exampleInputFile">Recaudo #1</label>
-            </div>
-            <div class="col-sm">
-              <input type="file" class="form-control-file" id="InputFile1">
-            </div>
-          </div>
-          <br/>
-          <div class="row">
-              <div class="col-sm">
-                <label for="exampleInputFile">Recaudo #2</label>
-              </div>
-              <div class="col-sm">
-                <input type="file" class="form-control-file" id="InputFile1">
-              </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-sm">
-                  <label for="exampleInputFile">Recaudo #3</label>
-                </div>
-                <div class="col-sm">
-                  <input type="file" class="form-control-file" id="InputFile1">
-                </div>
-              </div>
-              <br/>
-      </fieldset>
-
-
-
-      </form> -->
