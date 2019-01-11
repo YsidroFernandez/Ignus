@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
           console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
           localStorage.setItem('user',JSON.stringify(response['data'].user));
+          localStorage.setItem('person',JSON.stringify(response['data'].person));
         }else{
            this.presentToast("Usuario y Contraseña Incorectos");
            

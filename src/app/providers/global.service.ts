@@ -16,14 +16,9 @@ const httpOptionsDefault = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
-
-
-
-
 
 export class GlobalService {
 

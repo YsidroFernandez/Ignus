@@ -20,14 +20,17 @@ export class SidebarComponent {
     menu:any;
     directionIcon: string='fa fa-chevron-down'  
     @Output() collapsedEvent = new EventEmitter<boolean>();
-    
+    public user: any = {};
+    public person: any = {};
 
     constructor(private translate: TranslateService, public router: Router,public globalService: GlobalService) {
         this.translate.addLangs(['en', 'fr', 'ur', 'es', 'it', 'fa', 'de']);
         this.translate.setDefaultLang('en');
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
-
+        this.user = JSON.parse(localStorage.user);
+        this.person = JSON.parse(localStorage.person);
+        console.log( this.user);
         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&
