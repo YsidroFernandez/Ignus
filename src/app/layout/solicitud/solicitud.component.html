@@ -13,7 +13,7 @@
                             <option value="100">100</option>
                         </select> entradas</label>
                 </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                <div *ngIf="solicitud.typeServiceId=='1' || solicitud.typeServiceId=='2'" class="col col-sm-4" style="position: relative; top: 15px;">
                     <div class="input-group">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
@@ -42,7 +42,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let solicitud of solicitudes| paginate: { itemsPerPage: numPage, currentPage: pages }"
-                            (click)=openForEdit(solicitud)>
+                            (click)=openForEdit(solicitud) >
+                            <!--(click)=openForEdit(solicitud) -->
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
@@ -98,6 +99,7 @@
 <!-- Content -->
 <!-- aceptar solicitud buy-->
 <ng-template #content let-c="close" let-d="dismiss">
+    <!--
     <div class="modal-header">
         <h4 class="modal-title" *ngIf="buy"> Solicitud de {{solicitud.typeService.name}} </h4>
         <h4 class="modal-title" *ngIf="!buy"> Solicitud {{solicitud.typeService.name}} </h4>
@@ -145,7 +147,7 @@
             <div class="form-group col-md-6">
             </div>
         </div>
-        <!-- <div class="row md-3 ">
+        <!- - <div class="row md-3 ">
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
@@ -186,7 +188,7 @@
             <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
                 (eventClicked)="handleEvent($event.event)" (eventTimesChanged)="eventTimesChanged($event)">
             </mwl-calendar-day-view>
-        </div> -->
+        </div> - ->
 
     </div>
     <div class="modal-footer" *ngIf="buy">
@@ -248,6 +250,110 @@
             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
                 <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
             </button>
+        </div>
+
+    -->
+
+    <div class="modal-header">
+            <h4 class="modal-title"> Solicitud </h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="firstName">Nombre</label>
+                    <input class="form-control" [(ngModel)]="solicitud.client.firstName" name="firstName" ng-model="firstName"
+                        type="text" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="lastName">Apellido</label>
+                    <input class="form-control" [(ngModel)]="solicitud.client.lastName" name="lastName" ng-model="lastName"
+                        type="text" disabled>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="email">Telefono</label>
+                    <input class="form-control" type="text" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="ng-tns-c12-9" for="name">Tipo de servicio</label>
+                    <input class="form-control" [(ngModel)]="solicitud.typeService.name" name="name" ng-model="lastName"
+                        type="text" disabled>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="col-md-12">
+                    <div class="row md-3">
+                        <div class="col-md-6">
+                            <div class="form-group col-md-12">
+                                <label class="ng-tns-c12-9" for="description">Descripcion</label>
+                                <textarea class="form-control" [(ngModel)]="solicitud.typeService.description" name="description"
+                                    ng-model="description" type="text" rows="3" disabled>
+                                </textarea>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label for="requestDate">Fecha de la solicitud</label>
+                                <div class="input-group">
+                                    <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                                        placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
+                                        autocomplete="off" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="ng-tns-c12-9" for="status">Estado</label>
+                                <input class="form-control" [(ngModel)]="solicitud.status" name="status" ng-model="status"
+                                    type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group col-md-12">
+                                <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
+                                <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
+                                    style="width: 350px; height: 200px; border-radius: 10%;" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label for="tipos">Estado</label>
+                    <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
+                </div>
+    
+                <div class="form-group col-md-6">
+                    <label for="tipos">Municipio</label>
+                    <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                        disabled>
+                </div>
+            </div>
+    
+            <div class="row md-3">
+                <div class="form-group col-md-6">
+                    <label for="tipos">Parroquia</label>
+                    <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                        disabled>
+                </div>
+    
+                <div class="form-group col-md-6">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+               
+                        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Save'; c('Close click');">
+                            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                                title="Agregar"></i>
+                        </button>
+                        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
+                            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
+                        </button>
+                   
         </div>
 </ng-template>
 
@@ -344,7 +450,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
             <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
     </div>
@@ -375,7 +481,7 @@
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="onDelete(1)">
             <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
         </button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
             <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
 

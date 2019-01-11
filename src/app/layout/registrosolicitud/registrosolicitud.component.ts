@@ -127,7 +127,7 @@ export class RegistroSolicitudComponent implements OnInit {
     closeResult: string;
 
     public solicitud: any = {
-        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
         employeeId: '',
         wishDate: '',
         turn: '',
@@ -250,8 +250,8 @@ export class RegistroSolicitudComponent implements OnInit {
     enviar() {
         this.nuevo = {};
         this.nuevo = {
-            userId: Number.parseInt(JSON.parse(localStorage.user).id),
-            employeeId: Number.parseInt(this.solicitud.employeeId),
+            ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
+            EmployeeId: Number.parseInt(this.solicitud.employeeId),
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
             typeProperty: Number.parseInt(this.solicitud.typeProperty),
@@ -269,7 +269,7 @@ export class RegistroSolicitudComponent implements OnInit {
                 if (result['status']) {
                     //Para que actualice la lista una vez que es creado el recaudo
                     
-                    setInterval(location.href="./dashboardcustomer",3000)
+                    //setInterval(location.href="./dashboardcustomer",3000)
                 }
             }, (err) => {
                 console.log(err);
@@ -279,7 +279,7 @@ export class RegistroSolicitudComponent implements OnInit {
 
     limpiar() {
         this.solicitud = {
-            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+            ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
             employeeId: '',
             wishDate: '',
             turn: '',
