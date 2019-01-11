@@ -127,7 +127,7 @@ export class RegistroSolicitudComponent implements OnInit {
     closeResult: string;
 
     public solicitud: any = {
-        userId: Number.parseInt(JSON.parse(localStorage.user).id),
+        ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
         employeeId: '',
         wishDate: '',
         turn: '',
@@ -250,8 +250,8 @@ export class RegistroSolicitudComponent implements OnInit {
     enviar() {
         this.nuevo = {};
         this.nuevo = {
-            userId: Number.parseInt(JSON.parse(localStorage.user).id),
-            employeeId: Number.parseInt(this.solicitud.employeeId),
+            ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
+            EmployeeId: Number.parseInt(this.solicitud.employeeId),
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
             typeProperty: Number.parseInt(this.solicitud.typeProperty),
@@ -268,18 +268,18 @@ export class RegistroSolicitudComponent implements OnInit {
                 console.log(result);
                 if (result['status']) {
                     //Para que actualice la lista una vez que es creado el recaudo
-                    console.log(result);
+                    
+                    //setInterval(location.href="./dashboardcustomer",3000)
                 }
             }, (err) => {
                 console.log(err);
             });
-        alert("Agregado con exito")
-        this.limpiar()
+            
     }
 
     limpiar() {
         this.solicitud = {
-            userId: Number.parseInt(JSON.parse(localStorage.user).id),
+            ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
             employeeId: '',
             wishDate: '',
             turn: '',
@@ -429,10 +429,10 @@ export class RegistroSolicitudComponent implements OnInit {
             if (valor[te].name == tipo) {
                 for (var esp in valor[te].specifications_checkbox) {
                     if (valor[te].specifications_checkbox[esp].name == indicador) {
-                        if (valor[te].specifications_checkbox[esp].bin_quantity == "true") {
-                            valor[te].specifications_checkbox[esp].bin_quantity = false
+                        if (valor[te].specifications_checkbox[esp].quantity == "true") {
+                            valor[te].specifications_checkbox[esp].quantity = false
                         } else {
-                            valor[te].specifications_checkbox[esp].bin_quantity = true
+                            valor[te].specifications_checkbox[esp].quantity = true
                         }
                         console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
                     }
