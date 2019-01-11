@@ -147,7 +147,7 @@ allContact(){
     this.globalService.getModel("/api/contact")
     .then((result) => {
     
-        this.contacts = JSON.parse(result['data']);
+        this.contacts = result['data'];
         console.log(this.contacts);
     }, (err) => {
         console.log(err);

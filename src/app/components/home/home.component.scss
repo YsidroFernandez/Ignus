@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff;
 
   background: url(../../../assets/background.jpg) no-repeat center fixed;
   -webkit-background-size: cover; /* pour anciens Chrome et Safari */
@@ -13,5 +14,4 @@
     margin:0;
     padding:50px 20px;
   }
-
 }
