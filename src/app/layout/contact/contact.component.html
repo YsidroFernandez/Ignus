@@ -33,16 +33,19 @@
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
                             <th>Contacto</th>
+                            <th>Tema</th>
                             <th> Estatus </th>
                             <th colspan="4">ver detalles</th>
                         </tr>
                     </thead>
+
+                    <tr *ngFor="let item of contact ; let i= index" (click)="onEdit(i)">
+
                     <tr *ngFor="let item of contacts" (click)="onEdit(i)">
-                            <td>{{item.fecha}}</td>
+                            <td>{{item.subject}}</td>
                             <td>{{item.name}}</td>
-                            <td>{{item.description}}</td>
+                            <td>{{item.status}}</td>
                             <td>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
@@ -101,7 +104,7 @@
             <div class="form-group">
             <label class="ng-tns-c12-9" for="descripcion">Descripción</label>
             <textarea class="form-control ng-untouched ng-pristine ng-valid" 
-                type="text" [(ngModel)]="contact.description" required style="width: 300px; height: 100px; "></textarea>
+                type="text" [(ngModel)]="contact.description" required style="width: 700px; height: 300px; "></textarea>
             <!--<input type="text" [(ngModel)]="contact.description" class="form-control" />-->
                 </div>
             </div>
