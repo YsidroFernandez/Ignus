@@ -1,11 +1,10 @@
-<div class="title" style=" border-style: groove; border-color: rgb(11, 175, 140);">
-  <h5>Cliente: {{client.firstName}} {{client.lastName}} </h5>
-</div>
-
-<div class="row">
+<div class="row" style="margin-top: 15px;">
   <div class="col-12 col-lg-12">
     <div class="form-group">
-      <label for="tipos">Transacción</label>
+      <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
+        Transacción
+      </div>
+      <!-- <label for="tipos"></label> -->
       <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
         (change)="dataChanged($event)">
         <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
@@ -64,13 +63,13 @@
                 <td><label for="exampleInputFile">{{listReq.name}}</label></td>
                 <td><label for="exampleInputFile">{{listReq.reviewDate}}</label></td>
                 <td>
-                   <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'"  style="font-size: 25px;"  class="fa fa-cloud-upload"
-                      aria-hidden="true"></i></label>
-                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile" 
-                  (change)="onFileChangeRecaudo($event.target.files, listReq.id)">   
-                 <a [href]="listReq.urlFileRequirement" target="_blank" [download]="listReq.name" > <i class="fa fa-cloud-download" *ngIf="listReq.urlFileRequirement"    style="font-size: 25px;"  aria-hidden="true"></i></a>
-                  <tr *ngIf="listReq.status=='Rechazado'" style="color:red;" colspan=4>{{listReq.observation}}</tr>
-              </td>            
+                  <label *ngIf="listReq.status!='Aceptado'" for="tyfile"><i *ngIf="listReq.status!='Aceptado'" style="font-size: 25px;"
+                      class="fa fa-cloud-upload" aria-hidden="true"></i></label>
+                  <input *ngIf="listReq.status!='Aceptado'" type="file" id="tyfile" name="tyfile" (change)="onFileChangeRecaudo($event.target.files, listReq.id)">
+                  <a [href]="listReq.urlFileRequirement" target="_blank" [download]="listReq.name"> <i class="fa fa-cloud-download"
+                      *ngIf="listReq.urlFileRequirement" style="font-size: 25px;" aria-hidden="true"></i></a>
+              <tr *ngIf="listReq.status=='Rechazado'" style="color:red;" colspan=4>{{listReq.observation}}</tr>
+              </td>
               </tr>
             </tbody>
           </table>
