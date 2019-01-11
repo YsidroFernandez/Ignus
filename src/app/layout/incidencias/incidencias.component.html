@@ -1,237 +1,183 @@
 <div [@routerTransition]>
-
-        <br>
-    
-        <app-page-header [heading]="'Incidencias'" [icon]="'fa-edit'"></app-page-header>
-        <div class="container">
-            <div class="card-header" style="text-align: -webkit-center;">Incidencias registradas</div>
-            <div class="card mb-3">
-                <div class="row mb-3">
-                    <div class="col col-sm-4" style="position: relative; top: 15px;">
-                        <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                            </select> entradas</label>
-                    </div>
-                    <div class="col col-sm-4" style="position: relative; top: 15px;">
-                        <div class="input-group">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                            <span class="input-group-btn">
-                                <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                        style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                        data-placement="top" title="Buscar"></i></button>
-                            </span>                        
-                        </div>
-                    </div>
-                    <div class="col col-sm-4 text-right">
-                        <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                            (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
-                            data-placement="top" title="Agregar"></i></button>
+    <app-page-header [heading]="'incidencias'" [icon]="'fa-edit'"></app-page-header>
+    <div class="container">
+        <div class="card-header" style="text-align: -webkit-center;">
+            Incidencias Registrados
+        </div>
+        <div class="card mb-3">
+            <div class="row mb-3">
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <label>Mostrar
+                        <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        entradas</label>
+                </div>
+                <div class="col col-sm-4" style="position: relative; top: 15px;">
+                    <div class="input-group">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" />
+                        <span class="input-group-btn">
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+                                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                        </span>
                     </div>
                 </div>
-                <div class="card-body  table-responsive">
-                    <table class="card-body table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Transacción</th>
-                                <th>Motivo</th>
-                                <th colspan="4">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of incidencias ; let i= index" (click)="onEdit(i)">
-                                <td>{{item.date}}</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.description}}</td>
-                                <td>
+                <div class="col col-sm-4 text-right">
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                        (click)="open(content, 'create', -1)">
+                        <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Transacción</th>
+                            <th>Motivo</th>
+                            <th colspan="4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of incidencias; let i = index">
+                            <td>{{item.date}}</td>
+                            <td>{{item.transaction.nameForEmployee}}</td>
+                            <td>{{item.description}}</td>
+                            <td>
+                                <div class="row ">
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
+                                        (click)="open(content, 'show', i)">
+                                        <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(editar)">
-                                         <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
+                                        (click)="open(content, 'edit', i)">
+                                        <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                         (click)="onDelete(i)">
-                                        <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar" ></i>
+                                        <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row mb-3">
-                    <div class="col col-sm-8">
-                    </div>
-                    <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-                        <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-8"></div>
+                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
             </div>
-        </div>
-
-<!--Contenido -->
-<ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Crear Incidencias</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Transacciones</label>
-                            <select class="form-control" name="transaction" [(ngModel)]="incidencia.transaction">
-                                <option *ngFor="let item of transaction" [ngValue]="item.id" [selected]="incidencia.transaction">
-                                        {{ item.id }}
-                                 </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Tipo de Incidencia</label>
-                            <select class="form-control" name="typeIncidence" [(ngModel)]="tipoincidencia.id">
-                                <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="tipoincidencia.id">
-                                        {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                        <div class="col col-sm-12">
-                            <div class="form-group">
-                                <label for="nombre">Motivo</label>
-                                <input type="text" [(ngModel)]="incidencia.description" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-        </div>
-    </ng-template>
-
-
-
-<!-- <ng-template #editar let-c="close" let-d="dismiss"> 
-
-
-                    <div class="modal-header">
-                    <h4 class="modal-title">Gestion Incidencias</h4>
+            <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <h4 class="modal-title ">{{ modalTitle }}</h4>
                     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="modal-body">
-                    <div>
-                    
-                    </div>
-
-                     <div class="form-group">
-                            <br>
-                                <label id="label-inc-visit" class="control-la col-md-1"> Fecha: </label>
-                                <div id="comb-inc-visit" class="col-md-6">
-                                    <div class="input-group date form_datetime-component">
-                                        <input type="text2" class="form-control" readonly="" size="16">
-                             
-                                                <span class="input-group-btn">
-                                                <button type="button" class="btn btn-vclaro date-set"><i class="fa fa-calendar"></i></button>
-                                                </span>
+                <fieldset [disabled]="disabled">
+                    <div class="card mb-3">
+                        <div class="modal-body">
+                            <div class="row mb-3" *ngIf="showView">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Transacciones</label>
+                                        <select class="form-control" name="transacciones" [(ngModel)]="incidencia.TransactionId">
+                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.TransactionId">
+                                                {{ item2.nameForEmployee }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Tipo de Incidencia</label>
+                                        <select class="form-control" name="typeIncidence" [(ngModel)]="incidencia.TypeIncidenceId">
+                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="incidencia.TypeIncidenceId">
+                                                {{ item.name }}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                   
-             
-                     <div class="form-group">
-                            <label for="tipos">Motivo</label>
-                            <textarea [(ngModel)]="selectedIncidencia.motivo"  type="text" class="form-control"></textarea>
-                         </div>
+                            <div class="row mb-3" *ngIf="!showView">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Transacciones</label>
+                                        <select class="form-control" name="transacciones" [(ngModel)]="incidencia.transaction.id">
+                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.transaction.id">
+                                                {{ item2.nameForEmployee }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Tipo de Incidencia</label>
+                                        <select class="form-control" name="typeIncidence" [(ngModel)]="incidencia.typeIncidence.id">
+                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="incidencia.typeIncidence.id">
+                                                {{ item.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="tipos">Asunto</label>
+                                        <input type="text" [(ngModel)]="incidencia.name" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Motivo</label>
+                                        <textarea [(ngModel)]="incidencia.description" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
-                         <div class="form-group">
-                    <label>Clientes</label>
-                    <select [(ngModel)]="selectedIncidencia.cliente"  class="form-control">
-                        <option *ngFor="let cli of cliente" [value]="cli.Name">
-                            {{cli.Name}}
-                        </option>                      
-                    </select>
-                </div>
+                            <div class="row mb-3">
+                                <div class="col col-sm-6" *ngIf="!showView">
+                                    <div class="form-group">
+                                        <label for="tipos">Fecha</label>
+                                        <input type="text" [(ngModel)]="incidencia.date" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="col col-sm-6" *ngIf="!showView">
+                                    <div class="form-group">
+                                        <label for="nombre">Cliente</label>
+                                        <input disabled type="text" [(ngModel)]="incidencia.transaction.client.firstName"
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
 
 
-                </div>
 
-               <div class="modal-footer">
-                    <button  style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')"><fa-icon style="color: white" [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon></button>
-                </div>
-</ng-template>-->
-
-<ng-template #ver let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Gestión de incidencias</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Fecha</label>
-                            <input disabled type="text" [(ngModel)]="incidencia.date" class="form-control" />
                         </div>
                     </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Cliente</label>
-                            <input disabled type="text" [(ngModel)]="incidencia.transaction.client.firstName" class="form-control" />
-                        </div>
+                </fieldset>
+                <div class="modal-footer">
+                    <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')">
+                        <i style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Cancelar"></i>
+                    </button>
+                    <div *ngIf="submitType != 'show'">
+                        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
+                            (click)="c('Close click')">
+                            <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip"
+                                data-placement="top" title="Editar"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="row mb-3">
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="tipos">Nombre</label>
-                                <input disabled type="text" [(ngModel)]="incidencia.name" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="nombre">Transacción</label>
-                                <input disabled type="text" [(ngModel)]="incidencia.transaction.status" class="form-control" />
-                            </div>
-                        </div>
-                </div>
-                <div class="row mb-3">
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="tipos">Tipo de Incidencia</label>
-                                <input disabled type="text" [(ngModel)]="tipoincidencias.name" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col col-sm-6">
-                            <div class="form-group">
-                                <label for="nombre">Motivo</label>
-                                <input disabled type="text" [(ngModel)]="incidencia.description" class="form-control" />
-                            </div>
-                        </div>
-                </div>
-
-            </div>
+            </ng-template>
         </div>
-        <div class="modal-footer">
-                <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                        style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                        data-placement="top" title="Cerrar"></i></button>
-        </div>
-    </ng-template>
+    </div>
+</div>

@@ -3,6 +3,9 @@ import { routerTransition } from '../../router.animations';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+
+
 @Component({
   selector: 'app-activities',
   templateUrl: './incidencias.component.html',
@@ -15,77 +18,151 @@ export class IncidenciasComponent implements OnInit {
   incidencia: any;
   tipoincidencias: any;
   tipoincidencia: any;
+  transaccion: any = {id: '',nameForEmployee: ''};
+  transacciones: any;
+  modalTitle: string = 'Incidencia';
+  modalIcon: string = 'fa fa-plus'
+  modalName: any;
+  modalTemplate: any;
+  showView:Boolean = false;
+  submitType: string = 'Save';
+  disabled: boolean;
+
+  faEdit = faEdit;
   new: any;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
-  // It will be either 'Save' or 'Update' based on operation.
-  submitType: string = 'Save';
+ 
+
   selectedRow: number;
-
-  transaction = [
-    {id: 1, name: 'que'},
-    {id: 2, name: 'ladilla'}  ];
-
   
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService) {
+    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
       this.incidencias = [];
-      this.incidencia = [];
+      this.incidencia = {};
       this.tipoincidencias = [];
       this.tipoincidencia = [];
 
-      this.new = [];
+      this.new = {};
    }
+   getTransacciones(){
+    this.globalService.getModel("/api/transaction")
+    .then((result) => {
+        console.log(result);
+        this.transacciones = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+
+}
+
+ getIncidence(){
+    this.globalService.getModel("/api/incidence")
+    .then((result) => {
+        console.log(result);
+        this.incidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+ }
+
+getIncidencias() {
+    this.globalService.getModel("/api/typeIncidence")
+    .then((result) => {
+        this.tipoincidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+
+}
 
 
-  open(content) {
-    this.modalService.open(content).result.then((result) => {
-      
-        this.closeResult = `Closed with: ${result}`;
-        if (this.submitType === "Save") {
-            this.new = JSON.stringify({name: this.incidencia.name , description:this.incidencia.description});
-            this.globalService.addModel(this.new,"/api/incidence")
+   ngOnInit() { 
+    this.getIncidence();
+    this.getIncidencias();
+    this.getTransacciones();
+ }
+
+apiAction() { //metodo para realizar una accion ya sea crear, editar
+
+    //declaracion que permite enviar el nuevo json ya sea para crear o editar
+    this.new = JSON.stringify({name: this.incidencia.name, description: this.incidencia.description, TransactionId: this.incidencia.TransactionId, TypeIncidenceId: this.incidencia.TypeIncidenceId});
+    if (this.submitType === "create") {
+        console.log(this.new);
+        //metodo que perimite enviar por post un nuevo empleado
+        this.globalService.addModel(this.new, "/api/incidence")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {
-                    //Para que actualice la lista una vez que es creado el promotion
-                    this.globalService.getModel("/api/incidence")
-                        .then((result) => {
-                            console.log(result);
-                            this.incidencias = result['data'];
-                        }, (err) => {
-                            console.log(err);
-                        });
+                    //Para que actualice la lista una vez que es creado el empleado
+                    this.getIncidence();
                 }
 
             }, (err) => {
                 console.log(err);
             });
-        }else{
-            this.globalService.updateModel(this.incidencia.id, this.incidencia, "/api/incidence")
-                .then((result) => {
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es editado el promotion
-                        this.globalService.getModel("/api/incidence")
-                            .then((result) => {
-                                console.log(result);
-                                this.incidencias = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
-                    }
 
-                }, (err) => {
-                    console.log(err);
-                });
 
-        }
-        // Hide Usuario entry section.
-        this.showNew = false;
+    } else {
+        //metodo que perimite enviar por put una actualizaciòn de un servicio
+        this.globalService.updateModel(this.incidencia.id, this.new, "/api/incidence")
+            .then((result) => {
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es editado el service
+                    this.getIncidence();
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+    }
+}
+
+//solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear 
+open(content, action, index: number) {
+    //==============================================================================
+    //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
+    //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
+    this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.apiAction(); //despues de cerrado el modal se ejecuta la accion de la api
     }, (reason) => {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+    //==============================================================================
+    console.log(action)
+    
+    this.disabled=false;
+    this.modalTemplate = content;
+    this.modalName = action;
+    this.submitType = action;    // variable que nos permite saber que accion podemos ejecutar ejemplo editar
+    this.selectedRow = index;    //aca se toma el indice de el servicio seleccionado
+    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    console.log(this.incidencia)
+
+    if (action == 'show') {//si la accion es ver, desabilita los campos del modal
+        this.disabled = true;
+        this.showView = false;
+        this.modalIcon = "fa fa-close"
+
+
+
+    }
+    else
+        if (action == 'create') {//si la accion es distinta de ver los campos del modal quedaran activados
+            this.disabled = false;
+            this.showView = true;
+            this.modalIcon = "fa fa-plus"
+        } else
+            if (action == 'edit') {//si la accion es distinta de ver los campos del modal quedaran activados
+                this.disabled = false;
+                this.modalIcon = "fa fa-edit";
+                this.showView = false;
+            }
+
 }
+
+
 
 private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -97,42 +174,6 @@ private getDismissReason(reason: any): string {
     }
 }
 
-ngOnInit() { 
-   this.allPromotion();
-   this.getIncidencias();
-}
-
-faEdit = faEdit;
-
-
- allPromotion(){
-    this.globalService.getModel("/api/incidence")
-    .then((result) => {
-        console.log(result);
-        this.incidencias = result['data'];
-        console.log("Esto"+ this.incidencias);
-    }, (err) => {
-        console.log(err);
-    });
- }
-
-getIncidencias() {
-    this.globalService.getModel("/api/typeIncidence")
-    .then((result) => {
-        console.log(result);
-        this.tipoincidencias = result['data'];
-        console.log("Esto"+ this.tipoincidencias);
-    }, (err) => {
-        console.log(err);
-    });
-
-}
-onEdit(index: number) {
-    this.submitType = 'Update';
-    this.selectedRow = index;
-    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);
-    this.showNew = true;
-}
 
 // This method associate to Delete Button.
 onDelete(index: number) {
