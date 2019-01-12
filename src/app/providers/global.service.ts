@@ -12,7 +12,6 @@ const httpOptionsDefault = {
     //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
     'Content-Type': 'application/json',
 
-
   })
 };
 
