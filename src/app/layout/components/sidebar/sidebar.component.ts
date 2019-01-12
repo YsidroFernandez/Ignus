@@ -29,7 +29,7 @@ export class SidebarComponent {
         const browserLang = this.translate.getBrowserLang();
         this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
         this.user = JSON.parse(localStorage.user);
-        this.person = JSON.parse(localStorage.person || "");
+        this.person = JSON.parse(localStorage.person || "{}");
         console.log( this.user);
         this.router.events.subscribe(val => {
             if (
