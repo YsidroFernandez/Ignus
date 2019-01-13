@@ -25,7 +25,7 @@ const routes: Routes = [
             { path: 'atencionclientes', loadChildren: './listsugerencias/listsugerencias.module#ListSugerenciasModule' },
             { path: 'atencionincidencias', loadChildren: './listincidences/listincidences.module#ListIncidencesModule' },
 
-            //transacciones
+            // transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
             { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
@@ -39,10 +39,10 @@ const routes: Routes = [
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
             { path: 'citas', loadChildren: './citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './scheduler/scheduler.module#SchedulerModule' },
-
+            { path: 'listransactions', loadChildren: './listransactions/listransactions.module#ListransactionsModule'},
             { path: 'solicitud', loadChildren: './solicitud/solicitud.module#SolicitudModule' },
             { path: 'registrosolicitud', loadChildren: './registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
-            //cliente
+            // cliente
             { path: 'solicitudservicio', loadChildren: './cliente/solicitud-servicio/solicitud-servicio.module#SolicitudServicioModule'},
             { path: 'ofrecer', loadChildren: './cliente/ofrecer/ofrecer.module#OfrecerModule'},
             { path: 'actividad', loadChildren: './cliente/actividad/actividad.module#ActividadModule' },
