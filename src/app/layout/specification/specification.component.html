@@ -1,8 +1,8 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Actividades'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
       <div class="card-header" style="text-align: -webkit-center;">
-        Actividades Registrados
+        Tipo de Especificación
       </div>
       <div class="card mb-3">
         <div class="row mb-3">
@@ -38,7 +38,7 @@
                     style="color: white"
                     class="fa fa-search"
                     aria-hidden="true"
-                    data-toggle="tooltip" data-placement="top" title="Buscar" ></i>
+                  ></i>
                 </button>
               </span>
             </div>
@@ -46,40 +46,43 @@
           </div>
           <div class="col col-sm-4 text-right">
                 <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                    (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
-          </div>
+                    (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+            </div>
         </div>
         <div class="card-body  table-responsive">
           <table class="card-body table table-hover">
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Valor</th>
+                <th>Tipo de Especificación</th>
                 <th colspan="4">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <tr
-                *ngFor="let item of activities; let i = index"
+                *ngFor="let item of specifications; let i = index"
               >
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
+                <td>{{ item.typeInput }}</td>
+                <td>{{ item.typeSpecification }}</td>
                 <td>
                   <div class="row ">
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="open(content,'show', i)">
-                  <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
+                  <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
               </button>
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="open(content,'edit', i)">
-                  <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
+                  <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
               </button>
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="onDelete(i)">
-                  <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar" ></i>
+                  <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
               </button>
                   </div>
-             </td>
+          </td>
               </tr>
             </tbody>
           </table>
@@ -99,6 +102,7 @@
         </div>
         <ng-template #content let-c="close" let-d="dismiss">
           <div class="modal-header">
+            <div class="col-4"></div>
             <h4 class="modal-title ">{{modalTitle}}</h4>
             <button
               type="button"
@@ -113,27 +117,44 @@
             <div class="card mb-3">
               <div class="modal-body">
                 <div class="row mb-3">
-                  <div class="col col-sm-6">
+                  <div class="col col-sm-12 col-md-6">
                     <div class="form-group">
                       <label for="tipos">Nombre</label>
                       <input
                         type="text"
-                        [(ngModel)]="activity.name"
+                        [(ngModel)]="specification.name"
                         class="form-control"
                       />
                     </div>
                   </div>
-                  <div class="col col-sm-6">
+                  <div class="col col-sm-12 col-md-6">
                         <div class="form-group">
                           <label for="tipos">Descripción</label>
                           <input
                             type="text"
-                            [(ngModel)]="activity.description"
+                            [(ngModel)]="specification.description"
                             class="form-control"
                           />
                         </div>
                       </div>
+                      <div class="col col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="tipos">Tipo de Valor</label>
+                          <select class="form-control" name="typeinput" id="typeinput"   [(ngModel)]="specification.typeInput">
+                            <option *ngFor="let type of typeinputs" [value]="type.id">{{type.name}}</option>
+                        </select>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="tipos">Tipo de Especificacion</label>
+                          <select class="form-control" name="typespecification" id="typespecification"   [(ngModel)]="specification.typeSpecification">
+                            <option *ngFor="let type of typespecifications" [value]="type.id">{{type.name}}</option>
+                        </select>
+                        </div>
+                      </div>
                 </div>
+               
               </div>
             </div>
           </fieldset>
@@ -152,3 +173,8 @@
     </div>
   </div>
   
+
+
+
+
+

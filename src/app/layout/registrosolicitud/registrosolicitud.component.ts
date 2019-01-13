@@ -245,7 +245,45 @@ export class RegistroSolicitudComponent implements OnInit {
         });
 
     }
-
+    
+    searchPropertyId(){
+    var codigo = document.getElementById("search").value
+    if(codigo!=""){
+    this.globalService.getModel(`/api/property/`+codigo).then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista una vez que es creado el recaudo
+            //var property = result['data']
+            var property = {
+                employeeId: 1,
+                typeProperty: 2,
+                state: 12,
+                municipality: 152 ,
+                parish: 513,
+                direction: 'aguada  grande, calle comercio, callejon # 3',
+                description: 'mi casa es bonita y todo fine equipadita y con sonido'
+//                typeSpecifications = []
+            }
+                
+            this.solicitud.employeeId = property.employeeId;
+            this.solicitud.typeProperty = property.typeProperty;
+            
+            this.solicitud.state = property.state;
+            this.loadmunicipality(property.state)
+            this.solicitud.municipality = property.municipality;
+        
+            this.loadparish(property.municipality)
+            this.solicitud.parish = property.parish;
+            this.solicitud.direction = property.direction;
+            this.solicitud.description = property.description;
+  //          this.solicitud.typeSpecifications = property.typeSpecifications;
+            
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    }
+    }
+    
     // This method associate to New Button.
     enviar() {
         this.nuevo = {};
