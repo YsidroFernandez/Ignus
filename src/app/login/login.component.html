@@ -1,54 +1,66 @@
 <div class="login-page" [@routerTransition]>
-    
-    <!--<div class="row justify-content-md-center">
-            <img src="./../../assets/images/ignus3.png" width="250px" height="200px"  /> 
-    </div>-->
+<br><br><br><br>
+    <div class="row">
+    <div class="col-12 col-sm-12 col-md-6">
+        <br /><br />
+        <a href="/"> <img class="responsive" style="height:150px; width:300px" [src]="logo" alt="Logo" /></a>
+        <br /><br />
+        <p>
+            Bienvenidos a nuestro sistema. Al ingresar usted será participe del trámite de su gestión inmobiliaria.
+            Para nosotros el inmueble no es un producto, es un patrimonio, por eso le brindamos la mejor asesoría.
+        </p>
 
-    <div class="row justify-content-md-center">
-        <div class="col-sm-4 col-sm-offset-3 form-box">
-            <div class="form-top">
-                <div class="form-top-left">
-                    <div class="row justify-content-md-center">
-            <img src="./../../assets/images/ignus4.png" width="250px" height="200px"  /> 
     </div>
-                    <h2 class="text-center">Login</h2>
+    <div class="col-12 col-sm-12 col-md-6">
+        <div class="ibox-content">
+            <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
+                    <label class="sr-only" for="username">Usuario</label>
+                    <input type="text" name="username" placeholder="Username..." class="form-username form-control"
+                        [(ngModel)]="usuario.username" #username="ngModel" required id="username">
+                    <div *ngIf="f.submitted && !username.valid">Username is required</div>
                 </div>
-                <div class="form-top-right">
-                    <i class="fa fa-lock"></i>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                    <label class="sr-only" for="password">Contraseña</label>
+                    <input type="password" name="password" placeholder="Password..." class="form-password form-control"
+                        [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
+                    <div *ngIf="f.submitted && !password.valid">Password is required</div>
                 </div>
-            </div>
-            <div class="form-bottom">
-                <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
-                        <label class="sr-only" for="username">Usuario</label>
-                        <input type="text" name="username" placeholder="Username..." class="form-username form-control" [(ngModel)]="usuario.username" #username="ngModel" required id="username">
-                            <div *ngIf="f.submitted && !username.valid">Username is required</div>
-                    </div>
-                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-                        <label class="sr-only" for="password" >Contraseña</label>
-                        <input type="password" name="password" placeholder="Password..." class="form-password form-control" [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
-                            <div *ngIf="f.submitted && !password.valid">Password is required</div>
-                    </div>
-                    <button type="submit" class="btn" [routerLink]="['/dashboard']" ng-disabled="!usuario.username || !usuario.password">Sign in!</button>
-                    <a class="" href="">Forgot your password?</a>
-                </form>
-            </div>
+                <button type="submit" class="btn btn-primary block full-width m-b" [routerLink]="['/dashboard']" ng-disabled="!usuario.username || !usuario.password">Sign
+                    in!</button>
+                
+
+                <a href="#">
+                    <small>¿Has olvidado tu contraseña?</small>
+                </a>
+                <br />
+                <br />
+                <p class="text-muted text-center">
+                    <small>¿Aún no tienes una cuenta?</small>
+                </p>
+                <a class="btn btn-sm btn-white btn-block" routerLink="/suscribir">Registrate como usuario</a>
+            </form>
         </div>
     </div>
-    <!--div class="row">
-                            <div class="col-sm-6 col-sm-offset-3 social-login">
-                                <h3>...or login with:</h3>
-                                <div class="social-login-buttons">
-                                    <a class="btn btn-link-2" href="#">
-                                        <i class="fa fa-facebook"></i> Facebook
-                                    </a>
-                                    <a class="btn btn-link-2" href="#">
-                                        <i class="fa fa-twitter"></i> Twitter
-                                    </a>
-                                    <a class="btn btn-link-2" href="#">
-                                        <i class="fa fa-google-plus"></i> Google Plus
-                                    </a>
-                                </div>
-                            </div>
-                        </div-->
 </div>
+</div>
+<!--
+<div class="form-bottom">
+    <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
+            <label class="sr-only" for="username">Usuario</label>
+            <input type="text" name="username" placeholder="Username..." class="form-username form-control"
+                [(ngModel)]="usuario.username" #username="ngModel" required id="username">
+            <div *ngIf="f.submitted && !username.valid">Username is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label class="sr-only" for="password">Contraseña</label>
+            <input type="password" name="password" placeholder="Password..." class="form-password form-control"
+                [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
+            <div *ngIf="f.submitted && !password.valid">Password is required</div>
+        </div>
+        <button type="submit" class="btn" [routerLink]="['/dashboard']" ng-disabled="!usuario.username || !usuario.password">Sign
+            in!</button>
+        <a class="" href="">Forgot your password?</a>
+    </form>
+-->

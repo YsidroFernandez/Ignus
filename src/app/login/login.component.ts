@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { AuthService } from "../providers/auth.service";
-import { GlobalService } from "../providers/global.service";
+import { AuthService } from '../providers/auth.service';
+import { GlobalService } from '../providers/global.service';
 import { HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
@@ -24,15 +24,25 @@ export class LoginComponent implements OnInit {
   resposeData: any;
   use: any;
   usuario = { "username": '', "password": '' };
-
+  logo: string;
 
   constructor(public router: Router,
     public authService: AuthService,
     private global: GlobalService,
     public route: Router,
     private toastr: ToastrService
-   
-  ) { }
+  ) {
+
+   global.getModel('/api/agency/logo').then((result) => {
+    if (result['status']) {
+      console.log(result)
+      this.logo = result['data'].url;
+  }
+}, (err) => {
+  console.log(err);
+});
+
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
