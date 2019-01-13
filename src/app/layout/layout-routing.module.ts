@@ -24,7 +24,8 @@ const routes: Routes = [
             { path: 'asignarpromociones', loadChildren: './assignpromotions/assignpromotions.module#AssignPromotionsModule' },
             { path: 'atencionclientes', loadChildren: './listsugerencias/listsugerencias.module#ListSugerenciasModule' },
             { path: 'atencionincidencias', loadChildren: './listincidences/listincidences.module#ListIncidencesModule' },
-
+            { path: 'tipoespecificacion', loadChildren: './typespecification/typespecification.module#TypeSpecificationModule' },
+            { path: 'especificacion', loadChildren: './specification/specification.module#SpecificationModule' },
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
