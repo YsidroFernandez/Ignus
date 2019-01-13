@@ -15,7 +15,9 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 export class ServicesComponent implements OnInit {
     //variables publicas
+    url: string;
     closeResult: string;
+    selectedFile: File;
     services: any;
     service: any;
     nuevo: any;
@@ -86,13 +88,18 @@ export class ServicesComponent implements OnInit {
 
 
     apiAction() { //metodo para realizar una accion ya sea crear, editar
-
+        const uploadData = new FormData();
+        if(this.selectedFile!=null){
+        uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
+        }
+        
 
         //declaracion que permite enviar el nuevo json ya sea para crear o editar
         this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
+        uploadData.append("service", this.nuevo);
         if (this.submitType === "create") {
             //metodo que perimite enviar por post un nuevo servicio
-            this.globalService.addModel(this.nuevo, "/api/typeService")
+            this.globalService.addModel(uploadData, "/api/typeService",this.globalService.getHeaderClear())
                 .then((result) => {
                     console.log(result);
                     if (result['status']) {
@@ -107,7 +114,7 @@ export class ServicesComponent implements OnInit {
 
         } else {
             //metodo que perimite enviar por put una actualizaciòn de un servicio
-            this.globalService.updateModel(this.service.id, this.nuevo, "/api/typeService")
+            this.globalService.updateModel(this.service.id, uploadData, "/api/typeService",this.globalService.getHeaderClear())
                 .then((result) => {
                     if (result['status']) {
                         //Para que actualice la lista una vez que es editado el service
@@ -126,6 +133,26 @@ export class ServicesComponent implements OnInit {
 
 
     }
+    onSelectFile(event) {
+        console.log(event); // called each time file input changes
+        if (event.target.files && event.target.files[0]) {
+          var reader = new FileReader();
+          this.selectedFile = event.target.files[0];
+    
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+    
+          reader.onload = event => {
+            let target: any = event.target; //<-- This (any) will tell compiler to shut up!
+            this.url = target.result;
+            console.log(event); // called once readAsDataURL is completed
+          };
+        }
+      }
+    
+      onFileChanged(event) {
+        console.log(event);
+        this.selectedFile = event.target.files[0];
+      }
 
     //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear 
     open(content, action, index: number) {
@@ -149,7 +176,7 @@ export class ServicesComponent implements OnInit {
         this.submitType = action;// variable que nos permite saber que accion podemos ejecutar ejemplo editar
         this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
         this.service = Object.assign({}, this.services[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-
+        this.url = this.service.urlImage;
         if (index != -1) { //el caso index -1 es cuando se solicita crear, ver html
 
 
