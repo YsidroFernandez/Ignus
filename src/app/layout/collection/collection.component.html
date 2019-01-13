@@ -38,7 +38,7 @@
                     style="color: white"
                     class="fa fa-search"
                     aria-hidden="true"
-                  ></i>
+                    data-toggle="tooltip" data-placement="top" title="Buscar" ></i>
                 </button>
               </span>
             </div>
@@ -46,7 +46,7 @@
           </div>
           <div class="col col-sm-4 text-right">
                 <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                    (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                    (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar" ></i></button>
           </div>
         </div>
         <div class="card-body  table-responsive">
@@ -68,15 +68,15 @@
                   <div class="row ">
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="open(content,'show', i)">
-                  <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                  <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
               </button>
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="open(content,'edit', i)">
-                  <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                  <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
               </button>
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                   (click)="onDelete(i)">
-                  <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                  <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
               </button>
                   </div>
              </td>
