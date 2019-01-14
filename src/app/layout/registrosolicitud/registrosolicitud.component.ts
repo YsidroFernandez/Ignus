@@ -69,6 +69,7 @@ export class RegistroSolicitudComponent implements OnInit {
     public typeService = [];
     public typeProperties = [];
     public typeProperty: any;
+    public search: String
     colors: any = {
         red: {
             primary: '#ad2121',
@@ -150,6 +151,7 @@ export class RegistroSolicitudComponent implements OnInit {
         public globalService: GlobalService,
         private coolDialogs: NgxCoolDialogsService) {
         this.dateOrViewChanged();
+        this.search = '';
     }
 
     ngOnInit() {
@@ -247,9 +249,9 @@ export class RegistroSolicitudComponent implements OnInit {
     }
     
     searchPropertyId(){
-    var codigo = document.getElementById("search").value
-    if(codigo!=""){
-    this.globalService.getModel(`/api/property/`+codigo).then((result) => {
+    
+    if(this.search!=""){
+    this.globalService.getModel(`/api/property/`+this.search).then((result) => {
         if (result['status']) {
             //Para que actualice la lista una vez que es creado el recaudo
             //var property = result['data']

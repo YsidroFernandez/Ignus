@@ -15,7 +15,12 @@ export class ListIncidencesComponent implements OnInit {
   closeResult: string;
   listincidences: any;
   listincidence: any;
+  respuesta: any = 'Atendida';
   new: any;
+  transaccion: any = {id: '',nameForEmployee: ''};
+  transacciones: any;
+  tipoincidencias: any;
+  tipoincidencia: any;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
@@ -25,6 +30,9 @@ export class ListIncidencesComponent implements OnInit {
   modalName: any;
   modalTemplate: any;
   disabled: boolean;
+  aceptar: any = false;
+  denegar: any = false;
+  user: any;
 
   
   constructor(
@@ -38,17 +46,86 @@ export class ListIncidencesComponent implements OnInit {
         transaction: {client: {}},
         typeIncidence: {}
       };
-      this.new = {};
-      this.disabled = true;
+      this.new = [];
+      this.user = JSON.parse(localStorage.user).id;
+      this.tipoincidencias = [];
+      this.tipoincidencia = [];
+
    }
+
+   getTransacciones(){
+    this.globalService.getModel_Id(this.user, '/api/employee/transaction')
+      .then((result) => {
+        this.transacciones = [];
+        this.transacciones = result['data'];
+        console.log(this.transacciones);
+      }, (err) => {
+        console.log(err);
+        // this.loader.dismiss();
+      });
+}
+
+getIncidencias() {
+    this.globalService.getModel("/api/typeIncidence")
+    .then((result) => {
+        this.tipoincidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+
+}
+
+   cambiardenegar(){
+       if(this.aceptar = true) {
+            this.denegar = false;
+       }else{
+        this.denegar = true;
+       }
+    }
+    
+    cambiaraceptar(){
+        if(this.denegar = true) {
+            this.aceptar = false;
+       }else{
+        this.aceptar = true;
+       }
+    }
+
+    limpiar(){
+        this.listincidence = {
+        name: ' ',
+        description: ' ',
+        transaction: {client: {}},
+        typeIncidence: {}
+        }
+        }
 
 
   open(content,action, index: number) {
     this.modalService.open(content).result.then((result) => {
-      
+        if(this.aceptar){
+            this.listincidence.decision = true;
+            }else{
+            this.listincidence.decision = false;
+            }
         this.closeResult = `Closed with: ${result}`;
-        if (this.submitType === "Update") {
-            this.globalService.updateModel(this.listincidence.id, this.listincidence , "/api/incidence/respond")
+        this.new = JSON.stringify({name: this.listincidence.name, description: this.listincidence.description, TransactionId: this.listincidence.TransactionId, TypeIncidenceId: this.listincidence.TypeIncidenceId});
+        if (this.submitType === "create") {
+            console.log(this.new);
+            //metodo que perimite enviar por post un nuevo empleado
+            this.globalService.addModel(this.new, "/api/incidence")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es creado el empleado
+                        this.allIncidence();
+                    }
+    
+                }, (err) => {
+                    console.log(err);
+                });
+        }else {
+            this.globalService.updateModel(this.listincidence.id, this.listincidence, "/api/incidence/respond")
             .then((result) => {
                 console.log(result);
                 if (result['status']) {
@@ -61,7 +138,6 @@ export class ListIncidencesComponent implements OnInit {
                             console.log(err);
                         });
                 }
-
             }, (err) => {
                 console.log(err);
             });
@@ -112,6 +188,8 @@ show() {
 ngOnInit() {
     this.show();   
    this.allIncidence();
+   this.getTransacciones();
+   this.getIncidencias();
 }
 faEdit = faEdit;
 
@@ -136,44 +214,33 @@ onEdit(index: number) {
     this.showNew = true;
 }
 
-// This method associate to Delete Button.
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
     this.listincidence = Object.assign({}, this.listincidences[this.selectedRow]);
     this.showNew = true;
-
-
-
+    
     this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
         .subscribe(res => {
             if (res) {
                 console.log(res);
                 this.globalService.removeModel(this.listincidence.id, "/api/incidence")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es creado el promotion
-                        this.globalService.getModel("/api/incidence")
-                            .then((result) => {
-                                console.log(result);
-                                this.listincidences = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
-                    }
-    
-                }, (err) => {
-                    console.log(err);
-                });
+                    .then((result) => {
+                        console.log(result);
+                        if (result['status']) {
+                            //Para que actualice la lista una vez que es eliminado el service
+                            this.allIncidence();
+                        }
+
+                    }, (err) => {
+                        console.log(err);
+                    });
             } else {
                 console.log('You clicked Cancel. You smart.');
             }
         });
-
-
-
 }
+// This method associate to Delete Button.
 
 // This method associate toCancel Button.
 onCancel() {
