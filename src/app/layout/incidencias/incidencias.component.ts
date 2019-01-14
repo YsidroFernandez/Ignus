@@ -27,6 +27,7 @@ export class IncidenciasComponent implements OnInit {
   showView:Boolean = false;
   submitType: string = 'Save';
   disabled: boolean;
+  user: any;
 
   faEdit = faEdit;
   new: any;
@@ -42,17 +43,21 @@ export class IncidenciasComponent implements OnInit {
       this.incidencia = {};
       this.tipoincidencias = [];
       this.tipoincidencia = [];
+      this.user = JSON.parse(localStorage.user).id;
 
       this.new = {};
    }
    getTransacciones(){
-    this.globalService.getModel("/api/transaction")
-    .then((result) => {
-        console.log(result);
+    this.globalService.getModel_Id(this.user, '/api/client/transaction')
+      .then((result) => {
+        this.transacciones = [];
         this.transacciones = result['data'];
-    }, (err) => {
+        console.log(this.transacciones);
+      }, (err) => {
         console.log(err);
-    });
+        // this.loader.dismiss();
+      });
+
 
 }
 

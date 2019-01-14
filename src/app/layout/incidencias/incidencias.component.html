@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'incidencias'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="'Incidencias'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
         <div class="card-header" style="text-align: -webkit-center;">
             Incidencias Registrados
@@ -40,28 +40,38 @@
                             <th>Fecha</th>
                             <th>Transacción</th>
                             <th>Motivo</th>
+                            <th>Estatus</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of incidencias; let i = index">
                             <td>{{item.date}}</td>
-                            <td>{{item.transaction.nameForEmployee}}</td>
+                            <td>{{item.transaction.nameForClient}}</td>
                             <td>{{item.description}}</td>
+                            <td>{{item.status}}</td>
                             <td>
                                 <div class="row ">
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content, 'show', i)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content, 'edit', i)">
-                                        <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="onDelete(i)">
-                                        <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
+                                    <div *ngIf="item.status=='Atendida';else other_content">
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(content, 'show', i)">
+                                            <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ng-template #other_content>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(content, 'show', i)">
+                                                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(content, 'edit', i)">
+                                                <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="onDelete(i)">
+                                                <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                    </ng-template>
                                 </div>
                             </td>
                         </tr>
@@ -90,7 +100,7 @@
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.TransactionId">
                                             <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.TransactionId">
-                                                {{ item2.nameForEmployee }}
+                                                {{ item2.nameForClient }}
                                             </option>
                                         </select>
                                     </div>
@@ -112,7 +122,7 @@
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.transaction.id">
                                             <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.transaction.id">
-                                                {{ item2.nameForEmployee }}
+                                                {{ item2.nameForClient }}
                                             </option>
                                         </select>
                                     </div>
@@ -159,8 +169,21 @@
                                 </div>
                             </div>
 
-
-
+                            <div class="row mb-3">
+                                    <div class="col col-sm-6" *ngIf="!showView">
+                                        <div class="form-group">
+                                            <label for="tipos">Decisión</label>
+                                            <input type="text" [(ngModel)]="incidencia.decision" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6" *ngIf="!showView">
+                                        <div class="form-group">
+                                            <label for="nombre">Conclusión</label>
+                                            <input disabled type="text" [(ngModel)]="incidencia.conclusion"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </fieldset>
