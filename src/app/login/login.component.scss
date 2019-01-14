@@ -1,4 +1,4 @@
-
+/*
 $topnav-background-color: #41ccc7;
 :host {
     display: block;
@@ -75,12 +75,12 @@ $topnav-background-color: #41ccc7;
         }
 
         input:-moz-placeholder {
-            /* Firefox 18- */
+        /* Firefox 18- /
             color: rgba(255, 255, 255, 0.6) !important;
         }
 
         input::-moz-placeholder {
-            /* Firefox 19+ */
+            /* Firefox 19+ /
             color: rgba(255, 255, 255, 0.6) !important;
         }
 
@@ -259,7 +259,7 @@ padding: 0 20px;
     .btn-link-2:active, .btn-link-2:active:focus { outline: 0; opacity: 0.6; background: rgba(0, 0, 0, 0.3); color: #fff; }
     
     
-    /***** Top content *****/
+    /***** Top content ***** /
     
     .inner-bg {
         padding: 100px 0 170px 0;
@@ -347,7 +347,7 @@ padding: 0 20px;
     }
     
     
-    /***** Media queries *****/
+    /***** Media queries ***** /
     
     @media (min-width: 992px) and (max-width: 1199px) {}
     
@@ -364,4 +364,40 @@ padding: 0 20px;
         h1, h2 { font-size: 32px; }
     
     }
+}
+*/
+.ibox-content{
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0;
+}
+.m-b{
+    margin-bottom: 15px;
+}
+.full-width{
+    width: 100% !important;
+}
+.btn-white {
+    color: inherit;
+    background: white;
+    border: 1px solid #e7eaec;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+.btn-group-sm > .btn, .btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+.loginColumns {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 20px 20px 20px;
 }

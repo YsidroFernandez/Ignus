@@ -21,7 +21,7 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" />
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
                             </button>
                         </span>
                     </div>
@@ -29,7 +29,7 @@
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content, 'create', -1)">
-                        <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                        <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
                     </button>
                 </div>
             </div>
@@ -196,7 +196,7 @@
                         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                             (click)="c('Close click')">
                             <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip"
-                                data-placement="top" title="Editar"></i>
+                                data-placement="top" title="Agregar"></i>
                         </button>
                     </div>
                 </div>

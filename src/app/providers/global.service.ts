@@ -9,7 +9,7 @@ const httpOptionsDefault = {
 
     // 'accessToken':localStorage.getItem('accessToken'),
 
-    //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
+    //'Authorization': 'Basic '+btoa('jchiquin:12345'),
     'Content-Type': 'application/json',
 
   })
@@ -63,7 +63,7 @@ export class GlobalService {
     this.spinner.show();
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
-        
+
         this.spinner.hide();
         resolve(data);
 
@@ -175,14 +175,14 @@ export class GlobalService {
 
 
   getModel_Id_Notification(id: String, tipo: String, httpOptions = httpOptionsDefault) {
-    
+
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
         resolve(data);
 
       }, (err: any) => {
        // console.log(err);
-        
+
       })
     })
   }

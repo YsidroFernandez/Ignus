@@ -61,11 +61,11 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
     this.allTransaction();
   }
 
- 
+
   showChildModal(): void {
     this.childModal.show();
   }
- 
+
   hideChildModal(): void {
     this.childModal.hide();
   }
@@ -138,12 +138,12 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
       err => {
         console.log(err);
       }
-    );   
+    );
   }
 
 
-  rejectRequirement(id) {    
-      this.showChildModal();   
+  rejectRequirement(id) {
+      this.showChildModal();
       this.id_requirement = id;
       this.type= true;
   }
@@ -168,17 +168,17 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
       err => {
         console.log(err);
       }
-    );   
+    );
   }
 
   rejectActivity(id) {
-    this.showChildModal();   
+    this.showChildModal();
     this.id_activity = id;
     this.type = false;
   }
 
   saveActivity(descripcion){
-   
+
     const body={
       activityId: this.id_activity,
       observation: descripcion
@@ -206,7 +206,7 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
 
 
 
-  saveRequiment(descripcion) 
+  saveRequiment(descripcion)
   {
     console.log(descripcion);
 

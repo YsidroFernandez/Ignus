@@ -29,4 +29,8 @@ export class ValoracionComponent implements OnInit {
       }
     );
   }
+
+  private newMethod(): String {
+    return "/api/typeCalification";
+  }
 }
