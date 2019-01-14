@@ -1,90 +1,131 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Datos de la Agencia'" [icon]="'fa-edit'"></app-page-header>
-
-    <div class="row">
+  <app-page-header
+    [heading]="'Datos de la Agencia'"
+    [icon]="'fa-edit'"
+  ></app-page-header>
+  <div class="card mb-3">
+    <div class="container">
+      <div class="row">
         <!-- <fieldset disabled=""> -->
 
-
         <div class="col-lg-6">
-            <form role="form">
-                <fieldset [disabled]='disabled'>
-                    <div class="form-group">
-                        <label>Nombre de la Agencia</label>
-                        <input [(ngModel)]="agency.name" name="agencyName" placeholder="Nombre" class="form-control">
+          <form role="form">
+            <fieldset [disabled]="disabled">
+              <div class="form-group">
+                <label>Nombre de la Agencia</label>
+                <input
+                  [(ngModel)]="agency.name"
+                  name="agencyName"
+                  placeholder="Nombre"
+                  class="form-control"
+                />
+              </div>
 
-                    </div>
+              <div class="form-group">
+                <label>Rif</label>
+                <input
+                  [(ngModel)]="agency.rif"
+                  name="rif"
+                  class="form-control"
+                  placeholder="Rif"
+                />
+              </div>
 
-                    <div class="form-group">
-                        <label>Rif</label>
-                        <input [(ngModel)]="agency.rif" name="rif" class="form-control" placeholder="Rif">
-                    </div>
+              <div class="form-group">
+                <label>Dirección</label>
+                <textarea
+                  rows="2"
+                  [(ngModel)]="agency.ubication"
+                  name="ubication"
+                  class="form-control"
+                  placeholder="Dirección"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Fundación</label>
+                <input
+                  [(ngModel)]="agency.foundationDate"
+                  name="fundation"
+                  class="form-control"
+                  placeholder="Dirección"
+                />
+              </div>
 
-                    <div class="form-group">
-
-                        <label>Dirección</label>
-                        <textarea rows="2" [(ngModel)]="agency.ubication" name="ubication" class="form-control" placeholder="Dirección"></textarea>
-
-                    </div>
-                    <div class="form-group">
-
-                        <label>Fundación</label>
-                        <input [(ngModel)]="agency.foundationDate" name="fundation" class="form-control" placeholder="Dirección">
-
-                    </div>
-
-
-                    <div class="form-group">
-                            <label>Objetivo General</label>
-                            <textarea [(ngModel)]="agency.generalObjective" name="objetive" class="form-control" rows="3"></textarea>
-                        </div>
-
-
-
-
-
-
-
-                </fieldset>
-                <button type="button" [disabled]='disabled' class="btn btn-outline-secondary" style="background: #1AB394; color: white"
-                    (click)="cancelAgency()">Cancelar</button>
-                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white"
-                    (click)="editAgency()">{{btnEdit}}</button>
-            </form>
-
+              <div class="form-group">
+                <label>Objetivo General</label>
+                <textarea
+                  [(ngModel)]="agency.generalObjective"
+                  name="objetive"
+                  class="form-control"
+                  rows="3"
+                ></textarea>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              [disabled]="disabled"
+              class="btn btn-outline-secondary"
+              style="background: #1AB394; color: white"
+              (click)="cancelAgency()"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              style="background: #1AB394; color: white"
+              (click)="editAgency()"
+            >
+              {{ btnEdit }}
+            </button>
+          </form>
         </div>
         <div class="col-lg-6">
-         
-            
-            <form role="form">
+          <form role="form">
+            <fieldset [disabled]="disabled">
+              <div class="form-group" style="text-align: center">
+                <img
+                  style="border-radius: 20%"
+                  width="200"
+                  height="200"
+                  [src]="url"
+                />
+                <br />
+                <!-- <img width="100" height="100" [src]="url" height="200"> <br/> -->
+                <input
+                  data-classButton="btn btn-primary"
+                  type="file"
+                  (change)="onSelectFile($event)"
+                />
+              </div>
 
-                <fieldset [disabled]='disabled'>
-
-
-                        <div class="form-group" style="text-align: center">
-                                <img style="border-radius: 20%"  width="200" height="200"  [src]="url">
-                                <br>
-                                <!-- <img width="100" height="100" [src]="url" height="200"> <br/> -->
-                                <input  data-classButton="btn btn-primary" type='file' (change)="onSelectFile($event)">
-                           </div>
-
-                    <div class="form-group">
-                        <label>Misión</label>
-                        <textarea [(ngModel)]="agency.mission" name="mission" class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Visión</label>
-                        <textarea [(ngModel)]="agency.vision" name="vision" class="form-control" rows="3"></textarea>
-                    </div>
-                   
-                </fieldset>
-            </form>
+              <div class="form-group">
+                <label>Misión</label>
+                <textarea
+                  [(ngModel)]="agency.mission"
+                  name="mission"
+                  class="form-control"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="form-group">
+                <label>Visión</label>
+                <textarea
+                  [(ngModel)]="agency.vision"
+                  name="vision"
+                  class="form-control"
+                  rows="3"
+                ></textarea>
+              </div>
+            </fieldset>
+          </form>
         </div>
-
-
 
         <!-- </form> -->
 
         <!-- </fieldset> -->
+      </div>
     </div>
-    <!-- /.row -->
+  </div>
+  <!-- /.row -->
 </div>
