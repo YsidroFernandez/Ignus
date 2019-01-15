@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { AuthService } from '../providers/auth.service';
 import { GlobalService } from '../providers/global.service';
@@ -15,7 +16,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      console.log(params['propertyId'])
+      if (params['propertyId'])
+        localStorage.setItem('propertyId',params['propertyId'])
+    });
+   }
 
   ForgotButton: any;
   HomeButton: any;
@@ -27,11 +34,12 @@ export class LoginComponent implements OnInit {
   logo: string;
 
   constructor(public router: Router,
+    private route: ActivatedRoute,
     public authService: AuthService,
     private global: GlobalService,
-    public route: Router,
     private toastr: ToastrService
   ) {
+    localStorage.clear()
 
    global.getModel('/api/agency/logo').then((result) => {
     if (result['status']) {
@@ -65,11 +73,14 @@ export class LoginComponent implements OnInit {
         if(response['status']){ // evalúa el estatus de la respuesta de la peticion (si es true =>accede sino 'credenciales incorrectas' )
           localStorage.setItem('accessToken', response['data'].accessToken);
           localStorage.setItem('usuario', JSON.stringify(response['data']));
-          this.router.navigate(['/dashboard']);
           console.log('entré');
           localStorage.setItem('isLoggedin', 'true');
           localStorage.setItem('user',JSON.stringify(response['data'].user));
           localStorage.setItem('person',JSON.stringify(response['data'].person));
+          if (localStorage.getItem('propertyId'))
+            this.router.navigate(['/registrosolicitud']);
+          else 
+            this.router.navigate(['/dashboard']);
         }else{
            this.toastr.error('',"Usuario o Contraseña Incorrectos",{
             timeOut: 5000,

@@ -10,7 +10,8 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction,
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
-
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 type CalendarPeriod = 'month';
 
@@ -58,6 +59,15 @@ export class RegistroSolicitudComponent implements OnInit {
     @ViewChild('childModal') childModal: ModalDirective;
     modalRef: BsModalRef;
     message: string;
+    //para los disabled generales
+    public lock = false;
+    //para que aparezca el buscar
+    public buscar = false;
+    //para el disabled de las especificaciones
+    public activatespecifications = false;
+    //para el disabled de las especificaciones
+    public activatecalendar = false;
+
     public dispAM = false;
     public dispPM = false;
     public solicitudes: any;
@@ -138,7 +148,7 @@ export class RegistroSolicitudComponent implements OnInit {
         state: '',
         municipality: '',
         parish: '',
-        direction: '',
+        ubication: '',
         description: '',
         typeSpecifications: [],
     };
@@ -149,9 +159,16 @@ export class RegistroSolicitudComponent implements OnInit {
 
     constructor(private modalService: NgbModal,
         public globalService: GlobalService,
-        private coolDialogs: NgxCoolDialogsService) {
+        private coolDialogs: NgxCoolDialogsService,
+        private toastr: ToastrService) {
         this.dateOrViewChanged();
         this.search = '';
+        console.log('Called Constructor');
+        if(localStorage.getItem('propertyId')){
+            this.search = localStorage.getItem('propertyId');
+            this.searchPropertyId()
+            localStorage.removeItem('propertyId');
+        }
     }
 
     ngOnInit() {
@@ -207,12 +224,16 @@ export class RegistroSolicitudComponent implements OnInit {
         });
     }
 
+    changeservice(){
+        this.buscar = this.typeService.find(x => x.id == this.solicitud.TypeServiceId).offeringProperty
+    }
+
     loadSpecifications(type) {
-        document.getElementById("tabspecification").setAttribute("style", "")
         this.solicitud.typeSpecifications = [];
         this.globalService.getModel(`/api/typeProperty/specification/${type}`).then((result) => {
             if (result['status']) {
                 this.solicitud.typeSpecifications = result['data']
+                this.activatespecifications = true;
             }
 
         }, (err) => {
@@ -253,32 +274,44 @@ export class RegistroSolicitudComponent implements OnInit {
     if(this.search!=""){
     this.globalService.getModel(`/api/property/`+this.search).then((result) => {
         if (result['status']) {
+            
             //Para que actualice la lista una vez que es creado el recaudo
-            //var property = result['data']
-            var property = {
-                employeeId: 1,
-                typeProperty: 2,
-                state: 12,
-                municipality: 152 ,
-                parish: 513,
-                direction: 'aguada  grande, calle comercio, callejon # 3',
-                description: 'mi casa es bonita y todo fine equipadita y con sonido'
-//                typeSpecifications = []
-            }
+            var property = result['data']
+            
+            if(property.TypeService.offeringProperty==true){
                 
+             
             this.solicitud.employeeId = property.employeeId;
-            this.solicitud.typeProperty = property.typeProperty;
+            this.solicitud.typeProperty = property.typeProperty.id;
+            this.solicitud.buildDate = property.buildDate;
+            this.solicitud.TypeServiceId = property.TypeService.id
             
-            this.solicitud.state = property.state;
-            this.loadmunicipality(property.state)
-            this.solicitud.municipality = property.municipality;
+            this.solicitud.state = property.state.id;
+            this.loadmunicipality(property.state.id)
+            this.solicitud.municipality = property.municipality.id;
         
-            this.loadparish(property.municipality)
-            this.solicitud.parish = property.parish;
-            this.solicitud.direction = property.direction;
+            this.loadparish(property.municipality.id)
+            this.solicitud.parish = property.parish.id;
+            this.solicitud.ubication = property.ubication;
             this.solicitud.description = property.description;
-  //          this.solicitud.typeSpecifications = property.typeSpecifications;
-            
+            this.solicitud.typeSpecifications = property.typeSpecifications;
+            this.lock = true;
+            this.activatespecifications = true;
+            }else{
+                this.limpiar()
+                this.toastr.info('El inmueble solicitado no existe', 'por favor intente nuevamente', {
+                    timeOut: 5000,
+                    progressBar: true,
+                    positionClass: 'toast-bottom-right'
+                  })
+            }  
+        }else{
+            this.limpiar()
+            this.toastr.info('El inmueble solicitado no existe', 'por favor intente nuevamente', {
+                timeOut: 5000,
+                progressBar: true,
+                positionClass: 'toast-bottom-right'
+              })
         }
     }, (err) => {
         console.log(err);
@@ -332,6 +365,18 @@ export class RegistroSolicitudComponent implements OnInit {
             direction: '',
             description: '',
         }
+        this.lock = false;
+        this.buscar = false;
+        this.activatespecifications = false; 
+        this.activatecalendar = false;
+    }
+    
+    anterior(){
+        document.getElementById("first-link").click()
+        }
+
+    siguiente(){
+    document.getElementById("second-link").click()
     }
 
     // Este metodo escucha el calendario y envia el evento mas la fecha
@@ -456,11 +501,6 @@ export class RegistroSolicitudComponent implements OnInit {
                 day.cssClass = 'cal-disabled';
             }
         });
-    }
-
-    buscarxcodigo() {
-        console.log(this.solicitud)
-
     }
 
     transform_check(valor, tipo, indicador) {
