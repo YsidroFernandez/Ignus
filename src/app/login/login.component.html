@@ -34,13 +34,13 @@
                     <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
                         <div style="margin-top: 20px" class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
                             <label class="sr-only" for="username">Usuario</label>
-                            <input type="text" name="username" placeholder="Usuario" class="form-username form-control"
+                            <input type="text" name="username" placeholder="Usuario" style="color: #000000; border: 1px solid #000000;" class="form-username form-control"
                                 [(ngModel)]="usuario.username" #username="ngModel" required id="username">
                             <div *ngIf="f.submitted && !username.valid">Usuario</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label class="sr-only" for="password">Contraseña</label>
-                            <input type="password" name="password" placeholder="Contraseña" class="form-password form-control"
+                            <input type="password" name="password" placeholder="Contraseña"  style="color: #000000; border: 1px solid #000000;" class="form-password form-control"
                                 [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
                             <div *ngIf="f.submitted && !password.valid">Contraseña</div>
                         </div>
