@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
     localStorage.clear()
+  }
 
   ngOnInit() {
     this.allLogo();
