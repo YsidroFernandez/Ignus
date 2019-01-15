@@ -16,13 +16,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      console.log(params['propertyId'])
-      if (params['propertyId'])
-        localStorage.setItem('propertyId',params['propertyId'])
-    });
-   }
 
   ForgotButton: any;
   HomeButton: any;
@@ -32,6 +25,7 @@ export class LoginComponent implements OnInit {
   use: any;
   usuario = { "username": '', "password": '' };
   logo: string;
+  name: any;
 
   constructor(public router: Router,
     private route: ActivatedRoute,
@@ -41,29 +35,40 @@ export class LoginComponent implements OnInit {
   ) {
     localStorage.clear()
 
-   global.getModel('/api/agency/logo').then((result) => {
-    if (result['status']) {
-      console.log(result)
-      this.logo = result['data'].url;
+  ngOnInit() {
+    this.allLogo();
+    this.route.queryParams.subscribe(params => {
+      console.log(params['propertyId'])
+      if (params['propertyId'])
+        localStorage.setItem('propertyId',params['propertyId'])
+    });
   }
-}, (err) => {
-  console.log(err);
-});
 
-}
+  allLogo() {
+    this.global.getModel('/api/agency').then((result) => {
+      if (result['status']) {
+        console.log(result)
+        this.logo = result['data'].logo.url;
+        this.name = result['data'].name;
+        console.log( this.logo);
+        console.log( this.name);
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-
 
   login() {
     console.log("login");
     //Header del httpRequest 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Basic '+btoa(this.usuario.username+':'+this.usuario.password),
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa(this.usuario.username + ':' + this.usuario.password),
       })
     };
     if (this.usuario.username && this.usuario.password) {
@@ -82,25 +87,25 @@ export class LoginComponent implements OnInit {
           else 
             this.router.navigate(['/dashboard']);
         }else{
-           this.toastr.error('',"Usuario o Contraseña Incorrectos",{
+            this.toastr.error('', "Usuario o Contraseña Incorrectos", {
+              timeOut: 5000,
+              progressBar: true,
+              positionClass: 'toast-bottom-right'
+            });
+
+          }
+        }, err => {
+          console.log(err);
+          this.toastr.error('', err, {
             timeOut: 5000,
             progressBar: true,
             positionClass: 'toast-bottom-right'
-           });
-           
-        }
-      },err=>{
-        console.log(err);
-        this.toastr.error('',err,{
-          timeOut: 5000,
-          progressBar: true,
-          positionClass: 'toast-bottom-right'
-         });
+          });
 
-      })
+        })
     }
     else {
-      this.toastr.error('',"Por favor ingresa usuario y contraseña para iniciar sesión",{
+      this.toastr.error('', "Por favor ingresa usuario y contraseña para iniciar sesión", {
         timeOut: 5000,
         progressBar: true,
         positionClass: 'toast-bottom-right'
@@ -114,7 +119,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  presentToast(msg) { 
+  presentToast(msg) {
     alert(msg)
   }
 

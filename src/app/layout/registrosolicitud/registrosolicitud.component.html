@@ -3,6 +3,16 @@
     <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
     <tabset #tabset>
         <tab heading="Datos" id="first">
+
+            <div class="row  mb-3">
+                <div class="col-md-6 form-group">
+                    <label>Tipo de Servicio</label>
+                    <select class="form-control" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId">
+                        <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
+                    </select>
+                </div>              
+            </div>
+            <br>
             <div class="card-body">
                     <div class="form-control">
                             <div class="col-md-6">
@@ -164,6 +174,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
+                    <!-- aqu va-->
                 </div>
 
                 <div class="card-body" *ngIf="viewCalendar">
