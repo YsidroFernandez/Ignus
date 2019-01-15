@@ -3,7 +3,7 @@ $topnav-background-color: white;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 55px;
+    top: 65px;
     left: 277px;
     width: 277px;
     margin-left: -277px;
@@ -84,7 +84,7 @@ $topnav-background-color: white;
             background: darken($topnav-background-color, 10%);
         }
         .panel-collapse {
-            border-radious: 0;
+            border-radius: 0;
             border: none;
             .panel-body {
                 .list-group-item {

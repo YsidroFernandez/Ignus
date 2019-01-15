@@ -2,10 +2,10 @@
 <nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
     <div style="margin-top: 5px;">
 
-        <li class="nav-item dropdown" ngbDropdown>
+        <div class="nav-item dropdown" ngbDropdown>
           <div href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
             <span style="text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;" class="photo"><img class="logo" src="{{user.urlAvatar}}" width="35px" height="30px" />
-              {{person.firstName }} {{person.LastName}} <b class="caret"></b></span>
+              {{person.firstName }} {{person.LastName}}</span>
           </div>
           <div class="dropdown-menu-right" ngbDropdownMenu>
             <a class="dropdown-item" href="javascript:void(0)">
@@ -21,7 +21,7 @@
               <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
             </a>
           </div>
-        </li>
+        </div>
       </div>
 
   <div class="list-group">
