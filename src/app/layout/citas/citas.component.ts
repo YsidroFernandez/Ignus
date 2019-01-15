@@ -81,11 +81,18 @@ export class CitasComponent implements OnInit {
   submitType: string = 'Save';
   selectedRow: number;
   user: any;
-  public observation: any;
+  public cita: any = {
+    transaction: '',
+    typeAppointments: '',
+    turno: '',
+    observation: '',
+    
+  }
   transaction = [];
   appointment = [];
   typeAppointments = [];
   list = [];
+  
 
   colors: any = {
     red: {
@@ -164,16 +171,19 @@ export class CitasComponent implements OnInit {
     for(var i=0;i<this.transaction.length;i++){
       if(this.transaction[i].id == $event.target.value){
         console.log(this.transaction[i].request.id);
+        this.cita.transaction = this.transaction[i].request.id;
       }     
     }   
   }
 
   changeCita($event) {
     console.log($event.target.value);
+    this.cita.typeAppointments = $event.target.value;
   }
 
   changeTurno($event) {
     console.log($event.target.value);
+    this.cita.turno = $event.target.value;
   }
 
   
@@ -228,7 +238,7 @@ export class CitasComponent implements OnInit {
   }
 
   save () {
-    console.log(this.observation);
+    console.log(this.cita);
   }
 
   clear () {

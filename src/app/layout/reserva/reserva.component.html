@@ -2,8 +2,8 @@
     <app-page-header [heading]="'Reservar'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
         <div class="card-header" style="text-align: -webkit-center;">Reserva de inmuebles</div>
-     
-      <div class="card mb-3">
+
+        <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
                     <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
@@ -18,13 +18,15 @@
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
                             <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                    data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
                 <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        ><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
+                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "><i
+                            style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Agregar"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -45,16 +47,27 @@
                             <td>{{ item.nameForEmployee }}</td>
                             <td>Status</td>
                             <td>
-                                <button style="background: #1AB394; border-radius: 20px; color: white" type="button" (click)="open(ver)" ><fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon></button>
-                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)" type="button" ng-click="fetchSingleData(name.id)" ><fa-icon [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon></button>
-                                <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()" type="button"  ><fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon></button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button style="background: #1AB394; border-radius: 20px; color: white" type="button"
+                                        (click)="open(ver)">
+                                        <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top" title="Detalle"></fa-icon>
+                                    </button>
+                                    <button style="background: #1AB394; border-radius: 20px; color: white" (click)="open(editar)"
+                                        type="button" ng-click="fetchSingleData(name.id)">
+                                        <fa-icon [icon]="faEdit" data-toggle="tooltip" data-placement="top" title="Editar"></fa-icon>
+                                    </button>
+                                    <button style="background: #1AB394; border-radius: 20px; color: white" (click)="delete()"
+                                        type="button">
+                                        <fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-           
-        </div>
 
         </div>
-        </div>
+
+    </div>
+</div>

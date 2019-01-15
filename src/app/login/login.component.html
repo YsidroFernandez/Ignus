@@ -6,23 +6,26 @@
 
             <div class="col-md-1">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6" style="align-items: center;
+            display: flex;">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-block-end: 30px;">
+                            <img class="responsive" style="height:150px; width:300px" [src]="logo" alt="Logo" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 28px">
+                                Bienvenidos a {{name}}
+                            </p>
+                            <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
+                                Nuestros servicios al alcance de un click. <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center; margin-block-end: 30px;">
-                        <img class="responsive" style="height:150px; width:300px" [src]="logo" alt="Logo" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
-                            Bienvenidos a {{name}}
-                        </p>
-                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
-                             Nuestros servicios al alcance de un click.  <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
-                        </p>
-                    </div>
-                </div>
             </div>
             <div class="col-md-4">
                 <div class="ibox-content">
@@ -34,18 +37,21 @@
                     <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
                         <div style="margin-top: 20px" class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
                             <label class="sr-only" for="username">Usuario</label>
-                            <input type="text" name="username" placeholder="Usuario" style="color: #000000; border: 1px solid #000000;" class="form-username form-control"
-                                [(ngModel)]="usuario.username" #username="ngModel" required id="username">
+                            <input type="text" name="username" placeholder="Usuario" style="color: #000000; border: 1px solid #000000;"
+                                class="form-username form-control" [(ngModel)]="usuario.username" #username="ngModel"
+                                required id="username">
                             <div *ngIf="f.submitted && !username.valid">Usuario</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label class="sr-only" for="password">Contraseña</label>
-                            <input type="password" name="password" placeholder="Contraseña"  style="color: #000000; border: 1px solid #000000;" class="form-password form-control"
-                                [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
+                            <input type="password" name="password" placeholder="Contraseña" style="color: #000000; border: 1px solid #000000;"
+                                class="form-password form-control" [(ngModel)]="usuario.password" ng-minlenght="3"
+                                #password="ngModel" required id="password">
                             <div *ngIf="f.submitted && !password.valid">Contraseña</div>
                         </div>
-                        <button style="background-color:#1ab394; border-color: #1ab394;" type="submit" class="btn btn-primary block full-width m-b" [routerLink]="['/dashboard']"
-                            ng-disabled="!usuario.username || !usuario.password">Iniciar Sesion</button>
+                        <button style="background-color:#1ab394; border-color: #1ab394;" type="submit" class="btn btn-primary block full-width m-b"
+                            [routerLink]="['/dashboard']" ng-disabled="!usuario.username || !usuario.password">Iniciar
+                            Sesion</button>
 
 
                         <a href="#">
@@ -59,6 +65,8 @@
                         <a class="btn btn-sm btn-white btn-block" routerLink="/suscribir">Registrate como usuario</a>
                     </form>
                 </div>
+            </div>
+            <div class="col-md-1">
             </div>
         </div>
     </div>
