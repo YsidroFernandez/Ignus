@@ -7,7 +7,7 @@ import { VisitaRoutingModule } from './visita-routing.module';
 import { VisitaComponent } from './visita.component';
 import { PageHeaderModule } from './../../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RegistrarVisitaComponent } from './registrar/registrar-visita.component';
+
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { RegistrarVisitaComponent } from './registrar/registrar-visita.component
        PageHeaderModule,
        FontAwesomeModule, NgbModule.forRoot(),
         FormsModule, ReactiveFormsModule],
-    declarations: [VisitaComponent, RegistrarVisitaComponent],
+    declarations: [VisitaComponent],
     providers: [
     NgbActiveModal,
   ]

@@ -195,7 +195,7 @@
               <div  class="row mb-3">
                 <div *ngIf="showView"class="col col-sm-6">
                   <div class="form-group">
-                    <label for="nombre">Username</label>
+                    <label for="nombre">Correo</label>
                     <input
                       type="email"
                       [(ngModel)]="employee.username"
@@ -219,10 +219,28 @@
                     </ngx-select>
                   </div>
                 </div>
-
-
-
               </div>
+              <div  class="row mb-3">
+                  <div class="col col-sm-6">
+                    <div class="form-group">
+                      <label for="tipos">Días</label>
+                      <ngx-select
+                        [multiple]="true"
+                        [items]="days"
+                        optionValueField="id"
+                        optionTextField="name"
+                        [disabled]="ngxDisabled"
+                        [(ngModel)]="ngxDays"
+                        placeholder="Seleccione los Días"
+                        
+                      >
+                      </ngx-select>
+                    </div>
+                  </div>
+  
+  
+  
+                </div>
             </div>
           </div>
         </fieldset>
