@@ -1,9 +1,9 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Reservar'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-        <div class="card-header" style="text-align: -webkit-center;">Reserva de inmuebles</div>
-
-        <div class="card mb-3">
+        <div class="card-header" style="text-align: -webkit-center;">Reserva de Inmuebles</div>
+     
+      <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
                     <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
@@ -32,20 +32,20 @@
             <div class="card-body  table-responsive">
                 <table class="card-body table table-hover">
                     <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Inmueble</th>
-                            <th>Cliente</th>
-                            <th> Estatus </th>
+                        <tr><!--crear json -->
+                            <th>Transacción</th>
+                            <th>Inmueble</th><!--tipo de inmueble-->
+                            <th>Fecha de Reserva</th>
+                            <th>Estatus</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of transactions; let i=index">
-                            <td>{{ item.status }}</td>
-                            <td>{{ item.nameForClient }}</td>
-                            <td>{{ item.nameForEmployee }}</td>
-                            <td>Status</td>
+                            <td>{{ item.nameForEmployee}}</td>
+                            <td>{{ item.property.nameDisplay}}</td>
+                            <td>{{ item.request.requestDate}}</td>
+                            <td>{{ item.status}}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button style="background: #1AB394; border-radius: 20px; color: white" type="button"
