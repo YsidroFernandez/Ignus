@@ -15,12 +15,11 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p>
-                            Bienvenidos a nuestro sistema. Al ingresar usted será participe del trámite de su gestión
-                            inmobiliaria.
-                            Para nosotros el inmueble no es un producto, es un patrimonio, por eso le brindamos la
-                            mejor
-                            asesoría.
+                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
+                            Bienvenidos a {{name}}
+                        </p>
+                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
+                             Nuestros servicios al alcance de un click.  <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
                         </p>
                     </div>
                 </div>
@@ -35,19 +34,18 @@
                     <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
                         <div style="margin-top: 20px" class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
                             <label class="sr-only" for="username">Usuario</label>
-                            <input type="text" name="username" placeholder="Username..." class="form-username form-control"
+                            <input type="text" name="username" placeholder="Usuario" class="form-username form-control"
                                 [(ngModel)]="usuario.username" #username="ngModel" required id="username">
-                            <div *ngIf="f.submitted && !username.valid">Username is required</div>
+                            <div *ngIf="f.submitted && !username.valid">Usuario</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label class="sr-only" for="password">Contraseña</label>
-                            <input type="password" name="password" placeholder="Password..." class="form-password form-control"
+                            <input type="password" name="password" placeholder="Contraseña" class="form-password form-control"
                                 [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
-                            <div *ngIf="f.submitted && !password.valid">Password is required</div>
+                            <div *ngIf="f.submitted && !password.valid">Contraseña</div>
                         </div>
-                        <button type="submit" class="btn btn-primary block full-width m-b" [routerLink]="['/dashboard']"
-                            ng-disabled="!usuario.username || !usuario.password">Sign
-                            in!</button>
+                        <button style="background-color:#1ab394; border-color: #1ab394;" type="submit" class="btn btn-primary block full-width m-b" [routerLink]="['/dashboard']"
+                            ng-disabled="!usuario.username || !usuario.password">Iniciar Sesion</button>
 
 
                         <a href="#">

@@ -15,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
 
-  ngOnInit() { }
 
   ForgotButton: any;
   HomeButton: any;
@@ -25,71 +24,78 @@ export class LoginComponent implements OnInit {
   use: any;
   usuario = { "username": '', "password": '' };
   logo: string;
+  name: any;
 
   constructor(public router: Router,
     public authService: AuthService,
     private global: GlobalService,
     public route: Router,
     private toastr: ToastrService
-  ) {
+  ) { }
 
-   global.getModel('/api/agency/logo').then((result) => {
-    if (result['status']) {
-      console.log(result)
-      this.logo = result['data'].url;
+  ngOnInit() {
+    this.allLogo();
   }
-}, (err) => {
-  console.log(err);
-});
 
-}
+  allLogo() {
+    this.global.getModel('/api/agency').then((result) => {
+      if (result['status']) {
+        console.log(result)
+        this.logo = result['data'].logo.url;
+        this.name = result['data'].name;
+        console.log( this.logo);
+        console.log( this.name);
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-
 
   login() {
     console.log("login");
     //Header del httpRequest 
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Basic '+btoa(this.usuario.username+':'+this.usuario.password),
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + btoa(this.usuario.username + ':' + this.usuario.password),
       })
     };
     if (this.usuario.username && this.usuario.password) {
-     this.global.getModel('/login',httpOptions) //De esta manera se harán las peticiones al servidor (Carpeta provider,archivo global.service.ts)
-      .then(response =>{
-        console.log(response);
-        if(response['status']){ // evalúa el estatus de la respuesta de la peticion (si es true =>accede sino 'credenciales incorrectas' )
-          localStorage.setItem('accessToken', response['data'].accessToken);
-          localStorage.setItem('usuario', JSON.stringify(response['data']));
-          this.router.navigate(['/dashboard']);
-          console.log('entré');
-          localStorage.setItem('isLoggedin', 'true');
-          localStorage.setItem('user',JSON.stringify(response['data'].user));
-          localStorage.setItem('person',JSON.stringify(response['data'].person));
-        }else{
-           this.toastr.error('',"Usuario o Contraseña Incorrectos",{
+      this.global.getModel('/login', httpOptions) //De esta manera se harán las peticiones al servidor (Carpeta provider,archivo global.service.ts)
+        .then(response => {
+          console.log(response);
+          if (response['status']) { // evalúa el estatus de la respuesta de la peticion (si es true =>accede sino 'credenciales incorrectas' )
+            localStorage.setItem('accessToken', response['data'].accessToken);
+            localStorage.setItem('usuario', JSON.stringify(response['data']));
+            this.router.navigate(['/dashboard']);
+            console.log('entré');
+            localStorage.setItem('isLoggedin', 'true');
+            localStorage.setItem('user', JSON.stringify(response['data'].user));
+            localStorage.setItem('person', JSON.stringify(response['data'].person));
+          } else {
+            this.toastr.error('', "Usuario o Contraseña Incorrectos", {
+              timeOut: 5000,
+              progressBar: true,
+              positionClass: 'toast-bottom-right'
+            });
+
+          }
+        }, err => {
+          console.log(err);
+          this.toastr.error('', err, {
             timeOut: 5000,
             progressBar: true,
             positionClass: 'toast-bottom-right'
-           });
-           
-        }
-      },err=>{
-        console.log(err);
-        this.toastr.error('',err,{
-          timeOut: 5000,
-          progressBar: true,
-          positionClass: 'toast-bottom-right'
-         });
+          });
 
-      })
+        })
     }
     else {
-      this.toastr.error('',"Por favor ingresa usuario y contraseña para iniciar sesión",{
+      this.toastr.error('', "Por favor ingresa usuario y contraseña para iniciar sesión", {
         timeOut: 5000,
         progressBar: true,
         positionClass: 'toast-bottom-right'
@@ -103,7 +109,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  presentToast(msg) { 
+  presentToast(msg) {
     alert(msg)
   }
 
