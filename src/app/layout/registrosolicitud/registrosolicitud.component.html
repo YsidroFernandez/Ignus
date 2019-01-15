@@ -10,7 +10,7 @@
                     <select class="form-control" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId">
                         <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
                     </select>
-                </div>
+                </div>              
             </div>
 
             <br>
@@ -153,6 +153,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
+                    <!-- aqu va-->
                 </div>
 
                 <div class="card-body" *ngIf="viewCalendar">

@@ -366,6 +366,29 @@ padding: 0 20px;
     }
 }
 */
+
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #28a745c2;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #1ab3943d;
+}
+
+.login-page {
+    background-image: url('/assets/images/edif2.png');
+    margin-top: 0px !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}  
 .ibox-content{
     background-color: #ffffff;
     color: inherit;
@@ -374,6 +397,8 @@ padding: 0 20px;
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;
+    border: solid #1ab394;
+    border-radius: 10px;
 }
 .m-b{
     margin-bottom: 15px;
