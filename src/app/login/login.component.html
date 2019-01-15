@@ -31,7 +31,7 @@
                 <div class="ibox-content">
                     <div class="row justify-content-center">
                         <div class="col-12 mx-auto text-center">
-                            <h3>INICIAR SESIÓN</h3>
+                            <h3 style="font-family:Verdana">INICIAR SESIÓN</h3>
                         </div>
                     </div>
                     <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
@@ -39,14 +39,14 @@
                             <label class="sr-only" for="username">Email</label>
                             <input type="text" name="username" placeholder="Email" style="color: #000000; border: 1px solid #000000;" class="form-username form-control"
                                 [(ngModel)]="usuario.username" #username="ngModel" required id="username">
-                            <div *ngIf="f.submitted && !username.valid">Email</div>
+                            <div *ngIf="f.submitted && !username.valid">Ingrese Email</div>
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label class="sr-only" for="password">Contraseña</label>
                             <input type="password" name="password" placeholder="Contraseña" style="color: #000000; border: 1px solid #000000;"
                                 class="form-password form-control" [(ngModel)]="usuario.password" ng-minlenght="3"
                                 #password="ngModel" required id="password">
-                            <div *ngIf="f.submitted && !password.valid">Contraseña</div>
+                            <div *ngIf="f.submitted && !password.valid">Ingrese Contraseña</div>
                         </div>
                         <button style="background-color:#1ab394;  border-color: #1ab394;" type="submit" class="btn btn-primary block full-width m-b" 
                             ng-disabled="!usuario.username || !usuario.password">Iniciar Sesion</button>

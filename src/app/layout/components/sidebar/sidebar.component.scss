@@ -38,11 +38,11 @@ $topnav-background-color: white;
         }
         a:hover {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color: black;
         }
         a.router-link-active {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color:black;
         }
         .header-fields {
             padding-top: 10px;
@@ -220,7 +220,7 @@ background-color:#1FB5AD;
     padding: 12px;
     bottom: 0;
     color: #93948e;
-    background: white;
+    background: black;
     font-size:13px;
     i {
         font-size: 23px;
