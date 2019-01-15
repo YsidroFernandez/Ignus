@@ -366,6 +366,14 @@ padding: 0 20px;
     }
 }
 */
+.login-page{
+    background-image: url('/assets/images/banner.jpg');
+    margin-top: 0px !important;
+    background-size: cover;
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 100%;
+}  
 .ibox-content{
     background-color: #ffffff;
     color: inherit;
@@ -374,6 +382,8 @@ padding: 0 20px;
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;
+    border: solid gray;
+    border-radius: 10px;
 }
 .m-b{
     margin-bottom: 15px;
