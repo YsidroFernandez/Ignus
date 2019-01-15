@@ -81,9 +81,11 @@ export class CitasComponent implements OnInit {
   submitType: string = 'Save';
   selectedRow: number;
   user: any;
+  public observation: any;
   transaction = [];
   appointment = [];
   typeAppointments = [];
+  list = [];
 
   colors: any = {
     red: {
@@ -159,16 +161,19 @@ export class CitasComponent implements OnInit {
   }
 
   changeTransaction($event) {
+    for(var i=0;i<this.transaction.length;i++){
+      if(this.transaction[i].id == $event.target.value){
+        console.log(this.transaction[i].request.id);
+      }     
+    }   
+  }
+
+  changeCita($event) {
     console.log($event.target.value);
-    this.globalService.getModel(`/api/typeAppointment/${$event.target.value}`).then((result) => {
-      if (result['status']) {
-        this.appointment = [];
-        this.appointment = result['data'];
-        console.log(this.appointment);
-      }
-    }, (err) => {
-      console.log(err);
-    });
+  }
+
+  changeTurno($event) {
+    console.log($event.target.value);
   }
 
   
@@ -220,5 +225,13 @@ export class CitasComponent implements OnInit {
         day.cssClass = 'cal-disabled';
       }
     });
+  }
+
+  save () {
+    console.log(this.observation);
+  }
+
+  clear () {
+    this.hideChildModal();
   }
 }
