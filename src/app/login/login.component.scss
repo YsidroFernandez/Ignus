@@ -414,6 +414,12 @@ padding: 0 20px;
 .btn-block {
     display: block;
     width: 100%;
+
+}
+.btn-block:hover {
+  background-color: #1ab394;
+  color: white;
+    
 }
 .btn-group-sm > .btn, .btn-sm {
     padding: 5px 10px;
