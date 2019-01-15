@@ -62,7 +62,7 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
   animations: [routerTransition()],
   providers: [GlobalsProvider]
 })
-export class CitasComponent implements OnInit { 
+export class CitasComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalDirective;
 
@@ -76,11 +76,14 @@ export class CitasComponent implements OnInit {
   prevBtnDisabled: boolean = false;
   nextBtnDisabled: boolean = false;
   modalRef: BsModalRef;
-  message: string;  
-  closeResult: string; 
+  message: string;
+  closeResult: string;
   submitType: string = 'Save';
   selectedRow: number;
-  user : any;
+  user: any;
+  transaction = [];
+  appointment = [];
+  typeAppointments = [];
 
   colors: any = {
     red: {
@@ -95,7 +98,7 @@ export class CitasComponent implements OnInit {
       primary: '#e3bc08',
       secondary: '#FDF1BA'
     }
-  }; 
+  };
 
   events: any = [
     {
@@ -117,7 +120,7 @@ export class CitasComponent implements OnInit {
       color: colors.yellow
     }
   ];
-  
+
 
   constructor(
     private modalService: NgbModal,
@@ -127,11 +130,48 @@ export class CitasComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
-   this.user =  JSON.parse(localStorage.getItem('user')); 
-   console.log(this.user);
+    this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user);
+    this.allTransaction();
+    this.allAppointments();
   }
 
+  allTransaction() {
+    this.globalService.getModel(`/api/employee/transaction/${this.user.id}?status=I,P`).then((result) => {
+      if (result['status']) {
+        this.transaction = [];
+        this.transaction = result['data'];
+        console.log(this.transaction);
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  allAppointments() {
+    this.globalService.getModel("/api/typeAppointment").then((result) => {
+      this.typeAppointments = result['data'];
+      console.log(this.typeAppointments);
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  changeTransaction($event) {
+    console.log($event.target.value);
+    this.globalService.getModel(`/api/typeAppointment/${$event.target.value}`).then((result) => {
+      if (result['status']) {
+        this.appointment = [];
+        this.appointment = result['data'];
+        console.log(this.appointment);
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+  
   dayClicked({ date, events }: { date: Date; events: any[] }): void {
     this.showChildModal();
   }
