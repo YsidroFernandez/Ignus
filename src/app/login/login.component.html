@@ -6,23 +6,26 @@
 
             <div class="col-md-1">
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6" style="align-items: center;
+            display: flex;">
+                <div>
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center; margin-block-end: 30px;">
+                            <img class="responsive" style="height:150px; width:300px" [src]="logo" alt="Logo" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 28px">
+                                Bienvenidos a {{name}}
+                            </p>
+                            <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
+                                Nuestros servicios al alcance de un click. <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center; margin-block-end: 30px;">
-                        <img class="responsive" style="height:150px; width:300px" [src]="logo" alt="Logo" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
-                            Bienvenidos a {{name}}
-                        </p>
-                        <p style="text-align: center; color:white; size:50px;text-shadow: 0 0 30px #ffffff; font-size: 24px">
-                             Nuestros servicios al alcance de un click.  <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
-                        </p>
-                    </div>
-                </div>
             </div>
             <div class="col-md-4">
                 <div class="ibox-content">
@@ -40,13 +43,13 @@
                         </div>
                         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label class="sr-only" for="password">Contraseña</label>
-                            <input type="password" name="password" placeholder="Contraseña"  style="color: #000000; border: 1px solid #000000;" class="form-password form-control"
-                                [(ngModel)]="usuario.password" ng-minlenght="3" #password="ngModel" required id="password">
+                            <input type="password" name="password" placeholder="Contraseña" style="color: #000000; border: 1px solid #000000;"
+                                class="form-password form-control" [(ngModel)]="usuario.password" ng-minlenght="3"
+                                #password="ngModel" required id="password">
                             <div *ngIf="f.submitted && !password.valid">Contraseña</div>
                         </div>
                         <button style="background-color:#1ab394;  border-color: #1ab394;" type="submit" class="btn btn-primary block full-width m-b" 
                             ng-disabled="!usuario.username || !usuario.password">Iniciar Sesion</button>
-
 
                         <a href="#">
                             <small>¿Has olvidado tu contraseña?</small>
@@ -59,6 +62,8 @@
                         <a class="btn btn-sm btn-white btn-block" style=" border-color: #1ab394;" routerLink="/suscribir">Subcribirse</a>
                     </form>
                 </div>
+            </div>
+            <div class="col-md-1">
             </div>
         </div>
     </div>
