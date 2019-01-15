@@ -1,4 +1,4 @@
-<div class="login-page" [@routerTransition]>
+<div class="login-page">
     
 <br><br><br><br>
 <div class="container">
@@ -15,8 +15,13 @@
     </div>
     <div class="col-12 col-sm-12 col-md-6">
         <div class="ibox-content">
+            <div class="row justify-content-center">
+                <div class="col-12 mx-auto text-center">
+                    <h3>INICIAR SESIÓN</h3>
+                </div>
+            </div>
             <form class="m-t" role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
+                <div style="margin-top: 20px" class="form-group" [ngClass]="{ 'has-error': f.submitted && !usuario.valid }">
                     <label class="sr-only" for="username">Usuario</label>
                     <input type="text" name="username" placeholder="Username..." class="form-username form-control"
                         [(ngModel)]="usuario.username" #username="ngModel" required id="username">
@@ -47,6 +52,7 @@
 </div>
 </div>
 </div>
+
 <!--
 <div class="form-bottom">
     <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate class="login-form">
