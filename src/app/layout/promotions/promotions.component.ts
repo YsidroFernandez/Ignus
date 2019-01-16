@@ -22,10 +22,13 @@ export class PromotionsComponent implements OnInit {
   modalTemplate: any;
   submitType: string = "Save";
   disabled: boolean;
+  disabled1: boolean = true;
   new: any;
+  url: string;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
   selectedRow: number;
+  selectedFile: File;
 
   
   constructor(
@@ -36,17 +39,20 @@ export class PromotionsComponent implements OnInit {
    }
 
    apiAction() {
-    //metodo para realizar una accion ya sea crear, editar
+    const uploadData = new FormData();
+    uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
 
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
     this.new = JSON.stringify({
       name: this.promotion.name,
       description: this.promotion.description
     });
+
+    uploadData.append("inspection", this.new);
     if (this.submitType === "create") {
       console.log(this.new);
       //metodo que perimite enviar por post un nuevo empleado
-      this.globalService.addModel(this.new, "/api/promotion").then(
+      this.globalService.addModel(uploadData, "/api/promotion",this.globalService.getHeaderClear()).then(
         result => {
           console.log(result);
           if (result["status"]) {
@@ -61,7 +67,7 @@ export class PromotionsComponent implements OnInit {
     } else {
       //metodo que perimite enviar por put una actualizaciòn de un servicio
       this.globalService
-        .updateModel(this.promotion.id, this.new, "/api/promotion")
+        .updateModel(this.promotion.id, uploadData, "/api/promotion",this.globalService.getHeaderClear())
         .then(
           result => {
             if (result["status"]) {
@@ -102,6 +108,7 @@ export class PromotionsComponent implements OnInit {
       //si la accion es ver, desabilita los campos del modal
       this.disabled = true;
       this.modalIcon = "fa fa-close";
+      this.url = this.promotion.urlImage;
     } else if (action == "create") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
@@ -110,6 +117,7 @@ export class PromotionsComponent implements OnInit {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
       this.modalIcon = "fa fa-edit";
+      this.url = this.promotion.urlImage;
     }
   }
 
@@ -172,6 +180,27 @@ onCancel() {
     this.showNew = false;
 }
 
+
+onSelectFile(event) {
+  console.log(event); // called each time file input changes
+  if (event.target.files && event.target.files[0]) {
+    var reader = new FileReader();
+    this.selectedFile = event.target.files[0];
+    
+    reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+    reader.onload = event => {
+      let target: any = event.target; //<-- This (any) will tell compiler to shut up!
+      this.url = target.result;
+      console.log(event); // called once readAsDataURL is completed
+    };
+  }
+}
+
+onFileChanged(event) {
+  console.log(event);
+  this.selectedFile = event.target.files[0];
+}
     
 
 

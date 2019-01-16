@@ -227,7 +227,7 @@ export class VisitaComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       this.selectedFile = event.target.files[0];
-
+      
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = event => {

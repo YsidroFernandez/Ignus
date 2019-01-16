@@ -134,6 +134,20 @@
                             </div>
                           </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col col-sm-6">
+                            <div class="form-group">
+                              <img
+                                style="border-radius: 20%" width="300" height="300" [src]="url"/>
+                            </div>
+                          </div>
+                        <div class="col col-sm-6">
+                          <div class="form-group" style="text-align: center">
+                            <input  data-classButton="btn btn-primary" name="file[]" id="file" value="promotion.urlImage" type='file' (change)="onSelectFile($event)" multiple=""/>
+                          </div>
+        
+                        </div>
+                      </div>
                   </div>
                 </div>
               </fieldset>
