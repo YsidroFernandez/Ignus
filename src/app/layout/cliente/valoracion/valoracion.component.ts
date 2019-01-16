@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalService} from '../../../providers/global.service';
-
+import { routerTransition } from "../../../router.animations";
 @Component({
   selector: 'app-valoracion',
   templateUrl: './valoracion.component.html',
-  styleUrls: ['./valoracion.component.scss']
+  styleUrls: ['./valoracion.component.scss'],
+  animations: [routerTransition()],
 })
 export class ValoracionComponent implements OnInit {
   valorations: any;
