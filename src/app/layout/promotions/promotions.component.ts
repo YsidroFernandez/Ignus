@@ -25,6 +25,7 @@ export class PromotionsComponent implements OnInit {
   disabled1: boolean = true;
   new: any;
   url: string;
+  show1: boolean= false;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
   selectedRow: number;
@@ -113,6 +114,7 @@ export class PromotionsComponent implements OnInit {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
       this.modalIcon = "fa fa-plus";
+     this.url="";
     } else if (action == "edit") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
