@@ -8,7 +8,8 @@
               {{person.firstName }} {{person.LastName}}</span>
           </div>
           <div class="dropdown-menu-right" ngbDropdownMenu>
-            <a class="dropdown-item" href="javascript:void(0)">
+              
+            <a class="dropdown-item" [routerLinkActive]="['router-link-active']" routerLink="/dashboardcustomer">
               <i class="fa fa-fw fa-user"></i> {{ 'Perfil' | translate }}
             </a>
             <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">

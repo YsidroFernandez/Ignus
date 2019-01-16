@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../../providers/global.service';
+import { routerTransition } from '../../router.animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listransactions',
   templateUrl: './listransactions.component.html',
-  styleUrls: ['./listransactions.component.scss']
+  styleUrls: ['./listransactions.component.scss'],
+  animations: [routerTransition()]
 })
 export class ListransactionsComponent implements OnInit {
 
 
-
+  param1:any;
   user: any;
   status: any;
   test: any;
@@ -51,12 +54,14 @@ export class ListransactionsComponent implements OnInit {
     activities: ""
   }
 
-  constructor(public globalService: GlobalService) {
+  constructor(public globalService: GlobalService, private route: ActivatedRoute) {
     this.user = JSON.parse(localStorage.user).id;
   }
 
   ngOnInit() {
     this.allTransaction();
+    this.param1 = this.route.snapshot.paramMap.get('param1');
+
   }
 
 
@@ -64,7 +69,7 @@ export class ListransactionsComponent implements OnInit {
 
   allTransaction() {
 
-    this.globalService.getModel_Id(this.user, '/api/employee/transaction')
+    this.globalService.getModel('/api/transaction')
       .then((result) => {
         this.transactions = [];
         this.transactions = result['data'];
