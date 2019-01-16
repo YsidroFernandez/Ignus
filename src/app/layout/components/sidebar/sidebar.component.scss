@@ -3,7 +3,7 @@ $topnav-background-color: white;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 55px;
+    top: 65px;
     left: 277px;
     width: 277px;
     margin-left: -277px;
@@ -38,11 +38,11 @@ $topnav-background-color: white;
         }
         a:hover {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color: black;
         }
         a.router-link-active {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color:black;
         }
         .header-fields {
             padding-top: 10px;
@@ -84,7 +84,7 @@ $topnav-background-color: white;
             background: darken($topnav-background-color, 10%);
         }
         .panel-collapse {
-            border-radious: 0;
+            border-radius: 0;
             border: none;
             .panel-body {
                 .list-group-item {
@@ -220,7 +220,7 @@ background-color:#1FB5AD;
     padding: 12px;
     bottom: 0;
     color: #93948e;
-    background: white;
+    background: black;
     font-size:13px;
     i {
         font-size: 23px;

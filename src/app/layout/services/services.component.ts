@@ -97,6 +97,7 @@ export class ServicesComponent implements OnInit {
         //declaracion que permite enviar el nuevo json ya sea para crear o editar
         this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
         uploadData.append("service", this.nuevo);
+        console.log(uploadData);
         if (this.submitType === "create") {
             //metodo que perimite enviar por post un nuevo servicio
             this.globalService.addModel(uploadData, "/api/typeService",this.globalService.getHeaderClear())
@@ -126,12 +127,6 @@ export class ServicesComponent implements OnInit {
                 });
 
         }
-
-
-
-
-
-
     }
     onSelectFile(event) {
         console.log(event); // called each time file input changes

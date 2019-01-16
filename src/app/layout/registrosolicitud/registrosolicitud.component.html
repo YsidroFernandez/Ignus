@@ -10,11 +10,20 @@
                     <select class="form-control" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId">
                         <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
                     </select>
-                </div>
+                </div>              
             </div>
-
             <br>
             <div class="card-body">
+                    <div class="form-control">
+                            <div class="col-md-6">
+                                <label>Tipo de Servicio</label>
+                                <select class="form-control" [disabled]="lock" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId" (change)="changeservice()">
+                                    <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+            
+                        <br>
                 <div class="form-control">
                     <div class="row">
                         <div class="col col-sm-4">
@@ -23,11 +32,12 @@
                             </div>
                         </div>
                         <div class="col col-sm-6">
-                            <div class="row">
-                                <div class="col col-sm-9" >
+                            <div class="row" *ngIf="buscar">
+                                <div class="col-12 col-md-6"></div>
+                                <div class="col col-md-4 col-sm-9" >
                                     <input class="form-control mr-sm-2" id="search" type="text" placeholder="Buscar..." aria-label="Search" [(ngModel)]="search">
                                 </div>
-                                <div class="col col-sm-3" >
+                                <div class="col col-md-2 col-sm-3" >
                                     <button (click)="searchPropertyId()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
                                         <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
                                             data-placement="top" title="Buscar"></i>
@@ -39,14 +49,14 @@
                             <div class="form-group">
                                 <label for="typeproperty">Tipo de Inmueble</label>
                                 <select class="form-control" name="typeproperty" id="typeproperty" [(ngModel)]="solicitud.typeProperty"
-                                    #typeproperty="ngModel" (change)="loadSpecifications(solicitud.typeProperty)">
+                                    #typeproperty="ngModel" [disabled]="lock" (change)="loadSpecifications(solicitud.typeProperty)">
                                     <option *ngFor="let tp of typeProperties" [value]="tp.id">{{tp.name}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <tabset id="tabspecification" style="display:none">
+                    <tabset id="tabspecification" *ngIf="activatespecifications==true">
 
                         <tab *ngFor="let te of solicitud.typeSpecifications" [heading]="te.name" [id]="te.id">
                             <br>
@@ -55,7 +65,7 @@
                                     [id]="esp.id">
                                     <div class="form-group">
                                         <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
-                                        <input [type]="esp.typeInput" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
+                                        <input [type]="esp.typeInput" [disabled]="lock" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
                                     </div>
 
                                 </div>
@@ -67,7 +77,7 @@
                                     <div class="form-group row">
                                         <label class="form-check-label col-8">{{esp.name}} : </label>
                                         <label class="switch" [for]="esp.name">
-                                            <input class="form-check-input " [id]="esp.name" [type]="esp.typeInput"
+                                            <input class="form-check-input" [disabled]="lock" [id]="esp.name" [type]="esp.typeInput"
                                                 [name]="esp.name" [value]="esp.quantity" [(ngModel)]="esp.quantity"
                                                 (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
                                             <div class="slider round"></div>
@@ -82,13 +92,13 @@
                                     <div class="row">
                                         <div class="col col-sm-8">
                                             <div class="form-group">
-                                                <b><label>Ubicacion</label></b>
+                                                <b><label >Ubicacion</label></b>
                                             </div>
                                         </div>
                                         <div class="col col-sm-6">
                                             <div class="form-group">
                                                 <label for="tipos">Estado</label>
-                                                <select class="form-control" name="state" id="state" [(ngModel)]="solicitud.state"
+                                                <select class="form-control" name="state" id="state" [disabled]="lock" [(ngModel)]="solicitud.state"
                                                     #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
                                                     <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
                                                 </select>
@@ -98,7 +108,7 @@
                                             <div class="form-group">
                                                 <label for="municipality">Municipio</label>
                                                 <select class="form-control" name="municipality" id="municipality"
-                                                    [(ngModel)]="solicitud.municipality" #municipality="ngModel"
+                                                    [(ngModel)]="solicitud.municipality" [disabled]="lock" #municipality="ngModel"
                                                     (change)="loadparish(solicitud.municipality)">
                                                     <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
                                                 </select>
@@ -107,7 +117,7 @@
 
                                         <div class="col col-sm-6">
                                             <div class="form-group"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
-                                                <select class="form-control" name="parish" id="parish" [(ngModel)]="solicitud.parish"
+                                                <select class="form-control" name="parish" id="parish" [disabled]="lock" [(ngModel)]="solicitud.parish"
                                                     required>
                                                     <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
                                                 </select>
@@ -116,7 +126,7 @@
                                         <div class="col col-sm-12 form-group">
                                             <label class="ng-tns-c12-9" for="direccion">Dirección Exacta</label>
                                             <textarea class=" ng-untouched ng-pristine ng-valid" type="text" id="direccion"
-                                                required style="width: 100%; height: 200px;" [(ngModel)]="solicitud.direction"></textarea>
+                                                required style="width: 100%; height: 200px;" [disabled]="lock" [(ngModel)]="solicitud.ubication"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +137,7 @@
                                 <div class="col col-sm-12">
                                     <div class="form-group">
                                         <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
-                                        <textarea id="description" class="form-control ng-untouched ng-pristine ng-valid"
+                                        <textarea id="description" [disabled]="lock" class="form-control ng-untouched ng-pristine ng-valid"
                                             type="text" [(ngModel)]="solicitud.description" #description="ngModel"
                                             required style="width: 100%; height: 200px; "></textarea>
                                     </div>
@@ -136,7 +146,18 @@
                         </tab>
                     </tabset>
                 </div>
+                <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6" style="text-align: center; margin-top: 40px;">
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
+                                (click)="limpiar()">Limpiar</button>
+                                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
+                                (click)="siguiente()">Siguiente</button>
+                        </div>
             </div>
+            
+                </div>
         </tab>
 
         <tab tab2 heading="Cita" id="second">
@@ -153,6 +174,7 @@
                     </div>
                 </div>
                 <div class="col-md-8">
+                    <!-- aqu va-->
                 </div>
 
                 <div class="card-body" *ngIf="viewCalendar">
@@ -199,11 +221,11 @@
                         <div class="col-md-3">
                         </div>
                         <div class="col-md-6" style="text-align: center; margin-top: 40px;">
-
+                            
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
+                                (click)="anterior()">Anterior</button>
                             <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
                                 (click)="enviar()">Enviar</button>
-                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
-                                (click)="limpiar()">Limpiar</button>
                         </div>
                     </div>
                 </div>
