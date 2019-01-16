@@ -11,12 +11,13 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { SortableModule } from 'ngx-bootstrap/sortable';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   imports: [
     NgxPaginationModule,
     SortableModule.forRoot(),
     CommonModule,
+    TabsModule.forRoot(),
     DragulaModule.forRoot(),
     AssignPromotionsRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
