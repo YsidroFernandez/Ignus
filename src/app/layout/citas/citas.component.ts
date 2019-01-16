@@ -81,11 +81,19 @@ export class CitasComponent implements OnInit {
   submitType: string = 'Save';
   selectedRow: number;
   user: any;
-  public observation: any;
+  public cita: any = {
+    dateAppointment: '',
+    RequestId: '',
+    turn: '',
+    TypeAppointmentId: '',
+    reason: '',
+
+  }
   transaction = [];
   appointment = [];
   typeAppointments = [];
   list = [];
+
 
   colors: any = {
     red: {
@@ -161,23 +169,29 @@ export class CitasComponent implements OnInit {
   }
 
   changeTransaction($event) {
-    for(var i=0;i<this.transaction.length;i++){
-      if(this.transaction[i].id == $event.target.value){
+    for (var i = 0; i < this.transaction.length; i++) {
+      if (this.transaction[i].id == $event.target.value) {
         console.log(this.transaction[i].request.id);
-      }     
-    }   
+        this.cita.RequestId = this.transaction[i].request.id;
+      }
+    }
   }
 
   changeCita($event) {
     console.log($event.target.value);
+    this.cita.TypeAppointmentId = $event.target.value;
   }
 
   changeTurno($event) {
     console.log($event.target.value);
+    this.cita.turn = $event.target.value;
   }
 
-  
+
   dayClicked({ date, events }: { date: Date; events: any[] }): void {
+    console.log(date);
+    console.log(events);
+    this.cita.dateAppointment = moment(date).format('DD/MM/YYYY');
     this.showChildModal();
   }
 
@@ -227,11 +241,27 @@ export class CitasComponent implements OnInit {
     });
   }
 
-  save () {
-    console.log(this.observation);
+  save() {
+    console.log(this.cita);
+    if(this.cita.RequestId==''|| this.cita.TypeAppointmentId==''|| this.cita.dateAppointment==''
+    || this.cita.reason=='' || this.cita.turn==''){
+      return;
+    }else{
+      this.globalService.addModel(this.cita, "/api/appointment").then((result) => {
+        if (result['status']) {
+          console.log(result['status']);
+          this.hideChildModal();
+        }
+      }, (err) => {
+        console.log(err);
+      });
+
+    }
+
+   
   }
 
-  clear () {
+  clear() {
     this.hideChildModal();
   }
 }

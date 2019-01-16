@@ -2,7 +2,8 @@ $topnav-background-color: #1ab394;
 :host {
     .navbar {
         background-color: $topnav-background-color;
-        box-shadow:0 5px 7px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow:0 8px 10px rgba(150, 106, 106, 0.5), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        padding: 10px;
         .navbar-brand {
             color: #fff;
         }
