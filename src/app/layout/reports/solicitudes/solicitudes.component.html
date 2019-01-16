@@ -5,13 +5,13 @@
                 <div class="card-header" style="position: relative; text-align: -webkit-center">
                     Solicitudes
                 </div>
-    
+
                 <div class="row">
                     <div class="col col-sm-3 text-center">
                         <div class="form-group text-center">
-                            <label for="descripcion">Fecha Inicio</label>
+                            <label >Fecha Inicio</label>
                             <div class="input-group">
-                                <input name="fecha_inicio" formControlName="fecha_inicio" [bsConfig]="datePickerConfig"
+                                <input name="fecha_inicio"  [bsConfig]="datePickerConfig"
                                 type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
                                 required>
                             </div>
@@ -19,18 +19,28 @@
                     </div>
                     <div class="col col-sm-3 text-center">
                         <div class="form-group text-center">
-                            <label for="descripcion">Fecha Fin</label>
+                            <label >Fecha Fin</label>
                             <div class="input-group">
-                                <input name="fecha_fin" formControlName="fecha_fin" [bsConfig]="datePickerConfig" type="text"
-                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required> 
+                                <input name="fecha_fin"  [bsConfig]="datePickerConfig" type="text"
+                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
                             </div>
                         </div>
                     </div>
-    
-                    <div class="col col-sm-3 text-center">
-                       
+                  <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Tipos de Servicio</label>
+                      <select class="form-control" name="tiposservicio" [(ngModel)]="servicio.id">
+                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id" [selected]="servicio.id">
+                          {{ item2.name }}
+                        </option>
+                      </select>
                     </div>
-    
+                  </div>
+
+                    <div class="col col-sm-3 text-center">
+
+                    </div>
+
                     <div class="col col-sm-3 text-center">
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
@@ -38,17 +48,6 @@
                             </button>
                         </span>
                     </div>
-                    <div class="col col-sm-12">
-                            <div class="card border-primary">
-                                <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                                <div class="card-body text-primary">
-                                    <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                    <p class="card-text">Barquisimeto; Diciembre 2018.</p>
-                                </div>
-                            </div>
-                 
-    
-                        </div>
                     <head>
                             <meta charset="UTF-8">
                             <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
@@ -58,7 +57,7 @@
                                 .wide-card.mdl-card {
                                    width: auto;
                                 }
-                             
+
                                 .square-card.mdl-card {
                                    width: auto;
                                    height: auto;
@@ -82,17 +81,17 @@
                                             <div class="card-body">
                                                     <div [chart]="chart" id="graficaLineal" class="chart"></div>
                                             </div>
-                                            
-                                    </div>                
+
+                                    </div>
 
                             </div>
                             <div class="mdl-card__actions mdl-card--border">
-                                <div>  
-                                    <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>  
-                                </div>  
+                                <div>
+                                    <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
+                                </div>
                           </div>
                     </body>
-    
-                
+
+
         </div>
     </div>
