@@ -18,3 +18,25 @@
     </ngx-charts-bar-vertical>
   </div>
 </div>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Card title</h4>
+<ngx-charts-line-chart
+ 
+  [results]="lineChartMulti"
+  
+  [scheme]="colorScheme"
+ 
+  [gradient]="gradient"
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis"
+  [legend]="showLegend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  (select)="onSelect($event)"
+>
+</ngx-charts-line-chart>
+</div>
+</div>

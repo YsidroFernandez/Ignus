@@ -14,10 +14,10 @@ export class DashboardComponent implements OnInit {
     
     single: any[];
     multi: any[];
-  
+    lineChartMulti: any[];
     view: any[] = [700, 400];
   
-    // options
+    // options graps dashboard
     showYAxis = true;
     gradient = false;
     showLegend = true;
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
     yAxisLabel = 'Population';
   
     colorScheme = {
-      domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+        domain: ['#1CBCD8', '#FF8D60', '#FF586B', '#AAAAAA']
     };
   
 
