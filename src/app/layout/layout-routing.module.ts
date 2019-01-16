@@ -35,6 +35,7 @@ const routes: Routes = [
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },
             { path: 'reserva', loadChildren: './reserva/reserva.module#ReservaModule' },
             { path: 'contact', loadChildren: './contact/contact.module#ContactModule' },
+            { path: 'tipocontacto', loadChildren: './typecontact/typecontact.module#TypeContactModule' },
             { path: 'agency', loadChildren: './agency/agency.module#AgencyModule' },
             { path: 'role', loadChildren: './role/role.module#RoleModule' },
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },

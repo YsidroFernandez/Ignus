@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TypeContactComponent } from './type-contact.component';
+import { TypeContactComponent } from './typecontact.component';
 
 const routes: Routes = [
   {
