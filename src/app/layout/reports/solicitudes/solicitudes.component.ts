@@ -6,8 +6,8 @@ import { GlobalService } from '../../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
-import * as jspdf from 'jspdf';  
-import html2canvas from 'html2canvas'; 
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-solicitudes',
@@ -17,13 +17,15 @@ import html2canvas from 'html2canvas';
 
 })
 export class SolicitudesComponent implements OnInit {
-
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
     agencia: any;
     agencias: any;
+    servicio: any;
+    servicios: any;
     public view = false;
     public chart: any;
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
@@ -44,7 +46,7 @@ export class SolicitudesComponent implements OnInit {
             ctx.drawImage(img, 0, 0);
             dataURL = canvas.toDataURL("image/png");
             callback(dataURL);
-            canvas = null; 
+            canvas = null;
         };
         img.src = url;
     }
@@ -54,25 +56,25 @@ export class SolicitudesComponent implements OnInit {
         this.convertImgToBase64URL('https://ignus-backend-jchiquin.c9users.io/public/imgs/logo/basic-logo.png', (base64Img) =>{
             this.imagen = base64Img; // myBase64 is the base64 string
             var doc = new jspdf()
-        var data = document.getElementById('content');  
-        html2canvas(data).then(canvas => {  
-          // Few necessary setting options  
-          var imgWidth = 208;   
-          var pageHeight = 295;    
-          var imgHeight = canvas.height * imgWidth / canvas.width;  
-          var heightLeft = imgHeight;  
-      
-          const contentDataURL = canvas.toDataURL('image/png')  
-          var position = 0;  
+        var data = document.getElementById('content');
+        html2canvas(data).then(canvas => {
+          // Few necessary setting options
+          var imgWidth = 208;
+          var pageHeight = 295;
+          var imgHeight = canvas.height * imgWidth / canvas.width;
+          var heightLeft = imgHeight;
+
+          const contentDataURL = canvas.toDataURL('image/png')
+          var position = 0;
           doc.addImage(contentDataURL, 'PNG', 0, 75, imgWidth, imgHeight)
           doc.setFontSize(10)
-          doc.text(65, 25, this.agencias.name+" "+this.agencias.rif)
-          doc.setFontSize(10) 
-          let middleUbication = this.agencias.ubication.lastIndexOf(' ',this.agencias.ubication.length/2)
-          doc.text(50, 30, this.agencias.ubication.substr(0,middleUbication))
-          doc.text(50, 35, this.agencias.ubication.substr(middleUbication+1,this.agencias.ubication.length))
+          doc.text(78, 25, this.agencias.name+" "+this.agencias.rif)
           doc.setFontSize(10)
-          doc.text(55, 40, this.agencias.phoneNumber+ " / " +this.agencias.phoneNumber2) 
+          let middleUbication = this.agencias.ubication.lastIndexOf(' ',this.agencias.ubication.length/2)
+          doc.text(70, 30, this.agencias.ubication.substr(0,middleUbication))
+          doc.text(71, 35, this.agencias.ubication.substr(middleUbication+1,this.agencias.ubication.length))
+          doc.setFontSize(10)
+          doc.text(84, 40, this.agencias.phoneNumber+ " / " +this.agencias.phoneNumber2)
           doc.setFontSize(30)
           doc.text(55, 60, 'Reportes Estadisticos')
           console.log(this.imagen);
@@ -80,10 +82,10 @@ export class SolicitudesComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 170,3,30,30)
 
           doc.save("Reporte.pdf")
-        }); 
         });
-         
-        
+        });
+
+
           }
 
     allAgency(){
@@ -97,8 +99,20 @@ export class SolicitudesComponent implements OnInit {
         });
     }
 
+    allService(){
+      this.globalService.getModel("/api/typeService")
+        .then((result) => {
+          console.log(result);
+          this.servicios = result['data'];
+          console.log(this.servicios);
+        }, (err) => {
+          console.log(err);
+        });
+    }
+
     ngOnInit() {
         this.allAgency();
+        this.allService();
 
     }
 
