@@ -104,8 +104,10 @@
                         aria-hidden="true"
                       ></i>
                     </button>
-                  </div>
-                </td>
+                    <a [href]="inspections.urlFileInspection" target="_blank" [download]="inspections.urlFileInspection"> <i class="fa fa-cloud-download"
+                      *ngIf="inspections.status!='A'" style="font-size: 25px;" aria-hidden="true"></i></a>
+                    </div>
+                  </td>
               </tr>
             </tbody>
           </table>
@@ -173,7 +175,7 @@
                         <div class="form-group" style="text-align: center">
                             <label for="tipos">Informe</label>
                             <br>
-                            <input  data-classButton="btn btn-primary" type='file' (change)="onSelectFile($event)">
+                            <input data-classButton="btn btn-primary" type='file' (change)="onSelectFile($event)">
                        </div>
 
                     </div>

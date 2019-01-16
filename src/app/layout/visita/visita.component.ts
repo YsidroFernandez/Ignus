@@ -39,6 +39,9 @@ export class VisitaComponent implements OnInit {
   // public fileUpload: any;
   // public fileToUploadInspection: File = null;
   selectedFile: File;
+  fileToUploadRecaudo:File;
+
+
   constructor(
     private modalService: NgbModal,
     public router: Router,
@@ -53,6 +56,7 @@ export class VisitaComponent implements OnInit {
   getInspections() {
     this.globalService.getModel("/api/inspection").then(
       result => {
+        console.log(result);
         this.inspections = result["data"];
       },
       err => {
@@ -238,4 +242,5 @@ export class VisitaComponent implements OnInit {
     console.log(event);
     this.selectedFile = event.target.files[0];
   }
+ 
 }
