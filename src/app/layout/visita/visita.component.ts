@@ -56,8 +56,8 @@ export class VisitaComponent implements OnInit {
   getInspections() {
     this.globalService.getModel("/api/inspection").then(
       result => {
-        console.log(result);
         this.inspections = result["data"];
+        console.log(this.inspections);
       },
       err => {
         console.log(err);
@@ -68,7 +68,7 @@ export class VisitaComponent implements OnInit {
   getRequest(){
     this.globalService.getModel("/api/request?status").then(
       result => {
-        console.log(result);
+        // console.log(result);
         this.requests = result["data"];
       },
       err => {

@@ -38,7 +38,8 @@
                 </div>
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content, 'create', -1); limpiar()" ><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+                        (click)="open(content, 'create', -1); limpiar()"><i style="color: white" class="fa fa-plus"
+                            aria-hidden="true"></i></button>
                 </div>
             </div>
 
@@ -65,30 +66,32 @@
                             <td>{{item.decision}}</td>
                             <td>{{item.status}}</td>
                             <td>
-                                <div *ngIf="item.status=='Atendida';else other_content">
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                            data-placement="top" title="Detalle"></i>
-                                    </button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <div *ngIf="item.status=='Atendida';else other_content">
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(ver)">
+                                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Detalle"></i>
+                                        </button>
+                                    </div>
+                                    <ng-template #other_content>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(ver)">
+                                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Detalle"></i>
+                                        </button>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(responder,'Update',i)">
+                                            <i style="color: white" class="fa fa-check" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Responder"></i>
+                                        </button>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="onDelete(i)">
+                                            <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Eliminar"></i>
+                                        </button>
+                                    </ng-template>
                                 </div>
-                                <ng-template #other_content>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                            data-placement="top" title="Detalle"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(responder,'Update',i)">
-                                        <i style="color: white" class="fa fa-check" aria-hidden="true" data-toggle="tooltip"
-                                            data-placement="top" title="Responder"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="onDelete(i)">
-                                        <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
-                                            data-placement="top" title="Eliminar"></i>
-                                    </button>
-                                </ng-template>
                             </td>
                         </tr>
                     </tbody>
@@ -117,54 +120,53 @@
     </div>
     <div class="card mb-3">
         <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Transacciones</label>
-                            <select class="form-control" name="transacciones" [(ngModel)]="listincidence.TransactionId">
-                                <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="listincidence.TransactionId">
-                                    {{ item2.nameForEmployee }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Tipo de Incidencia</label>
-                            <select class="form-control" name="typeIncidence" [(ngModel)]="listincidence.TypeIncidenceId">
-                                <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="listincidence.TypeIncidenceId">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="tipos">Transacciones</label>
+                        <select class="form-control" name="transacciones" [(ngModel)]="listincidence.TransactionId">
+                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="listincidence.TransactionId">
+                                {{ item2.nameForEmployee }}
+                            </option>
+                        </select>
                     </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Asunto</label>
-                            <input id="r1" type="text" [(ngModel)]="listincidence.name" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="nombre">Motivo</label>
-                            <textarea id="r2" [(ngModel)]="listincidence.description" class="form-control"></textarea>
-                        </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="tipos">Tipo de Incidencia</label>
+                        <select class="form-control" name="typeIncidence" [(ngModel)]="listincidence.TypeIncidenceId">
+                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="listincidence.TypeIncidenceId">
+                                {{ item.name }}
+                            </option>
+                        </select>
                     </div>
                 </div>
-        </div>
-    </div>
-        <div class="modal-footer">
-            <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                    style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-                    title="Cerrar"></i></button>
-            <div *ngIf="submitType!='show'">
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                        style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip"
-                        data-placement="top" title="Editar"></i></button>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="tipos">Asunto</label>
+                        <input id="r1" type="text" [(ngModel)]="listincidence.name" class="form-control" />
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label for="nombre">Motivo</label>
+                        <textarea id="r2" [(ngModel)]="listincidence.description" class="form-control"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="modal-footer">
+        <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
+                class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cerrar"></i></button>
+        <div *ngIf="submitType!='show'">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                    style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Editar"></i></button>
+        </div>
+    </div>
 </ng-template>
 
 <!--responder -->

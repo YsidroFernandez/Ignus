@@ -1,9 +1,9 @@
-<div [@routerTransition] >
+<div [@routerTransition]>
 
     <div class="container">
         <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-      Contacto
-    </div>
+            Contacto
+        </div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div class="col col-sm-4" style="position: relative; top: 15px;">
@@ -18,15 +18,17 @@
                     <div class="input-group">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
                         <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;" ><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                    data-placement="top" title="Buscar"></i></button>
                         </span>
                     </div>
                 </div>
 
                 <div class="col col-sm-4 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                         (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
+                        (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
                 </div>
             </div>
             <div class="card-body  table-responsive">
@@ -43,75 +45,81 @@
                     <!-- <tr *ngFor="let item of contact ; let i= index" (click)="onEdit(i)"> -->
 
                     <tr *ngFor="let item of contacts" (click)="onEdit(i)">
-                            <td>{{item.name}}</td>
-                            <td>{{item.description}}</td>
-                            <td>{{item.status}}</td>
-                            <td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}}</td>
+                        <td>{{item.status}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(ver)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
+                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Detalle"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="open(editar)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
+                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Editar"></i>
                                 </button>
                                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                     (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar" ></i>
+                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                                        data-placement="top" title="Eliminar"></i>
                                 </button>
-                            </td>
-                        </tr>
+                            </div>
+                        </td>
+                    </tr>
                 </table>
             </div>
         </div>
     </div>
-<!--Contenido -->
-<ng-template #content let-c="close" let-d="dismiss">
-         <div class="modal-header">
+    <!--Contenido -->
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
             <h4 class="modal-title ">Crear Contacto</h4>
             <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-         <div class="card mb-3">
+        <div class="card mb-3">
             <div class="modal-body">
                 <div class="row mb-3">
                     <div class="col col-sm-6">
                         <div class="form-group">
                             <label for="tipos">Titulo:</label>
-                            <input type="text" [(ngModel)]="contact.name" class="form-control" />
+                            <input type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
                         </div>
                     </div>
                     <div class="col col-sm-6">
                         <div class="form-group">
-                        <label for="typeContact">Tipos de Contacto:</label>
-                        <select class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID" #typecontact="ngModel">
-                        <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
-                        </select>
+                            <label for="typeContact">Tipos de Contacto:</label>
+                            <select class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID"
+                                #typecontact="ngModel">
+                                <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="col col-sm-6">
-                  <div class="form-group">
-                  <label for="subject">Tema:</label>
-                  <select class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
-                 <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
-                  </select>
+                        <div class="form-group">
+                            <label for="subject">Tema:</label>
+                            <select class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
+                                <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
+                            </select>
                         </div>
                     </div>
 
-            <div class="col col-sm-12">
-            <div class="form-group">
-            <label class="ng-tns-c12-9" for="descripcion">Descripción</label>
-            <textarea class="form-control ng-untouched ng-pristine ng-valid" 
-                type="text" [(ngModel)]="contact.description" required style="width: 700px; height: 300px; "></textarea>
-            <!--<input type="text" [(ngModel)]="contact.description" class="form-control" />-->
+                    <div class="col col-sm-12">
+                        <div class="form-group">
+                            <label class="ng-tns-c12-9" for="descripcion">Descripción</label>
+                            <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
+                                required style="width: 700px; height: 300px; "></textarea>
+                            <!--<input type="text" [(ngModel)]="contact.description" class="form-control" />-->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-        </div>
-      
+
         <div class="modal-footer">
             <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
                     style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
