@@ -30,7 +30,7 @@ export class ListIncidencesComponent implements OnInit {
   modalName: any;
   modalTemplate: any;
   disabled: boolean;
-  aceptar: any = false;
+  aceptar: any = true;
   denegar: any = false;
   user: any;
 
