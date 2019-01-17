@@ -6,8 +6,8 @@ import { GlobalService } from '../../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
-import * as jspdf from 'jspdf';  
-import html2canvas from 'html2canvas'; 
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
     selector: 'app-cita',
@@ -17,21 +17,30 @@ import html2canvas from 'html2canvas';
 
 })
 export class CitaComponent implements OnInit {
-
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
-    public view = false;
-    public chart: any;
     imagen: any;
     agencia: any;
     agencias: any;
-    empleado: any;
+    empleado: any = {
+        person: {id: '', firstName: ''}
+    };
+    employeeId: number;
     empleados: any = [];
+    servicio: any= {
+        id: '',
+        name: ''
+    };
+    servicios: any = [];
+    public view = false;
+    public chart: any;
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
-        var doc = new jspdf('p', 'pt');
         let now = moment().format();
         console.log('hello world', this.tipos);
+
+        var doc = new jspdf('p', 'pt');
     }
 
     convertImgToBase64URL(url, callback){
@@ -49,6 +58,7 @@ export class CitaComponent implements OnInit {
         };
         img.src = url;
     }
+
 
     downloadImagePDF(){
         this.convertImgToBase64URL('https://ignus-backend-jchiquin.c9users.io/public/imgs/logo/basic-logo.png', (base64Img) =>{
@@ -81,35 +91,49 @@ export class CitaComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 170,3,30,30)
  
           doc.save("Reporte-Citas.pdf") 
-        });  
         });
-    
+        });
+
+
           }
 
-          allAgency(){
-            this.globalService.getModel("/api/agency")
-            .then((result) => {
-                console.log(result);
-                this.agencias = result['data'];
-                console.log(this.agencias);
-            }, (err) => {
-                console.log(err);
-            });
-        }
 
-        allEmployee(){
-            this.globalService.getModel("/api/employee")
-            .then((result) => {
-                console.log(result);
-                this.empleados = result['data'];
-                console.log(this.empleados);
-            }, (err) => {
-                console.log(err);
-            });
-        }
+    allAgency(){
+        this.globalService.getModel("/api/agency")
+        .then((result) => {
+            console.log(result);
+            this.agencias = result['data'];
+            console.log(this.agencias);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+    
+    allEmployee(){
+        this.globalService.getModel("/api/employee")
+        .then((result) => {
+            console.log(result);
+            this.empleados = result['data'];
+            console.log(this.empleados);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    allService(){
+      this.globalService.getModel("/api/typeService")
+        .then((result) => {
+          console.log(result);
+          this.servicios = result['data'];
+          console.log(this.servicios);
+        }, (err) => {
+          console.log(err);
+        });
+    }
 
     ngOnInit() {
         this.allAgency();
+        this.allService();
         this.allEmployee();
     }
 
