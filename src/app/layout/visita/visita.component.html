@@ -40,8 +40,48 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Codigo..."
+                            aria-label="Search"
+                            [(ngModel)]="visCodigo"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Cliente..."
+                            aria-label="Search"
+                            [(ngModel)]="visCliente"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Evaluador..."
+                            aria-label="Search"
+                            [(ngModel)]="visEvaluador"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Estado..."
+                            aria-label="Search"
+                            [(ngModel)]="visEstado"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr (click)="onEdit(i)">
+                        <tr *ngFor="let visita of Visitas | searchfilter: visCodigo:visCliente:visEvaluador:visEstado" (click)="onEdit(i)">
                             <td>0003</td>
                             <td>Ana Suarez</td>
                             <td>Antonio Paez</td>

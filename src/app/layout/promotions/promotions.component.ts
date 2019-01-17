@@ -19,7 +19,7 @@ export class PromotionsComponent implements OnInit {
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = 'Save';
   selectedRow: number;
-
+  searchfilter: string;
   
   constructor(
     private modalService: NgbModal, public globalService: GlobalService) {

@@ -9,6 +9,7 @@ import { RoleComponent } from './role.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSelectModule} from 'ngx-select-ex';
+import { RoleFilterPipe } from './role-filter.pipe';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { NgxSelectModule} from 'ngx-select-ex';
     NgSelectModule,
     NgxSelectModule,
   ],
-  declarations: [RoleComponent],
+  declarations: [RoleComponent,RoleFilterPipe],
   providers: [
     NgbActiveModal,
   ]

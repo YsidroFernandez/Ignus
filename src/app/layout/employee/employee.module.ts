@@ -9,6 +9,7 @@ import { PageHeaderModule } from '../../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { NgxSelectModule} from 'ngx-select-ex';
+import { EmployeeFilterPipe } from './employee-filter.pipe';
 
 @NgModule({
     imports: [CommonModule, EmployeeRoutingModule,
@@ -17,7 +18,7 @@ import { NgxSelectModule} from 'ngx-select-ex';
        Ng4LoadingSpinnerModule.forRoot(),
        FontAwesomeModule, NgbModule.forRoot(),
         FormsModule, ReactiveFormsModule],
-    declarations: [EmployeeComponent],
+    declarations: [EmployeeComponent,EmployeeFilterPipe],
     providers: [
     NgbActiveModal,
   ]

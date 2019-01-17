@@ -37,8 +37,30 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Nombre..."
+                            aria-label="Search"
+                            [(ngModel)]="promName"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Descripción..."
+                            aria-label="Search"
+                            [(ngModel)]="promDescripcion"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let item of promotions ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of promotions | searchfilter: promName:promDescripcion; let i= index" (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td>

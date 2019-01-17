@@ -43,8 +43,30 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Nombre..."
+                            aria-label="Search"
+                            [(ngModel)]="servName"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Descripción..."
+                            aria-label="Search"
+                            [(ngModel)]="servDescription"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let item of services ; let i= index">
+                        <tr *ngFor="let item of services | searchfilter: servName:servDescription; let i= index">
                             <td>{{item.name}}</td>
                             <td>
                                 <p>{{item.description}}</p>

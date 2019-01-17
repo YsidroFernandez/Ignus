@@ -11,6 +11,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DragulaModule } from 'ng2-dragula';
 import { SortableModule } from 'ngx-bootstrap/sortable';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AssignPromotionsFilterPipe } from './assignpromotions-filter.pipe';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
       })
     ], 
 
-  declarations: [AssignPromotionsComponent],
+  declarations: [AssignPromotionsComponent,AssignPromotionsFilterPipe],
     providers: [
     NgbActiveModal,
   ]

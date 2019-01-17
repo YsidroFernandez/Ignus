@@ -22,33 +22,15 @@
               entradas</label
             >
           </div>
-          <div class="col col-sm-4" style="position: relative; top: 15px;">
-            <div class="input-group">
-              <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Buscar..."
-                aria-label="Search"
-              />
-              <span class="input-group-btn">
-                <button
-                  style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
-                >
-                  <i
-                    style="color: white"
-                    class="fa fa-search"
-                    aria-hidden="true"
-                  ></i>
-                </button>
-              </span>
-            </div>
-            
-          </div>
-          <div class="col col-sm-4 text-right">
+          
+          
+              <div class="col col-sm-8 text-right">
                 <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                     (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
             </div>
         </div>
+        
+            
         <div class="card-body  table-responsive">
           <table class="card-body table table-hover">
             <thead>
@@ -58,9 +40,32 @@
                 <th colspan="4">Acciones</th>
               </tr>
             </thead>
+            <thead>
+                <tr>
+                  <th style="background-color:transparent">
+                    <input
+                    class="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Buscar por Nombre..."
+                    aria-label="Search"
+                    [(ngModel)]="rolName"
+                    />
+                  </th>
+                  <th style="background-color:transparent">
+                    <input
+                    class="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Buscar por Descripción..."
+                    aria-label="Search"
+                    [(ngModel)]="rolDescription"
+                    />
+                  </th>
+                </tr>
+              </thead>
             <tbody>
+                
               <tr
-                *ngFor="let item of roles; let i = index"
+                *ngFor="let item of roles | searchfilter: rolName:rolDescription; let i = index "
               >
                 <td>{{ item.name }}</td>
                 <td>{{ item.description }}</td>
@@ -160,7 +165,7 @@
               </div>
           </div>
         </ng-template>
-      </div>
+      
     </div>
   </div>
   

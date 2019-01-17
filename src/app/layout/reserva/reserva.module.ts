@@ -8,6 +8,7 @@ import { ReservaComponent } from './reserva.component';
 import { PageHeaderModule } from './../../shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReservaFilterPipe } from './reserva-filter.pipe';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ReservaRoutingModule, NgbModule.forRoot(),
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [ReservaComponent],
+  declarations: [ReservaComponent,ReservaFilterPipe],
   providers:[
   NgbActiveModal,]
 })

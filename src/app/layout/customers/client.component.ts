@@ -35,6 +35,7 @@ export class ClientComponent implements OnInit {
   submitType: string = "Save";
   selectedRow: number;
   disabled: boolean;
+  searchfilter: string;
   
     //Arreglo para la seleccion del sexo en editar cliente
     gender = [

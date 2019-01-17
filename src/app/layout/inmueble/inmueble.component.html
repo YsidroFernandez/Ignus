@@ -51,8 +51,66 @@
               <th align="center" colspan="4">Acciones</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Transacción..."
+                aria-label="Search"
+                [(ngModel)]="inmTransaccion"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Tipo..."
+                aria-label="Search"
+                [(ngModel)]="inmTipo"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Nombre..."
+                aria-label="Search"
+                [(ngModel)]="inmName"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Descripcion..."
+                aria-label="Search"
+                [(ngModel)]="inmDescription"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Ubicacion..."
+                aria-label="Search"
+                [(ngModel)]="inmUbicacion"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Precio..."
+                aria-label="Search"
+                [(ngModel)]="inmPrecio"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
-            <tr *ngFor="let Inmueble of Inmuebles" (click)=openForEdit(Inmueble)>
+            <tr *ngFor="let Inmueble of Inmuebles | searchfilter: inmTransaccion:inmTipo:inmName:inmDescription:inmUbicacion:inmPrecio" (click)=openForEdit(Inmueble)>
               <td>{{Inmueble.transaccion}}</td>
               <td>{{Inmueble.tipo}}</td>
               <td>{{Inmueble.nombre}}</td>

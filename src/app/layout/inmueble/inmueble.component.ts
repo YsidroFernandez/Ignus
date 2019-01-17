@@ -19,6 +19,7 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons';
 })
 export class InmuebleComponent implements OnInit {
  closeResult: string;
+ searchfilter: string;
     constructor(private modalService: NgbModal) {}
  
     open(content) {

@@ -50,9 +50,40 @@
               <th style="vertical-align: middle;">Ver Detalle</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Tipo..."
+                aria-label="Search"
+                [(ngModel)]="rolTipoTrans"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Descripción..."
+                aria-label="Search"
+                [(ngModel)]="rolDescriptionTrans"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Estado..."
+                aria-label="Search"
+                [(ngModel)]="rolEstadoTrans"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
 
-            <tr *ngFor="let transaccion of listTransacciones" (click)="detTransaccion(transaccion)">
+            <tr *ngFor="let transaccion of listTransacciones | searchfilter: transTipo:transDescription:transEstado" (click)="detTransaccion(transaccion)">
               <td>{{transaccion.typeService.name}}</td>
               <td>{{transaccion.typeService.description}}</td>
               <td>{{transaccion.status}}</td>
@@ -123,9 +154,49 @@
               <th style="vertical-align: middle;">Ver Detalle</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Fecha..."
+                aria-label="Search"
+                [(ngModel)]="soliDate"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Tipo..."
+                aria-label="Search"
+                [(ngModel)]="soliTipo"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Descripción..."
+                aria-label="Search"
+                [(ngModel)]="soliDescription"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Estado..."
+                aria-label="Search"
+                [(ngModel)]="soliEstado"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
 
-         <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="detallesSolicitud(solicitud)">
+         <tr *ngFor="let solicitud of listSolicitudes | searchfilter: soliDate:soliTipo:soliDescription:soliEstado; let i = index" (click)="detallesSolicitud(solicitud)">
               <td>{{solicitud.wishDate}}</td>
               <td>{{solicitud.typeRequest.name}}</td>
               <td>{{solicitud.typeRequest.description}}</td>

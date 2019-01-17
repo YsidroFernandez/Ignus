@@ -34,6 +34,7 @@ export class AssignPromotionsComponent implements OnInit {
     showNew: Boolean = false; 
     submitType: string = 'Save';
     selectedRow: number;
+    searchfilter: string;
 
     constructor(private modalService: NgbModal,
         public globalService: GlobalService,

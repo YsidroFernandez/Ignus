@@ -6,6 +6,7 @@ import { DashboardcustomerComponent } from './dashboardcustomer.component';
 import { PageHeaderModule } from '../../../shared';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DashboardCustomerFilterPipe } from './dashboardcustomer-filter.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [DashboardcustomerComponent],
+  declarations: [DashboardcustomerComponent,DashboardCustomerFilterPipe],
   providers: []
 })
 export class DashboardcustomerModule { }

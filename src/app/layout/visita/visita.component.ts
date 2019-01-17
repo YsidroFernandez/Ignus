@@ -25,6 +25,7 @@ export class VisitaComponent implements OnInit {
     closeResult: string;
     submitType: string = 'Guardar';
     selectedRow: number;
+    searchfilter: string;
     constructor(private modalService: NgbModal,
                  public router: Router) {
 

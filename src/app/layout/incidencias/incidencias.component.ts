@@ -1,108 +1,217 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-
-import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-
-import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
-
-
-import { clientes } from './modelo/clientes';
-
-import { Incidencia } from './modelo/incidencia';
+import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { GlobalService } from '../../providers/global.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+import { filter } from 'rxjs/operators';
+//https://es.stackoverflow.com/questions/90627/deshabilitar-o-habilitar-un-input-por-medio-de-un-select
 
 @Component({
-  selector: 'app-incidencias',
+  selector: 'app-activities',
   templateUrl: './incidencias.component.html',
   styleUrls: ['./incidencias.component.scss'],
-  animations: [routerTransition()],
-    providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
-
+  animations: [routerTransition()]
 })
 export class IncidenciasComponent implements OnInit {
+  closeResult: string;
+  incidencias: any;
+  incidencia: any;
+  tipoincidencias: any;
+  tipoincidencia: any;
+  transaccion: any = {id: '',nameForEmployee: ''};
+  transacciones: any;
+  modalTitle: string = 'Incidencia';
+  modalIcon: string = 'fa fa-plus'
+  modalName: any;
+  modalTemplate: any;
+  showView:Boolean = false;
+  submitType: string = 'Save';
+  disabled: boolean;
+  searchfilter: string;
 
-   closeResult: string;
-    constructor(private modalService: NgbModal) {}
- 
-    open(content) {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            if(this.selectedIncidencia.id === 0){
-        this.selectedIncidencia.id = this.IncidenciaArray.length + 1;
-        this.IncidenciaArray.push(this.selectedIncidencia);
-        this.msg = 'Campo Agregado Exitosamente';
-        }
-         this.selectedIncidencia = new Incidencia();
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-    }
+  faEdit = faEdit;
+  new: any;
+  // It maintains activities form display status. By default it will be false.
+  showNew: Boolean = false;
+  selectedRow: number;
+  
+  constructor(
+    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+      this.incidencias = [];
+      this.incidencia = {};
+      this.tipoincidencias = [];
+      this.tipoincidencia = [];
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
-    }
-
-    cliente:clientes[];
-  cliSelect:Number;
-
-    ngOnInit() {
-      this.cliente =[
-          {Id:1, Name:"Jesus"},
-          {Id:2, Name:"Pedro"},
-          {Id:3, Name:"Jhonatan"},
-          {Id:4, Name:"Ysidro"}
-
-    ];
-
-    this.cliSelect= 4;
-
-    }
-
-       faEye = faEye;
-    faEdit = faEdit;
-    faTrash = faTrash;
-
-     msg = '';
-
-      IncidenciaArray:Incidencia[] = [
-        {id:1,
-	fecha: "28-10-2018",
-	motivo: "Tuberias rotas",
-	cliente: "Jesus",transaccion: "Solicitud"},
-        {id:2,
-	fecha: "15-11-2018",
-	motivo: "Falla electrica",
-	cliente: "Pedro",transaccion: "visita"},
-	{id:3,
-	fecha: "01-11-2018",
-	motivo: "Falta de agua",
-	cliente: "Juan",transaccion: "Visita"},
-
-
-    ];
-
-    selectedIncidencia: Incidencia = new Incidencia();
-
-    openForEdit(incidencia: Incidencia) {
-      this.selectedIncidencia = incidencia;
+      this.new = {};
+   }
+   getTransacciones(){
+    this.globalService.getModel("/api/transaction")
+    .then((result) => {
+        console.log(result);
+        this.transacciones = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
 
 }
-  delete(i) {
-       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.IncidenciaArray.splice(i, 1);
-        this.msg = 'Campo Eliminado Exitosamente';
-      }
-      }
-       closeAlert(): void{
-      this.msg = '';
-      }
+
+ getIncidence(){
+    this.globalService.getModel("/api/incidence")
+    .then((result) => {
+        console.log(result);
+        this.incidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+ }
+
+getIncidencias() {
+    this.globalService.getModel("/api/typeIncidence")
+    .then((result) => {
+        this.tipoincidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+
+}
+
+
+   ngOnInit() { 
+    this.getIncidence();
+    this.getIncidencias();
+    this.getTransacciones();
+ }
+
+apiAction() { //metodo para realizar una accion ya sea crear, editar
+
+    //declaracion que permite enviar el nuevo json ya sea para crear o editar
+    this.new = JSON.stringify({name: this.incidencia.name, description: this.incidencia.description, TransactionId: this.incidencia.TransactionId, TypeIncidenceId: this.incidencia.TypeIncidenceId});
+    if (this.submitType === "create") {
+        console.log(this.new);
+        //metodo que perimite enviar por post un nuevo empleado
+        this.globalService.addModel(this.new, "/api/incidence")
+            .then((result) => {
+                console.log(result);
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es creado el empleado
+                    this.getIncidence();
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+
+
+    } else {
+        //metodo que perimite enviar por put una actualizaciòn de un servicio
+        this.globalService.updateModel(this.incidencia.id, this.new, "/api/incidence")
+            .then((result) => {
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es editado el service
+                    this.getIncidence();
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+    }
+}
+
+//solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear 
+open(content, action, index: number) {
+    //==============================================================================
+    //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
+    //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
+    this.modalService.open(content).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+        this.apiAction(); //despues de cerrado el modal se ejecuta la accion de la api
+    }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+    //==============================================================================
+    console.log(action)
+    
+    this.disabled=false;
+    this.modalTemplate = content;
+    this.modalName = action;
+    this.submitType = action;    // variable que nos permite saber que accion podemos ejecutar ejemplo editar
+    this.selectedRow = index;    //aca se toma el indice de el servicio seleccionado
+    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    console.log(this.incidencia)
+
+    if (action == 'show') {//si la accion es ver, desabilita los campos del modal
+        this.disabled = true;
+        this.showView = false;
+        this.modalIcon = "fa fa-close"
+
+
+
+    }
+    else
+        if (action == 'create') {//si la accion es distinta de ver los campos del modal quedaran activados
+            this.disabled = false;
+            this.showView = true;
+            this.modalIcon = "fa fa-plus"
+        } else
+            if (action == 'edit') {//si la accion es distinta de ver los campos del modal quedaran activados
+                this.disabled = false;
+                this.modalIcon = "fa fa-edit";
+                this.showView = false;
+            }
+
+}
+
+
+
+
+private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+    } else {
+        return `with: ${reason}`;
+    }
+}
+
+
+// This method associate to Delete Button.
+onDelete(index: number) {
+    console.log('eliminando');
+    this.selectedRow = index;
+    this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);
+    this.showNew = true;
+    //Pendiente
+    if(confirm('¿Estas seguro de eliminar esta promotion?')){
+        this.globalService.removeModel(this.incidencia.id, "/api/incidence")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es eliminado la promotion
+                        this.globalService.getModel("/api/incidence")
+                            .then((result) => {
+                                console.log(result);
+                                this.incidencias = result['data'];
+                            }, (err) => {
+                                console.log(err);
+                            });
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+        }
+    
+      
+}
+// This method associate toCancel Button.
+onCancel() {
+    // Hide Usuario entry section.
+    this.showNew = false;
+}
+
+    
+
 
 }

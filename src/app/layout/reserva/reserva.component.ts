@@ -18,7 +18,8 @@ export class ReservaComponent implements OnInit {
 	inmuebles: any;
   datosUser: any;
   transactions: any;
-	url: string;
+  url: string;
+  searchfilter: string;
 	inmuebleApi= "/api/property";
 
   constructor(public globalService: GlobalService) { 

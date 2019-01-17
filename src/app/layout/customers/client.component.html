@@ -56,9 +56,49 @@
                 <th colspan="4">Acciones</th>
               </tr>
             </thead>
+            <thead>
+              <tr>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Buscar por Identificación..."
+                  aria-label="Search"
+                  [(ngModel)]="cliIdentificacion"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Buscar por Nombre..."
+                  aria-label="Search"
+                  [(ngModel)]="cliName"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Buscar por Apellido..."
+                  aria-label="Search"
+                  [(ngModel)]="cliLastName"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Buscar por Sexo..."
+                  aria-label="Search"
+                  [(ngModel)]="cliSex"
+                  />
+                </th>
+              </tr>
+            </thead>
             <tbody>
               <tr
-                *ngFor="let item of customers; let i = index"
+                *ngFor="let item of customers | searchfilter: cliIdentificacion:cliName:cliLastName:cliSex; let i = index"
               >
                 <td>{{ item.person.identification }}</td>
                 <td>{{ item.person.firstName }}</td>

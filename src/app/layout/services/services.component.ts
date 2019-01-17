@@ -35,6 +35,7 @@ export class ServicesComponent implements OnInit {
     //estas variables son para cargar la opciones en los selectores multiples
     ngxActivities: any = [];
     ngxRequirements: any = [];
+    searchfilter: string;
 
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         

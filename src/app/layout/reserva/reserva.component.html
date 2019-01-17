@@ -39,8 +39,48 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Fecha..."
+                            aria-label="Search"
+                            [(ngModel)]="resDate"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Inmueble..."
+                            aria-label="Search"
+                            [(ngModel)]="resInmueble"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Cliente..."
+                            aria-label="Search"
+                            [(ngModel)]="resCliente"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Buscar por Estatus..."
+                            aria-label="Search"
+                            [(ngModel)]="resEstatus"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let item of transactions; let i=index">
+                        <tr *ngFor="let item of transactions | searchfilter: resDate:resInmueble:resCliente:resEstatus; let i=index">
                             <td>{{ item.status }}</td>
                             <td>{{ item.nameForClient }}</td>
                             <td>{{ item.nameForEmployee }}</td>
