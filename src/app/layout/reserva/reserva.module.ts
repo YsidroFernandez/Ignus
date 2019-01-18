@@ -8,6 +8,7 @@ import { ReservaComponent } from './reserva.component';
 import { PageHeaderModule } from './../../shared';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ReservaFilterPipe } from './reserva-filter.pipe';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
@@ -18,7 +19,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule.forRoot(),
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [ReservaComponent],
+  declarations: [ReservaComponent,ReservaFilterPipe],
   providers:[
   NgbActiveModal,]
 })

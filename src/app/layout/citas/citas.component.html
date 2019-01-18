@@ -39,9 +39,10 @@
             </div>
             <div [ngSwitch]="view">
                 <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-                    [events]="events" (beforeViewRender)="beforeMonthViewRender($event)" (dayClicked)="dayClicked($event.day)"
-                    [excludeDays]="excludeDays">
+                    [events]="events" (eventClicked)="handleEvent('Clicked', $event.event)"
+                    (dayClicked)="dayClicked($event.day)" [excludeDays]="excludeDays">
                 </mwl-calendar-month-view>
+                <!--  (beforeViewRender)="beforeMonthViewRender($event)" -->
             </div>
         </div>
     </div>
@@ -106,6 +107,63 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-nested-name1" class="modal-title pull-left"><strong>Detalle de la cita</strong></h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hidePrentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="viewData" class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Nombre y Apellido: </strong>{{data.Request.client.firstName}}
+                            {{data.Request.client.lastName}}
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Cedula de Identidad: </strong>{{data.Request.client.identification}}</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Motivo de la cita : </strong>{{data.reason}}
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Estatus de la cita: </strong> {{data.statusStr}}</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label *ngIf="data.turn=='PM'" class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Bloque de hora de cita: </strong> Tarde
+                        </label>
+                        <label *ngIf="data.turn=='AM'" class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                                <strong>Bloque de hora de cita: </strong> Mañana
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                                <strong>Tipo de la cita: </strong> {{data.typeAppointment.name}}</label>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

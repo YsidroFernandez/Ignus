@@ -5,7 +5,6 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
-
 @Component({
   selector: 'app-activities',
   templateUrl: './incidencias.component.html',
@@ -27,6 +26,7 @@ export class IncidenciasComponent implements OnInit {
   showView:Boolean = false;
   submitType: string = 'Save';
   disabled: boolean;
+  searchfilter: string;
   user: any;
 
   faEdit = faEdit;

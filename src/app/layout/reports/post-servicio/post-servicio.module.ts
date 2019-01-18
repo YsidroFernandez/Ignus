@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChartsModule as Ng2Charts } from 'ng2-charts';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostServicioRoutingModule } from './post-servicio-routing.module';
 import { PostServicioComponent } from './post-servicio.component';
 import { PageHeaderModule } from '../../../shared';
@@ -13,7 +13,7 @@ import { esLocale } from 'ngx-bootstrap/locale';
     imports: [
         BsDatepickerModule.forRoot(), // ToastrModule added        
         DatepickerModule.forRoot(),
-        ChartModule, CommonModule, PostServicioRoutingModule, PageHeaderModule],
+        ChartModule, CommonModule,FormsModule, ReactiveFormsModule, PostServicioRoutingModule, PageHeaderModule],
     declarations: [PostServicioComponent]
 })
 export class PostServicioModule {}

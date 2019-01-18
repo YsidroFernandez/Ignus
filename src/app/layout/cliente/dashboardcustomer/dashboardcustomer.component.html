@@ -7,30 +7,6 @@
     </div>
 
     <div class="card mb-3">
-      <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label>Mostrar
-            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select> entradas
-          </label>
-        </div>
-
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group" style="align-content: center;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-            <span class="input-group-btn">
-              <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px; ">
-                <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
-     
       <div class="card-body  table-responsive">
       <table class="card-body table table-hover">
           <thead>
@@ -41,9 +17,40 @@
               <th style="vertical-align: middle;">Ver Detalle</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Tipo..."
+                aria-label="Search"
+                [(ngModel)]="rolTipoTrans"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Descripción..."
+                aria-label="Search"
+                [(ngModel)]="rolDescriptionTrans"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Estado..."
+                aria-label="Search"
+                [(ngModel)]="rolEstadoTrans"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
 
-            <tr *ngFor="let transaccion of listTransacciones" (click)="detTransaccion(transaccion)">
+            <tr *ngFor="let transaccion of listTransacciones | searchfilter: transTipo:transDescription:transEstado" (click)="detTransaccion(transaccion)">
               <td>{{transaccion.typeService.name}}</td>
               <td>{{transaccion.typeService.description}}</td>
               <td>{{transaccion.status}}</td>
@@ -72,28 +79,6 @@
       Mis Solicitudes
     </div>
     <div class="card mb-3">
-      <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label>Mostrar
-            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select> entradas
-          </label>
-        </div>
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group" style="align-content: center;">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-            <span class="input-group-btn">
-              <button style="background: #1AB394; border-radius: 100%; font-size:24px; height: 40px; width: 40px;">
-                <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
       <div class="card-body  table-responsive">
         <table class="card-body table table-hover">
           <thead>
@@ -105,9 +90,49 @@
               <th style="vertical-align: middle;">Ver Detalle</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Fecha..."
+                aria-label="Search"
+                [(ngModel)]="soliDate"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Tipo..."
+                aria-label="Search"
+                [(ngModel)]="soliTipo"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Descripción..."
+                aria-label="Search"
+                [(ngModel)]="soliDescription"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Estado..."
+                aria-label="Search"
+                [(ngModel)]="soliEstado"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
 
-         <tr *ngFor="let solicitud of listSolicitudes; let i = index" (click)="detallesSolicitud(solicitud)">
+         <tr *ngFor="let solicitud of listSolicitudes | searchfilter: soliDate:soliTipo:soliDescription:soliEstado; let i = index" (click)="detallesSolicitud(solicitud)">
               <td>{{solicitud.wishDate}}</td>
               <td>{{solicitud.typeRequest.name}}</td>
               <td>{{solicitud.typeRequest.description}}</td>

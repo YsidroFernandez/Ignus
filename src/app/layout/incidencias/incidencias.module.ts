@@ -8,13 +8,14 @@ import { IncidenciasComponent } from './incidencias.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PageHeaderModule } from './../../shared';
+import { IncidenciasFilterPipe } from './incidencias-filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule, FontAwesomeModule, PageHeaderModule,
     IncidenciasRoutingModule, NgbModule.forRoot(),FormsModule, ReactiveFormsModule
   ],
-  declarations: [IncidenciasComponent],
+  declarations: [IncidenciasComponent,IncidenciasFilterPipe],
   providers: [
     NgbActiveModal,
   ]

@@ -10,22 +10,24 @@ import {
 import { GlobalService } from "../../providers/global.service";
 import { NgxCoolDialogsService } from "ngx-cool-dialogs";
 import { Router, ActivatedRoute } from "@angular/router";
-
+import { GlobalsProvider } from '../../shared';
 @Component({
   selector: "app-visita",
   templateUrl: "./visita.component.html",
   styleUrls: ["./visita.component.scss"],
   animations: [routerTransition()],
-  providers: []
+  providers: [GlobalsProvider]
 })
 export class VisitaComponent implements OnInit {
   closeResult: string;
+  public numPage: number;
+  public pages = 1;
   modalTitle: string = "Informe de Visitas";
   modalIcon: string = "fa fa-plus";
   modalName: any;
   modalTemplate: any;
   inspections: any;
-  requests: any ;
+  requests: any;
   inspection: any;
   role: any;
   new: any;
@@ -40,18 +42,21 @@ export class VisitaComponent implements OnInit {
   // public fileToUploadInspection: File = null;
   selectedFile: File;
   fileToUploadRecaudo:File;
-
+  searchfilter: string;
 
   constructor(
     private modalService: NgbModal,
+    private globals: GlobalsProvider,
     public router: Router,
     public globalService: GlobalService,
     private coolDialogs: NgxCoolDialogsService
   ) {
   }
   ngOnInit() {
+    this.numPage = this.globals.numPage;      
     this.getInspections();
     this.getRequest();
+  
   }
   getInspections() {
     this.globalService.getModel("/api/inspection").then(
@@ -64,8 +69,13 @@ export class VisitaComponent implements OnInit {
       }
     );
   }
-
-  getRequest(){
+  onEdit(index: number) {
+    this.submitType = 'Update';
+    this.selectedRow = index;
+    // this.contrato = Object.assign({}, this.contratos[this.selectedRow]);
+    this.showNew = true;
+}
+  getRequest() {
     this.globalService.getModel("/api/request?status").then(
       result => {
         // console.log(result);
@@ -85,19 +95,19 @@ export class VisitaComponent implements OnInit {
 
     const uploadData = new FormData();
     uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
-    
+
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
     this.new = JSON.stringify({
       observation: this.inspection.observation,
       RequestId: this.inspection.request_id,
-  
+
     });
     console.log(this.new);
     uploadData.append("inspection", this.new);
     console.log(uploadData);
     if (this.submitType === "create") {
       //metodo que perimite enviar por post un nuevo empleado
-      this.globalService.addModel(uploadData, "/api/inspection",this.globalService.getHeaderClear()).then(
+      this.globalService.addModel(uploadData, "/api/inspection", this.globalService.getHeaderClear()).then(
         result => {
           console.log(result);
           if (result["status"]) {
@@ -111,7 +121,7 @@ export class VisitaComponent implements OnInit {
       );
     } else {
       //metodo que perimite enviar por put una actualizaciòn de un servicio
-      this.globalService.updateModel(this.inspection.id ,uploadData, "/api/inspection", this.globalService.getHeaderClear())
+      this.globalService.updateModel(this.inspection.id, uploadData, "/api/inspection", this.globalService.getHeaderClear())
         .then(
           result => {
             if (result["status"]) {
@@ -148,11 +158,11 @@ export class VisitaComponent implements OnInit {
     this.modalName = action;
     this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
     this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
-    this.inspection = Object.assign({}, this.inspections[this.selectedRow]); 
+    this.inspection = Object.assign({}, this.inspections[this.selectedRow]);
     if (index != -1) {
       //el caso index -1 es cuando se solicita crear, ver html
       // this.inspection = Object.assign({}, this.inspections[this.selectedRow]); 
-      this.inspection.request_id = Object.assign({}, this.inspections[this.selectedRow].request.id); 
+      this.inspection.request_id = Object.assign({}, this.inspections[this.selectedRow].request.id);
       console.log(this.inspection.request_id);
     }
 
@@ -227,7 +237,7 @@ export class VisitaComponent implements OnInit {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       this.selectedFile = event.target.files[0];
-      
+
       reader.readAsDataURL(event.target.files[0]); // read file as data url
 
       reader.onload = event => {
@@ -242,5 +252,5 @@ export class VisitaComponent implements OnInit {
     console.log(event);
     this.selectedFile = event.target.files[0];
   }
- 
+
 }

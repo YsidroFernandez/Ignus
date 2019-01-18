@@ -32,6 +32,7 @@ export class TypeSpecificationComponent implements OnInit {
     submitType: String = 'Save';
     selectedRow: number;
     disabled: boolean;
+    searchfilter: string;
 
     // It maintains typeSpecifications form display status. By default it will be false.
     showNew: Boolean = false;

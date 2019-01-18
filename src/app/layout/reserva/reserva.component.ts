@@ -31,6 +31,7 @@ export class ReservaComponent {
     modalName: any;
     modalTemplate: any;
     submitType: String = 'Save';
+    searchfilter: string;
     selectedRow: number;
     disabled: boolean;
     new: any;

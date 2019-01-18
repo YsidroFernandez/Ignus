@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as querystring from 'querystring';
 
 @Component({
     selector: 'app-cita',
@@ -24,6 +25,8 @@ export class CitaComponent implements OnInit {
     imagen: any;
     agencia: any;
     agencias: any;
+    fechaI: any;
+    fechaF: any;
     empleado: any = {
         person: {id: '', firstName: ''}
     };
@@ -33,6 +36,19 @@ export class CitaComponent implements OnInit {
         id: '',
         name: ''
     };
+    statusAppointments: any = [
+        {
+            name: "Confirmada",
+            value: "C"
+        },{
+            name: "Ejecutada",
+            value: "E"
+        },{
+            name: "Solicitada",
+            value: "S"
+        }
+    ]
+    selectedStatus: string
     servicios: any = [];
     public view = false;
     public chart: any;
@@ -97,6 +113,18 @@ export class CitaComponent implements OnInit {
 
           }
 
+          allReporte(){
+            const stringified = querystring.stringify({StartDate: moment(this.servicio.fechaI).format('DD/MM/YYYY'), EndDate: moment(this.servicio.fechaF).format('DD/MM/YYYY'), id: this.servicio.id, employee: this.empleado.person.id, status: this.selectedStatus })
+            console.log(stringified);
+            // this.globalService.getModel("/api/agency")
+            // .then((result) => {
+            //     console.log(result);
+            //     this.agencias = result['data'];
+            //     console.log(this.agencias);
+            // }, (err) => {
+            //     console.log(err);
+            // });
+        }
 
     allAgency(){
         this.globalService.getModel("/api/agency")

@@ -8,6 +8,7 @@ import { TypeContactRoutingModule } from './typecontact-routing.module';
 import { TypeContactComponent } from './typecontact.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TypecontactFilterPipe } from './typecontact-filter.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       })
     ], 
 
-  declarations: [TypeContactComponent],
+  declarations: [TypeContactComponent,TypecontactFilterPipe],
     providers: [
     NgbActiveModal,
   ]

@@ -5,14 +5,6 @@
         <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
         <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
                 <div *ngIf="solicitud.typeServiceId=='1' || solicitud.typeServiceId=='2'" class="col col-sm-4" style="position: relative; top: 15px;">
                     <div class="input-group">
                         <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
@@ -40,8 +32,75 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Nombre..."
+                            aria-label="Search"
+                            [(ngModel)]="solicName"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Apellido..."
+                            aria-label="Search"
+                            [(ngModel)]="solicApellido"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Telefono..."
+                            aria-label="Search"
+                            [(ngModel)]="solicTelefono"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Tipo..."
+                            aria-label="Search"
+                            [(ngModel)]="solicTipo"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Fecha..."
+                            aria-label="Search"
+                            [(ngModel)]="solicFecha"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Hora..."
+                            aria-label="Search"
+                            [(ngModel)]="solicHora"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Estatus..."
+                            aria-label="Search"
+                            [(ngModel)]="solicEstatus"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes| paginate: { itemsPerPage: numPage, currentPage: pages }"
+                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicTelefono:solicTipo:solicFecha:solicHora:solicEstatus| paginate: { itemsPerPage: numPage, currentPage: pages }"
                             (click)=openForEdit(solicitud) >
                             <!--(click)=openForEdit(solicitud) -->
                             <td>{{solicitud.client.firstName}}</td>
