@@ -79,7 +79,27 @@
                             </a>
                         </li>
 
-                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                        <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                            <nav class="text-left" style="position: relative; left: 1.1rem;">
+                                <ul class="pagination">
+                                    <li class="page-item" [class.disabled]="p.isFirstPage()">
+                                        <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                                        </a>
+                                    </li>
+            
+                                    <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                                        [ngClass]="{'active' : p.getCurrent() === page.value}">
+                                        <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                            {{ page.label }} </a>
+                                        <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                                    </li>
+            
+                                    <li class="page-item" [class.disabled]="p.isLastPage()">
+                                        <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </pagination-template>  <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
                             [ngClass]="{'active' : p.getCurrent() === page.value}">
                             <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                                 {{ page.label }} </a>

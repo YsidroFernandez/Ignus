@@ -66,11 +66,17 @@ export class CitasComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalDirective;
 
+
+
+  appointmentSchedule: any = {
+    appointments: [],
+    excludeDays: []
+  };
   view: CalendarPeriod = 'month';
   refresh: Subject<any> = new Subject();
   locale: string = 'es';
   activeDayIsOpen: boolean = true;
-  excludeDays: number[] = [0, 6];
+  excludeDays: number[] = [];
   viewDate: Date = new Date();
   public minDate: Date;
   prevBtnDisabled: boolean = false;
@@ -112,22 +118,10 @@ export class CitasComponent implements OnInit {
 
   events: any = [
     {
-      start: startOfDay('2019/01/04'),
-      title: 'jajajaaj',
-      turno: 'AM',
-      color: colors.red
-    },
-    {
-      start: startOfDay('2019/01/04'),
-      title: 'test2',
-      turno: 'PM',
-      color: colors.yellow
-    },
-    {
-      start: startOfDay('2019/01/08'),
-      title: 'otros',
-      turno: 'AM',
-      color: colors.yellow
+      start: '',
+      title: '',
+      turno: '',
+      color: ''
     }
   ];
 
@@ -145,6 +139,28 @@ export class CitasComponent implements OnInit {
     console.log(this.user);
     this.allTransaction();
     this.allAppointments();
+    this.allAppointmentSchedule ();
+    console.log(this.events);
+   
+  }
+
+  allAppointmentSchedule () {
+    this.globalService.getModel(`/api/appointment/schedule?userId=${this.user.id}`).then((result) => {
+      if (result['status']) {
+        this.appointmentSchedule = [];
+        this.appointmentSchedule = result['data'];
+        
+        this.excludeDays  = this.appointmentSchedule.excludeDays;
+        for(let appointment of this.appointmentSchedule.appointments){
+          appointment.start = startOfDay(appointment.dateAppointmentUS)
+        }
+        this.events=this.appointmentSchedule.appointments
+       
+        this.refresh.next();
+      }
+    }, (err) => {
+      console.log(err);
+    });  
   }
 
   allTransaction() {
