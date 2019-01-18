@@ -6,27 +6,8 @@
     </div>
     <div class="card mb-3">
       <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label>Mostrar
-            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            entradas</label>
-        </div>
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" />
-            <span class="input-group-btn">
-              <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-        <div class="col col-sm-4 text-right">
+        <div class="col-md-8"></div>
+        <div class="col-md-4 text-right">
           <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
             (click)="open(content, 'create', -1)">
             <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
@@ -44,54 +25,35 @@
               <th colspan="4">Acciones</th>
             </tr>
           </thead>
-           <thead>
+          <thead>
             <tr>
-            <th style="background-color:transparent">
-            <input
-            class="form-control mr-sm-2"
-            type="text"
-            placeholder="Buscar por Codigo..."
-            aria-label="Search"
-            [(ngModel)]="visCodigo"
-            />
-            </th>
-            <th style="background-color:transparent">
-            <input
-            class="form-control mr-sm-2"
-            type="text"
-            placeholder="Buscar por Cliente..."
-            aria-label="Search"
-            [(ngModel)]="visCliente"
-            />
-            </th>
-            <th style="background-color:transparent">
-            <input
-            class="form-control mr-sm-2"
-            type="text"
-            placeholder="Buscar por Evaluador..."
-            aria-label="Search"
-            [(ngModel)]="visEvaluador"
-            />
-            </th>
-            <th style="background-color:transparent">
-            <input
-            class="form-control mr-sm-2"
-            type="text"
-            placeholder="Buscar por Estado..."
-            aria-label="Search"
-            [(ngModel)]="visEstado"
-            />
-            </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Codigo..." aria-label="Search"
+                  [(ngModel)]="visCodigo" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Cliente..." aria-label="Search"
+                  [(ngModel)]="visCliente" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Evaluador..." aria-label="Search"
+                  [(ngModel)]="visEvaluador" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Estado..." aria-label="Search"
+                  [(ngModel)]="visEstado" />
+              </th>
             </tr>
-            </thead>
+          </thead>
           <tbody>
-            <tr *ngFor="let item of inspections | searchfilter: visCodigo:visCliente:visEvaluador:visEstado | paginate: { itemsPerPage: numPage, currentPage: pages } " (click)="onEdit(i)">
+            <tr *ngFor="let item of inspections | searchfilter: visCodigo:visCliente:visEvaluador:visEstado | paginate: { itemsPerPage: numPage, currentPage: pages } "
+              (click)="onEdit(i) ">
               <td>{{ item.observation }}</td>
               <td>{{ item.client.firstName }}</td>
               <td>{{ item.employee.firstName}}</td>
               <td>{{ item.request.status}}</td>
               <td>
-                <div class="row ">
+                <div class="btn-group" role="group" aria-label="Basic example">
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
                     <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
                   </button>

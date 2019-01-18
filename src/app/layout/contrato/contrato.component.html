@@ -25,63 +25,33 @@
                         </tr>
                     </thead>
                     <thead>
-                            <tr>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Folio..."
-                                aria-label="Search"
-                                [(ngModel)]="conFolio"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Elaboracion..."
-                                aria-label="Search"
-                                [(ngModel)]="conElaboracion"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Fecha..."
-                                aria-label="Search"
-                                [(ngModel)]="conFecha"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Cliente..."
-                                aria-label="Search"
-                                [(ngModel)]="conCliente"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Agente..."
-                                aria-label="Search"
-                                [(ngModel)]="conAgente"
-                                />
-                                </th>
-                                <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Garantia..."
-                                aria-label="Search"
-                                [(ngModel)]="conGarantia"
-                                />
-                                </th>
-                            </tr>
-                          </thead>
+                        <tr>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Folio..." aria-label="Search"
+                                    [(ngModel)]="conFolio" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Elaboracion..." aria-label="Search"
+                                    [(ngModel)]="conElaboracion" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Fecha..." aria-label="Search"
+                                    [(ngModel)]="conFecha" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
+                                    [(ngModel)]="conCliente" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Agente..." aria-label="Search"
+                                    [(ngModel)]="conAgente" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Garantia..." aria-label="Search"
+                                    [(ngModel)]="conGarantia" />
+                            </th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr *ngFor="let contrato of contratos | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente:conGarantia | paginate: { itemsPerPage: numPage, currentPage: pages }"
                             (click)="onEdit(i)">
@@ -126,20 +96,23 @@
                                         <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
                                         </a>
                                     </li>
-            
-                                    <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
-                                        [ngClass]="{'active' : p.getCurrent() === page.value}">
+
+                                    <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value"
+                                        class="page-item" [ngClass]="{'active' : p.getCurrent() === page.value}">
                                         <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                                             {{ page.label }} </a>
-                                        <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                                        <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }}
+                                        </a>
                                     </li>
-            
+
                                     <li class="page-item" [class.disabled]="p.isLastPage()">
-                                        <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                                        <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span>
+                                        </a>
                                     </li>
                                 </ul>
                             </nav>
-                        </pagination-template>  <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                        </pagination-template>
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
                             [ngClass]="{'active' : p.getCurrent() === page.value}">
                             <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                                 {{ page.label }} </a>
@@ -241,8 +214,8 @@
                 </div>
                 <div class="form-group col-md-2 ">
                     <button style="background: #1AB394; border-radius: 20px" type="submit" class="btn btn-success float-right"
-                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip"
-                        data-placement="top" title="Guardar" ></i></button>
+                        (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"
+                            data-toggle="tooltip" data-placement="top" title="Guardar"></i></button>
                 </div>
             </div>
         </form>
