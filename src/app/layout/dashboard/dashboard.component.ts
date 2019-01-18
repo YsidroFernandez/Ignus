@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single,single2, lineData, multi } from './data';
@@ -12,11 +12,13 @@ import { actividadescliente,cliente,colors,inmueble } from '../../../environment
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 export class DashboardComponent implements OnInit {
     
-    
+    excludeDays: number[] = [];
     single: any[];
     single2:any[];
     multi: any[];

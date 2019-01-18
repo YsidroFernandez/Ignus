@@ -182,9 +182,10 @@ export class AssignPromotionsComponent implements OnInit {
                         .then((result) => {
                             console.log(result);
                             if (result['status']) {
+                                this.specificationSelect = [];
                                 this.allInmuebles();
                                 this.allPromotionFill();
-                                this.specificationSelect = [];
+                               
                                 this.id_promotion = '';
                             }
 
