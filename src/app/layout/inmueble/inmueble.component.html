@@ -50,16 +50,14 @@
             <tr>
               <th>Propetario</th>
               <th>Ubicación</th>
-              <th>Descrpción</th>
+              <th>Descripción</th>
               <th>Fecha de Construcción</th>
               <th colspan="4">Acciones</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              *ngFor="let item of immovables; let i = index"
-            >
-              <td>{{ item.owner[0].firstName }}</td>
+            <tr *ngFor="let item of immovables; let i = index">
+              <td>{{ item.owner.firstName }}</td>
               <td>{{ item.ubication }}</td>
               <td>{{ item.nameDisplay }}</td>
               <td>{{ item.buildDate }}</td>
@@ -96,6 +94,7 @@
           ></ngb-pagination>
         </div>
       </div>
+        <!--Modal-->
       <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title ">{{modalTitle}}</h4>
