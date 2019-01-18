@@ -35,8 +35,6 @@ export class LoginComponent {
   ) 
   {
     localStorage.clear()
-  }
-
   
     this.allLogo();
     this.route.queryParams.subscribe(params => {
