@@ -142,6 +142,7 @@ export class RegistroSolicitudComponent implements OnInit {
         employeeId: '',
         wishDate: '',
         turn: '',
+        propertyId: '',
         typeProperty: '',
         TypeServiceId: '',
         TypeRequestId: 3,
@@ -274,7 +275,7 @@ export class RegistroSolicitudComponent implements OnInit {
     if(this.search!=""){
     this.globalService.getModel(`/api/property/`+this.search).then((result) => {
         if (result['status']) {
-            
+            this.solicitud.propertyId = this.search
             //Para que actualice la lista una vez que es creado el recaudo
             var property = result['data']
             
@@ -325,6 +326,7 @@ export class RegistroSolicitudComponent implements OnInit {
         this.nuevo = {
             ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
             EmployeeId: Number.parseInt(this.solicitud.employeeId),
+            PropertyId: Number.parseInt(this.solicitud.propertyId)
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
             typeProperty: Number.parseInt(this.solicitud.typeProperty),
@@ -354,6 +356,7 @@ export class RegistroSolicitudComponent implements OnInit {
         this.solicitud = {
             ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
             employeeId: '',
+            propertyId: '',
             wishDate: '',
             turn: '',
             typeProperty: '',
