@@ -77,9 +77,9 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
     else{
      
       this.transaction_id = JSON.parse(localStorage.user).id;
-      this.allTransaction();
+      
     } 
-
+    this.allTransaction();
 
     
     
