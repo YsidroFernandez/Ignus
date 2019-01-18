@@ -4,8 +4,6 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
-import { filter } from 'rxjs/operators';
-//https://es.stackoverflow.com/questions/90627/deshabilitar-o-habilitar-un-input-por-medio-de-un-select
 
 @Component({
   selector: 'app-activities',
@@ -29,11 +27,14 @@ export class IncidenciasComponent implements OnInit {
   submitType: string = 'Save';
   disabled: boolean;
   searchfilter: string;
+  user: any;
 
   faEdit = faEdit;
   new: any;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
+ 
+
   selectedRow: number;
   
   constructor(
@@ -42,17 +43,21 @@ export class IncidenciasComponent implements OnInit {
       this.incidencia = {};
       this.tipoincidencias = [];
       this.tipoincidencia = [];
+      this.user = JSON.parse(localStorage.user).id;
 
       this.new = {};
    }
    getTransacciones(){
-    this.globalService.getModel("/api/transaction")
-    .then((result) => {
-        console.log(result);
+    this.globalService.getModel_Id(this.user, '/api/client/transaction')
+      .then((result) => {
+        this.transacciones = [];
         this.transacciones = result['data'];
-    }, (err) => {
+        console.log(this.transacciones);
+      }, (err) => {
         console.log(err);
-    });
+        // this.loader.dismiss();
+      });
+
 
 }
 
@@ -161,7 +166,6 @@ open(content, action, index: number) {
             }
 
 }
-
 
 
 

@@ -1,25 +1,15 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'incidencias'" [icon]="'fa-edit'"></app-page-header>
+    <app-page-header [heading]="'Incidencias'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
         <div class="card-header" style="text-align: -webkit-center;">
             Incidencias Registrados
         </div>
         <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar
-                        <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select>
-                        entradas</label>
-                </div>
-                <div class="col col-sm-10 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content, 'create', -1)">
-                        <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                        <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
                     </button>
                 </div>
             </div>
@@ -30,6 +20,7 @@
                             <th>Fecha</th>
                             <th>Transacción</th>
                             <th>Motivo</th>
+                            <th>Estatus</th>
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
@@ -41,7 +32,7 @@
                                     id="inputFecha"
                                     class="form-control mr-sm-2"
                                     type="text"
-                                    placeholder="Buscar por Fecha..."
+                                    placeholder="Fecha..."
                                     aria-label="Search"
                                     [(ngModel)]="IncFecha"
                                     />
@@ -51,7 +42,7 @@
                                 <input
                                 class="form-control mr-sm-2"
                                 type="text"
-                                placeholder="Buscar por Transacción..."
+                                placeholder="Transacción..."
                                 aria-label="Search"
                                 [(ngModel)]="IncTransaccion"
                                 />
@@ -60,33 +51,50 @@
                                 <input
                                 class="form-control mr-sm-2"
                                 type="text"
-                                placeholder="Buscar por Motivo..."
+                                placeholder="Motivo..."
                                 aria-label="Search"
                                 [(ngModel)]="IncMotivo"
                                 />
                             </th>
-                            <th style="background-color:transparent"></th>
+                            <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Estatus..."
+                                aria-label="Search"
+                                [(ngModel)]="IncEstatus"
+                                />
+                            </th>
                         </tr>
                           </thead>
                     <tbody>
-                        <tr *ngFor="let item of incidencias | searchfilter: IncFecha:IncTransaccion:IncMotivo; let i = index">
+                        <tr *ngFor="let item of incidencias | searchfilter: IncFecha:IncTransaccion:IncMotivo:IncEstatus; let i = index">
                             <td>{{item.date}}</td>
-                            <td>{{item.transaction.nameForEmployee}}</td>
+                            <td>{{item.transaction.nameForClient}}</td>
                             <td>{{item.description}}</td>
+                            <td>{{item.status}}</td>
                             <td>
                                 <div class="row ">
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content, 'show', i)">
-                                        <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content, 'edit', i)">
-                                        <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="onDelete(i)">
-                                        <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
+                                    <div *ngIf="item.status=='Atendida';else other_content">
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(content, 'show', i)">
+                                            <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <ng-template #other_content>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(content, 'show', i)">
+                                                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(content, 'edit', i)">
+                                                <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="onDelete(i)">
+                                                <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                                            </button>
+                                    </ng-template>
                                 </div>
                             </td>
                         </tr>
@@ -115,7 +123,7 @@
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.TransactionId">
                                             <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.TransactionId">
-                                                {{ item2.nameForEmployee }}
+                                                {{ item2.nameForClient }}
                                             </option>
                                         </select>
                                     </div>
@@ -137,7 +145,7 @@
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.transaction.id">
                                             <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.transaction.id">
-                                                {{ item2.nameForEmployee }}
+                                                {{ item2.nameForClient }}
                                             </option>
                                         </select>
                                     </div>
@@ -184,8 +192,21 @@
                                 </div>
                             </div>
 
-
-
+                            <div class="row mb-3">
+                                    <div class="col col-sm-6" *ngIf="!showView">
+                                        <div class="form-group">
+                                            <label for="tipos">Decisión</label>
+                                            <input type="text" [(ngModel)]="incidencia.decision" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col col-sm-6" *ngIf="!showView">
+                                        <div class="form-group">
+                                            <label for="nombre">Conclusión</label>
+                                            <input disabled type="text" [(ngModel)]="incidencia.conclusion"
+                                                class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </fieldset>
@@ -198,7 +219,7 @@
                         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
                             (click)="c('Close click')">
                             <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip"
-                                data-placement="top" title="Editar"></i>
+                                data-placement="top" title="Agregar"></i>
                         </button>
                     </div>
                 </div>

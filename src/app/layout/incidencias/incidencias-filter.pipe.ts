@@ -5,7 +5,7 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class IncidenciasFilterPipe implements PipeTransform {
-    transform(items: any[], IncFecha: string, IncTransaccion: string, IncMotivo: string) {
+    transform(items: any[], IncFecha: string, IncTransaccion: string, IncMotivo: string, IncEstatus: string) {
       if (items && items.length){
         return items.filter(item =>{
             if (IncFecha && item.date.toLowerCase().indexOf(IncFecha.toLowerCase()) === -1){
@@ -15,6 +15,9 @@ import { PipeTransform, Pipe } from "@angular/core";
                 return false;
             }
             if (IncMotivo && item.description.toLowerCase().indexOf(IncMotivo.toLowerCase()) === -1){
+                return false;
+            }
+            if (IncEstatus && item.status.toLowerCase().indexOf(IncEstatus.toLowerCase()) === -1){
                 return false;
             }
             return true;

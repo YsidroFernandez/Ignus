@@ -9,21 +9,15 @@ const httpOptionsDefault = {
 
     // 'accessToken':localStorage.getItem('accessToken'),
 
-    //'Authorization': 'Basic '+btoa('jchiquin:12345'), 
+    //'Authorization': 'Basic '+btoa('jchiquin:12345'),
     'Content-Type': 'application/json',
-
 
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
-
-
-
-
 
 export class GlobalService {
 
@@ -33,8 +27,8 @@ export class GlobalService {
   tipo: String;
 
   constructor(public http: HttpClient, private toastr: ToastrService, private spinner: NgxSpinnerService) {
-    this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io'; //endpoint de la nube
-   // this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io'; //endpoint de desarrollo
+   this.apiBaseUrl = 'http://ignus-backend-jchiquin.c9users.io'; //endpoint de la nube
+   //this.apiBaseUrl = 'http://ignus-backend-development-jchiquin.c9users.io'; //endpoint de desarrollo
   }
 
   getHeaderClear() {
@@ -69,7 +63,7 @@ export class GlobalService {
     this.spinner.show();
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
-        
+
         this.spinner.hide();
         resolve(data);
 
@@ -181,14 +175,14 @@ export class GlobalService {
 
 
   getModel_Id_Notification(id: String, tipo: String, httpOptions = httpOptionsDefault) {
-    
+
     return new Promise(resolve => {
       this.http.get(this.apiBaseUrl + "" + tipo + '/' + id, httpOptions).subscribe((data: any) => {
         resolve(data);
 
       }, (err: any) => {
        // console.log(err);
-        
+
       })
     })
   }

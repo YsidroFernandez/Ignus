@@ -116,7 +116,7 @@ export class ClientComponent implements OnInit {
   apiAction() {
     //metodo para realizar una accion ya sea crear, editar
       //declaracion que permite enviar el nuevo json ya sea para crear o editar
-    this.new = JSON.stringify({ identification :this.client.person.identification, firstName: this.client.person.firstName, lastName: this.client.person.lastName, bankName: this.client.person.bankName, bankAccount: this.client.person.bankAccount, gender:this.client.person.gender, parish_id: this.client.parish.name  });
+    this.new = JSON.stringify({ identification :this.client.person.identification, firstName: this.client.person.firstName, lastName: this.client.person.lastName, bankName: this.client.person.bankName, bankAccount: this.client.person.bankAccount, gender:this.client.person.gender, parish_id: this.client.parish.id  });
     console.log(this.new);
     this.globalService.updateModel(this.client.user.id, this.new, "/api/client")
       .then(

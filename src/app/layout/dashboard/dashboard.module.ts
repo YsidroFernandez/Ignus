@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbCarouselModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -14,12 +14,12 @@ import { IndicadoresComponent } from './components/indicadores/indicadores.compo
 import { PageHeaderModule } from '../../shared';
 import { ChartModule } from 'angular-highcharts';
 import { ChartsModule } from 'ng2-charts'; // <- HERE
-
+import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule }    from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr";
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 @NgModule({
     imports: [
         CommonModule,
@@ -31,6 +31,7 @@ import { FlatpickrModule } from "angularx-flatpickr";
         ChartModule,
         ChartsModule,
         FormsModule,
+        NgxChartsModule,
         FlatpickrModule.forRoot(),
         CalendarModule.forRoot({
           provide: DateAdapter,
@@ -44,6 +45,8 @@ import { FlatpickrModule } from "angularx-flatpickr";
         ChatComponent,
         IndicadoresComponent,
         
-    ]
+    ],
+    providers: [NgbActiveModal],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class DashboardModule {}

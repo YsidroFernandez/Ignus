@@ -13,11 +13,14 @@ import { SortableModule } from 'ngx-bootstrap/sortable';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AssignPromotionsFilterPipe } from './assignpromotions-filter.pipe';
 
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 @NgModule({
   imports: [
     NgxPaginationModule,
     SortableModule.forRoot(),
     CommonModule,
+    TabsModule.forRoot(),
     DragulaModule.forRoot(),
     AssignPromotionsRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,

@@ -17,9 +17,6 @@ import { PipeTransform, Pipe } from "@angular/core";
             if (assCantidad && item.description.toLowerCase().indexOf(assCantidad.toLowerCase()) === -1){
                 return false;
             }
-            if (assEstado && item.properties.length.toLowerCase().indexOf(assEstado.toLowerCase()) === -1){
-                return false;
-            }
             return true;
        })
     }

@@ -8,6 +8,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
+  animations: [routerTransition()],
   styleUrls: ['./employee.component.scss']
 })
 export class EmployeeComponent implements OnInit {
@@ -20,6 +21,7 @@ export class EmployeeComponent implements OnInit {
   employes: any;
   employee: any;
   role: any;
+  day: any;
   new: any;
   showView:Boolean = false;
   // It maintains employes form display status. By default it will be false.
@@ -35,6 +37,17 @@ export class EmployeeComponent implements OnInit {
     {id: 1, name: 'Masculino'},
     {id: 2, name: 'Femenino'}  ];
     ngxRole: any = [];
+    ngxDays: any = [];
+
+    days = [
+        {id: 1, name: 'Lunes'},
+        {id: 2, name: 'Martes'},  
+        {id: 3, name: 'Miercoles'}, 
+        {id: 4, name: 'Jueves'},
+        {id: 5, name: 'Viernes'},
+        {id: 6, name: 'Sábado'},
+        {id: 7, name: 'Domingo'}   
+    ];
 
   constructor(
     private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
@@ -65,6 +78,8 @@ export class EmployeeComponent implements OnInit {
     });
    }
 
+  
+
    
 ngOnInit() {
     this.getListEmployees();
@@ -74,7 +89,7 @@ ngOnInit() {
 apiAction() { //metodo para realizar una accion ya sea crear, editar
 
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
-    this.new = JSON.stringify({identification : this.employee.identification ,firstName: this.employee.firstName,lastName: this.employee.lastName ,gender: this.employee.gender, username: this.employee.username, roles: this.ngxRole});
+    this.new = JSON.stringify({identification : this.employee.identification ,firstName: this.employee.firstName,lastName: this.employee.lastName ,gender: this.employee.gender, username: this.employee.username, roles: this.ngxRole, days:this.ngxDays});
     if (this.submitType === "create") {
         console.log(this.new);
         //metodo que perimite enviar por post un nuevo empleado
@@ -120,6 +135,7 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
     //==============================================================================
     console.log(action)
     this.ngxRole=[];
+    this.ngxDays=[];
     this.employee=[];
     this.disabled=false;
     this.modalTemplate = content;
@@ -135,7 +151,12 @@ apiAction() { //metodo para realizar una accion ya sea crear, editar
             this.ngxRole.push(this.employes[this.selectedRow].roles[i].id);
              
         }
-        console.log(this.ngxRole)
+        for (let i in this.employes[this.selectedRow].days) {//ciclo necesario para mostrar roles
+            this.ngxDays.push(this.employes[this.selectedRow].days[i].id);
+             
+        }
+        console.log(this.ngxRole),
+        console.log(this.ngxDays);
     }
 
 

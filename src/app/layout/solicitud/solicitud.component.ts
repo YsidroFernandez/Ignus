@@ -245,17 +245,16 @@ export class SolicitudComponent implements OnInit {
             this.closeResult = `Closed with: ${result}`;
             console.log(this.closeResult);
 
-            // if (this.submitType === 'Save') {
-            //     this.nuevo = JSON.stringify({
-            //         id: this.solicitud.employee.id
-            //     });
-            //     console.log(this.nuevo);
-            //     this.allSolicitud();
-            //     this.globalService.addModel(this.nuevo, "/api/request/pending/approve/:id").then((result) => {
-            //     }, (err) => {
-            //         console.log(err);
-            //     });
-            // }
+             if (this.submitType === 'Save') {
+              
+               console.log(this.solicitud.id);
+                
+                this.globalService.updateModel(this.solicitud.id, {},"/api/request/pending/approve").then((result) => {
+                    this.allSolicitud();
+                }, (err) => {
+                    console.log(err);
+                });
+            }
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
@@ -274,10 +273,10 @@ export class SolicitudComponent implements OnInit {
 
 
     aceptar(i) {
-        console.log(this.solicitudes[i - 1])
+        console.log(this.solicitudes[i])
         this.globalService.updateModel(
-            this.solicitudes[i - 1].id,
-            { EmployeeId: 1, date: "12/12/2018" },
+            this.solicitudes[i].id,
+            { EmployeeId: this.solicitudes[i].id},
             "/api/request/pending/approve")
             .then((result) => {
                 console.log(result);

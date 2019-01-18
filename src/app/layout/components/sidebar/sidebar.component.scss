@@ -1,20 +1,20 @@
-$topnav-background-color: #676a6c;
+$topnav-background-color: white;
 .sidebar {
     border-radius: 0;
     position: fixed;
     z-index: 1000;
-    top: 55px;
+    top: 65px;
     left: 277px;
     width: 277px;
     margin-left: -277px;
-    margin-bottom: 55px;
+   /* margin-bottom: 55px;*/
     border: none;
     border-radius: 0;
     overflow-y: auto;
     background-color: $topnav-background-color;
     bottom: 0;
     overflow-x: hidden;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     white-space: nowrap;
     -webkit-transition: all 0.2s ease-in-out;
     -moz-transition: all 0.2s ease-in-out;
@@ -22,24 +22,27 @@ $topnav-background-color: #676a6c;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     // border-top: 1px solid rgba(255,255,255,0.3);
+    font:'Monaco';
     .list-group {
         a.list-group-item {
             background: $topnav-background-color;
             border: 0;
             border-radius: 0;
-            color: #41ccc7;
+            color: #555555;
             text-decoration: none;
+            font-size:13px;
+            font-family:'Helvetica','Verdana','Monaco',sans-serif;
             .fa {
-                margin-right: 10px;
+                margin-top: 2px;
             }
         }
         a:hover {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color: black;
         }
         a.router-link-active {
             background: darken($topnav-background-color, 10%);
-            color: #fff;
+            color:black;
         }
         .header-fields {
             padding-top: 10px;
@@ -81,7 +84,7 @@ $topnav-background-color: #676a6c;
             background: darken($topnav-background-color, 10%);
         }
         .panel-collapse {
-            border-radious: 0;
+            border-radius: 0;
             border: none;
             .panel-body {
                 .list-group-item {
@@ -130,6 +133,29 @@ $topnav-background-color: #676a6c;
     }
 }
 
+.nav-link{
+
+
+color: white;
+
+}
+
+.nav-item{
+background-image: url('/assets/images/fondo4.png');
+}
+
+.logo {
+background-color:#1FB5AD;
+    text-decoration:none;
+    color:#fff;
+    transition:all 0.3s ease 0s;
+    -webkit-transition:all 0.3s ease 0s;
+    border-radius:30px;
+    -webkit-border-radius:80px;
+     width:70px; 
+     height:65px;
+}
+
 .nested-menu1 {
     .list-group-item {
         cursor: pointer;
@@ -148,7 +174,7 @@ $topnav-background-color: #676a6c;
             height: auto;
             li {
                 a {
-                    color: #fff;
+                    color: grey;
                     padding: 20px;
                     display: block;
                 }
@@ -193,8 +219,9 @@ $topnav-background-color: #676a6c;
     cursor: pointer;
     padding: 12px;
     bottom: 0;
-    color: #41ccc7;
-    background: #4b4b4b;
+    color: #93948e;
+    background: black;
+    font-size:13px;
     i {
         font-size: 23px;
     }

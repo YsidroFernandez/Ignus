@@ -1,436 +1,173 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Informe de Visitas'"  style="background:#1AB394" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
-
-        <div class="card-header" style="text-align: -webkit-center;">
-        Informe de Visitas Registradas</div>
-        <div class="card mb-3">
-            <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;" (click)="registrar()">
-                        <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="card-body  table-responsive">
-                <table class="card-body table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Codigo Inmueble</th>
-                            <th>Cliente</th>
-                            <th>Evaluador</th>
-                            <th>Estado</th>
-                            <th colspan="4">Acciones</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Buscar por Codigo..."
-                            aria-label="Search"
-                            [(ngModel)]="visCodigo"
-                            />
-                          </th>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Buscar por Cliente..."
-                            aria-label="Search"
-                            [(ngModel)]="visCliente"
-                            />
-                          </th>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Buscar por Evaluador..."
-                            aria-label="Search"
-                            [(ngModel)]="visEvaluador"
-                            />
-                          </th>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Buscar por Estado..."
-                            aria-label="Search"
-                            [(ngModel)]="visEstado"
-                            />
-                          </th>
-                        </tr>
-                      </thead>
-                    <tbody>
-                        <tr *ngFor="let visita of Visitas | searchfilter: visCodigo:visCliente:visEvaluador:visEstado" (click)="onEdit(i)">
-                            <td>0003</td>
-                            <td>Ana Suarez</td>
-                            <td>Antonio Paez</td>
-                            <td>En proceso</td>
-                            <td>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open()" data-toggle="tooltip" data-placement="top" title="Detalle">
-                                    <fa-icon [icon]="faEye"></fa-icon>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open()" data-toggle="tooltip" data-placement="top" title="Editar">
-                                    <fa-icon [icon]="faEdit"></fa-icon>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="delete()" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                    <fa-icon [icon]="faTrash"></fa-icon>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row mb-3">
-                <div class="col col-sm-8">
-                </div>
-                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- <div class="card mb-3">
-            <div class="col-xl-4 text-xs-center">
-                <div class="card-body">
-                    <ng-template #content let-c="close" let-d="dismiss">
-                        <div class="modal-header">
-                            <h4 class="modal-title ">Crear Informe de Visita</h4>
-                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="card mb-3">
-                            <div class="modal-body">
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Nombre Evaluador</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Apellido Evaluador</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <label for="descripcion">Fecha</label>
-
-                                        <div class="input-group">
-
-                                            <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker"
-                                                class="form-control" />
-                                            <span class="input-group-btn">
-                                                <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                                    <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="descripcion">Horas</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Ciudad</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Estado</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Parroquia</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Municipio</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Dirección</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">N° de casa/Apartamento</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="tipos">Telefono local</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6">
-                                        <div class="form-group">
-                                            <label for="nombre">Telefono personal</label>
-                                            <input type="text" class="form-control" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                                (click)="newOpen(contents)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                        </div>
-                    </ng-template>
-                </div>
-            </div>
-        </div> -->
+  <app-page-header [heading]="'Informe de Inspecciones'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center;">
+      Inspecciones Registradas
     </div>
-    <!-- <div class="card mb-3">
-        <div class="col-xl-4 text-xs-center">
-            <div class="card-body">
-                <ng-template #contents let-c="close" let-d="dismiss">
-                    <div class="modal-header">
-                        <h4 class="modal-title ">Crear Informe de Visita</h4>
-                        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="modal-body">
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Nombre Evaluador</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="nombre">Apellido Evaluador</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <label for="descripcion">Fecha</label>
-
-                                    <div class="input-group">
-
-                                        <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker"
-                                            class="form-control" />
-                                        <span class="input-group-btn">
-                                            <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                                                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 2rem; cursor: pointer;" />
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="descripcion">Horas</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Ciudad</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="nombre">Estado</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Parroquia</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="nombre">Municipio</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Dirección</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="nombre">N° de casa/Apartamento</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="tipos">Telefono local</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="col col-sm-6">
-                                    <div class="form-group">
-                                        <label for="nombre">Telefono personal</label>
-                                        <input type="text" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                            (click)="c('Close click')"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
-                </ng-template>
-            </div>
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <label>Mostrar
+            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>
+            entradas</label>
         </div>
-    </div> -->
-</div>
-<!-- <ng-template #ver let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title"> Usuario </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
+          <div class="input-group">
+            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" />
+            <span class="input-group-btn">
+              <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+              </button>
+            </span>
+          </div>
+        </div>
+        <div class="col col-sm-4 text-right">
+          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content, 'create', -1)">
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th>Observación</th>
+              <th>Cliente</th>
+              <th>Empleado</th>
+              <th>Estatus de la Solicitud</th>
+              <th colspan="4">Acciones</th>
+            </tr>
+          </thead>
+           <thead>
+            <tr>
+            <th style="background-color:transparent">
+            <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Buscar por Codigo..."
+            aria-label="Search"
+            [(ngModel)]="visCodigo"
+            />
+            </th>
+            <th style="background-color:transparent">
+            <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Buscar por Cliente..."
+            aria-label="Search"
+            [(ngModel)]="visCliente"
+            />
+            </th>
+            <th style="background-color:transparent">
+            <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Buscar por Evaluador..."
+            aria-label="Search"
+            [(ngModel)]="visEvaluador"
+            />
+            </th>
+            <th style="background-color:transparent">
+            <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Buscar por Estado..."
+            aria-label="Search"
+            [(ngModel)]="visEstado"
+            />
+            </th>
+            </tr>
+            </thead>
+          <tbody>
+            <tr *ngFor="let item of inspections | searchfilter: visCodigo:visCliente:visEvaluador:visEstado"; let i = index">
+              <td>{{ item.observation }}</td>
+              <td>{{ item.client.firstName }}</td>
+              <td>{{ item.employee.firstName}}</td>
+              <td>{{ item.request.status}}</td>
+              <td>
+                <div class="row ">
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
+                    <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'edit', i)">
+                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
+                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
+                  <a [href]="item.urlFileInspection" target="_blank" [download]="item.urlFileInspection">
+                    <i class="fa fa-cloud-download" style="font-size: 25px;color:#1AB394" aria-hidden="true"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mb-3">
+        <div class="col col-sm-8"></div>
+        <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+        </div>
+      </div>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title ">{{ modalTitle }}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
+          </button>
+        </div>
+        <fieldset [disabled]="disabled">
+          <div class="card mb-3">
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Observación</label>
+                    <input type="text" [(ngModel)]="inspection.observation" class="form-control" />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Solicitud</label>
+                    <select class="form-control" name="gender" [(ngModel)]="inspection.request_id">
+                      <option *ngFor="let res of requests" [ngValue]="res.id" [selected]="inspection.request_id">{{res.nameForClient}}</option>
+                    </select>
+                  </div>
+                </div>
 
-        <div class="form-group">
-            <label for="tipos">Nombre Evaluador</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="nombre">Apellido Evaluador</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Fecha</label>
-            <input type="text" placeholder="dd-mm-yyyy" name="dob" ngbDatepicker #dob="ngbDatepicker" class="form-control" />
+              </div>
+              <div class="row mb-3">
+                <div class="col col-sm-12">
+                  <div class="form-group" style="text-align: center">
+                    <label for="tipos">Informe</label>
+                    <br>
+                    <input data-classButton="btn btn-primary" name="file" id="file" value="inspection.urlFileInspection" type='file' (change)="onSelectFile($event)" />
+                  </div>
 
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Ciudad</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Estado</label>
-            <input type="text" class="form-control" />
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
-    </div>
-</ng-template> -->
-
-<!-- <ng-template #editar let-c="close" let-d="dismiss">
-
-    <div class="modal-header">
-        <h4 class="modal-title"> Visita </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-
-        <div class="form-group">
-            <label for="tipos">Nombre Evaluador</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="nombre">Apellido Evaluador</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Fecha</label>
-            <input type="text" placeholder="dd-mm-yyyy" class="form-control" dateFormat="dd-MMM-yyyy" />
-            <button class="input-group-addon" (click)="dob.toggle()" type="button">
-                <img src="assets/images/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="modal-footer">
+          <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')">
+            <i style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+              title="Cancelar"></i>
+          </button>
+          <div *ngIf="submitType != 'show'">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+              <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                title="Editar"></i>
             </button>
+          </div>
         </div>
-        <div class="form-group">
-            <label for="descripcion">Ciudad</label>
-            <input type="text" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="descripcion">Estado</label>
-            <div class="col-10 dropdown" ngbDropdown myDrop="ngbDropdown">
-                <button type="button" class="btn btn-outline-primary" id="dropdownManual" name="country"
-                    ngbDropdownToggle></button>
-                <div ngbDropdownMenu aria-labelledby="dropdownManual">
-                    <button type="button" class="dropdown-item" *ngFor="let estado of estados" (click)="onChangeEstado(estado)">{{estado}}</button>
-                </div>
-            </div>
-        </div>
+      </ng-template>
     </div>
-    <div class="modal-footer">
-
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-warning" (click)="c('Close click')">
-            <fa-icon style="color: white" [icon]="faEdit"></fa-icon>
-        </button>
-    </div>
-</ng-template> -->
+  </div>
+</div>

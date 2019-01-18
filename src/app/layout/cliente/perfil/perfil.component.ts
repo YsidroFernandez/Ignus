@@ -5,12 +5,13 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { GlobalService } from '../../../providers/global.service';
+//import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   //animations: [routerTransition()],
-  styleUrls: ['./perfil.component.scss'],
+  styleUrls: ['./perfil.component.scss']
 })
 
 export class PerfilComponent implements OnInit {
@@ -63,15 +64,9 @@ this.typeservice = [];
     .then((result) => {
       console.log(result);
 
-
        this.client = result['data'];
-       this.state = result['data']['state'];
-       this.requirements = result['data']['requirements'];
-       this.activities = result['data']['activities'];
-       this.employee = result['data']['employee'];
-
-      //this.transaction = result['data'];
-      //console.log(this.transaction);
+   //    this.state = result['data']['state'];
+      console.log(this.perfil);
 
 
   console.log(this.client.firstName);
@@ -135,16 +130,17 @@ loadparish(municipality){
 }
 
     //Metodo del boton Enviar
- enviar() {
+ open(enviar) {
 
   this.nuevo = {
   lastName: this.perfil.lastName,
   firstName: this.perfil.firstName,
-  identification: this.perfil.identification,
+  gender: this.perfil.gender,
+  phoneNumber: this.perfil.phoneNumber,
+  //identification: this.perfil.identification,
   birthDate: this.perfil.birthDate,
-  email: this.perfil.email,
-  state: this.perfil.state,
-  TypeServiceId: Number.parseInt(this.perfil2.TypeServiceId),
+  //email: this.perfil.email,
+  //TypeServiceId: Number.parseInt(this.perfil.TypeServiceId),
   };
 
 console.log("result",this.nuevo);

@@ -4,24 +4,7 @@
         <div class="card-header" style="text-align: -webkit-center;">Promociones asignadas</div>
         <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
@@ -43,7 +26,7 @@
                             <input
                             class="form-control mr-sm-2"
                             type="text"
-                            placeholder="Buscar por Nombre..."
+                            placeholder="Nombre..."
                             aria-label="Search"
                             [(ngModel)]="assName"
                             />
@@ -52,7 +35,7 @@
                             <input
                             class="form-control mr-sm-2"
                             type="text"
-                            placeholder="Buscar por Descripción..."
+                            placeholder="Descripción..."
                             aria-label="Search"
                             [(ngModel)]="assDescription"
                             />
@@ -61,31 +44,23 @@
                             <input
                             class="form-control mr-sm-2"
                             type="text"
-                            placeholder="Buscar por Cantidad de Inmuebles..."
+                            placeholder="Cantidad..."
                             aria-label="Search"
                             [(ngModel)]="assCantidad"
-                            />
-                          </th>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Buscar por Estado..."
-                            aria-label="Search"
-                            [(ngModel)]="assEstado"
                             />
                           </th>
                         </tr>
                       </thead>
                     <tbody>
-                        <tr *ngFor="let item of promotionsFill | searchfilter: assName:assDescription:assCantidad:assEstado | paginate: { itemsPerPage: numPage, currentPage: pages }; let i= index "
+                        <tr *ngFor="let item of promotionsFill | searchfilter: assName:assDescription:assCantidad | paginate: { itemsPerPage: numPage, currentPage: pages }; let i= index "
                             (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
                             <td style="text-align: center;">{{item.properties.length}}</td>
                             <td class="text-center">
-                                <label class="switch" for="checkbox">
-                                    <input type="checkbox" id="checkbox" [value]="item.bin_status" [(ngModel)]="item.bin_status" (change)="changeStatus(item)" checked />
+                                <label class="switch" [for]="item.id">
+                                    <input type="checkbox" [id]="item.id" [value]="item.bin_status" [(ngModel)]="item.bin_status"
+                                        (change)="changeStatus(item)" checked />
                                     <div class="slider round"></div>
                                 </label>
                             </td>
@@ -135,51 +110,126 @@
 </div>
 
 
+
+
 <!--Contenido -->
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title ">Asignar Promociones</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <div class="row mb-3">
-            <div class="col col-sm-6">
-                <div class="form-group">
-                    <label for="tipos">Promociones</label>
-                    <select name="nombreAgent" [(ngModel)]="id_promotion" (ngModelChange)="promotionChanged($event)"
-                        class="form-control">
-                        <option *ngFor="let list of promotions" [value]="list.id">
-                            {{list.name}}
-                        </option>
-                    </select>
+    <tabset>
+        <tab heading="Asignación por inmueble">
+            <div class="modal-header">
+                <h4 class="modal-title ">Asignar promociones por inmueble</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="tipos">Promociones</label>
+                            <select name="nombreAgent" [(ngModel)]="id_promotion" (ngModelChange)="promotionChangedInmueble($event)"
+                                class="form-control">
+                                <option *ngFor="let list of promotions" [value]="list.id">
+                                    {{list.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12" style="text-align: -webkit-center;">
+                        <label for="tipos">Asignación de promociones por inmueble</label>
+                    </div>
+                </div>
+                <div class="row  mb-3">
+                    <div class="col-md-2"></div>
+
+                    <div class="row col-md-8">
+                        <div class="col-md-6"  style="height: 150px; overflow-y: scroll;">
+                            <bs-sortable [(ngModel)]="inmuebles" fieldName="ubication"  itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la inmueble aquí"
+                                placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper">
+                            </bs-sortable>
+
+                        </div>
+                        <div class="col-md-6"  style="height: 150px; overflow-y: scroll;">
+                            <bs-sortable [(ngModel)]="property"   itemClass="sortable-item"
+                                itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la inmueble aquí"
+                                placeholderClass="sortable-item" wrapperClass="sortable-wrapper">
+                            </bs-sortable>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2"> </div>
                 </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-12" style="text-align: -webkit-center;">
-                <label for="tipos">Asignación de Promociones</label>
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                        style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                </button>
             </div>
-        </div>
-        <div class="row  mb-3">
-            <div class="col-md-2"></div>
-            <div class="col-md-4 form-group">
-                <bs-sortable [(ngModel)]="inmuebles" fieldName="ubication" itemClass="sortable-item" itemActiveClass="sortable-item-active"
-                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+        </tab>
+        <tab heading="Asignación por especificación">
+            <div class="modal-header">
+                <h4 class="modal-title ">Asignar promociones por especificación</h4>
+                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="col-md-4 form-group">
-                <bs-sortable [(ngModel)]="property" fieldName="ubication" itemClass="sortable-item" itemActiveClass="sortable-item-active"
-                    placeholderItem="Arrastrar la promoción aquí" placeholderClass="sortable-item" wrapperClass="sortable-wrapper"></bs-sortable>
+
+            <div class="modal-body ">
+                <div class="row mb-3">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                            <label for="tipos">Promociones</label>
+                            <select name="nombreAgent" [(ngModel)]="id_promotion" (ngModelChange)="promotionChangedPromocion($event)"
+                                class="form-control">
+                                <option *ngFor="let list of promotions" [value]="list.id">
+                                    {{list.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-12" style="text-align: -webkit-center;">
+                        <label for="tipos">Asignación de promociones por especificación</label>
+                    </div>
+                </div>
+
+                <div class="row  mb-3">
+                        <div class="col-md-2"></div>
+    
+                        <div class="row col-md-8" >
+                            <div class="col-md-6" style="height: 150px; overflow-y: scroll;">
+                                <bs-sortable [(ngModel)]="specification" fieldName="name"  itemClass="sortable-item"
+                                    itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la especificación aquí"
+                                    placeholderClass="placeholderStyle" wrapperClass="sortable-wrapper">
+                                </bs-sortable>
+    
+                            </div>
+                            <div class="col-md-6" style="height: 150px; overflow-y: scroll;">
+                                <bs-sortable [(ngModel)]="specificationSelect"  itemClass="sortable-item"
+                                    itemActiveClass="sortable-item-active" placeholderItem="Arrastrar la especificación aquí"
+                                    placeholderClass="sortable-item" wrapperClass="sortable-wrapper">
+                                </bs-sortable>
+                            </div>
+                        </div>
+    
+                        <div class="col-md-2"> </div>
+                    </div>
+
+
             </div>
-            <div class="col-md-2"> </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                style="color: white" class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-    </div>
+
+            <div class="modal-footer">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                        style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </div>
+        </tab>
+    </tabset>
+
 </ng-template>
 
 

@@ -1,62 +1,57 @@
-<nav
-  class="sidebar"
-  [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
->
+
+<nav class="sidebar" [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }">
+    <div style="margin-top: 4px;">
+
+        <div class="nav-item dropdown" ngbDropdown>
+          <div href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+            <span style="text-shadow: 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;" class="photo"><img class="logo" src="{{user.urlAvatar}}" width="35px" height="30px" />
+              {{person.firstName }} {{person.LastName}}</span>
+          </div>
+          <div class="dropdown-menu-right" ngbDropdownMenu>
+              
+            <a class="dropdown-item" [routerLinkActive]="['router-link-active']" routerLink="/dashboardcustomer">
+              <i class="fa fa-fw fa-user"></i> {{ 'Perfil' | translate }}
+            </a>
+            <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
+              <i class="fa fa-fw fa-power-off"></i> {{ 'Cerrar Sesión' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+
   <div class="list-group">
+      
+
     <!-- ++++++++++++++++Menu Json con diversas iteraciones+++++++++++++ -->
     
+
     <div *ngFor="let item of menu; let i = index" class="nested-menu">
-      <a
-        *ngIf="item.link"
-        class="list-group-item"
-        [routerLink]="[item.link]"
-        [routerLinkActive]="['router-link-active']"
-        ><i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }} </span></a
-      >
-      <a
-        *ngIf="!item.link"
-        class="list-group-item"
-        href="javascript:void(0)"
-        (click)="addExpandClassConf(item.name)"
-      >
+      <a *ngIf="item.link" class="list-group-item" [routerLink]="[item.link]" [routerLinkActive]="['router-link-active']"><i
+          class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }} </span></a>
+      <a *ngIf="!item.link" class="list-group-item" href="javascript:void(0)" (click)="addExpandClassConf(item.name)">
         <i class="{{ item.icon }}"></i>&nbsp; <span>{{ item.name }}</span>&nbsp;&nbsp;<i class="{{directionIcon}}"></i>
       </a>
-      <li
-        *ngIf="item.sub"
-        class="nested"
-        [class.expand]="showMenuConf === item.name"
-      >
+      <hr style="margin-bottom: 1%; margin-top: 1%">
+      <li *ngIf="item.sub" class="nested" [class.expand]="showMenuConf === item.name">
         <ul class="submenu">
           <div *ngFor="let item2 of item.sub; let j = index" class="nested-menu1">
-            <a
-              *ngIf="item2.link"
-              class="list-group-item"
-              [routerLink]="[item2.link]"
-              [routerLinkActive]="['router-link-active']"
-            >
+            <a *ngIf="item2.link" class="list-group-item" [routerLink]="[item2.link]" [routerLinkActive]="['router-link-active']">
               <i class="{{ item2.icon }}"></i>&nbsp;
               <span>{{ item2.name }}</span>
             </a>
-            <a
-              *ngIf="!item2.link"
-              class="list-group-item"
-              (click)="addExpandClassSubAte(item2.name)"
-            >
+            <a *ngIf="!item2.link" class="list-group-item" (click)="addExpandClassSubAte(item2.name)">
               <i class="{{ item2.icon }}"></i>&nbsp;
               <span>{{ item2.name }}</span>&nbsp;&nbsp;<i class="{{directionIcon}}"></i>
             </a>
-
+            <hr style="margin-bottom: 1%; margin-top: 1%">
             <li class="nested1" [class.expand1]="showMenuSubAte === item2.name">
               <ul class="submenu1">
                 <li *ngFor="let item3 of item2.sub; let k = index">
-                  <a
-                    [routerLink]="[item3.link]"
-                    [routerLinkActive]="['router-link-active']"
-                    class="list-group-item"
-                  >
+                  <a [routerLink]="[item3.link]" [routerLinkActive]="['router-link-active']" class="list-group-item">
                     <i class="{{ item3.icon }}"></i>&nbsp;
                     <span>{{ item3.name }}</span>
                   </a>
+                  <hr style="margin-bottom: 1%; margin-top: 1%">
                 </li>
               </ul>
             </li>
@@ -67,15 +62,15 @@
 
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-   
+
 
   </div>
-  <div
+  <!--<div
     class="toggle-button"
     [ngClass]="{ collapsed: collapsed }"
     (click)="toggleCollapsed()"
   >
     <i class="fa fa-fw fa-angle-double-left"></i>&nbsp;
     <span>{{ "Collapse Sidebar" | translate }}</span>
-  </div>
+  </div>-->
 </nav>

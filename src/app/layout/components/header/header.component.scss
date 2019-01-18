@@ -1,12 +1,14 @@
-$topnav-background-color: #4b4b4b;
+$topnav-background-color: #1ab394;
 :host {
     .navbar {
         background-color: $topnav-background-color;
+        box-shadow:0 8px 10px rgba(150, 106, 106, 0.5), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        padding: 10px;
         .navbar-brand {
             color: #fff;
         }
         .nav-item > a {
-            color: #41ccc7;
+            color: #fff;
             &:hover {
                 color: #fff;
             }
@@ -23,19 +25,18 @@ $topnav-background-color: #4b4b4b;
 }
 
 .notification {
-    background-color: #555;
+    background-color: #21252900;
     color: white;
     text-decoration: none;
     padding: 10px 10px;
     position: relative;
     display: inline-block;
+    border-style: solid;
+  border-width: 2px;
     border-radius: 50px;
+    border-color: white;
   }
-  
-  .notification:hover {
-    background: rgb(122, 122, 122);
-  }
-  
+    
   .notification .badge {
     position: absolute;
     top: -10px;

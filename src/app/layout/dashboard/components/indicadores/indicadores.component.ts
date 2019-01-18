@@ -4,12 +4,13 @@ import { Subject } from 'rxjs';
 import { NgbModal, ModalDismissReasons,NgbDatepickerConfig, NgbDateParserFormatter  } from '@ng-bootstrap/ng-bootstrap';
 import {  CalendarEvent,  CalendarEventAction,  CalendarEventTimesChangedEvent,  CalendarView} from 'angular-calendar';
 import { actividadescliente,cliente,colors,inmueble } from '../../../../../environments/environment';
-
+import { routerTransition } from '../../../../router.animations';
 
 @Component({
   selector: 'app-indicadores',
   templateUrl: './indicadores.component.html',
-  styleUrls: ['./indicadores.component.scss']
+  styleUrls: ['./indicadores.component.scss'],
+  animations: [routerTransition()],
 })
 export class IndicadoresComponent implements OnInit {
 

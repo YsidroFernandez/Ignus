@@ -1,114 +1,199 @@
-import { Component, OnInit } from '@angular/core';
-import { Inmueble } from './modelo/inmueble';
-import { tipos } from './modelo/tipos';
-
-import { routerTransition } from '../../router.animations';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
-
-
+import { Component, OnInit } from "@angular/core";
+import { routerTransition } from "../../router.animations";
+import { NgbModal, ModalDismissReasons } from "@ng-bootstrap/ng-bootstrap";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { GlobalService } from "../../providers/global.service";
+import { NgxCoolDialogsService } from "ngx-cool-dialogs";
 
 @Component({
-  selector: 'app-inmueble',
-  templateUrl: './inmueble.component.html',
-  styleUrls: ['./inmueble.component.scss'],
+  selector: "app-inmueble",
+  templateUrl: "./inmueble.component.html",
+  styleUrls: ["./inmueble.component.scss"],
   animations: [routerTransition()]
 })
 export class InmuebleComponent implements OnInit {
- closeResult: string;
- searchfilter: string;
-    constructor(private modalService: NgbModal) {}
- 
-    open(content) {
-        this.modalService.open(content).result.then((result) => {
-            this.closeResult = `Closed with: ${result}`;
-            if(this.selectedInmueble.id === 0){
-        this.selectedInmueble.id = this.Inmuebles.length + 1;
-        this.Inmuebles.push(this.selectedInmueble);
-        this.msg = 'Campo Agregado Exitosamente';
-        }
-         this.selectedInmueble = new Inmueble();
-        }, (reason) => {
-            this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        });
-    }
+  closeResult: string;
+  faEye = faEye;
+  item: any;  
+  faEdit = faEdit;
+  faTrash = faTrash;
+  immovables: any;
+  property: any;
+  typeService: any;
+  new: any;
+  modalTitle: string = "Inmuebles";
+  modalIcon: string = "fa fa-close";
+  modalName: any;
+  modalTemplate: any;
+  // It maintains customers form display status. By default it will be false.
+  showNew: Boolean = false;
+  // It will be either 'Save' or 'Update' based on operation.
+  submitType: string = "Save";
+  selectedRow: number;
+  disabled: boolean
+  searchfilter: string;
 
-    private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return  `with: ${reason}`;
-        }
-    }
+  constructor(
+    private modalService: NgbModal,
+    public globalService: GlobalService,
+    private coolDialogs: NgxCoolDialogsService
+  ) {}
 
-  tipo:tipos[];
-  tipSelect:Number;
-
-  ngOnInit() {
-    this.tipo =[
-          {Id:1, Name:"Casa"},
-          {Id:2, Name:"Edificio"},
-          {Id:3, Name:"Terreno"},
-          {Id:4, Name:"Parcela"}
-
-    ];
-
-this.tipSelect= 4;
-
+  getListProperty() {
+    this.globalService.getModel("/api/property").then(
+      result => {
+        this.immovables = result["data"];
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-    faEye = faEye;
-    faEdit = faEdit;
-    faTrash = faTrash;
-    faPlus= faPlus;
+  getTypesServices(){
+    this.globalService.getModel("/api/typeService").then(
+      result => {
+        this.typeService = result["data"];
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 
-    msg = '';
+  ngOnInit() {
+    this.getListProperty();
+    this.getTypesServices();
+  }
 
-    Inmuebles:Inmueble[] = [
-    { transaccion:"Venta",id:1, tipo:"casa", nombre:"blanca", descripcion:"tiene 3 cuartos, 2 baños,cocina  empotrada... ",ubicacion:"caracas",precio:1000},
-    { transaccion: "Alquiler",id:2, tipo:"Edificio", nombre:'gemelo', descripcion:"tiene 30 pisos, 15 habitaciones,2 acensores...",ubicacion:"barquisimeto",precio:2000},
-    { transaccion: "Venta", id:3, tipo:"terreno", nombre:"rocafelex", descripcion:"tiene 900 mts2... ",ubicacion:"zulia",precio:3000},
-    ];
+  apiAction() {
+    //metodo para realizar una accion ya sea crear, editar
 
-    selectedInmueble: Inmueble = new Inmueble();
+    //declaracion que permite enviar el nuevo json ya sea para crear o editar
+    this.new = JSON.stringify({ubication: this.property.ubication, buildDate: this.property.buildDate, specifications_number: this.property.specifications_number, ClientId: this.property.owner[0].id ,TypeServiceId: this.property.TypeService, specifications_checkbox: this.property.specifications_checkbox});
+      //metodo que perimite enviar por put una actualizaciòn de un servicio
+      console.log(this.new);
+      this.globalService
+        .updateModel(this.property.id, this.new, "/api/property")
+        .then(
+          result => {
+            if (result["status"]) {
+              //Para que actualice la lista una vez que es editado el service
+              this.getListProperty();
+            }
+          },
+          err => {
+            console.log(err);
+          }
+        );
+   
+  }
 
-    openForEdit(inmueble: Inmueble) {
-      this.selectedInmueble = inmueble;
+  //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear
+  open(content, action, index: number) {
+    //==============================================================================
+    //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
+    //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+        this.apiAction(); //despues de cerrado el modal se ejecuta la accion de la api
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+    //==============================================================================
+
+    this.modalTemplate = content;
+    this.modalName = action;
+    this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
+    this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
+    this.property = Object.assign({}, this.immovables[this.selectedRow]); //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+
+    if (action == "show") {
+      //si la accion es ver, desabilita los campos del modal
+      this.disabled = true;
+    //   this.showView = false;
+      this.modalIcon = "fa fa-close";
+    } else if (action == "create") {
+      //si la accion es distinta de ver los campos del modal quedaran activados
+      this.disabled = false;
+    //   this.showView = true;
+      this.modalIcon = "fa fa-plus";
+    } else if (action == "edit") {
+      //si la accion es distinta de ver los campos del modal quedaran activados
+      this.disabled = false;
+      this.modalIcon = "fa fa-edit";
+    //   this.showView = false;
     }
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return "by pressing ESC";
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return "by clicking on a backdrop";
+    } else {
+      return `with: ${reason}`;
+    }
+  }
 
+  // This method associate to Delete Button.
+  onDelete(index: number) {
+    console.log("eliminando");
+    this.selectedRow = index;
+    this.property = Object.assign({}, this.immovables[this.selectedRow]);
+    this.showNew = true;
 
+    this.coolDialogs
+      .confirm("Esta seguro que desea eliminar?") //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto
+      .subscribe(res => {
+        if (res) {
+          console.log(res);
+          this.globalService
+            .removeModel(this.property.id, "/api/employee")
+            .then(
+              result => {
+                console.log(result);
+                if (result["status"]) {
+                  //Para que actualice la lista una vez que es eliminado el service
+                  this.getListProperty();
+                }
+              },
+              err => {
+                console.log(err);
+              }
+            );
+        } else {
+          console.log("You clicked Cancel. You smart.");
+        }
+      });
+  }
 
-    addOrEdit() {
+  transform_check(valor, tipo, indicador) {
 
-      /*if(this.selectedInmueble.id === 0){
+    
+        if (valor.name == tipo) {
+            for (var esp in valor.specifications_checkbox) {
+                if (valor.specifications_checkbox[esp].name == indicador) {
+                    if (valor.specifications_checkbox[esp].bin_quantity == "true") {
+                        valor.specifications_checkbox[esp].bin_quantity = false
+                    } else {
+                        valor.specifications_checkbox[esp].bin_quantity = true
+                    }
+                    console.log(valor.specifications_checkbox[esp])
+                }
+            }
+        }
+    
 
-      this.selectedInmueble.id = this.Inmuebles.length + 1;
-      this.Inmuebles.push(this.selectedInmueble);
-        this.msg = 'Campo Agregado Exitosamente';
-
-      }
-
-      this.selectedInmueble = new Inmueble();*/
-
-      }
-
-      /* delete(index: number) {
-       if(confirm('¿Estas seguro de eliminar este Inmueble?')){
-        this.Inmuebles.splice(index, 1);
-        this.msg = 'Campo Eliminado Exitosamente';
-      }
-      }*/
-
-
-      closeAlert(): void{
-      this.msg = '';
-      }
 }
-
-      
+  // This method associate toCancel Button.
+  onCancel() {
+    // Hide employee entry section.
+    this.showNew = false;
+  }
+}
