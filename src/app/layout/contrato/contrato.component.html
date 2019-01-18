@@ -5,25 +5,7 @@
         <div class="card-header" style="text-align: -webkit-center;">Contratos aqui Registrados</div>
         <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                    data-placement="top" title="Buscar"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;  "
                         (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
                             data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
@@ -42,8 +24,66 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                            <tr>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Folio..."
+                                aria-label="Search"
+                                [(ngModel)]="conFolio"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Elaboracion..."
+                                aria-label="Search"
+                                [(ngModel)]="conElaboracion"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Fecha..."
+                                aria-label="Search"
+                                [(ngModel)]="conFecha"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Cliente..."
+                                aria-label="Search"
+                                [(ngModel)]="conCliente"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Agente..."
+                                aria-label="Search"
+                                [(ngModel)]="conAgente"
+                                />
+                                </th>
+                                <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Garantia..."
+                                aria-label="Search"
+                                [(ngModel)]="conGarantia"
+                                />
+                                </th>
+                            </tr>
+                          </thead>
                     <tbody>
-                        <tr *ngFor="let contrato of contratos | paginate: { itemsPerPage: numPage, currentPage: pages }"
+                        <tr *ngFor="let contrato of contratos | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente:conGarantia | paginate: { itemsPerPage: numPage, currentPage: pages }"
                             (click)="onEdit(i)">
                             <td>{{contrato.folioNumber}}</td>
                             <td>{{contrato.elaborationDate}}</td>

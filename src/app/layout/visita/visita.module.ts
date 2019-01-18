@@ -7,8 +7,7 @@ import { VisitaRoutingModule } from './visita-routing.module';
 import { VisitaComponent } from './visita.component';
 import { PageHeaderModule } from './../../shared';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
+import { VisitaFilterPipe } from './visita-filter.pipe';
 
 @NgModule({
     imports: [CommonModule, VisitaRoutingModule,
@@ -16,7 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
        NgxPaginationModule,
        FontAwesomeModule, NgbModule.forRoot(),
         FormsModule, ReactiveFormsModule],
-    declarations: [VisitaComponent],
+    declarations: [VisitaComponent, VisitaFilterPipe],
     providers: [
     NgbActiveModal,
   ]

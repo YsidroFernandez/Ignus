@@ -8,6 +8,7 @@ import { PromotionsRoutingModule } from './promotions-routing.module';
 import { PromotionsComponent } from './promotions.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PromotionsFilterPipe } from './promotions-filter.pipe';
 
 
 @NgModule({
@@ -22,7 +23,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       })
     ], 
 
-  declarations: [PromotionsComponent],
+  declarations: [PromotionsComponent,PromotionsFilterPipe],
     providers: [
     NgbActiveModal,
   ]

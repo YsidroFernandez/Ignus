@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
+import * as querystring from 'querystring';
 
 @Component({
     selector: 'app-solicitudes',
@@ -31,6 +32,8 @@ export class SolicitudesComponent implements OnInit {
     servicios: any = [];
     public view = false;
     public chart: any;
+    fechaI: any;
+    fechaF: any;
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
         console.log('hello world', this.tipos);
@@ -92,6 +95,19 @@ export class SolicitudesComponent implements OnInit {
 
           }
 
+
+        allReporte(){
+            const stringified = querystring.stringify({StartDate: moment(this.servicio.fechaI).format('YYYY/MM/DD'), EndDate: moment(this.servicio.fechaF).format('YYYY/MM/DD'), id: this.servicio.id })
+            console.log(stringified);
+            // this.globalService.getModel("/api/agency")
+            // .then((result) => {
+            //     console.log(result);
+            //     this.agencias = result['data'];
+            //     console.log(this.agencias);
+            // }, (err) => {
+            //     console.log(err);
+            // });
+        }
 
     allAgency(){
         this.globalService.getModel("/api/agency")
@@ -168,14 +184,14 @@ export class SolicitudesComponent implements OnInit {
                 }
             },
             // Doy los datos de la gráfica para dibujarlas
-            series: [{
-                name: 'Rechadas',
-                data: [3103, 5474, 7402, 9536, 1041, 3270, 4676, 7160, 2462, 3797, 3527, 4505]
-            },
-            {
-                name: 'Aceptadas',
-                data: [278, 4203, 1370, 810, 6213, 3787, 8134, 1991, 3122, 2870, 3655, 6400]
-            }],
+                series: [{
+                    name: 'Rechadas',
+                    data: [3103, 5474, 7402, 9536, 1041, 3270, 4676, 7160, 2462, 3797, 3527, 4505]
+                },
+                {
+                    name: 'Aceptadas',
+                    data: [278, 4203, 1370, 810, 6213, 3787, 8134, 1991, 3122, 2870, 3655, 6400]
+                }],
         });
     }
 }

@@ -41,8 +41,8 @@ export class VisitaComponent implements OnInit {
   // public fileUpload: any;
   // public fileToUploadInspection: File = null;
   selectedFile: File;
-  fileToUploadRecaudo: File;
-
+  fileToUploadRecaudo:File;
+  searchfilter: string;
 
   constructor(
     private modalService: NgbModal,

@@ -13,6 +13,7 @@ import { VERSION } from '@angular/common';
 })
 export class ListIncidencesComponent implements OnInit {
   closeResult: string;
+  searchfilter: string;
   listincidences: any;
   listincidence: any;
   respuesta: any = 'Atendida';

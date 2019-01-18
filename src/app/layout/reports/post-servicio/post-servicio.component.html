@@ -7,110 +7,286 @@
             </div>
 
             <div class="row">
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Inicio</label>
                         <div class="input-group">
-                            <input name="fecha_inicio" formControlName="fecha_inicio" [bsConfig]="datePickerConfig"
-                            type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                            <input name="fecha_inicio" [bsConfig]="datePickerConfig"
+                            type="text" [(ngModel)]="fechaI" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
                             required>
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Fin</label>
                         <div class="input-group">
-                            <input name="fecha_fin" formControlName="fecha_fin" [bsConfig]="datePickerConfig" type="text"
-                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
+                            <input name="fecha_fin" [bsConfig]="datePickerConfig" type="text"
+                                class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
                         </div>
                     </div>
                 </div>
 
-                <div class="col col-sm-3 text-center">
-                    <label>Tipo de Solicitud</label>
-                    <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">Garantia</option>
-                            <option value="2">Reclamo</option>                          
+                <div class="col col-sm-4 text-center">
+                    <div class="form-group text-center">
+                        <label for="tipos">Estado</label>
+                        <select class="form-control" name="state" id="state" [disabled]="lock" [(ngModel)]="solicitud.state"
+                            #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
+                            <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="col col-sm-3 text-center">
-                    <label>Orden Especifica</label>
-                    <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">0001</option>
-                            <option value="2">0002</option>
-                            <option value="3">0003</option>
+                <div class="col col-sm-4 text-center">
+                    <div class="form-group text-center">
+                        <label for="municipality">Municipio</label>
+                        <select class="form-control" name="municipality" id="municipality"
+                            [(ngModel)]="solicitud.municipality" [disabled]="lock" #municipality="ngModel"
+                            (change)="loadparish(solicitud.municipality)">
+                            <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col col-sm-4 text-center">
+                    <div class="form-group text-center"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                        <select class="form-control" name="parish" id="parish" [disabled]="lock" [(ngModel)]="solicitud.parish"
+                            required>
+                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
                         </select>
                     </div>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col col-sm-3 text-center">
-                    <label>Cliente</label>
-                    <div class="form-group input-group">
-                        <select class="form-control">
-                            <option value="0">Seleccionar</option>
-                            <option value="1">Erick</option>
-                            <option value="2">Juan</option>
-                            <option value="3">Pedro</option>
-                        </select>
-                    </div>
-                </div>
 
-                <div class="col col-sm-3 text-center">
-                        <label>Estatus</label>
-                        <div class="form-group input-group">
-                            <select class="form-control">
-                                <option value="0">Seleccionar</option>
-                                <option value="1">Reclamado</option>
-                                <option value="2">No Reclamando</option>                              
-                            </select>
-                        </div>
-                    </div>
-
-                <div class="col col-sm-3 text-center">
-                    
-                </div>
-
-                <div class="col col-sm-3">
+                <div class="col col-sm-4">
                     <span class="input-group-btn">                       
-                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                        <button class="btn btn-success" type="button" (click)="prueba()" style="position: relative; top: 30px;  background: #1AB394;">
                             Generar
                         </button>
                     </span>
                 </div>
             </div>
+            <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+                <style>
+                    .wide-card.mdl-card {
+                       width: auto;
+                    }
 
-            <div class="card-body">
-                    <div class="card-body  table-responsive">
-                            <table class="card-body table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>N° de Orden</th>
-                                        <th>Cliente</th>
-                                        <th>Fecha</th>
-                                        <th> Estatus </th>
-                                       
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr  (click)="onEdit(i)">
-                                        <td>0001</td>
-                                        <td>Anny</td>
-                                        <td>03-Mayo-2018</td>
-                                        <td>No reclamada</td>                                       
-                                    </tr>
-                                </tbody>
-                            </table>
+                    .square-card.mdl-card {
+                       width: auto;
+                       height: auto;
+                    }
+                </style>
+            </head>
+            <body *ngIf="view">
+                    <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                            <div class="card-body">
+                                <div class="card-body  table-responsive">
+                                    <table class="card-body table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombres</th>
+                                                <th>Apellidos</th>
+                                                <th>Sexo</th>
+                                                <th>Fecha de Registro</th>
+                                                                                    
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Jorge</td>
+                                                <td>Chiquin</td>
+                                                <td>Masculino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                <td>Jorge</td>
+                                                <td>Chiquin</td>
+                                                <td>Masculino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                <td>Jorge</td>
+                                                <td>Chiquin</td>
+                                                <td>Masculino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                <td>Edymar</td>
+                                                <td>Perez</td>
+                                                <td>Femenino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                <td>Edymar</td>
+                                                <td>Perez</td>
+                                                <td>Femenino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                <td>Edymar</td>
+                                                <td>Perez</td>
+                                                <td>Femenino</td>
+                                                <td>03-Mayo-2018</td>                                       
+                                            </tr>
+                                            <tr>
+                                                    <td>Jorge</td>
+                                                    <td>Chiquin</td>
+                                                    <td>Masculino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                    <td>Jorge</td>
+                                                    <td>Chiquin</td>
+                                                    <td>Masculino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                    <td>Jorge</td>
+                                                    <td>Chiquin</td>
+                                                    <td>Masculino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                    <td>Edymar</td>
+                                                    <td>Perez</td>
+                                                    <td>Femenino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                    <td>Edymar</td>
+                                                    <td>Perez</td>
+                                                    <td>Femenino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                    <td>Edymar</td>
+                                                    <td>Perez</td>
+                                                    <td>Femenino</td>
+                                                    <td>03-Mayo-2018</td>                                       
+                                                </tr>
+                                                <tr>
+                                                        <td>Jorge</td>
+                                                        <td>Chiquin</td>
+                                                        <td>Masculino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jorge</td>
+                                                        <td>Chiquin</td>
+                                                        <td>Masculino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Jorge</td>
+                                                        <td>Chiquin</td>
+                                                        <td>Masculino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Edymar</td>
+                                                        <td>Perez</td>
+                                                        <td>Femenino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Edymar</td>
+                                                        <td>Perez</td>
+                                                        <td>Femenino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Edymar</td>
+                                                        <td>Perez</td>
+                                                        <td>Femenino</td>
+                                                        <td>03-Mayo-2018</td>                                       
+                                                    </tr>
+                                                    <tr>
+                                                            <td>Jorge</td>
+                                                            <td>Chiquin</td>
+                                                            <td>Masculino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Jorge</td>
+                                                            <td>Chiquin</td>
+                                                            <td>Masculino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Jorge</td>
+                                                            <td>Chiquin</td>
+                                                            <td>Masculino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Edymar</td>
+                                                            <td>Perez</td>
+                                                            <td>Femenino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Edymar</td>
+                                                            <td>Perez</td>
+                                                            <td>Femenino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Edymar</td>
+                                                            <td>Perez</td>
+                                                            <td>Femenino</td>
+                                                            <td>03-Mayo-2018</td>                                       
+                                                        </tr>
+                                                        <tr>
+                                                                <td>Jorge</td>
+                                                                <td>Chiquin</td>
+                                                                <td>Masculino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jorge</td>
+                                                                <td>Chiquin</td>
+                                                                <td>Masculino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jorge</td>
+                                                                <td>Chiquin</td>
+                                                                <td>Masculino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Edymar</td>
+                                                                <td>Perez</td>
+                                                                <td>Femenino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Edymar</td>
+                                                                <td>Perez</td>
+                                                                <td>Femenino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                                            <tr>
+                                                                <td>hola</td>
+                                                                <td>chao</td>
+                                                                <td>Femenino</td>
+                                                                <td>03-Mayo-2018</td>                                       
+                                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-            </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                                <div>
+                                    <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
+                                </div>
+                          </div>
+                </body>
         </div>
     </div>
 </div>
