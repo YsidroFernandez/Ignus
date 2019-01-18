@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { routerTransition } from '../router.animations';
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.scss'],
   animations: [routerTransition()]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
 
   ForgotButton: any;
@@ -32,17 +32,17 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private global: GlobalService,
     private toastr: ToastrService
-  ) {
+  ) 
+  {
     localStorage.clear()
-  }
-
-  ngOnInit() {
+  
     this.allLogo();
     this.route.queryParams.subscribe(params => {
       console.log(params['propertyId'])
       if (params['propertyId'])
         localStorage.setItem('propertyId',params['propertyId'])
     });
+  
   }
 
   allLogo() {

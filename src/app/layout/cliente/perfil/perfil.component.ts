@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
@@ -14,99 +14,101 @@ import { GlobalService } from '../../../providers/global.service';
   styleUrls: ['./perfil.component.scss']
 })
 
-export class PerfilComponent implements OnInit {
+export class PerfilComponent {
+
     closeResult: string;
     perfil: any;
     perfiles: any;
     nuevo: any;
     requirements:any;
-  activities:any;
-  employee:any;
-  transaction:any;
-  test:any;
+    activities:any;
+    employee:any;
+    transaction:any;
+    test:any;
 
-    states = []
-    municipalities = []
-    parishes = []
-
+    public states:any = [];
+    public municipalities: any = [];
+    public parishes: any = [];
+    activatespecifications: any = false;
     showNew: Boolean = false;
     step: string;
     submitType: string = 'Save';
     selectedRow: number;
 
-    perfil2 = {
-    username: "",
-    identification: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    birthDate: "",
-    phoneNumber: "",
-    gender:1,
-    TypeServiceId: "",
-    parish: "",
-    municipality: "",
-    }
-
-    typeservice: any;
-    public client :any = [];
-    public state:any = [];
+    typeservices: any;
+    typeservice: any
+    typeproperties: any;
+    typeproperty: any;
+    
+    
 
   constructor(public globalService: GlobalService) {
-
-this.nuevo = [];
-this.typeservice = [];
-
-
-  const userId = JSON.parse(localStorage.user).id;
-      console.log(userId);
-    this.globalService.getModel_Id(userId, '/api/client')
-    .then((result) => {
-      console.log(result);
-
-       this.client = result['data'];
-   //    this.state = result['data']['state'];
-      console.log(this.perfil);
-
-
-  console.log(this.client.firstName);
-
-    }, (err) => {
-      console.log(err);
-      // this.loader.dismiss();
-    });
-
-
-this.globalService.getModel("/api/typeService").then((result) => {
-    if (result['status']) {
-        //Para que actualice la lista
-                this.typeservice = result['data'];
-
-    }
-}, (err) => {
-    console.log(err);
-});
-
-this.globalService.getModel(`/api/state/`).then((result) => {
-    if (result['status']) {
-        this.states = result['data'];
-    }
-}, (err) => {
-    console.log(err);
-});
-
+this.loadclient();
+this.show();
+this.loadtypeservices();
+this.loadstates();
+this.loadtypeproperties();
   }
 
+  loadstates(){
+    this.globalService.getModel(`/api/state/`).then((result) => {
+        if (result['status']) {
+            this.states = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+  }
 
+  loadtypeservices(){
+    this.globalService.getModel("/api/typeService").then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista
+            this.typeservice = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+
+    loadtypeproperties(){
+    this.globalService.getModel("/api/typeProperty").then((result) => {
+        if (result['status']) {
+            //Para que actualice la lista
+            this.typeproperties = result['data'];
+        }
+    }, (err) => {
+        console.log(err);
+    });
+    
+}
+loadclient(){
+
+    const userId = JSON.parse(localStorage.user).id;
+  this.globalService.getModel_Id(userId, '/api/client')
+  .then((result) => {
+    console.log(result);
+     this.perfil = result['data'];
+ //    this.state = result['data']['state'];
+    
+  }, (err) => {
+    console.log(err);
+    // this.loader.dismiss();
+  });
+
+
+
+}
   //this method associate to reload states
 loadmunicipality(state){
     this.municipalities = [];
-    this.parishes = [];
 
     this.globalService.getModel(`/api/state/municipality/${state}`).then((result) => {
         if (result['status']) {
             //municipios
-            this. municipalities = result['data'];
+            this.municipalities = result['data'];
         }
     }, (err) => {
         console.log(err);
@@ -129,36 +131,18 @@ loadparish(municipality){
 
 }
 
-    //Metodo del boton Enviar
- open(enviar) {
+loadSpecifications() {
+    this.globalService.getModel(`/api/typeProperty/specification/${this.typeproperty}`).then((result) => {
+        if (result['status']) {
+            this.perfil.specifications = result['data']
+            this.activatespecifications = true;
+        }
+    }, (err) => {
+        console.log(err);
+    });
 
-  this.nuevo = {
-  lastName: this.perfil.lastName,
-  firstName: this.perfil.firstName,
-  gender: this.perfil.gender,
-  phoneNumber: this.perfil.phoneNumber,
-  //identification: this.perfil.identification,
-  birthDate: this.perfil.birthDate,
-  //email: this.perfil.email,
-  //TypeServiceId: Number.parseInt(this.perfil.TypeServiceId),
-  };
-
-console.log("result",this.nuevo);
-   this.globalService.addModel(this.nuevo,"/api/client")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista
-                            console.log
-(result);
-                    }
-
-                }, (err) => {
-                    console.log(err);
-                });
-  alert("Agregado con exito")
-  this.limpiar()
 }
+
 
 limpiar(){
   this.perfil = {
@@ -176,33 +160,11 @@ limpiar(){
   }
 }
 
-       show() {
+   show() {
         console.log("aqui va el loaer");
+        console.log(this.perfil);
     }
+    faEdit = faEdit;
 
-  ngOnInit() {
-
-        this.show();
-        this.globalService.getModel("/api/client")
-            .then((result) => {
-                console.log(result);
-                this.perfil = result['data'];
-                console.log(this.perfil);
-            }, (err) => {
-                console.log(err);
-            });
-  } faEdit = faEdit;
-
-  onEdit(index: number) {
-        this.submitType = 'Update';
-        this.selectedRow = index;
-        this.perfil = Object.assign({}, this.perfil[this.selectedRow]);
-        this.showNew = true;
-    }
-
-    onCancel() {
-        // Hide Usuario entry section.
-        this.showNew = false;
-    }
-
+    
 }
