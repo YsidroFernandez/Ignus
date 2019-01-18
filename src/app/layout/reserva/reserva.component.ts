@@ -16,69 +16,6 @@ import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
     animations: [routerTransition()],
     providers: [GlobalsProvider]
 })
-<<<<<<< HEAD
-export class ReservaComponent implements OnInit {
-  datosUser: any;
-  transactions: any;
-  trans: any;
-	url: string;
-  closeResult: string;
-  selectedTransaction: any;
-  public numbPage: number;
-  public numPage: number;
-  public listTransacciones:any;
-  faEye = faEye;
-  faEdit = faEdit;
-  faTrash = faTrash;
-  searchfilter: string;
-
-  constructor(
-    public globalService: GlobalService,
-    private modalService: NgbModal,
-    private globals: GlobalsProvider) { 
-  	this.transactions = [];
-  }
- 
-  getUserData(){//esto es para obtener el id y buscar sus transacciones asociadas
-    let user = localStorage.getItem('user');
-      let obj = JSON.parse(user)
-      this.globalService.getModel_Id(obj.id.toString(),"/api/user/").then(
-        result => {
-          this.datosUser = result["data"];
-          console.log(this.datosUser);},
-        err => {
-          console.log(err); //this.loader.dismiss();
-        });
-  }
-
-  getListTransactions(){
-    let obj = JSON.parse(localStorage.getItem('user'))
-    this.globalService.getModel("/api/employee/transaction/"+obj.id).then(
-      (result)=>{
-        this.transactions = result["data"];
-        console.log(this.transactions);},
-      (err)=>{
-        console.log(err);
-      });
-  }
-
-  open(content){
-    console.log("aqui");
-    this.modalService.open(content).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;}
-=======
 export class ReservaComponent {
     datosUser: any;
     transactions: any;
@@ -92,6 +29,7 @@ export class ReservaComponent {
     modalName: any;
     modalTemplate: any;
     submitType: String = 'Save';
+    searchfilter: string;
     selectedRow: number;
     disabled: boolean;
     new: any;
@@ -303,7 +241,6 @@ export class ReservaComponent {
                         }
         */
         }
->>>>>>> 13dd6f26e3d3ad34d1feb5a826359b056f9928c8
     }
 
     // This method associate toCancel Button.
