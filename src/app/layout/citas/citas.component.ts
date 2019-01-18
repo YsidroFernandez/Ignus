@@ -63,10 +63,10 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
   providers: [GlobalsProvider]
 })
 export class CitasComponent implements OnInit {
-
+  @ViewChild('parentModal') parentModal: ModalDirective;
   @ViewChild('childModal') childModal: ModalDirective;
-
-
+  @ViewChild('modalContent') modalContent: TemplateRef<any>;
+  
 
   appointmentSchedule: any = {
     appointments: [],
@@ -101,46 +101,44 @@ export class CitasComponent implements OnInit {
   list = [];
 
 
-  colors: any = {
-    red: {
-      primary: '#ad2121',
-      secondary: '#FAE3E3'
-    },
-    blue: {
-      primary: '#1e90ff',
-      secondary: '#D1E8FF'
-    },
-    yellow: {
-      primary: '#e3bc08',
-      secondary: '#FDF1BA'
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="fa fa-fw fa-pencil"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        // this.handleEvent('Edited', event);
+      }
     }
-  };
+  ];
 
   events: any = [
     {
       start: '',
       title: '',
       turno: '',
-      color: ''
+      color: '',
+      actions: [{}]
     }
   ];
 
+  data: any = {
+    
+  };
+
+  public viewData = false;
 
   constructor(
     private modalService: NgbModal,
     public globalService: GlobalService,
     private coolDialogs: NgxCoolDialogsService) {
-    this.dateOrViewChanged();
+    // this.dateOrViewChanged();
   }
 
   ngOnInit() {
     this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.log(this.user);
     this.allTransaction();
     this.allAppointments();
     this.allAppointmentSchedule ();
-    console.log(this.events);
    
   }
 
@@ -187,75 +185,87 @@ export class CitasComponent implements OnInit {
   changeTransaction($event) {
     for (var i = 0; i < this.transaction.length; i++) {
       if (this.transaction[i].id == $event.target.value) {
-        console.log(this.transaction[i].request.id);
         this.cita.RequestId = this.transaction[i].request.id;
       }
     }
   }
 
   changeCita($event) {
-    console.log($event.target.value);
     this.cita.TypeAppointmentId = $event.target.value;
   }
 
   changeTurno($event) {
-    console.log($event.target.value);
     this.cita.turn = $event.target.value;
   }
 
 
   dayClicked({ date, events }: { date: Date; events: any[] }): void {
-    console.log(date);
-    console.log(events);
+
+    if (events.length < 2 && moment(date).format('DD/MM/YYYY') >= moment(new Date()).format('DD/MM/YYYY')) {
     this.cita.dateAppointment = moment(date).format('DD/MM/YYYY');
     this.showChildModal();
+    }
   }
 
-  showChildModal(): void {
-    this.childModal.show();
+  handleEvent(action: string, event: CalendarEvent): void {
+    console.log(event);
+    console.log(action);
+    if(action=='Clicked'){
+      this.data = event;
+      this.viewData = true;
+      console.log(this.data);
+      this.showPrentModal();
+    }
+   
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  hideChildModal(): void {
-    this.childModal.hide();
+  showPrentModal(): void {
+    this.parentModal.show();
+  }
+
+  hidePrentModal(): void {
+    this.parentModal.hide();
   }
 
   today(): void {
     this.changeDate(new Date());
   }
 
-  dateIsValid(date: Date): boolean {
-    return date >= this.minDate;
-  }
+  // dateIsValid(date: Date): boolean {
+  //   return date >= this.minDate;
+  // }
 
   changeDate(date: Date): void {
     this.viewDate = date;
-    this.dateOrViewChanged();
+    // this.dateOrViewChanged();
   }
 
   changeView(view: CalendarPeriod): void {
     this.view = view;
-    this.dateOrViewChanged();
+    // this.dateOrViewChanged();
   }
 
-  dateOrViewChanged(): void {
-    this.prevBtnDisabled = !this.dateIsValid(
-      endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
-    );
-    this.nextBtnDisabled = !this.dateIsValid(
-      startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
-    );
-    if (this.viewDate < this.minDate) {
-      this.changeDate(this.minDate);
-    }
-  }
+  // dateOrViewChanged(): void {
+  //   this.prevBtnDisabled = !this.dateIsValid(
+  //     endOfPeriod(this.view, subPeriod(this.view, this.viewDate, 1))
+  //   );
+  //   this.nextBtnDisabled = !this.dateIsValid(
+  //     startOfPeriod(this.view, addPeriod(this.view, this.viewDate, 1))
+  //   );
+  //   if (this.viewDate < this.minDate) {
+  //     this.changeDate(this.minDate);
+  //   }
+  // }
 
-  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
-    body.forEach(day => {
-      if (!this.dateIsValid(day.date)) {
-        day.cssClass = 'cal-disabled';
-      }
-    });
-  }
+  // beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+  //   body.forEach(day => {
+  //     if (!this.dateIsValid(day.date)) {
+  //       day.cssClass = 'cal-disabled';
+  //     }
+  //   });
+  // }
 
   save() {
     console.log(this.cita);
@@ -267,14 +277,20 @@ export class CitasComponent implements OnInit {
         if (result['status']) {
           console.log(result['status']);
           this.hideChildModal();
+          this.allAppointmentSchedule (); 
         }
       }, (err) => {
         console.log(err);
       });
-
     }
+  }
 
-   
+  showChildModal(): void {
+    this.childModal.show();
+  }
+ 
+  hideChildModal(): void {
+    this.childModal.hide();
   }
 
   clear() {
