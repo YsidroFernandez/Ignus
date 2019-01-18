@@ -12,7 +12,7 @@
                         <label >Fecha Inicio</label>
                         <div class="input-group">
                             <input name="fecha_inicio"  [bsConfig]="datePickerConfig"
-                            type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                            type="text" class="form-control" [(ngModel)]="fechaI" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
                             required>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <label >Fecha Fin</label>
                         <div class="input-group">
                             <input name="fecha_fin"  [bsConfig]="datePickerConfig" type="text"
-                            class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
+                            class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
                         </div>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
                     <div class="form-group text-center">
                       <label for="tipos">Nombre de Agentes</label>
                       <select class="form-control" name="nombreagente" [(ngModel)]="empleado.person.id">
-                        <option *ngFor="let item2 of empleados" [ngValue]="item2.person.id" [selected]="empleado.person.id">
-                          {{ item2.person.firstName }}
+                        <option *ngFor="let item2 of empleados" [ngValue]="item2.person.id">
+                          {{ item2.person.firstName }} {{ item2.person.lastName }}
                         </option>
                       </select>
                     </div> 
@@ -42,8 +42,18 @@
                     <div class="form-group text-center">
                       <label for="tipos">Tipos de Servicio</label>
                       <select class="form-control" name="tiposervicio" [(ngModel)]="servicio.id">
-                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id" [selected]="servicio.id">
-                          {{ item2.name }}
+                        <option *ngFor="let item of servicios" [ngValue]="item.id" >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                    </div> 
+                  </div>
+                  <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Estatus de las Citas</label>
+                      <select class="form-control" name="selectedStatus" [(ngModel)]="selectedStatus">
+                        <option *ngFor="let status of statusAppointments" [ngValue]="status.value">
+                          {{ status.name }}
                         </option>
                       </select>
                     </div> 
@@ -52,7 +62,7 @@
 
                 <div class="col col-sm-3 text-center">
                     <span class="input-group-btn">
-                        <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                        <button class="btn btn-success" type="button" (click)="allReporte()" style="position: relative; top: 30px;  background: #1AB394;">
                             Generar
                         </button>
                     </span>

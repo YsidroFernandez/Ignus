@@ -99,7 +99,7 @@
                                     <div class="form-group">
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.TransactionId">
-                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.TransactionId">
+                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id">
                                                 {{ item2.nameForClient }}
                                             </option>
                                         </select>
@@ -109,7 +109,7 @@
                                     <div class="form-group">
                                         <label for="tipos">Tipo de Incidencia</label>
                                         <select class="form-control" name="typeIncidence" [(ngModel)]="incidencia.TypeIncidenceId">
-                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="incidencia.TypeIncidenceId">
+                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id">
                                                 {{ item.name }}
                                             </option>
                                         </select>
@@ -121,7 +121,7 @@
                                     <div class="form-group">
                                         <label for="tipos">Transacciones</label>
                                         <select class="form-control" name="transacciones" [(ngModel)]="incidencia.transaction.id">
-                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="incidencia.transaction.id">
+                                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id">
                                                 {{ item2.nameForClient }}
                                             </option>
                                         </select>
@@ -131,7 +131,7 @@
                                     <div class="form-group">
                                         <label for="tipos">Tipo de Incidencia</label>
                                         <select class="form-control" name="typeIncidence" [(ngModel)]="incidencia.typeIncidence.id">
-                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id" [selected]="incidencia.typeIncidence.id">
+                                            <option *ngFor="let item of tipoincidencias" [ngValue]="item.id">
                                                 {{ item.name }}
                                             </option>
                                         </select>
