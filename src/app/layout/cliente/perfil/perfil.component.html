@@ -15,13 +15,13 @@
             <div class="col-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label>Nombre de Usuario</label>
-                <input type="text" class="form-control" placeholder="YsidroFernandez3012@gmail.com" name="username">
+                <input type="text" class="form-control" placeholder="Usuario" name="username" [(ngModel)]="perfil.user.username">
               </div>
             </div>
             <div class="col-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label>Correo</label>
-                <input type="email" class="form-control" placeholder="ysidroFernandez3012@gmail.com" name="email" >
+                <input type="email" class="form-control" placeholder="email" name="email" >
               </div>
             </div>
           </div>
@@ -52,13 +52,13 @@
             <div class="col-12 col-lg-6">
               <div class="form-group">
                 <label>Nombres Completos</label>
-                <input type="text" class="form-control" name="firstName" [(ngModel)]="perfil2.firstName">
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="perfil.person.firstName">
               </div>
             </div>
             <div class="col-12 col-lg-6">
               <div class="form-group">
                 <label>Apellidos Completos</label>
-                <input type="text" class="form-control" name="lastName" [(ngModel)]="perfil2.lastName">
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="perfil.person.lastName">
               </div>
             </div>
            </div>
@@ -66,8 +66,7 @@
                 <div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Genero</label>
-                    <select class="form-control" name="gender" [(ngModel)]="perfil2.gender">
-                      <option></option>
+                    <select class="form-control" name="gender" [(ngModel)]="perfil.person.gender">
                       <option>Femenino</option>
                       <option>Masculino</option>
                     </select>
@@ -76,29 +75,24 @@
                 <div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Fecha de Nacimiento</label>
-                    <input type="text" class="form-control" [(ngModel)]="perfil2.birthDate" name="birthDate">
+                    <input type="text" class="form-control" [(ngModel)]="perfil.person.birthDate" name="birthDate">
                   </div>
                 </div>
                  <div class="col-12 col-md-6 col-lg-6">
               <div class="form-group">
                 <label>Número de Telefono</label>
-                <input type="text" class="form-control" [(ngModel)]="perfil2.phoneNumber">
+                <input type="text" class="form-control" [(ngModel)]="perfil.phoneNumber">
               </div>
             </div>
                 <!--<div class="col-12 col-lg-6">
                   <div class="form-group">
                     <label>Estado</label>
-                    <select class="form-control" [(ngModel)]="perfil2.state" name="state">
+                    <select class="form-control" [(ngModel)]="perfil.state" name="state">
                       <option>{{state.name}}</option>
                       <option *ngFor="let est of state">{{est.name}}</option>
                     </select>
                   </div>
                  </div>-->
-                 <div class="col col-sm-4 text-right">
-           <button style=" background: #1AB394; border-radius: 100%;font-size:24px; "
-                         (click)="open(enviar)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="enviar"></i></button>
-                </div>
-             </div>
              
 	</div>
 </div>
@@ -112,21 +106,17 @@
     <div class="row">
             <div class="col-12 col-md-8 col-lg-7">
               <div class="form-group">
-                <label>Tipo Solicitud: (*)</label>
+                <label>Tipo de Servicio: (*)</label>
                 <select class="form-control" name="typeservice" id="typeservice" required>
-                    <option *ngFor="let type of typeservice" [value]="type.id">{{type.name}}</option>
+                    <option *ngFor="let type of typeservices" [value]="type.id">{{type.name}}</option>
                   </select>
               </div>
             </div>
             <div class="col-12 col-md-4 col-lg-5">
               <div class="form-group">
                 <label class="" for="inmueble">Tipo de Inmueble:</label>
-                <select class="form-control" name="horas" id="tipoinmueble" required>
-                  <option value="0">Seleccione</option>
-                  <option value="1">Casa</option>
-                  <option value="2">Edificio</option>
-                  <option value="3">Terreno</option>
-                  <option value="4">Parcela</option>
+                <select class="form-control" name="horas" id="tipoinmueble" (change)="loadSpecifications()" [(ngModel)]="typeproperty" required>
+                  <option *ngFor="let typeproperty of typeproperties" [value]="typeproperty.id">{{typeproperty.name}}</option>
                 </select>
               </div>
             </div>
@@ -135,8 +125,8 @@
             <div class="col-12 col-lg-7">
               <div class="form-group">
                 <label for="tipos">Estado</label>
-                <select class="form-control" name="state" id="state" [(ngModel)]="perfil2.state"
-                    #estado="ngModel" (change)="loadmunicipality(perfil2.state)">
+                <select class="form-control" name="state" id="state" [(ngModel)]="perfil.person.state"
+                    #estado="ngModel" (change)="loadmunicipality(perfil.state)">
                     <option *ngFor="let sta of states" [value]="sta.id">{{sta.name}}</option>
                 </select>
               </div>
@@ -146,8 +136,8 @@
                 <div class="col-12 col-md-4 col-lg-6">
                   <div class="form-group">
                     <label for="municipality">Municipios</label>
-                    <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil2.municipality"
-                        #municipality="ngModel" (change)="loadparish(perfil2.municipality)">
+                    <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil.person.municipality"
+                        #municipality="ngModel" (change)="loadparish(perfil.municipality)">
                         <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
                     </select>
                   </div>
@@ -155,7 +145,7 @@
                 <div class="col-12 col-md-4 col-lg-6">
                   <div class="form-group">
                     <label class="" for="parish">Parroquia</label>
-                    <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil2.parish" required>
+                    <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil.person.parish" required>
                         <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
                     </select>
                   </div>
@@ -168,36 +158,42 @@
             <div class="col-12 col-md-8 col-lg-7">
              <h5>Otras Preferencias</h5>
 
-            <div class="row mb-3">
-              <div class="col col-sm-6">
-                <div class="form-group">
-                <input type="checkbox" name="terraza" value="terraza">Terraza<br>
-                </div>
-                </div>
+             <tabset id="tabspecification" *ngIf="activatespecifications==true">
 
-                <div class="col col-sm-6">
-                 <div class="form-group">
-                <input type="checkbox" name="jardin" value="jardin">Jardin<br>
-                </div>
-                </div>
+              <tab *ngFor="let te of solicitud.typeSpecifications" [heading]="te.name" [id]="te.id">
+                  <br>
+                  <div class="row">
+                      <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number"
+                          [id]="esp.id">
+                          <div class="form-group">
+                              <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
+                              <input [type]="esp.typeInput" [disabled]="lock" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
+                          </div>
 
-                 <div class="col col-sm-6">
-                 <div class="form-group">
-                 <input type="checkbox" name="piscina" value="piscina">Piscina<br>
-                 </div>
-                 </div>
+                      </div>
 
-                 <div class="col col-sm-6">
-                  <div class="form-group">
-                 <input type="checkbox" name="mascotas" value="mascotas">Mascotas<br>
-                 </div>
-                 </div>
-            </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox"
+                          [id]="esp.id">
+                          <div class="form-group row">
+                              <label class="form-check-label col-8">{{esp.name}} : </label>
+                              <label class="switch" [for]="esp.name">
+                                  <input class="form-check-input" [disabled]="lock" [id]="esp.name" [type]="esp.typeInput"
+                                      [name]="esp.name" [value]="esp.quantity" [(ngModel)]="esp.quantity"
+                                      (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
+                                  <div class="slider round"></div>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </tab>
+          </tabset>
           </div>
   </div>
   <div class="col col-sm-4 text-right">
            <button style=" background: #1AB394; border-radius: 100%;font-size:24px; "
-                         (click)="open()"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="enviar"></i></button>
+                         (click)="show()"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="enviar"></i></button>
                 </div>
 </div>
 </div>

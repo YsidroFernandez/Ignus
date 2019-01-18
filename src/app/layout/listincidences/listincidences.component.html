@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label for="tipos">Transacciones</label>
                         <select class="form-control" name="transacciones" [(ngModel)]="listincidence.TransactionId">
-                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="listincidence.TransactionId">
+                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id">
                                 {{ item2.nameForEmployee }}
                             </option>
                         </select>
