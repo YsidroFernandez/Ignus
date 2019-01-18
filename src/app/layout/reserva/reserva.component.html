@@ -166,5 +166,51 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-       
+        <fieldset [disabled]="disabled">
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre Cliente</label>
+                                <input type="text" [(ngModel)]="transaction.nameForEmployee" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Propiedad</label>
+                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos"> Ubicación </label>
+                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Ubicación</label>
+                                <select class="form-control" name="typeinput" id="typeinput" [(ngModel)]="transaction.property.ubication">
+                                    <option *ngFor="let type of typeinputs" [value]="type.id">{{type.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                </div>
+          
+        </fieldset>
+        <div class="modal-footer">
+            <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
+                    style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Cancelar"></i></button>
+            <div *ngIf="submitType!='show'">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                        style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Editar"></i></button>
+            </div>
+        </div>
     </ng-template>
