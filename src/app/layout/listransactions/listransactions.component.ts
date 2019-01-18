@@ -63,7 +63,13 @@ export class ListransactionsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.transaction_id = JSON.parse(localStorage.id_transaction);
+
+    let trans = JSON.stringify(localStorage.id_transaction);
+    if(trans!=null){
+    this.transaction_id = JSON.parse(localStorage.id_transaction); //si en local storage esta el id de la transaccion
+    console.log("pas")
+   }
+
     console.log(localStorage.name_agent)
     console.log(name);
     console.log(this.crudName);
