@@ -9,6 +9,7 @@ import { ServicesComponent } from './services.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSelectModule} from 'ngx-select-ex';
+import { ServicesFilterPipe } from './services-filter.pipe';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { NgxSelectModule} from 'ngx-select-ex';
       })
     ], 
 
-  declarations: [ServicesComponent],
+  declarations: [ServicesComponent,ServicesFilterPipe],
     providers: [
     NgbActiveModal,   
   ]

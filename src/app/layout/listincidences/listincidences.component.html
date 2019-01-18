@@ -14,35 +14,11 @@
         </div>
 
         <div class="card mb-3">
-            <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                            <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                data-placement="top" title="Buscar"></i>
-                        </button>
-
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content, 'create', -1); limpiar()"><i style="color: white" class="fa fa-plus"
                             aria-hidden="true"></i></button>
                 </div>
-            </div>
-
             <br />
             <div class="card-body  table-responsive">
                 <table class="card-body table table-hover">
@@ -57,8 +33,66 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                            <tr>
+                                <th style="background-color:transparent">
+                                    <input
+                                    class="form-control mr-sm-2"
+                                    type="text"
+                                    placeholder="Fecha..."
+                                    aria-label="Search"
+                                    [(ngModel)]="lisincFecha"
+                                    />
+                              </th>
+                              <th style="background-color:transparent">
+                                    <input
+                                    class="form-control mr-sm-2"
+                                    type="text"
+                                    placeholder="Cliente..."
+                                    aria-label="Search"
+                                    [(ngModel)]="lisincCliente"
+                                    />
+                                </th>
+                            <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Transacción..."
+                                aria-label="Search"
+                                [(ngModel)]="lisincTransaccion"
+                                />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Asunto..."
+                                aria-label="Search"
+                                [(ngModel)]="lisincAsunto"
+                                />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Decisión..."
+                                aria-label="Search"
+                                [(ngModel)]="lisincDecision"
+                                />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Estatus..."
+                                aria-label="Search"
+                                [(ngModel)]="lisincEstatus"
+                                />
+                            </th>
+                        </tr>
+                        </thead>
                     <tbody>
-                        <tr *ngFor="let item of listincidences ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of listincidences | searchfilter: lisincFecha:lisincCliente:lisincTransaccion:lisincAsunto:lisincDecision:lisincEstatus; let i= index" (click)="onEdit(i)">
                             <td>{{item.date}}</td>
                             <td>{{item.transaction.client.firstName}}</td>
                             <td>{{item.transaction.nameForEmployee}}</td>
@@ -125,7 +159,7 @@
                     <div class="form-group">
                         <label for="tipos">Transacciones</label>
                         <select class="form-control" name="transacciones" [(ngModel)]="listincidence.TransactionId">
-                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id" [selected]="listincidence.TransactionId">
+                            <option *ngFor="let item2 of transacciones" [ngValue]="item2.id">
                                 {{ item2.nameForEmployee }}
                             </option>
                         </select>

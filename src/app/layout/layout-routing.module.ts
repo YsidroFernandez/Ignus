@@ -43,7 +43,7 @@ const routes: Routes = [
             { path: 'visita', loadChildren: './visita/visita.module#VisitaModule' },
             { path: 'citas', loadChildren: './citas/citas.module#CitasModule' },
             { path: 'scheduler', loadChildren: './scheduler/scheduler.module#SchedulerModule' },
-            { path: 'listransactions', loadChildren: './listransactions/listransactions.module#ListransactionsModule'},
+            { path: 'listransactions', loadChildren: './listransactions/listransactions.module#ListransactionsModule',pathMatch: 'full'},
             { path: 'solicitud', loadChildren: './solicitud/solicitud.module#SolicitudModule' },
             { path: 'registrosolicitud', loadChildren: './registrosolicitud/registrosolicitud.module#RegistroSolicitudModule' },
             // cliente

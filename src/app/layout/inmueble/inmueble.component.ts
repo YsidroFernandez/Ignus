@@ -32,7 +32,8 @@ export class InmuebleComponent implements OnInit {
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = "Save";
   selectedRow: number;
-  disabled: boolean;
+  disabled: boolean
+  searchfilter: string;
 
   constructor(
     private modalService: NgbModal,

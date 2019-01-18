@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, Injectable, ViewChild } from '@angular/core';
 import { routerTransition } from '../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 //import { NgbDateFRParserFormatter } from "./ngb-date-fr-parser-formatter"
@@ -6,6 +6,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from '../../providers/global.service';
+import { ModalDirective } from 'ngx-bootstrap';
 
 
 
@@ -19,6 +20,7 @@ import { GlobalService } from '../../providers/global.service';
 
 
 export class RoleComponent implements OnInit {
+    @ViewChild('childModal') childModal: ModalDirective;
     faEdit = faEdit;
     closeResult: string;
     roles: any;
@@ -33,10 +35,11 @@ export class RoleComponent implements OnInit {
     submitType: string = 'Save';
     selectedRow: number;
     disabled: boolean;
+    searchfilter: string;
 
     // It maintains roles form display status. By default it will be false.
     showNew: Boolean = false;
-    
+    items : any = [];
     ngxValue: any = [];
     ngxDisabled = false;
     constructor(private modalService: NgbModal, public globalService: GlobalService) {
@@ -46,8 +49,7 @@ export class RoleComponent implements OnInit {
         this.functions = [];
         this.dataModel = [];
 
-        
-
+  
     }
     public doSelectOptions = (options) => console.log(this.ngxValue, options);
     

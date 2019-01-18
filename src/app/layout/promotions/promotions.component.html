@@ -1,245 +1,184 @@
 <div [@routerTransition]>
-        <app-page-header [heading]="'Promociones'" [icon]="'fa-edit'"></app-page-header>
-        <div class="container">
-          <div class="card-header" style="text-align: -webkit-center;">
-            Promociones Registradas
-          </div>
-          <div style="text-align: end; padding-top: 1%; padding-bottom: 1%">
+  <app-page-header [heading]="'Promociones'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center;">
+      Promociones Registradas
+    </div>
+    <div style="text-align: end; padding-top: 1%; padding-bottom: 1%">
 
-              <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1
-                  ? 'Vista Card ' : 'Vista Tabla'}}</button>
+      <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1
+        ? 'Vista Card ' : 'Vista Tabla'}}</button>
+    </div>
+    <div *ngIf="show1" class="card mb-3">
+      <div class="card mb-3">
+        <div class="row mb-3">
+          <div class="col col-sm-12 text-right">
+            <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+              (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
+                data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
           </div>
-          <div *ngIf="show1" class="card mb-3">
-          <div class="card mb-3">
-            <div class="row mb-3">
-              <div class="col col-sm-4" style="position: relative; top: 15px;">
-                <label
-                  >Mostrar
-                  <select
-                    name="DataTables_Table_0_length"
-                    aria-controls="DataTables_Table_0"
-                    class=""
-                  >
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                  </select>
-                  entradas</label
-                >
-              </div>
-              <div class="col col-sm-4" style="position: relative; top: 15px;">
-                <div class="input-group">
-                  <input
-                    class="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Buscar..."
-                    aria-label="Search"
-                  />
-                  <span class="input-group-btn">
-                    <button
-                      style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
-                    >
-                      <i
-                        style="color: white"
-                        class="fa fa-search"
-                        aria-hidden="true"
-                        data-toggle="tooltip" data-placement="top" title="Buscar" ></i>
+        </div>
+        <div class="card-body  table-responsive">
+          <table class="card-body table table-hover">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th colspan="4">Acciones</th>
+              </tr>
+            </thead>
+            <thead>
+              <tr>
+                <th style="background-color:transparent">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Nombre..." aria-label="Search"
+                    [(ngModel)]="promName" />
+                </th>
+                <th style="background-color:transparent">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Descripción..." aria-label="Search"
+                    [(ngModel)]="promDescripcion" />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of promotions | searchfilter: promName:promDescripcion; let i = index">
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td>
+                  <div class="row ">
+                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
+                      <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Detalle"></i>
                     </button>
-                  </span>
-                </div>
-                
-              </div>
-              <div class="col col-sm-4 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
-              </div>
-            </div>
-            <div class="card-body  table-responsive">
-              <table class="card-body table table-hover">
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th colspan="4">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    *ngFor="let item of promotions; let i = index"
-                  >
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>
-                      <div class="row ">
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="open(content,'show', i)">
-                      <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
-                  </button>
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="open(content,'edit', i)">
-                      <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
-                  </button>
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                      (click)="onDelete(i)">
-                      <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-                  </button>
-                      </div>
-                 </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="row mb-3">
-              <div class="col col-sm-8"></div>
-              <div
-                class="col col-sm-4 text-right"
-                style="position: relative; top: 15px; "
-              >
-                <ngb-pagination
-                  [collectionSize]="70"
-                  [(page)]="defaultPagination"
-                  style="position: relative; right: 100px;"
-                ></ngb-pagination>
-              </div>
-            </div>
-           
-          </div>
-          </div>
-
-          <div *ngIf="!show1" class="card mb-3">
-              <div class="row mb-3">
-                      <div class="col col-sm-4" style="position: relative; top: 15px;">
-                         
-                      </div>
-                      <div class="col col-sm-4" style="position: relative; top: 15px;">
-                          <div class="input-group">
-                              <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                              <span class="input-group-btn">
-                                  <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                          style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
-                              </span>
-                          </div>
-                      </div>
-                      <div class="col col-sm-4 text-right">
-                          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                              (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                      </div>
+                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'edit', i)">
+                      <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Editar"></i>
+                    </button>
+                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
+                      <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Eliminar"></i>
+                    </button>
                   </div>
-                  <hr>
-                  
-                
-          <div class="row">
-
-              <div *ngFor="let item of promotions ; let i= index" class="col-md-12">
-                  <div class="card flex-md-row mb-12 shadow ">
-                      <div class="card-body d-flex flex-column align-items-start">
-                          <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
-
-                          <p class="card-text mb-auto">{{item.description}}</p>
-
-
-                      </div>
-                      <div class="card-body d-flex flex-column align-items-center">
-                          <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x350]" src="{{item.urlImage}}"
-                              style="width: 300px; height: 350px; border-radius: 10%;">
-                          <br>
-                          <div class="row ">
-                              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                  (click)="open(content,'show',i)">
-                                  <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                      data-placement="top" title="Detalle"></i>
-                              </button>
-                              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                  (click)="open(content,'edit',i)">
-                                  <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
-                                      data-placement="top" title="Editar"></i>
-                              </button>
-                              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                  (click)="onDelete(i)">
-                                  <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
-                                      data-placement="top" title="Eliminar"></i>
-                              </button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-
-
-
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row mb-3">
+          <div class="col col-sm-8"></div>
+          <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+            <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
           </div>
-
+        </div>
 
       </div>
-      <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title ">{{modalTitle}}</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
-              <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar" >&times;</span>
-            </button>
-          </div>
-          <fieldset [disabled]="disabled">
-            <div class="card mb-3">
-              <div class="modal-body">
-                <div class="row mb-3">
-                  <div class="col col-sm-6">
-                    <div class="form-group">
-                      <label for="tipos">Nombre</label>
-                      <input
-                        type="text"
-                        [(ngModel)]="promotion.name"
-                        class="form-control"
-                      />
-                    </div>
-                  </div>
-                  <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Descripción</label>
-                          <textarea
-                            type="text"
-                            [(ngModel)]="promotion.description"
-                            class="form-control"
-                          >
-                         </textarea>
-                        </div>
-                      </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                          <img
-                            style="border-radius: 20%" width="300" height="300" [src]="url"/>
-                        </div>
-                      </div>
-                    <div class="col col-sm-6">
-                      <div class="form-group" style="text-align: center">
-                        <input  data-classButton="btn btn-primary" name="file[]" id="file" value="promotion.urlImage" type='file' (change)="onSelectFile($event)" multiple=""/>
-                      </div>
-    
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </fieldset>
-          <div class="modal-footer">
-              <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                      style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                      data-placement="top" title="Cancelar"></i></button>
-              <div *ngIf="submitType!='show'">
-                  <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                      (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
-                          data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
-              </div>
-          </div>
-        </ng-template>
+    </div>
+
+    <div *ngIf="!show1" class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-4" style="position: relative; top: 15px;">
 
         </div>
+        <div class="col col-sm-8 text-right">
+          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+        </div>
       </div>
-      
+      <hr>
+
+
+      <div class="row">
+
+        <div *ngFor="let item of promotions ; let i= index" class="col-md-12">
+          <div class="card flex-md-row mb-12 shadow ">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
+
+              <p class="card-text mb-auto">{{item.description}}</p>
+
+
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+              <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x350]" src="{{item.urlImage}}"
+                style="width: 300px; height: 350px; border-radius: 10%;">
+              <br>
+              <div class="row ">
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show',i)">
+                  <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Detalle"></i>
+                </button>
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'edit',i)">
+                  <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Editar"></i>
+                </button>
+                <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
+                  <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Eliminar"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+    </div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title ">{{modalTitle}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
+        </button>
+      </div>
+      <fieldset [disabled]="disabled">
+        <div class="card mb-3">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="tipos">Nombre</label>
+                  <input type="text" [(ngModel)]="promotion.name" class="form-control" />
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="tipos">Descripción</label>
+                  <textarea type="text" [(ngModel)]="promotion.description" class="form-control">
+                         </textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <img style="border-radius: 20%" width="300" height="300" [src]="url" />
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="form-group" style="text-align: center">
+                  <input data-classButton="btn btn-primary" name="file[]" id="file" value="promotion.urlImage" type='file'
+                    (change)="onSelectFile($event)" multiple="" />
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="modal-footer">
+        <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
+            class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
+        <div *ngIf="submitType!='show'">
+          <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+              style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
+              title="Editar"></i></button>
+        </div>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

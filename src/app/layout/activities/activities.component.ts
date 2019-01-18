@@ -12,6 +12,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 })
 export class ActivitiesComponent implements OnInit {
   closeResult: string;
+  searchfilter: string;
   activities: any;
   activity: any;
   new: any;

@@ -8,13 +8,14 @@ import { ListransactionsComponent } from './listransactions.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PageHeaderModule } from './../../shared';
+import { ListransactionsFilterPipe } from './listransactions-filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule, FontAwesomeModule, PageHeaderModule,
     ListransactionsRoutingModule, NgbModule.forRoot(), FormsModule, ReactiveFormsModule
   ],
-  declarations: [ListransactionsComponent],
+  declarations: [ListransactionsComponent,ListransactionsFilterPipe],
   providers: [
     NgbActiveModal,
   ]

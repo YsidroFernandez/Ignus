@@ -6,27 +6,8 @@
     </div>
     <div class="card mb-3">
       <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label>Mostrar
-            <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            entradas</label>
-        </div>
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group">
-            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search" />
-            <span class="input-group-btn">
-              <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-                <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-        <div class="col col-sm-4 text-right">
+        <div class="col-md-8"></div>
+        <div class="col-md-4 text-right">
           <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
             (click)="open(content, 'create', -1)">
             <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
@@ -44,14 +25,35 @@
               <th colspan="4">Acciones</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Observación..." aria-label="Search"
+                  [(ngModel)]="visObservacion" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
+                  [(ngModel)]="visCliente" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Empleado..." aria-label="Search"
+                  [(ngModel)]="visEmpleado" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Estatus..." aria-label="Search"
+                  [(ngModel)]="visEstatus" />
+              </th>
+            </tr>
+          </thead>
           <tbody>
-            <tr *ngFor="let item of inspections; let i = index">
+            <tr *ngFor="let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } "
+              (click)="onEdit(i) ">
               <td>{{ item.observation }}</td>
               <td>{{ item.client.firstName }}</td>
               <td>{{ item.employee.firstName}}</td>
               <td>{{ item.request.status}}</td>
               <td>
-                <div class="row ">
+                <div class="btn-group" role="group" aria-label="Basic example">
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
                     <i style="color: white" class="fa fa-search" aria-hidden="true"></i>
                   </button>
@@ -62,72 +64,90 @@
                     <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
                   </button>
                   <a [href]="item.urlFileInspection" target="_blank" [download]="item.urlFileInspection">
-                    <i class="fa fa-cloud-download" style="font-size: 25px;color:#1AB394" aria-hidden="true"></i></a>
+                    <i class="fa fa-cloud-download" style="margin-left: 3px; font-size: 25px; color:#1AB394;"
+                      aria-hidden="true"></i></a>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="row mb-3">
-        <div class="col col-sm-8"></div>
-        <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-        </div>
-      </div>
-      <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-          <h4 class="modal-title ">{{ modalTitle }}</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <fieldset [disabled]="disabled">
-          <div class="card mb-3">
-            <div class="modal-body">
-              <div class="row mb-3">
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Observación</label>
-                    <input type="text" [(ngModel)]="inspection.observation" class="form-control" />
-                  </div>
-                </div>
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Solicitud</label>
-                    <select class="form-control" name="gender" [(ngModel)]="inspection.request_id">
-                      <option *ngFor="let res of requests" [ngValue]="res.id" [selected]="inspection.request_id">{{res.nameForClient}}</option>
-                    </select>
-                  </div>
-                </div>
+      <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+        <nav class="text-left" style="position: relative; left: 1.1rem;">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="p.isFirstPage()">
+              <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+              </a>
+            </li>
 
-              </div>
-              <div class="row mb-3">
-                <div class="col col-sm-12">
-                  <div class="form-group" style="text-align: center">
-                    <label for="tipos">Informe</label>
-                    <br>
-                    <input data-classButton="btn btn-primary" name="file" id="file" value="inspection.urlFileInspection" type='file' (change)="onSelectFile($event)" />
-                  </div>
+            <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+              [ngClass]="{'active' : p.getCurrent() === page.value}">
+              <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                {{ page.label }} </a>
+              <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+            </li>
 
-                </div>
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <div class="modal-footer">
-          <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')">
-            <i style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-              title="Cancelar"></i>
-          </button>
-          <div *ngIf="submitType != 'show'">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
-              <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-                title="Editar"></i>
-            </button>
-          </div>
-        </div>
-      </ng-template>
+            <li class="page-item" [class.disabled]="p.isLastPage()">
+              <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+            </li>
+          </ul>
+        </nav>
+      </pagination-template>
     </div>
   </div>
 </div>
+
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title ">{{ modalTitle }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <fieldset [disabled]="disabled">
+    <div class="card mb-3">
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Observación</label>
+              <input type="text" [(ngModel)]="inspection.observation" class="form-control" />
+            </div>
+          </div>
+          <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Solicitud</label>
+              <select class="form-control" name="gender" [(ngModel)]="inspection.request_id">
+                <option *ngFor="let res of requests" [ngValue]="res.id" [selected]="inspection.request_id">{{res.nameForClient}}</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+        <div class="row mb-3">
+          <div class="col col-sm-12">
+            <div class="form-group" style="text-align: center">
+              <label for="tipos">Informe</label>
+              <br>
+              <input data-classButton="btn btn-primary" name="file" id="file" value="inspection.urlFileInspection" type='file'
+                (change)="onSelectFile($event)" />
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="modal-footer">
+    <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')">
+      <i style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i>
+    </button>
+    <div *ngIf="submitType != 'show'">
+      <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+        <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+          title="Editar"></i>
+      </button>
+    </div>
+  </div>
+</ng-template>
