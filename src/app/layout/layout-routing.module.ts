@@ -30,8 +30,8 @@ const routes: Routes = [
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
             { path: 'activitiesCollections', loadChildren: './activitiesCollections/activitiesCollections.module#ActivitiesCollectionsModule' },
-
             { path: 'activitiesEmployee', loadChildren: './activitiesCollectionsEmployee/activitiesCollectionsEmployee.module#ActivitiesCollectionsEmployeeModule' },
+            { path: 'publicacion', loadChildren: './publications/publications.module#PublicationsModule' },
             //{ path: 'activitiesEmployee/:id', loadChildren: './activitiesCollectionsEmployee/activitiesCollectionsEmployee.module#ActivitiesCollectionsEmployeeModule' },
             { path: 'services', loadChildren: './services/services.module#ServicesModule' },
             { path: 'contrato', loadChildren: './contrato/contrato.module#ContratoModule' },

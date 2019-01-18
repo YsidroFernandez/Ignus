@@ -172,12 +172,21 @@ background-color:#1FB5AD;
             display: block;
             list-style-type: none;
             height: auto;
+
             li {
                 a {
                     color: grey;
                     padding: 20px;
                     display: block;
                 }
+            a:hover {
+            background: #878787;
+            color: #f8f9fa;
+            }
+            a.router-link-active {
+            background: #878787;
+            color: #f8f9fa;
+        }
             }
         }
     }

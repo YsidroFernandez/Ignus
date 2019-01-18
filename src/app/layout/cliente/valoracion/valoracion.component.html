@@ -3,57 +3,48 @@
 	<app-page-header [heading]="'Valoracion'" [icon]="'fa-edit'"></app-page-header>
 
 	<div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
+
 	<div class="card mb-3">
-			<div class="row mb-3">
-					
-	           <div class="container">
+		<div class="row mb-3">
 
+			<table>
+			 	<thead>
+			 		<tr>
+			 			<th>DESCRIPCION</th>
+			 			<th>Excelente</th>
+			 			<th>Buena</th>
+			 			<th>Media</th>
+			 			<th>Suficiente</th>
+			 			<th>Insuficiente</th>
+			 		</tr>
+			 	</thead>
+			 	<tbody *ngFor="let item of valorations; let i=index">
+			 		<td><label class="ng-tns-c12-9" style="margin-left: 10px;" >{{ item.name }}</label></td>
 
-	     	<div class="row mb-3" *ngFor="let item of valorations; let i=index">
-		   	<div class="col col-sm-6">
-				<label class="ng-tns-c12-9" style="margin-left: 10px;" >{{item.name}}</label>	
-			  </div>
-			 <form>
-					<fieldset>
-						<div>
-							<input type="radio" id="contactChoice1"
-							 name="contact" value="">
-							<label for="contactChoice1">Excelente</label>
-				
-							<input  style="margin-left: 10px;" type="radio" id="contactChoice2"
-							 name="contact" value="">
-							<label for="contactChoice2">Buena</label>
-				
-							<input  style="margin-left: 10px;" type="radio" id="contactChoice3"
-							 name="contact" value="">
-							<label for="contactChoice3">Media</label>
-
-							<input  style="margin-left: 10px;" type="radio" id="contactChoice3"
-							 name="contact" value="">
-							<label for="contactChoice3">Suficiente</label>
+			 		<td><input style="margin-left: 10px;" type="radio" id="contactChoice1" name="contact" value=""></td>
 							
-							<input   style="margin-left: 10px;" type="radio" id="contactChoice3"
-							 name="contact" value="">
-							<label for="contactChoice3">Insuficiente</label>
-						</div>
-					</fieldset>
-				</form>
-		
-
-
-
+					<td><input  style="margin-left: 10px;" type="radio" id="contactChoice2" name="contact" value=""></td>
+									
+					<td><input  style="margin-left: 10px;" type="radio" id="contactChoice3" name="contact" value=""></td>
+					
+					<td><input  style="margin-left: 10px;" type="radio" id="contactChoice3" name="contact" value=""></td>												
+					<td><input   style="margin-left: 10px;" type="radio" id="contactChoice3" name="contact" value=""></td>
+			 	</tbody>
+			 </table>
+		</div>
 	</div>
+
 	<div class="row mb-3">
 		<div class="col col-sm-12">
 			<div>
 				<div class="row">
 					<div class="col-6">
-						<button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">Enviar
-							Calificacion</button>
+						<button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()"> Enviar	Calificacion
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
 </div>
