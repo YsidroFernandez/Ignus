@@ -63,15 +63,26 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allTransaction();
-   /* this.getTransactionById(this.route.snapshot.params.id);
-     this.id_transaction = this.route.snapshot.paramMap.get('id');
-     this.route.queryParamMap.subscribe(queryParams => {
-      this.id_transaction= queryParams.get("id")
-     }
-    );
-   console.log(this.route.snapshot.params.id);
-   this.transactionId = this.route.snapshot.params.id; */
+    this.transaction_id = JSON.parse(localStorage.id_transaction); //si en local storage esta el id de la transaccion
+    console.log(localStorage.name_agent)
+    console.log(name);
+    
+    console.log(this.transaction_id);
+    if (this.transaction_id != null)
+    {
+      localStorage.setItem("id_transaction", null);
+      this.getTransactionById(this.transaction_id);
+    }
+     
+    else{
+     
+      this.transaction_id = JSON.parse(localStorage.user).id;
+      this.allTransaction();
+    } 
+
+
+    
+    
 
   }
 
@@ -84,7 +95,7 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
     this.childModal.hide();
   }
 
-  allTransaction() {
+  allTransaction() {//todas las transacciones se ejecuta siempre y cuando no se solicite que las transaccion sea por id
 
     this.globalService.getModel_Id(this.user, '/api/employee/transaction')
       .then((result) => {
@@ -96,22 +107,22 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
       });
   }
 
- /* getTransactionById(id) {
-
+ getTransactionById(id) { //funcion de transacciones por id
+  this.calendar = true;
     console.log(id);
 
-    if(this.transactionId){
-    this.globalService.getModel_Id(id, '/api/employee/transaction')
+    if(id){
+    this.globalService.getModel_Id(id, '/api/transaction')
       .then((result) => {
         if(result['status']){
-        //this.transactions = [];
-        this.transactions = result['data'];
-        console.log(this.transactions);
+        this.transaction = [];
+        this.transaction = result['data'];
+        console.log(this.transaction);
       }}, (err) => {
         console.log(err);
       });}
   }
-*/
+
   //this method associate to reload states
   dataChanged($event) {
     console.log($event.target.value);

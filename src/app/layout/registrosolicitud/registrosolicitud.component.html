@@ -9,6 +9,7 @@
                             <div class="col-md-6">
                                 <label>Tipo de Servicio</label>
                                 <select class="form-control" [disabled]="lock" name="typeservice" id="typeservice" [(ngModel)]="solicitud.TypeServiceId" (change)="changeservice()">
+                                        <!-- <option selected [value]="">Seleccione...</option> -->
                                     <option *ngFor="let type of typeService" [value]="type.id">{{type.name}}</option>
                                 </select>
                             </div>
@@ -143,7 +144,7 @@
                         <div class="col-md-6" style="text-align: center; margin-top: 40px;">
                             <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
                                 (click)="limpiar()">Limpiar</button>
-                                <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
+                                <button type="button" class="btn btn-outline-secondary" style="margin-left: 30px; background: #1AB394; color: white; padding-right: 18px;"
                                 (click)="siguiente()">Siguiente</button>
                         </div>
             </div>
@@ -215,7 +216,7 @@
                             
                             <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
                                 (click)="anterior()">Anterior</button>
-                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
+                            <button type="button" class="btn btn-outline-secondary" style="margin-left: 30px; background: #1AB394; color: white; padding-right: 18px;"
                                 (click)="enviar()">Enviar</button>
                         </div>
                     </div>
