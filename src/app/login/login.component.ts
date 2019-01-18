@@ -54,6 +54,7 @@ export class LoginComponent {
         console.log( this.logo);
         console.log( this.name);
       }
+    
     }, (err) => {
       console.log(err);
     });

@@ -9,6 +9,9 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { TransactionRoutingModule } from '../transactions/transaction-rounting.module';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+
 @Component({
     selector: 'app-reserva',
     templateUrl: './reserva.component.html',
@@ -18,8 +21,7 @@ import { faTimesCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 })
 export class ReservaComponent {
     datosUser: any;
-    transactions: any;
-    tailtransactions: any;
+    pendingtransactions: any;
     transaction: any;
     url: string;
     closeResult: string;
@@ -36,7 +38,7 @@ export class ReservaComponent {
     showNew: any;
     public numbPage: number;
     public numPage: number;
-    public listTransacciones: any;
+    public listtransactions: any;
     faEye = faEye;
     faEdit = faEdit;
     faTrash = faTrash;
@@ -49,15 +51,15 @@ export class ReservaComponent {
     constructor(
         public globalService: GlobalService,
         private modalService: NgbModal,
-        private globals: GlobalsProvider) {
-        this.transactions = [];
-        this.tailtransactions = [];
+        private globals: GlobalsProvider,
+        private coolDialogs: NgxCoolDialogsService) {
+        this.listtransactions = [];
+        this.pendingtransactions = [];
 
         this.getUserData();
         this.getListTransactions();
-        this.getTailTransactions()
-        this.otro();
-
+        this.getPendingTransactions()
+       // this.otro();
 
     }
 
@@ -80,23 +82,22 @@ export class ReservaComponent {
     getListTransactions() {
         let obj = JSON.parse(localStorage.getItem('user'))
         //this.globalService.getModel("/api/transaction/?status=D&userId"+obj.id).then(
-        this.globalService.getModel("/api/transaction/?userId" + obj.id).then(
+        this.globalService.getModel(`/api/transaction?status=R&userId=${obj.id}&offeringProperty=true`).then(
             (result) => {
-                this.transactions = result["data"];
-                console.log(this.transactions);
+                this.listtransactions = result["data"];
+                console.log(this.listtransactions);
             },
             (err) => {
                 console.log(err);
             });
     }
 
-    getTailTransactions() {
+    getPendingTransactions() {
         let obj = JSON.parse(localStorage.getItem('user'))
-        //this.globalService.getModel("/api/transaction/?status=D&userId"+obj.id).then(
-        this.globalService.getModel("/api/transaction/?userId" + obj.id).then(
+        this.globalService.getModel(`/api/transaction?status=D&userId=${obj.id}&offeringProperty=true`).then(
             (result) => {
-                this.tailtransactions = result["data"];
-                console.log(this.tailtransactions);
+                this.pendingtransactions = result["data"];
+                console.log(this.pendingtransactions);
             },
             (err) => {
                 console.log(err);
@@ -115,7 +116,7 @@ export class ReservaComponent {
                     if (result['status']) {
                         //Para que actualice la lista una vez que es creado el service
                         this.getListTransactions();
-                        this.getTailTransactions();
+                        this.getPendingTransactions();
                     }
                 }, (err) => {
                     console.log(err);
@@ -127,7 +128,7 @@ export class ReservaComponent {
                     if (result['status']) {
                         //Para que actualice la lista una vez que es editado el service
                         this.getListTransactions();
-                        this.getTailTransactions();
+                        this.getPendingTransactions();
                     }
 
                 }, (err) => {
@@ -137,20 +138,20 @@ export class ReservaComponent {
         }
     }
 
-    otro() {//esto debería sacar los datos que van para el modal y no lo está haciendo
-        this.numPage = this.globals.numPage;
-        this.numbPage = this.globals.numPage;
-        console.log("num", this.numPage);
-        let id = (JSON.parse(localStorage.getItem('user'))).id;//antes de aca, necesito es un selectedTransaction
-        this.globalService.getModel('/api/employee/transaction/' + id)
-            .then(res => {
-                this.listTransacciones = res['data'];
-                console.log("Las transacciones:", this.listTransacciones);
-            },
-                error => {
-                    console.log(error);
-                })
-    }
+    // otro() {//esto debería sacar los datos que van para el modal y no lo está haciendo
+    //     this.numPage = this.globals.numPage;
+    //     this.numbPage = this.globals.numPage;
+    //     console.log("num", this.numPage);
+    //     let id = (JSON.parse(localStorage.getItem('user'))).id;//antes de aca, necesito es un selectedTransaction
+    //     this.globalService.getModel('/api/employee/transaction/' + id)
+    //         .then(res => {
+    //             this.listtransactions = res['data'];
+    //             console.log("Las transacciones:", this.listtransactions);
+    //         },
+    //             error => {
+    //                 console.log(error);
+    //             })
+    // }
 
     getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
@@ -204,21 +205,35 @@ export class ReservaComponent {
 
     // This method associate to Delete Button.
     cancelar(index: number) {
-        console.log('eliminando');
         this.selectedRow = index;
-        this.transaction = Object.assign({}, this.transaction[this.selectedRow]);
+        console.log(this.listtransactions)
+        this.transaction = Object.assign({}, this.listtransactions[this.selectedRow]);
+        console.log(this.transaction)
+        
         this.showNew = true;
         //Pendiente
-        if (confirm('¿Estas seguro de eliminar esta reservacion y habilitar de nuevo el inmueble?')) {
-            /*    this.globalService.updateModel(this.transaction.id, "/api/employee/transaction/")
-                    .then((result) => {
-                        console.log(result);
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es eliminado la specification
-                            this.getListspecifications()
-                        }
-        */
+        
+    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+    .subscribe(res => {
+        if (res) {
+            console.log(res);
+            this.globalService.updateModel(this.transaction.id, {}, "/api/transaction/removeReserve")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es eliminado el service
+                       this.getListTransactions();
+                       this.getPendingTransactions();
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+        } else {
+            console.log('You clicked Cancel. You smart.');
         }
+    });
+
     }
 
 
@@ -226,21 +241,35 @@ export class ReservaComponent {
 
     aceptar(index: number) {
 
-        console.log("aceptar")
+        
         this.selectedRow = index;
-        this.transaction = Object.assign({}, this.transaction[this.selectedRow]);
+        this.transaction = Object.assign({}, this.pendingtransactions[this.selectedRow]);
+        console.log(this.transaction)
+        console.log(this.transaction.id)
         this.showNew = true;
         //Pendiente
-        if (confirm('¿Estas seguro de eliminar esta reservacion y habilitar de nuevo el inmueble?')) {
-            /*    this.globalService.updateModel(this.transaction.id, "/api/employee/transaction/")
-                    .then((result) => {
-                        console.log(result);
-                        if (result['status']) {
-                            //Para que actualice la lista una vez que es eliminado la specification
-                            this.getListspecifications()
-                        }
-        */
+        
+    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+    .subscribe(res => {
+        if (res) {
+            console.log(res);
+            this.globalService.updateModel(this.transaction.id, {}, "/api/transaction/reserve")
+                .then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        //Para que actualice la lista una vez que es eliminado el service
+                       this.getListTransactions();
+                       this.getPendingTransactions();
+                    }
+
+                }, (err) => {
+                    console.log(err);
+                });
+        } else {
+            console.log('You clicked Cancel. You smart.');
         }
+    });
+
     }
 
     // This method associate toCancel Button.
