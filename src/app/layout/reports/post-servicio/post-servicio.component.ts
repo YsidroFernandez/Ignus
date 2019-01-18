@@ -9,15 +9,18 @@ import { BsDatepickerConfig  } from 'ngx-bootstrap/datepicker';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as querystring from 'querystring';
+import { GlobalsProvider } from '../../../shared';
 @Component({
     selector: 'app-post-servicio',
     templateUrl: './post-servicio.component.html',
     styleUrls: ['./post-servicio.component.scss'],
-    animations: [routerTransition()]
+    animations: [routerTransition()],
+    providers: [GlobalsProvider]
 
 })
 export class PostServicioComponent implements OnInit {
-
+    public numPage: number;
+    public pages = 1;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
@@ -43,9 +46,111 @@ export class PostServicioComponent implements OnInit {
         description: '',
         typeSpecifications: [],
     };
+    public datos: any = [
+        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },        {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+    {
+        nombre: 'Jorge',
+        apellido: 'Chiquin',
+        sexo: 'Masculino',
+        fecha: '03-Mayo-2018'
+    },
+];
     public chart: any;
     logoURL: string = ""
-    constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+    constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService,private globals: GlobalsProvider) {
         let now = moment().format();
         console.log('hello world', this.tipos);        
     }
@@ -54,6 +159,7 @@ export class PostServicioComponent implements OnInit {
         this.allStates();
         this.allAgency();
         this.getLogo();
+        this.numPage = this.globals.numPage; 
     }
     convertImgToBase64URL(url, callback){
         var img = new Image();
@@ -121,11 +227,10 @@ export class PostServicioComponent implements OnInit {
             doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
             heightLeft -= pageHeight;
           }
-          position = (heightLeft - imgHeight);
-          doc.setFontSize(10)
-          doc.text(78, imgHeight+10 , 'SubTotal:'+" "+'25')
-          doc.setFontSize(10)
-          doc.text(78, imgHeight+15 , 'Total:'+" "+'50')
+        //   doc.setFontSize(10)
+        //   doc.text(78, pageHeight+10 , 'SubTotal:'+" "+'25')
+        //   doc.setFontSize(10)
+        //   doc.text(78, pageHeight+15 , 'Total:'+" "+'50')
           
  
           doc.save("Reporte-Clientes.pdf") 
