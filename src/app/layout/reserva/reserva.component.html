@@ -54,7 +54,7 @@
                                             </tr>
                                           </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of listtransactions | searchfilter: resTrans:resInmueble:resFecha; let i=index">
+                                        <tr *ngFor="let i=index ; let item of listtransactions | searchfilter: resTrans:resInmueble:resFecha">
                                             <td>{{ item.nameForEmployee}}</td>
                                             <td>{{ item.property.nameDisplay}}</td>
                                             <td>{{ item.request.requestDate}}</td>
@@ -176,28 +176,7 @@
                                 <input type="text" [(ngModel)]="transaction.nameForEmployee" class="form-control" />
                             </div>
                         </div>
-                        <div class="col col-sm-12 col-md-6">
-                            <div class="form-group">
-                                <label for="tipos">Propiedad</label>
-                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
                             </div>
-                        </div>
-                        <div class="col col-sm-12 col-md-6">
-                            <div class="form-group">
-                                <label for="tipos"> Ubicación </label>
-                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="col col-sm-12 col-md-6">
-                            <div class="form-group">
-                                <label for="tipos">Ubicación</label>
-                                <select class="form-control" name="typeinput" id="typeinput" [(ngModel)]="transaction.property.ubication">
-                                    <option *ngFor="let type of typeinputs" [value]="type.id">{{type.name}}</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        </div>
                     </div>
 
                 </div>

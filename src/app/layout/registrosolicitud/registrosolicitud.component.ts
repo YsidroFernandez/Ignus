@@ -348,7 +348,7 @@ export class RegistroSolicitudComponent implements OnInit {
         this.nuevo = {
             ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
             EmployeeId: Number.parseInt(this.solicitud.employeeId),
-            PropertyId: Number.parseInt(this.solicitud.propertyId)
+            PropertyId: Number.parseInt(this.solicitud.propertyId),
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
             typeProperty: Number.parseInt(this.solicitud.typeProperty),
