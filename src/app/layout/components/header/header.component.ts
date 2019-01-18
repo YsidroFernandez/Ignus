@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
    
-    // this.getCantNewNotifications();
+     this.getCantNewNotifications();
   }
 
 

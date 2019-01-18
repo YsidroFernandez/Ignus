@@ -22,39 +22,9 @@
                                             <th colspan="4">Acciones</th>
                                         </tr>
                                     </thead>
-                                    <thead>
-                                            <tr>
-                                              <th style="background-color:transparent">
-                                                <input
-                                                class="form-control mr-sm-2"
-                                                type="text"
-                                                placeholder="Transacción..."
-                                                aria-label="Search"
-                                                [(ngModel)]="resTrans"
-                                                />
-                                              </th>
-                                              <th style="background-color:transparent">
-                                                <input
-                                                class="form-control mr-sm-2"
-                                                type="text"
-                                                placeholder="Inmueble..."
-                                                aria-label="Search"
-                                                [(ngModel)]="resInmueble"
-                                                />
-                                              </th>
-                                              <th style="background-color:transparent">
-                                                <input
-                                                class="form-control mr-sm-2"
-                                                type="text"
-                                                placeholder="Fecha..."
-                                                aria-label="Search"
-                                                [(ngModel)]="resFecha"
-                                                />
-                                              </th>
-                                            </tr>
-                                          </thead>
+                                    
                                     <tbody>
-                                        <tr *ngFor="let i=index ; let item of listtransactions | searchfilter: resTrans:resInmueble:resFecha">
+                                        <tr *ngFor="let i=index ; let item of listtransactions">
                                             <td>{{ item.nameForEmployee}}</td>
                                             <td>{{ item.property.nameDisplay}}</td>
                                             <td>{{ item.request.requestDate}}</td>
@@ -93,39 +63,9 @@
                                                     <th colspan="2">Acciones</th>
                                                 </tr>
                                             </thead>
-                                            <thead>
-                                                    <tr>
-                                                      <th style="background-color:transparent">
-                                                        <input
-                                                        class="form-control mr-sm-2"
-                                                        type="text"
-                                                        placeholder="Transacción..."
-                                                        aria-label="Search"
-                                                        [(ngModel)]="resTranspro"
-                                                        />
-                                                      </th>
-                                                      <th style="background-color:transparent">
-                                                            <input
-                                                            class="form-control mr-sm-2"
-                                                            type="text"
-                                                            placeholder="Inmueble..."
-                                                            aria-label="Search"
-                                                            [(ngModel)]="resInmpro"
-                                                            />
-                                                          </th>
-                                                      <th style="background-color:transparent">
-                                                        <input
-                                                        class="form-control mr-sm-2"
-                                                        type="text"
-                                                        placeholder="Fecha..."
-                                                        aria-label="Search"
-                                                        [(ngModel)]="resFechapro"
-                                                        />
-                                                      </th>
-                                                    </tr>
-                                                  </thead>
+                                            
                                             <tbody>
-                                                <tr *ngFor="let item of pendingtransactions | searchfilter: resTranspro:resInmpro:resFechapro ; let i=index">
+                                                <tr *ngFor="let item of pendingtransactions; let i=index">
                                                     <td>{{ item.nameForEmployee}}</td>
                                                     <td>{{ item.property.nameDisplay}}</td>
                                                     <td>{{ item.request.requestDate}}</td>
