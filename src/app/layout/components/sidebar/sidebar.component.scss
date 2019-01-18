@@ -37,12 +37,12 @@ $topnav-background-color: white;
             }
         }
         a:hover {
-            background: darken($topnav-background-color, 10%);
-            color: black;
+            background: #878787;
+            color: #f8f9fa;
         }
         a.router-link-active {
-            background: darken($topnav-background-color, 10%);
-            color:black;
+            background: #878787;
+            color: #f8f9fa;
         }
         .header-fields {
             padding-top: 10px;
@@ -99,7 +99,7 @@ $topnav-background-color: white;
                     }
                 }
                 .list-group-item:hover {
-                    background: darken($topnav-background-color, 10%);
+                    background: darken($topnav-background-color, 40%);
                 }
             }
         }
