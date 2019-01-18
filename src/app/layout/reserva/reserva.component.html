@@ -9,7 +9,7 @@
             <div class="card-body mb-3">
 
                 <tabset #tabset>
-                    <tab heading="Procesadas" id="first">
+                    <tab heading="Reservadas" id="first" >
                         <div class="row">
                             <div class="col-12 col-md-7 col-sm-7" style="position: relative; top: 15px;">
                                 <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
@@ -44,7 +44,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of transactions; let i=index">
+                                        <tr *ngFor="let item of listtransactions; let i=index">
                                             <td>{{ item.nameForEmployee}}</td>
                                             <td>{{ item.property.nameDisplay}}</td>
                                             <td>{{ item.request.requestDate}}</td>
@@ -104,7 +104,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let item of tailtransactions; let i=index">
+                                                <tr *ngFor="let item of pendingtransactions; let i=index">
                                                     <td>{{ item.nameForEmployee}}</td>
                                                     <td>{{ item.property.nameDisplay}}</td>
                                                     <td>{{ item.request.requestDate}}</td>

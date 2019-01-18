@@ -17,7 +17,7 @@ import { GlobalService } from '../../../providers/global.service';
 export class PerfilComponent {
 
     closeResult: string;
-    perfil: any;
+    perfil: any = {user: {username:"",id:''},person: {firstName: ""}}
     perfiles: any;
     nuevo: any;
     requirements:any;
@@ -65,7 +65,9 @@ this.loadtypeproperties();
     this.globalService.getModel("/api/typeService").then((result) => {
         if (result['status']) {
             //Para que actualice la lista
-            this.typeservice = result['data'];
+            
+            this.typeservices = result['data'];
+            console.log(this.typeservices)
         }
     }, (err) => {
         console.log(err);
@@ -85,7 +87,6 @@ this.loadtypeproperties();
     
 }
 loadclient(){
-
     const userId = JSON.parse(localStorage.user).id;
   this.globalService.getModel_Id(userId, '/api/client')
   .then((result) => {
@@ -156,7 +157,7 @@ limpiar(){
     state: "",
     parish: "",
     municipality: "",
-
+    user: {}
   }
 }
 

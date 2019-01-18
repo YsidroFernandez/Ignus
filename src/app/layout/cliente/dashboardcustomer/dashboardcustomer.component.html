@@ -1,16 +1,6 @@
-<div style="margin-top: 15px;" class="row">
-  <div class="col-12 col-md-12 col-sm-12 mb-12">
-    <div class="form-group team-member mb-3">
-      <div align="center" *ngIf="usuario"><img class="mx-auto rounded-circle" [routerLink]="['/perfil']" [routerLinkActive]="['router-link-active']" src="{{user.urlAvatar}}" title="Editar Perfil" width="150px" alt="">
-          <div class="clearfix" align="center">{{usuario.person.firstName}} {{usuario.person.lastName}} </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!--Transacciones-->
 <div class="row">
-
+ <div class="col-12 col-md-6">
   <div class="container">
     <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
       Transacciones
@@ -40,6 +30,7 @@
           </div>
         </div>
       </div>
+     
       <div class="card-body  table-responsive">
       <table class="card-body table table-hover">
           <thead>
@@ -66,24 +57,15 @@
           </tbody>
         </table>
       </div>
-
-      <div class="row mb-3">
-        <div class="col col-sm-8">
-          <!--esta columna está vacia-->
-        </div>
-        <!--<div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-        </div>-->
-      </div>
-    </div>
+    
   </div>
 </div>
-
+</div>
 
 
 <br>
 <!--Solicitudes-->
-<div class="row">
+<div class="col-12 col-md-6">
 
   <div class="container">
     <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
@@ -153,7 +135,7 @@
   </div>
 </div>
 <!--Fin Solicitudes-->
-
+</div>
 <!--Modal de transacciones-->
 <ng-template #modalTransacion let-c="close" let-d="dismiss">
    <div class="modal-header">
