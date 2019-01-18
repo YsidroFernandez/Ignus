@@ -4,7 +4,7 @@ import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -50,7 +50,7 @@ export class EmployeeComponent implements OnInit {
     ];
 
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService, public router: Router) {
       this.employes = [];
       this.employee = [];
       this.new = [];
@@ -196,6 +196,15 @@ private getDismissReason(reason: any): string {
     }
 }
 
+onTransaction(index){
+    this.selectedRow = index;
+    let user;
+    user = Object.assign({}, this.employes[this.selectedRow].person);
+    console.log(user);
+    localStorage.setItem('id_transaction',user.userId);
+    localStorage.setItem('name_agent',user.firstName)
+    this.router.navigate(['/listransactions']);
+}
 
 // This method associate to Delete Button.
 onDelete(index: number) {

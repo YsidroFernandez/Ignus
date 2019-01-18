@@ -5,19 +5,19 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class VisitaFilterPipe implements PipeTransform {
-    transform(items: any[], visCodigo: string, visCliente: string, visEvaluador: string, visEstado: string) {
+    transform(items: any[], visObservacion: string, visCliente: string, visEmpleado: string, visEstatus: string) {
       if (items && items.length){
         return items.filter(item =>{
-            if (visCodigo && item.client.firstName.toLowerCase().indexOf(visCodigo.toLowerCase()) === -1){
+            if (visObservacion && item.observation.toLowerCase().indexOf(visObservacion.toLowerCase()) === -1){
                 return false;
             }
-            if (visCliente && item.client.lastName.toLowerCase().indexOf(visCliente.toLowerCase()) === -1){
+            if (visCliente && item.client.firstName.toLowerCase().indexOf(visCliente.toLowerCase()) === -1){
                 return false;
             }
-            if (visEvaluador && item.client.identification.toLowerCase().indexOf(visEvaluador.toLowerCase()) === -1){
+            if (visEmpleado && item.employee.firstName.toLowerCase().indexOf(visEmpleado.toLowerCase()) === -1){
                 return false;
             }
-            if (visEstado && item.typeService.name.toLowerCase().indexOf(visEstado.toLowerCase()) === -1){
+            if (visEstatus && item.request.status.toLowerCase().indexOf(visEstatus.toLowerCase()) === -1){
                 return false;
             }
             return true;

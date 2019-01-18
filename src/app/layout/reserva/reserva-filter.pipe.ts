@@ -5,19 +5,25 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class ReservaFilterPipe implements PipeTransform {
-    transform(items: any[], resDate: string, resInmueble: string, resCliente: string, resEstatus: string) {
+    transform(items: any[], resTrans: string, resInmueble: string, resFecha: string, resTranspro: string, resInmueblepro: string, resFechapro: string) {
       if (items && items.length){
         return items.filter(item =>{
-            if (resDate && item.status.toLowerCase().indexOf(resDate.toLowerCase()) === -1){
+            if (resTrans && item.nameForEmployee.toLowerCase().indexOf(resTrans.toLowerCase()) === -1){
                 return false;
             }
-            if (resInmueble && item.nameForClient.toLowerCase().indexOf(resInmueble.toLowerCase()) === -1){
+            if (resInmueble && item.property.nameDisplay.toLowerCase().indexOf(resInmueble.toLowerCase()) === -1){
                 return false;
             }
-            if (resCliente && item.nameForEmployee.toLowerCase().indexOf(resCliente.toLowerCase()) === -1){
+            if (resFecha && item.request.requestDate.toLowerCase().indexOf(resFecha.toLowerCase()) === -1){
                 return false;
             }
-            if (resEstatus && item.Status.toLowerCase().indexOf(resEstatus.toLowerCase()) === -1){
+            if (resTranspro && item.nameForEmployee.toLowerCase().indexOf(resTranspro.toLowerCase()) === -1){
+                return false;
+            }
+            if (resInmueblepro && item.property.nameDisplay.toLowerCase().indexOf(resInmueblepro.toLowerCase()) === -1){
+                return false;
+            }
+            if (resFechapro && item.request.requestDate.toLowerCase().indexOf(resFechapro.toLowerCase()) === -1){
                 return false;
             }
             return true;

@@ -28,25 +28,25 @@
           <thead>
             <tr>
               <th style="background-color:transparent">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Codigo..." aria-label="Search"
-                  [(ngModel)]="visCodigo" />
+                <input class="form-control mr-sm-2" type="text" placeholder="Observación..." aria-label="Search"
+                  [(ngModel)]="visObservacion" />
               </th>
               <th style="background-color:transparent">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Cliente..." aria-label="Search"
+                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
                   [(ngModel)]="visCliente" />
               </th>
               <th style="background-color:transparent">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Evaluador..." aria-label="Search"
-                  [(ngModel)]="visEvaluador" />
+                <input class="form-control mr-sm-2" type="text" placeholder="Empleado..." aria-label="Search"
+                  [(ngModel)]="visEmpleado" />
               </th>
               <th style="background-color:transparent">
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar por Estado..." aria-label="Search"
-                  [(ngModel)]="visEstado" />
+                <input class="form-control mr-sm-2" type="text" placeholder="Estatus..." aria-label="Search"
+                  [(ngModel)]="visEstatus" />
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of inspections | searchfilter: visCodigo:visCliente:visEvaluador:visEstado | paginate: { itemsPerPage: numPage, currentPage: pages } "
+            <tr *ngFor="let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } "
               (click)="onEdit(i) ">
               <td>{{ item.observation }}</td>
               <td>{{ item.client.firstName }}</td>

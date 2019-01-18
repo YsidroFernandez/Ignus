@@ -99,6 +99,18 @@
                   <button
                     type="button"
                     style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="onTransaction(i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-exchange"
+                      aria-hidden="true"
+                      data-toggle="tooltip" data-placement="top" title="Transaciones" ></i>
+                  </button>
+                 
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
                     (click)="onDelete(i)"
                   >
                     <i
