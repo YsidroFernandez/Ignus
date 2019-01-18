@@ -8,6 +8,7 @@ import { ActivitiesRoutingModule } from './activities-routing.module';
 import { ActivitiesComponent } from './activities.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivitiesFilterPipe } from './activities-filter.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       })
     ], 
 
-  declarations: [ActivitiesComponent],
+  declarations: [ActivitiesComponent,ActivitiesFilterPipe],
     providers: [
     NgbActiveModal,
   ]

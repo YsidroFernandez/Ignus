@@ -6,6 +6,7 @@ import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContactFilterPipe } from './contact-filter.pipe';
 
 
 @NgModule({
@@ -15,6 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
    // PageHeaderModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [ContactComponent]
+  declarations: [ContactComponent,ContactFilterPipe]
 })
 export class ContactModule { }

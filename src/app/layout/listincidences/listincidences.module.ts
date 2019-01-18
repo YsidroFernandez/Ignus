@@ -8,13 +8,14 @@ import { ListIncidencesComponent } from './listincidences.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PageHeaderModule } from './../../shared';
+import { LisincidencesFilterPipe } from './listincidences-filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule, FontAwesomeModule, PageHeaderModule,
     ListIncidencesRoutingModule, NgbModule.forRoot(),FormsModule, ReactiveFormsModule
   ],
-  declarations: [ListIncidencesComponent],
+  declarations: [ListIncidencesComponent,LisincidencesFilterPipe],
   providers: [
     NgbActiveModal,
   ]

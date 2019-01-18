@@ -8,13 +8,14 @@ import { ListSugerenciasComponent } from './listsugerencias.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PageHeaderModule } from './../../shared';
+import { LissegerenciasFilterPipe } from './listsugerencias-filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule, FontAwesomeModule, PageHeaderModule,
     ListSugerenciasRoutingModule, NgbModule.forRoot(),FormsModule, ReactiveFormsModule
   ],
-  declarations: [ListSugerenciasComponent],
+  declarations: [ListSugerenciasComponent,LissegerenciasFilterPipe],
   providers: [
     NgbActiveModal,
   ]

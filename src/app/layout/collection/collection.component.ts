@@ -18,6 +18,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 })
 export class CollectionComponent implements OnInit {
   closeResult: string;
+  searchfilter: string;
   collections: any;
   collection: any;
   new: any;

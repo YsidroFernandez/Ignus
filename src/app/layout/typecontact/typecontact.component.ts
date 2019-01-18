@@ -17,6 +17,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 })
 export class TypeContactComponent implements OnInit {
   closeResult: string;
+  searchfilter: string;
   contacts: any;
   contact: any;
   new: any;

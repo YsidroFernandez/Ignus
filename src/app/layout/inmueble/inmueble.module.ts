@@ -7,6 +7,7 @@ import { PageHeaderModule } from './../../shared';
 import { InmuebleRoutingModule } from './inmueble-routing.module';
 import { InmuebleComponent } from './inmueble.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InmuebleFilterPipe } from './inmueble-filter.pipe';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     InmuebleRoutingModule,NgbModule.forRoot(), 
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [InmuebleComponent],
+  declarations: [InmuebleComponent,InmuebleFilterPipe],
   providers: [
     NgbActiveModal,
   ]

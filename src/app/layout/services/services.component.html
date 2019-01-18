@@ -12,19 +12,7 @@
         <div *ngIf="show1" class="card mb-3">
             <br>
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                   
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
@@ -38,8 +26,30 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Nombre..."
+                            aria-label="Search"
+                            [(ngModel)]="servName"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Descripción..."
+                            aria-label="Search"
+                            [(ngModel)]="servDescription"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let item of services ; let i= index">
+                        <tr *ngFor="let item of services | searchfilter: servName:servDescription; let i= index">
                             <td>{{item.name}}</td>
                             <td>
                                 <p>{{item.description}}</p>
@@ -77,19 +87,7 @@
 
         <div *ngIf="!show1" class="card mb-3">
                 <div class="row mb-3">
-                        <div class="col col-sm-4" style="position: relative; top: 15px;">
-                           
-                        </div>
-                        <div class="col col-sm-4" style="position: relative; top: 15px;">
-                            <div class="input-group">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                                <span class="input-group-btn">
-                                    <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                            style="color: white" class="fa fa-search" aria-hidden="true"></i></button>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="col col-sm-4 text-right">
+                        <div class="col col-sm-12 text-right">
                             <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                                 (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
                         </div>

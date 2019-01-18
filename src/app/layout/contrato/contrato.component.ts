@@ -30,6 +30,7 @@ export class ContratoComponent implements OnInit {
     showNew: Boolean = false;
     submitType: string = 'Guardar';
     selectedRow: number;
+    searchfilter: string;
 
     public contract: any = {
         id: '',

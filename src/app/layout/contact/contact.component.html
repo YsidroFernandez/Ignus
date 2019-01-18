@@ -6,26 +6,7 @@
         </div>
         <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                    data-placement="top" title="Buscar"></i></button>
-                        </span>
-                    </div>
-                </div>
-
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
                             data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
@@ -35,16 +16,47 @@
                 <table class="card-body table table-hover">
                     <thead>
                         <tr>
-                            <th>Contacto</th>
+                            <th>Descripción</th>
                             <th>Tema</th>
                             <th> Estatus </th>
                             <th colspan="4">ver detalles</th>
                         </tr>
                     </thead>
+                    <thead>
+                            <tr>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Descripción..."
+                                aria-label="Search"
+                                [(ngModel)]="contDescripcion"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Tema..."
+                                aria-label="Search"
+                                [(ngModel)]="contTema"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Estatus..."
+                                aria-label="Search"
+                                [(ngModel)]="contEstatus"
+                                />
+                              </th>
+                            </tr>
+                          </thead>
 
                     <!-- <tr *ngFor="let item of contact ; let i= index" (click)="onEdit(i)"> -->
 
-                    <tr *ngFor="let item of contacts" (click)="onEdit(i)">
+                    <tr *ngFor="let item of contacts | searchfilter: contDescripcion:contTema:contEstatus" (click)="onEdit(i)">
                         <td>{{item.name}}</td>
                         <td>{{item.description}}</td>
                         <td>{{item.status}}</td>

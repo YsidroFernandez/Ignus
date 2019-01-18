@@ -11,26 +11,6 @@
                 <tabset #tabset>
                     <tab heading="Procesadas" id="first">
                         <div class="row">
-                            <div class="col-12 col-md-7 col-sm-7" style="position: relative; top: 15px;">
-                                <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                        class="">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> entradas</label>
-                            </div>
-                            <div class="col-12 col-md-5  col-sm-5" style="position: relative; top: 15px;">
-                                <div class="input-group">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                                    <span class="input-group-btn">
-                                        <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                                style="color: white" class="fa fa-search" aria-hidden="true"
-                                                data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                            
                             <div class="card-body  table-responsive">
                                 <table class="card-body table table-hover">
                                     <thead>
@@ -43,8 +23,48 @@
                                             <th colspan="4">Acciones</th>
                                         </tr>
                                     </thead>
+                                    <thead>
+                                            <tr>
+                                              <th style="background-color:transparent">
+                                                <input
+                                                class="form-control mr-sm-2"
+                                                type="text"
+                                                placeholder="Fecha..."
+                                                aria-label="Search"
+                                                [(ngModel)]="resDate"
+                                                />
+                                              </th>
+                                              <th style="background-color:transparent">
+                                                <input
+                                                class="form-control mr-sm-2"
+                                                type="text"
+                                                placeholder="Inmueble..."
+                                                aria-label="Search"
+                                                [(ngModel)]="resInmueble"
+                                                />
+                                              </th>
+                                              <th style="background-color:transparent">
+                                                <input
+                                                class="form-control mr-sm-2"
+                                                type="text"
+                                                placeholder="Cliente..."
+                                                aria-label="Search"
+                                                [(ngModel)]="resCliente"
+                                                />
+                                              </th>
+                                              <th style="background-color:transparent">
+                                                <input
+                                                class="form-control mr-sm-2"
+                                                type="text"
+                                                placeholder="Estatus..."
+                                                aria-label="Search"
+                                                [(ngModel)]="resEstatus"
+                                                />
+                                              </th>
+                                            </tr>
+                                          </thead>
                                     <tbody>
-                                        <tr *ngFor="let item of transactions; let i=index">
+                                        <tr *ngFor="let item of transactions | searchfilter: resDate:resInmueble:resCliente:resEstatus; let i=index">
                                             <td>{{ item.nameForEmployee}}</td>
                                             <td>{{ item.property.nameDisplay}}</td>
                                             <td>{{ item.request.requestDate}}</td>
