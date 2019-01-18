@@ -67,7 +67,7 @@ export class RegistroSolicitudComponent implements OnInit {
     public activatespecifications = false;
     //para el disabled de las especificaciones
     public activatecalendar = false;
-
+    excludeDays: number[] = [];
     public dispAM = false;
     public dispPM = false;
     public solicitudes: any;
@@ -94,8 +94,12 @@ export class RegistroSolicitudComponent implements OnInit {
             secondary: '#FDF1BA'
         }
     };
+    appointmentSchedule: any = {
+        appointments: [],
+        excludeDays: []
+      };
     minDate: Date;
-
+    id_employee : any;
     prevBtnDisabled: boolean = false;
     nextBtnDisabled: boolean = false;
 
@@ -106,7 +110,6 @@ export class RegistroSolicitudComponent implements OnInit {
     refresh: Subject<any> = new Subject();
     locale: string = 'es';
     activeDayIsOpen: boolean = true;
-    excludeDays: number[] = [0, 6];
     viewDate: Date = new Date();
     listspecification: any[]
     events: any = [
@@ -178,6 +181,25 @@ export class RegistroSolicitudComponent implements OnInit {
         this.allEmployee();
         this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
     }
+
+    allAppointmentSchedule () {
+        this.globalService.getModel(`/api/appointment/schedule?userId=${this.id_employee}`).then((result) => {
+          if (result['status']) {
+            this.appointmentSchedule = [];
+            this.appointmentSchedule = result['data'];
+            
+            this.excludeDays  = this.appointmentSchedule.excludeDays;
+            for(let appointment of this.appointmentSchedule.appointments){
+              appointment.start = startOfDay(appointment.dateAppointmentUS)
+            }
+            this.events=this.appointmentSchedule.appointments
+           
+            this.refresh.next();
+          }
+        }, (err) => {
+          console.log(err);
+        });  
+      }
 
     typeServices() {
         this.globalService.getModel("/api/typeService").then((result) => {
@@ -525,6 +547,8 @@ export class RegistroSolicitudComponent implements OnInit {
     selectAgente($event) {
         console.log($event.target.value);
         if ($event.target.value != '') {
+            this.id_employee = $event.target.value;
+            this.allAppointmentSchedule ();
             this.viewCalendar = true;
         }
     }
