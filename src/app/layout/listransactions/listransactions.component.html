@@ -1,5 +1,5 @@
 <div [@routerTransition]>
-  <app-page-header [heading]="'Transacciones'" [icon]="'fa-edit'"></app-page-header>
+  <app-page-header [heading]="crudName" [icon]="'fa-edit'"></app-page-header>
   <div class="container">
     <div class="card-header" style="text-align: -webkit-center;">
       Todas las Transacciones
@@ -67,17 +67,17 @@
               <td>
                 <div class="row ">
 
-                    <a [routerLink]="['/activitiesEmployee',item.id]"> <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                    (click)="open(content,'edit', i)">
-                     <i style="color: white" class="fa fa-list-alt" aria-hidden="true"></i>
-                </button></a>
+            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                (click)="onTransaction(i)">
+                <i style="color: white" class="fa fa-copy" data-toggle="tooltip" data-placement="top" title="Actividades y recaudos" aria-hidden="true"></i>
+            </button>
             <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                 (click)="open(content,'edit', i)">
-                <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                <i style="color: white"  class="fa fa-clipboard" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver Solicitud"></i>
             </button>
             <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                 (click)="onDelete(i)">
-                <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                <i style="color: white" class="fa fa-home" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Ver Inmueble"></i>
             </button>
                 </div>
            </td>
