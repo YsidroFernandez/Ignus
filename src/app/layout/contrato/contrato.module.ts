@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
+import { ContratoFilterPipe } from './contrato-filter.pipe';
 defineLocale('es', esLocale);
 
 @NgModule({
@@ -30,7 +31,7 @@ defineLocale('es', esLocale);
       useFactory: adapterFactory
     })
   ],
-  declarations: [ContratoComponent],
+  declarations: [ContratoComponent,ContratoFilterPipe],
   providers: [
     NgbActiveModal,
   ]

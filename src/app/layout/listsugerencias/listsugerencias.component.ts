@@ -25,6 +25,7 @@ export class ListSugerenciasComponent implements OnInit {
   modalName: any;
   modalTemplate: any;
   disabled: boolean;
+  searchfilter: string;
 
   
   constructor(

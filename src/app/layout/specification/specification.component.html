@@ -6,45 +6,7 @@
       </div>
       <div class="card mb-3">
         <div class="row mb-3">
-          <div class="col col-sm-4" style="position: relative; top: 15px;">
-            <label
-              >Mostrar
-              <select
-                name="DataTables_Table_0_length"
-                aria-controls="DataTables_Table_0"
-                class=""
-              >
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-              entradas</label
-            >
-          </div>
-          <div class="col col-sm-4" style="position: relative; top: 15px;">
-            <div class="input-group">
-              <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Buscar..."
-                aria-label="Search"
-              />
-              <span class="input-group-btn">
-                <button
-                  style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
-                >
-                  <i
-                    style="color: white"
-                    class="fa fa-search"
-                    aria-hidden="true"
-                  ></i>
-                </button>
-              </span>
-            </div>
-            
-          </div>
-          <div class="col col-sm-4 text-right">
+          <div class="col col-sm-12 text-right">
                 <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                     (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
             </div>
@@ -54,19 +16,27 @@
             <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Valor</th>
-                <th>Tipo de Especificación</th>
                 <th colspan="4">Acciones</th>
               </tr>
             </thead>
+            <thead>
+                <tr>
+                  <th style="background-color:transparent">
+                    <input
+                    class="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Nombre..."
+                    aria-label="Search"
+                    [(ngModel)]="speNombre"
+                    />
+                  </th>
+                </tr>
+              </thead>
             <tbody>
               <tr
-                *ngFor="let item of specifications; let i = index"
+                *ngFor="let item of specifications | searchfilter: speNombre; let i = index"
               >
                 <td>{{ item.name }}</td>
-                <td>{{ item.description }}</td>
-                <td>{{ item.typeInput }}</td>
-                <td>{{ item.typeSpecification }}</td>
                 <td>
                   <div class="row ">
               <button type="button" style="background: #1AB394; border-radius: 20px; color: white"

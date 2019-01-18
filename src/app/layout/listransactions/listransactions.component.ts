@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ListransactionsComponent implements OnInit {
   selectedRow:any;
-  param1: any;
+  searchfilter: string;
+  param1:any;
   user: any;
   status: any;
   test: any;

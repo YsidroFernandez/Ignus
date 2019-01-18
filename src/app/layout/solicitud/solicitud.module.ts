@@ -15,6 +15,7 @@ import { esLocale } from 'ngx-bootstrap/locale';
 defineLocale('es', esLocale);
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { SolicitudFilterPipe } from './solicitud-filter.pipe';
 registerLocaleData(localeEs);
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ registerLocaleData(localeEs);
     DatepickerModule.forRoot(),
     FontAwesomeModule, NgbModule.forRoot(),
     FormsModule, ReactiveFormsModule],
-  declarations: [SolicitudComponent],
+  declarations: [SolicitudComponent,SolicitudFilterPipe],
   providers: [
     NgbActiveModal,
   ],

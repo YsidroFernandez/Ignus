@@ -8,6 +8,7 @@ import { CollectionRoutingModule } from './collection-routing.module';
 import { CollectionComponent } from './collection.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { CollectionFilterPipe } from './collection-filter.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       })
     ], 
 
-  declarations: [CollectionComponent],
+  declarations: [CollectionComponent,CollectionFilterPipe],
     providers: [
     NgbActiveModal,
   ]

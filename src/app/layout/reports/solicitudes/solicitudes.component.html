@@ -12,7 +12,7 @@
                             <label >Fecha Inicio</label>
                             <div class="input-group">
                                 <input name="fecha_inicio"  [bsConfig]="datePickerConfig"
-                                type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                                type="text" class="form-control"  [(ngModel)]="fechaI" placeholder="Fecha inicio *"  bsDatepicker autocomplete="off"
                                 required>
                             </div>
                         </div>
@@ -22,7 +22,7 @@
                             <label >Fecha Fin</label>
                             <div class="input-group">
                                 <input name="fecha_fin"  [bsConfig]="datePickerConfig" type="text"
-                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
+                                class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,10 @@
                     <div class="form-group text-center">
                       <label for="tipos">Tipos de Servicio</label>
                       <select class="form-control" name="tiposervicio" [(ngModel)]="servicio.id">
-                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id" [selected]="servicio.id">
+                            <option selected="true" value="">
+                                    Todos los servicios
+                                  </option>
+                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id">
                           {{ item2.name }}
                         </option>
                       </select>
@@ -43,6 +46,11 @@
                                 Generar
                             </button>
                         </span>
+                        <span class="input-group-btn" *ngIf="view" >
+                                <button class="btn btn-success" type="button" value="Exportar" (click)="downloadImagePDF()" style="position: relative; top: 30px;  background: #1AB394; margin-left: 8px;">
+                                    Imprimir
+                                </button>
+                            </span>
                     </div>
                     <head>
                             <meta charset="UTF-8">
@@ -67,13 +75,34 @@
                                                     <div class="card border-primary">
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
-                                                            <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                                            <p class="card-text">...</p>
+                                                            <h4 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Solicitudes de Servicio</b></h4>
+                                                            <div class="row">
+                                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Fecha Inicio: {{query.start}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Fecha Fin: {{query.end}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label>Tipo de Servicio: {{getTypeServiceNameById()}}</label>
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.series[0].name}} :  {{chartDefaultConfiguration.series[0].data[i]}}, {{chartDefaultConfiguration.series[1].name}} :  {{chartDefaultConfiguration.series[1].data[i]}} </p> 
+                                                                       
+                                                                
+                                                            </div>
+                                                        </div>
                                                         </div>
                                                     </div>
                                             </div>
-                                            <br>
-                                            <br>
                                             <div class="card-body">
                                                     <div [chart]="chart" id="graficaLineal" class="chart"></div>
                                             </div>
@@ -81,11 +110,6 @@
                                     </div>
 
                             </div>
-                            <div class="mdl-card__actions mdl-card--border">
-                                <div>
-                                    <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
-                                </div>
-                          </div>
                     </body>
                 </div>
             </div>

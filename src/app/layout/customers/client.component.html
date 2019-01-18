@@ -5,44 +5,6 @@
       Clientes Registrados
     </div>
     <div class="card mb-3">
-      <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <label
-            >Mostrar
-            <select
-              name="DataTables_Table_0_length"
-              aria-controls="DataTables_Table_0"
-              class=""
-            >
-              <option value="10">10</option>
-              <option value="25">25</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-            entradas</label
-          >
-        </div>
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          <div class="input-group">
-            <input
-              class="form-control mr-sm-2"
-              type="text"
-              placeholder="Buscar..."
-              aria-label="Search"
-            />
-            <span class="input-group-btn">
-              <button
-                style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"
-              >
-                <i
-                  style="color: white"
-                  class="fa fa-search"
-                  aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
-              </button>
-            </span>
-          </div>
-        </div>
-      </div>
       <div class="card-body  table-responsive">
         <table class="card-body table table-hover">
           <thead>
@@ -55,9 +17,49 @@
               <th colspan="4">Acciones</th>
             </tr>
           </thead>
+          <thead>
+              <tr>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Identificación..."
+                  aria-label="Search"
+                  [(ngModel)]="cliIdentificacion"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Nombre..."
+                  aria-label="Search"
+                  [(ngModel)]="cliName"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Apellido..."
+                  aria-label="Search"
+                  [(ngModel)]="cliLastName"
+                  />
+                </th>
+                <th style="background-color:transparent">
+                  <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Sexo..."
+                  aria-label="Search"
+                  [(ngModel)]="cliSex"
+                  />
+                </th>
+              </tr>
+            </thead>
           <tbody>
             <tr
-              *ngFor="let item of customers; let i = index"
+              *ngFor="let item of customers | searchfilter: cliIdentificacion:cliName:cliLastName:cliSex; let i = index"
             >
               <td>{{ item.person.identification }}</td>
               <td>{{ item.person.firstName }}</td>
