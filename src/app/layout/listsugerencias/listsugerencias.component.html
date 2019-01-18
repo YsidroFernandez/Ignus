@@ -14,25 +14,6 @@
             </div>
 
      <div class="card mb-3">
-      <div class="row mb-3">
-        <div class="col col-sm-4" style="position: relative; top: 15px;">
-          
-                    <label >Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entradas</label>
-                </div>
-         
-         <div class="col col-sm-4" style="position: relative; top: 15px;">
-                <div class="input-group">
-                    
-                <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-               <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
-              <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Buscar"></i>
-            </button>
-           
-                </div>
-            </div>
-      </div>
-
-            <br />
             <div class="card-body  table-responsive">
                 <table class="card-body table table-hover">
                     <thead>
@@ -45,8 +26,57 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                            <tr>  
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Fecha..."
+                                aria-label="Search"
+                                [(ngModel)]="lissugFecha"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Nombre..."
+                                aria-label="Search"
+                                [(ngModel)]="lissugNombre"
+                                />
+                              </th>
+                              <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Tipo..."
+                                aria-label="Search"
+                                [(ngModel)]="lissugTipo"
+                                />
+                                </th>
+                                <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Tema..."
+                                aria-label="Search"
+                                [(ngModel)]="lissugTema"
+                                />
+                                </th>
+                                <th style="background-color:transparent">
+                                <input
+                                class="form-control mr-sm-2"
+                                type="text"
+                                placeholder="Estatus..."
+                                aria-label="Search"
+                                [(ngModel)]="lissugEstatus"
+                                />
+                                </th>    
+                            </tr>
+                          </thead>
                     <tbody>
-                        <tr *ngFor="let item of listsugerencias ; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of listsugerencias | searchfilter: lissugFecha:lissugNombre:lissugTipo:lissugTema:lissugEstatus ; let i= index" (click)="onEdit(i)">
                             <td>{{item.contactDate}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.typeContact.name}}</td>

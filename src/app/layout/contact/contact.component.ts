@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
     showNew: Boolean = false;
     submitType: string = 'Save';
     selectedRow: number;
-
+    searchfilter: string;
     typeContact: any = [];
     descripcion: any;
     subjectArray: any = [];

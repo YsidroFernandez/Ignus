@@ -9,6 +9,7 @@ import { SpecificationComponent } from './specification.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxSelectModule} from 'ngx-select-ex';
+import { SpecificationFilterPipe } from './specification-filter.pipe';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { NgxSelectModule} from 'ngx-select-ex';
     NgSelectModule,
     NgxSelectModule,
   ],
-  declarations: [SpecificationComponent],
+  declarations: [SpecificationComponent,SpecificationFilterPipe],
   providers: [
     NgbActiveModal,
   ]

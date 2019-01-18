@@ -1,29 +1,13 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Reservar'" [icon]="'fa-edit'"></app-page-header>
+
     <div class="container">
+<<<<<<< HEAD
         <div class="card-header" style="text-align: -webkit-center;">Reserva de Inmuebles</div>
      
       <div class="card mb-3">
             <div class="row mb-3">
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                        </select> entradas</label>
-                </div>
-                <div class="col col-sm-4" style="position: relative; top: 15px;">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
-                        <span class="input-group-btn">
-                            <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
-                                    style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
-                                    data-placement="top" title="Buscar"></i></button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-right">
+                <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "><i
                             style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip"
                             data-placement="top" title="Agregar"></i></button>
@@ -40,8 +24,48 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
+                    <thead>
+                        <tr>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Fecha..."
+                            aria-label="Search"
+                            [(ngModel)]="resDate"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Inmueble..."
+                            aria-label="Search"
+                            [(ngModel)]="resInmueble"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Cliente..."
+                            aria-label="Search"
+                            [(ngModel)]="resCliente"
+                            />
+                          </th>
+                          <th style="background-color:transparent">
+                            <input
+                            class="form-control mr-sm-2"
+                            type="text"
+                            placeholder="Estatus..."
+                            aria-label="Search"
+                            [(ngModel)]="resEstatus"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
                     <tbody>
-                        <tr *ngFor="let item of transactions; let i=index">
+                        <tr *ngFor="let item of transactions | searchfilter: resDate:resInmueble:resCliente:resEstatus; let i=index">
                             <td>{{ item.nameForEmployee}}</td>
                             <td>{{ item.property.nameDisplay}}</td>
                             <td>{{ item.request.requestDate}}</td>
@@ -60,14 +84,196 @@
                                         type="button">
                                         <fa-icon [icon]="faTrash" data-toggle="tooltip" data-placement="top" title="Eliminar"></fa-icon>
                                     </button>
+=======
+
+        <div class="card">
+            <div class="card-header" style="text-align: -webkit-center;">Reserva de Inmuebles</div>
+
+            <div class="card-body mb-3">
+
+                <tabset #tabset>
+                    <tab heading="Procesadas" id="first">
+                        <div class="row">
+                            <div class="col-12 col-md-7 col-sm-7" style="position: relative; top: 15px;">
+                                <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                        class="">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                    </select> entradas</label>
+                            </div>
+                            <div class="col-12 col-md-5  col-sm-5" style="position: relative; top: 15px;">
+                                <div class="input-group">
+                                    <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                                    <span class="input-group-btn">
+                                        <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                                style="color: white" class="fa fa-search" aria-hidden="true"
+                                                data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                                    </span>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                            
+                            <div class="card-body  table-responsive">
+                                <table class="card-body table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <!--crear json -->
+                                            <th>Transacción</th>
+                                            <th>Inmueble</th>
+                                            <!--tipo de inmueble-->
+                                            <th>Fecha de Inicio</th>
+                                            <th colspan="4">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of transactions; let i=index">
+                                            <td>{{ item.nameForEmployee}}</td>
+                                            <td>{{ item.property.nameDisplay}}</td>
+                                            <td>{{ item.request.requestDate}}</td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                        type="button" (click)="open(ver)">
+                                                        <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top"
+                                                            title="Detalle"></fa-icon>
+                                                    </button>
+                                                    <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                        (click)="cancelar(i)" type="button">
+                                                        <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top"
+                                                            title="Cancelar"></fa-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </tab>
+
+                    <tab tab2 heading=" Por Procesar" id="second">
+                            <div class="row">
+                                    <div class="col-12 col-md-7 col-sm-7" style="position: relative; top: 15px;">
+                                        <label>Mostrar <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                class="">
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select> entradas</label>
+                                    </div>
+                                    <div class="col-12 col-md-5  col-sm-5" style="position: relative; top: 15px;">
+                                        <div class="input-group">
+                                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar..." aria-label="Search">
+                                            <span class="input-group-btn">
+                                                <button style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;"><i
+                                                        style="color: white" class="fa fa-search" aria-hidden="true"
+                                                        data-toggle="tooltip" data-placement="top" title="Buscar"></i></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="card-body  table-responsive">
+                                        <table class="card-body table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <!--crear json -->
+                                                    <th>Transacción</th>
+                                                    <th>Inmueble</th>
+                                                    <!--tipo de inmueble-->
+                                                    <th>Fecha de Comienzo</th>
+                                                    <th colspan="2">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of tailtransactions; let i=index">
+                                                    <td>{{ item.nameForEmployee}}</td>
+                                                    <td>{{ item.property.nameDisplay}}</td>
+                                                    <td>{{ item.request.requestDate}}</td>
+                                                    <td>
+                                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                                            <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                                type="button" (click)="open(ver)">
+                                                                <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top"
+                                                                    title="Detalle"></fa-icon>
+                                                            </button>
+        
+                                                            <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                                (click)="aceptar(i)" type="button">
+                                                                <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top"
+                                                                    title="Aceptar"></fa-icon>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+>>>>>>> 13dd6f26e3d3ad34d1feb5a826359b056f9928c8
+                                </div>
+                    </tab>
+                </tabset>
+
+
             </div>
-
         </div>
-
     </div>
-</div>
+
+    
+    <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+            <div class="col-4"></div>
+            <h4 class="modal-title ">{{modalTitle}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <fieldset [disabled]="disabled">
+            <div class="card mb-3">
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Nombre Cliente</label>
+                                <input type="text" [(ngModel)]="transaction.nameForEmployee" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Propiedad</label>
+                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos"> Ubicación </label>
+                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col col-sm-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Ubicación</label>
+                                <select class="form-control" name="typeinput" id="typeinput" [(ngModel)]="transaction.property.ubication">
+                                    <option *ngFor="let type of typeinputs" [value]="type.id">{{type.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                </div>
+          
+        </fieldset>
+        <div class="modal-footer">
+            <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
+                    style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                    title="Cancelar"></i></button>
+            <div *ngIf="submitType!='show'">
+                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                        style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip"
+                        data-placement="top" title="Editar"></i></button>
+            </div>
+        </div>
+    </ng-template>

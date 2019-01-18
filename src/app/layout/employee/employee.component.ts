@@ -30,6 +30,7 @@ export class EmployeeComponent implements OnInit {
   submitType: string = 'Save';
   disabled: boolean;
   selectedRow: number;
+  searchfilter: string;
   faEdit = faEdit;
   //Arreglo para la seleccion del sexo en editar cliente
   gender = [

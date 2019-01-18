@@ -21,6 +21,7 @@ import { GlobalService } from '../../providers/global.service';
 export class SpecificationComponent implements OnInit {
     faEdit = faEdit;
     closeResult: string;
+    searchfilter: string;
     specifications: any;
     specification: any;
     new: any;

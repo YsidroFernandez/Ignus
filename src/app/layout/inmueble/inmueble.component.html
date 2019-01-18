@@ -55,9 +55,67 @@
               <th colspan="4">Acciones</th>
             </tr>
           </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Transacción..."
+                aria-label="Search"
+                [(ngModel)]="inmTransaccion"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Tipo..."
+                aria-label="Search"
+                [(ngModel)]="inmTipo"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Nombre..."
+                aria-label="Search"
+                [(ngModel)]="inmName"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Descripcion..."
+                aria-label="Search"
+                [(ngModel)]="inmDescription"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Ubicacion..."
+                aria-label="Search"
+                [(ngModel)]="inmUbicacion"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                class="form-control mr-sm-2"
+                type="text"
+                placeholder="Buscar por Precio..."
+                aria-label="Search"
+                [(ngModel)]="inmPrecio"
+                />
+              </th>
+            </tr>
+          </thead>
           <tbody>
             <tr
-              *ngFor="let item of immovables; let i = index"
+              *ngFor="let item of immovables | searchfilter: inmTransaccion:inmTipo:inmName:inmDescription:inmUbicacion:inmPrecio"; let i = index"
             >
               <td>{{ item.owner[0].firstName }}</td>
               <td>{{ item.ubication }}</td>

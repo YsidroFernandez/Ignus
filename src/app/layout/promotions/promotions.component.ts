@@ -29,6 +29,7 @@ export class PromotionsComponent implements OnInit {
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
   selectedRow: number;
+  searchfilter: string;
   selectedFile: File;
 
   

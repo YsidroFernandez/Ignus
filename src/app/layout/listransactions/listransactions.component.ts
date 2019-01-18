@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListransactionsComponent implements OnInit {
 
-
+  searchfilter: string;
   param1:any;
   user: any;
   status: any;

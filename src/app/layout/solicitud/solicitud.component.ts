@@ -85,6 +85,7 @@ export class SolicitudComponent implements OnInit {
     submitType: string = 'Save';
     selectedRow: number;
     public buy: Boolean;
+    searchfilter: string;
     solicitud: any = {
         id: '',
         client: {},
