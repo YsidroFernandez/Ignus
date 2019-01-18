@@ -9,8 +9,10 @@ import { ChartModule } from 'angular-highcharts';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { esLocale } from 'ngx-bootstrap/locale';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
     imports: [
+        NgxPaginationModule,
         BsDatepickerModule.forRoot(), // ToastrModule added        
         DatepickerModule.forRoot(),
         ChartModule, CommonModule,FormsModule, ReactiveFormsModule, PostServicioRoutingModule, PageHeaderModule],
