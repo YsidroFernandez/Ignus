@@ -38,7 +38,7 @@
                     <thead>
                         <tr>
                             <th>Fecha</th>
-                            <th>Nombre</th>
+                            <th>Nombre de la Petición</th>
                             <th>Tipo</th>
                             <th>Tema</th>
                             <th>Estatus</th>
@@ -53,18 +53,32 @@
                             <td>{{item.subject.name}}</td>
                             <td>{{item.status}}</td>
                             <td>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(ver)">
-                                    <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content,'Update',i)">
-                                    <i style="color: white" class="fa fa-check" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Responder" ></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar" ></i>
-                                </button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <div *ngIf="item.status=='Atendida';else other_content">
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(ver)">
+                                                <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                                    data-placement="top" title="Detalle"></i>
+                                            </button>
+                                        </div>
+                                        <ng-template #other_content>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(ver)">
+                                                <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
+                                                    data-placement="top" title="Detalle"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="open(content,'Update',i)">
+                                                <i style="color: white" class="fa fa-check" aria-hidden="true" data-toggle="tooltip"
+                                                    data-placement="top" title="Responder"></i>
+                                            </button>
+                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                                (click)="onDelete(i)">
+                                                <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                                                    data-placement="top" title="Eliminar"></i>
+                                            </button>
+                                        </ng-template>
+                                    </div>
                             </td>
                         </tr>
                     </tbody>
@@ -129,26 +143,26 @@
                 <div class="col col-sm-6">
                     <div class="form-group">
                         <label for="tipos">Fecha</label>
-                        <input disabled type="text" [(ngModel)]="listsugerencia.contactDate" class="form-control" />
+                        <input disabled type="text"  name="contactDate" [(ngModel)]="listsugerencia.contactDate" class="form-control" />
                     </div>
                 </div>
                 <div class="col col-sm-6">
                     <div class="form-group">
                         <label for="nombre">Cliente</label>
-                        <input disabled type="text" [(ngModel)]="listsugerencia.user.firstName" class="form-control" />
+                        <input disabled type="text" [(ngModel)]="listsugerencia.user.username" class="form-control" />
                     </div>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col col-sm-6">
                         <div class="form-group">
-                            <label for="tipos">Nombre</label>
+                            <label for="tipos">Nombre de la Petición</label>
                             <input disabled type="text" [(ngModel)]="listsugerencia.name" class="form-control" />
                         </div>
                     </div>
                 <div class="col col-sm-6">
                     <div class="form-group">
-                        <label for="tipos">Tipo</label>
+                        <label for="tipos">Tipo de Contacto</label>
                         <input disabled type="text" [(ngModel)]="listsugerencia.typeContact.name" class="form-control" />
                     </div>
                 </div>

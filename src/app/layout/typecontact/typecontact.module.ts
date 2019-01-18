@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr"
-import { TypeContactRoutingModule } from './type-contact-routing.module';
-import { TypeContactComponent } from './type-contact.component';
+import { TypeContactRoutingModule } from './typecontact-routing.module';
+import { TypeContactComponent } from './typecontact.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 

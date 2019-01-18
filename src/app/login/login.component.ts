@@ -35,6 +35,7 @@ export class LoginComponent {
   ) 
   {
     localStorage.clear()
+  }
 
   
     this.allLogo();

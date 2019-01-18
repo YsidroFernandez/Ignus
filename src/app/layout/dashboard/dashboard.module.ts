@@ -19,7 +19,7 @@ import { FormsModule }    from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from "angularx-flatpickr";
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 @NgModule({
     imports: [
         CommonModule,
@@ -31,6 +31,7 @@ import { FlatpickrModule } from "angularx-flatpickr";
         ChartModule,
         ChartsModule,
         FormsModule,
+        NgxChartsModule,
         FlatpickrModule.forRoot(),
         CalendarModule.forRoot({
           provide: DateAdapter,

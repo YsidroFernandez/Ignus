@@ -1,4 +1,4 @@
-import { TypeContactModule } from './type-contact.module';
+import { TypeContactModule } from './typecontact.module';
 
 describe('PerfilModule', () => {
   let recaudoModule: TypeContactModule;

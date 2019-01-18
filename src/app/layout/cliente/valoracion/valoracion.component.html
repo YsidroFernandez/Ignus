@@ -3,38 +3,43 @@
 	<app-page-header [heading]="'Valoracion'" [icon]="'fa-edit'"></app-page-header>
 
 	<div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
+	<div class="card mb-3">
+			<div class="row mb-3">
+					
+	           <div class="container">
 
-	<div class="container">
 
+	     	<div class="row mb-3" *ngFor="let item of valorations; let i=index">
+		   	<div class="col col-sm-6">
+				<label class="ng-tns-c12-9" style="margin-left: 10px;" >{{item.name}}</label>	
+			  </div>
+			 <form>
+					<fieldset>
+						<div>
+							<input type="radio" id="contactChoice1"
+							 name="contact" value="">
+							<label for="contactChoice1">Excelente</label>
+				
+							<input  style="margin-left: 10px;" type="radio" id="contactChoice2"
+							 name="contact" value="">
+							<label for="contactChoice2">Buena</label>
+				
+							<input  style="margin-left: 10px;" type="radio" id="contactChoice3"
+							 name="contact" value="">
+							<label for="contactChoice3">Media</label>
 
-		<div class="row mb-3" *ngFor="let item of valorations; let i=index">
-			<div class="col col-sm-6">
-				<label>{{item.name}}</label>
-			</div>
-
+							<input  style="margin-left: 10px;" type="radio" id="contactChoice3"
+							 name="contact" value="">
+							<label for="contactChoice3">Suficiente</label>
+							
+							<input   style="margin-left: 10px;" type="radio" id="contactChoice3"
+							 name="contact" value="">
+							<label for="contactChoice3">Insuficiente</label>
+						</div>
+					</fieldset>
+				</form>
 		
-<div class="form-check form-check-inline">
-  <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample" value="1">
-  <label class="form-check-label" for="materialInline1">Excelente</label>
-</div>
 
-<div class="form-check form-check-inline">
-  <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample">
-  <label class="form-check-label" for="materialInline2">Buena</label>
-</div>
-
-<div class="form-check form-check-inline">
-  <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
-  <label class="form-check-label" for="materialInline3">Media</label>
-</div>
-<div class="form-check form-check-inline">
-  <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
-  <label class="form-check-label" for="materialInline3">Suficiente</label>
-</div>
-<div class="form-check form-check-inline">
-  <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample">
-  <label class="form-check-label" for="materialInline3">Insuficiente</label>
-</div>
 
 
 	</div>
@@ -50,4 +55,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,6 +18,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
         NgxSpinnerModule,
         NgbDropdownModule.forRoot()
     ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]  ,
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent, TransactionsComponent]
 })
 export class LayoutModule {}
