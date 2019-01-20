@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { DragulaService } from 'ng2-dragula';
@@ -237,6 +237,7 @@ export class AssignPromotionsComponent implements OnInit {
 
 
     faEdit = faEdit;
+    faEye = faEye;
 
 
     onEdit(index: number) {

@@ -15,7 +15,7 @@ const routes: Routes = [
             { path: 'calificacion', loadChildren: './reports/calificacion/calificacion.module#CalificacionModule' },
             { path: 'solicitudes', loadChildren: './reports/solicitudes/solicitudes.module#SolicitudesModule' },
             { path: 'cita', loadChildren: './reports/cita/cita.module#CitaModule' },
-            { path:  'servicio', loadChildren: './reports/servicio/servicio.module#ServicioModule' },
+            { path: 'servicio', loadChildren: './reports/servicio/servicio.module#ServicioModule' },
             { path: 'incidencias', loadChildren: './incidencias/incidencias.module#IncidenciasModule' },
             { path: 'inmueble', loadChildren: './inmueble/inmueble.module#InmuebleModule' },
             { path: 'cliente', loadChildren: './customers/client.module#ClientModule' },
