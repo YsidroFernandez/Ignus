@@ -21,6 +21,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
     imports: [
+      BsDatepickerModule.forRoot(), // ToastrModule added        
+      DatepickerModule.forRoot(),
       CalendarModule.forRoot({
         provide: DateAdapter,
         useFactory: adapterFactory

@@ -115,23 +115,18 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col col-sm-6">
+                                            <div class="form-group">
+                                                <label for="buildDate">Fecha de Construcción</label>
+                                                <input class="form-control" name="buildDate" id="buildDate" [bsConfig]="datePickerConfig"
+                                                    [(ngModel)]="solicitud.buildDate" [disabled]="lock" #buildDate="ngModel" bsDatepicker> 
+                                            </div>
+                                        </div>
                                         <div class="col col-sm-12 form-group">
                                             <label class="ng-tns-c12-9" for="direccion">Dirección Exacta</label>
                                             <textarea class=" ng-untouched ng-pristine ng-valid" type="text" id="direccion"
                                                 required style="width: 100%; height: 200px;" [disabled]="lock" [(ngModel)]="solicitud.ubication"></textarea>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </tab>
-                        <tab heading="Descripcion" id="descripcion">
-                            <div class="row">
-                                <div class="col col-sm-12">
-                                    <div class="form-group">
-                                        <label class="ng-tns-c12-9" for="description">Descripcion del Inmueble</label>
-                                        <textarea id="description" [disabled]="lock" class="form-control ng-untouched ng-pristine ng-valid"
-                                            type="text" [(ngModel)]="solicitud.description" #description="ngModel"
-                                            required style="width: 100%; height: 200px; "></textarea>
                                     </div>
                                 </div>
                             </div>
