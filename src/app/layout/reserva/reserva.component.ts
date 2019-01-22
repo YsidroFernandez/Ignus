@@ -59,12 +59,7 @@ export class ReservaComponent {
         this.getUserData();
         this.getListTransactions();
         this.getPendingTransactions()
-       // this.otro();
-
     }
-
-
-
 
     getUserData() {//esto es para obtener el id y buscar sus transacciones asociadas
         let user = localStorage.getItem('user');
@@ -138,21 +133,6 @@ export class ReservaComponent {
         }
     }
 
-    // otro() {//esto debería sacar los datos que van para el modal y no lo está haciendo
-    //     this.numPage = this.globals.numPage;
-    //     this.numbPage = this.globals.numPage;
-    //     console.log("num", this.numPage);
-    //     let id = (JSON.parse(localStorage.getItem('user'))).id;//antes de aca, necesito es un selectedTransaction
-    //     this.globalService.getModel('/api/employee/transaction/' + id)
-    //         .then(res => {
-    //             this.listtransactions = res['data'];
-    //             console.log("Las transacciones:", this.listtransactions);
-    //         },
-    //             error => {
-    //                 console.log(error);
-    //             })
-    // }
-
     getDismissReason(reason: any): string {
         if (reason === ModalDismissReasons.ESC) {
             return 'by pressing ESC';
@@ -209,12 +189,11 @@ export class ReservaComponent {
         console.log(this.listtransactions)
         this.transaction = Object.assign({}, this.listtransactions[this.selectedRow]);
         console.log(this.transaction)
-        
         this.showNew = true;
         //Pendiente
         
-    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
-    .subscribe(res => {
+        this.coolDialogs.confirm('Esta seguro que desea quitar la Reservacion?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+        .subscribe(res => {
         if (res) {
             console.log(res);
             this.globalService.updateModel(this.transaction.id, {}, "/api/transaction/removeReserve")
@@ -233,15 +212,10 @@ export class ReservaComponent {
             console.log('You clicked Cancel. You smart.');
         }
     });
-
     }
-
-
-
 
     aceptar(index: number) {
 
-        
         this.selectedRow = index;
         this.transaction = Object.assign({}, this.pendingtransactions[this.selectedRow]);
         console.log(this.transaction)
@@ -249,7 +223,7 @@ export class ReservaComponent {
         this.showNew = true;
         //Pendiente
         
-    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+    this.coolDialogs.confirm('Esta seguro que desea Reservar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
     .subscribe(res => {
         if (res) {
             console.log(res);
@@ -261,15 +235,13 @@ export class ReservaComponent {
                        this.getListTransactions();
                        this.getPendingTransactions();
                     }
-
                 }, (err) => {
                     console.log(err);
                 });
         } else {
-            console.log('You clicked Cancel. You smart.');
+            console.log('You clicked Cancel. You are smart.');
         }
     });
-
     }
 
     // This method associate toCancel Button.
@@ -278,4 +250,3 @@ export class ReservaComponent {
         this.showNew = false;
     }
 }
-

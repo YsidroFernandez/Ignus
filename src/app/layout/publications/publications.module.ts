@@ -8,16 +8,18 @@ import { PublicationsRoutingModule } from './publications-routing.module';
 import { PublicationsComponent } from './publications.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   imports: [
     CommonModule,
     PublicationsRoutingModule, NgbModule.forRoot(),
-      FormsModule,PageHeaderModule, ReactiveFormsModule,
-      FlatpickrModule.forRoot(),
-      CalendarModule.forRoot({
-        provide: DateAdapter,
-        useFactory: adapterFactory
+    TabsModule.forRoot(),
+    FormsModule,PageHeaderModule, ReactiveFormsModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
       })
     ], 
 

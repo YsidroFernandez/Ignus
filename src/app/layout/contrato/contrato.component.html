@@ -54,7 +54,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let contrato of contratos | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente:conGarantia | paginate: { itemsPerPage: numPage, currentPage: pages }"
-                            (click)="onEdit(i)">
+                            >
                             <td>{{contrato.folioNumber}}</td>
                             <td>{{contrato.elaborationDate}}</td>
                             <td>{{contrato.firmDate}}</td>
