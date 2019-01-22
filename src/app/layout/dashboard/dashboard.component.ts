@@ -130,7 +130,7 @@ export class DashboardComponent implements OnInit {
 
   public viewData = false;
   constructor(private modal: NgbModal, public globalService: GlobalService) {
-    Object.assign(this, { single, single2, lineData, multi });
+   Object.assign(this, { single2, lineData, multi });
     this.contCustomers={};
     this.contIncidences={};
     this.contRequests={};
@@ -153,8 +153,12 @@ export class DashboardComponent implements OnInit {
     this.contRequests.count=0;
     this.contTransactions.count=0;
     let user = localStorage.getItem("user");
+    let person =localStorage.getItem("person");
+    console.log(person);
     console.log(user);
+   
     let obj = JSON.parse(user);
+    let obj1 = JSON.parse(person);
     //contador de incidencias
     this.globalService
       .getModel_Id(obj.id.toString(), "/api/incidence/count")
@@ -194,7 +198,7 @@ export class DashboardComponent implements OnInit {
       );
     //contador de clientes
     this.globalService
-      .getModel_Id(obj.id.toString(), "/api/transaction/count")
+      .getModel_Id(obj1.id.toString(), "/api/employee/count/client")
       .then(
         result => {
           this.contCustomers = result["data"];
@@ -203,9 +207,19 @@ export class DashboardComponent implements OnInit {
           console.log(err);
         }
       );
+
+      this.globalService.getModel_Id(obj.id.toString(), "/api/transaction/services").then(
+        result=>{
+          console.log(result);
+             this.single=result["data"]
+        },
+        err=>{
+          console.log(err)
+        }
+      )
   }
 
-  //codigo por eliminar
+  
 
 
   addEvent(): void {
