@@ -70,7 +70,7 @@ export class ListransactionsComponent implements OnInit {
     console.log("pas")
    }
 
-    console.log(localStorage.name_agent)
+    console.log(localStorage.name_agent);
     console.log(name);
     console.log(this.crudName);
     console.log(this.transaction_id);

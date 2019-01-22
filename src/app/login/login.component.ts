@@ -87,7 +87,7 @@ export class LoginComponent {
           if (localStorage.getItem('propertyId'))
             this.router.navigate(['/registrosolicitud']);
           else 
-            this.router.navigate(['/dashboard']);
+            this.router.navigate([response['data'].user.firstFunction]);
         }else{
             this.toastr.error('', "Usuario o Contraseña Incorrectos", {
               timeOut: 5000,

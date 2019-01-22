@@ -2,16 +2,16 @@
   <div class="row" style="margin-top: 10px">
 
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-exchange'" [count]="26" [label]="'TRANSACIONES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-exchange'" [count]="contTransactions.count" [label]="'TRANSACIONES'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-clipboard'" [count]="12" [label]="'SOLICITUDES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-clipboard'" [count]="contRequests.count" [label]="'SOLICITUDES'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-line-chart'" [count]="124" [label]="'INCIDENCIAS'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-line-chart'" [count]="contIncidences.count" [label]="'INCIDENCIAS'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-group'" [count]="13" [label]="'MIS_CLIENTES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-group'" [count]="contCustomers.count" [label]="'MIS_CLIENTES'"></app-stat>
     </div>
   </div>
 
