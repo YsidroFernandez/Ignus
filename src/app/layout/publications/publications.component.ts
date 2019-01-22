@@ -194,7 +194,7 @@ export class PublicationsComponent implements OnInit {
     }
   }//fin del open
 
-editAgency() {
+/*editAgency() {
     console.log(this.agency);
     if (this.btnEdit == "Editar") {
       this.disabled = false;
@@ -215,7 +215,7 @@ editAgency() {
         );
       
       
-    }
+    }*/
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
