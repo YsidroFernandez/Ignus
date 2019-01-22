@@ -2,12 +2,12 @@
     <app-page-header [heading]="'Reporte de Citas'" [icon]="'fa-bar-chart-o'"></app-page-header>
     <div class="row">
         <div class="col col-xl-12">
-            <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Reporte de Citas
-            </div>
+            <!-- <div class="card-header" style="position: relative; text-align: -webkit-center">
+                Citas
+            </div> -->
 
             <div class="row">
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                         <label >Fecha Inicio</label>
                         <div class="input-group">
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                         <label >Fecha Fin</label>
                         <div class="input-group">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                       <label for="tipos">Nombre de Agentes</label>
                       <select class="form-control" name="nombreagente" [(ngModel)]="empleado.person.id">
@@ -38,7 +38,7 @@
                   </div>
             </div>
               <div class="row">
-                <div class="col col-sm-3 text-center">
+                <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
                       <label for="tipos">Tipos de Servicio</label>
                       <select class="form-control" name="tiposervicio" [(ngModel)]="servicio.id">
@@ -48,25 +48,21 @@
                       </select>
                     </div> 
                   </div>
-                  <div class="col col-sm-3 text-center">
-                    <div class="form-group text-center">
-                      <label for="tipos">Estatus de las Citas</label>
-                      <select class="form-control" name="selectedStatus" [(ngModel)]="selectedStatus">
-                        <option *ngFor="let status of statusAppointments" [ngValue]="status.value">
-                          {{ status.name }}
-                        </option>
-                      </select>
-                    </div> 
-                  </div>
+                  <div class="col col-sm-4 text-center"></div>
               
 
-                <div class="col col-sm-3 text-center">
+                    <div class="col col-sm-4 text-center">
                     <span class="input-group-btn">
                         <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
                             Generar
                         </button>
                     </span>
-                </div>
+                    <span class="input-group-btn" *ngIf="view" >
+                            <button class="btn btn-success" type="button" value="Exportar" (click)="downloadImagePDF()" style="position: relative; top: 30px;  background: #1AB394; margin-left: 8px;">
+                                Imprimir
+                            </button>
+                        </span>
+                    </div>
                 <head>
                         <meta charset="UTF-8">
                         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
@@ -84,31 +80,73 @@
                         </style>
                 </head>
                 <body *ngIf="view">
-                        <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
-                                <div class="card-body">
-                                        <div class="col col-sm-12">
-                                                <div class="card border-primary">
-                                                    <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                                                    <div class="card-body text-primary">
-                                                        <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                                        <p class="card-text">...</p>
-                                                    </div>
-                                                </div>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="card-body">
-                                                <div [chart]="chart" id="graficaLineal" class="chart"></div>
-                                        </div>
+                    <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                        <div class="card-body">
+                                <div class="col col-sm-12">
+                                        <div style="position: relative; text-align: -webkit-center">
+                                                <h1><b> Reportes de Citas</b></h1>
+                                            </div>
 
+                                </div>
+                                <div class="col col-sm-12">
+                                        <div class="card border-primary">
+                                        <div class="card-header" style="position: relative; text-align: -webkit-center">
+                                                <b> CRITERIOS DE BUSQUEDA</b>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label style="color: black; margin-left: 15px"><b> Fecha Inicio:</b> {{query.start}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label style="color: black"><b>Fecha Fin:</b> {{query.end}}</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label style="color: black"><b>Tipo de Servicio:</b> {{getTypeServiceNameById()}}</label>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <div class="row">
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label style="color: black"><b>Agente:</b> {{getTypeAgentNameById()}}</label>
+                                                            </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-4 col-sm-6">
+                                                    </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-12">
+                                        <div class="card-body">
+                                                <div [chart]="chart" id="graficaCircular" class="chart"></div>
+                                        </div>
+                                </div>
+                                <div class="col col-sm-12">
+                                        <div class="card border-primary">
+                                            <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                            <div class="card-body text-primary">
+                                                <div class="row"> 
+                                                <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
+                                                        <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                           
+                                                    
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
                                 </div>
 
                         </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <div>
-                                <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
-                            </div>
-                      </div>
+
+                </div>
                 </body>
             </div>
         </div>

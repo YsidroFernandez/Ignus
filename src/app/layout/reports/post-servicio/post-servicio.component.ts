@@ -10,6 +10,9 @@ import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 import * as querystring from 'querystring';
 import { GlobalsProvider } from '../../../shared';
+import  * as $ from 'jquery';
+
+
 @Component({
     selector: 'app-post-servicio',
     templateUrl: './post-servicio.component.html',
@@ -29,6 +32,8 @@ export class PostServicioComponent implements OnInit {
     public parishes = [];
     imagen: any;
     agencia: any;
+    img1: any;
+    jQuery: any;
     pageHeight: number
     agencias: any;
     public view = false;
@@ -152,7 +157,7 @@ export class PostServicioComponent implements OnInit {
     logoURL: string = ""
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService,private globals: GlobalsProvider) {
         let now = moment().format();
-        console.log('hello world', this.tipos);        
+        console.log('hello world', this.tipos);     
     }
 
     ngOnInit() {
@@ -161,6 +166,10 @@ export class PostServicioComponent implements OnInit {
         this.getLogo();
         this.numPage = this.globals.numPage; 
     }
+
+    
+
+
     convertImgToBase64URL(url, callback){
         var img = new Image();
         img.crossOrigin = 'Anonymous';
@@ -218,15 +227,23 @@ export class PostServicioComponent implements OnInit {
           It still creates a little overlap part between the pages, but good enough for me.
           if you can find an official number from jsPDF, use them.
           */
-          heightLeft -= (pageHeight);
+
+         this.jQuery('#p').html2canvas({
+            onrendered: function( canvas ) {
+                 this.img1 = canvas.toDataURL('image/png');
+            }
+        });
+        doc.addPage();
+        doc.addImage( this.img1, 'PNG', 0, 0, 210, 297);
+        //   heightLeft -= (pageHeight);
 
     
-          while (heightLeft >= 0) {
-            position = (heightLeft - imgHeight);
-            doc.addPage();
-            doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-          }
+        //   while (heightLeft >= 0) {
+        //     position = (heightLeft - imgHeight);
+        //     doc.addPage();
+        //     doc.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        //     heightLeft -= pageHeight;
+        //   }
         //   doc.setFontSize(10)
         //   doc.text(78, pageHeight+10 , 'SubTotal:'+" "+'25')
         //   doc.setFontSize(10)
