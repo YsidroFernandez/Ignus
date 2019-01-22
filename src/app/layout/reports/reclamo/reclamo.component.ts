@@ -18,7 +18,7 @@ export class ReclamoComponent implements OnInit {
     selectedValue: string = "";
    
     // defaultValue = this.values[0];
-    tipos = [ { value: "1", name: "Barra" }];
+    tipos = [ { value: "1", name: "Torta" }];
 // { value: "1", name: "Circular" },
     public view = false;
     public chart: any;
@@ -108,7 +108,7 @@ export class ReclamoComponent implements OnInit {
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                        ['Servicio de agua defectuoso', 100],
+                        ['Servicio de agua defectuoso', null],
                         ['Evaluación estructural', 150],
                         ['Acesoria', 1000],
                         ['Ingreso por venta al cliente', 6500]

@@ -2,16 +2,16 @@
   <div class="row" style="margin-top: 10px">
 
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-exchange'" [count]="26" [label]="'TRANSACIONES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-exchange'" [count]="contTransactions.count" [data]="'/listransactions'" [label]="'TRANSACIONES'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-clipboard'" [count]="12" [label]="'SOLICITUDES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-clipboard'" [count]="contRequests.count" [label]="'SOLICITUDES'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-line-chart'" [count]="124" [label]="'INCIDENCIAS'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-line-chart'" [count]="contIncidences.count" [label]="'INCIDENCIAS'"></app-stat>
     </div>
     <div class="col-xl-3 col-lg-6">
-      <app-stat [bgClass]="'primary'" [icon]="'fa fa-group'" [count]="13" [label]="'MIS_CLIENTES'"></app-stat>
+      <app-stat [bgClass]="'primary'" [icon]="'fa fa-group'" [count]="contCustomers.count" [label]="'MIS_CLIENTES'"></app-stat>
     </div>
   </div>
 
@@ -19,43 +19,45 @@
   <div class="row" style="margin-top: 10px">
     <div class="col-6">
       <div class="card mb-3">
-        <div class="row" style="margin-top: 15px;">
-          <div class="col-md-2">
-          </div>
-          <div class="col-md-8" style="text-align: center;">
-            <div class="btn-group ">
-              <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
-                Anterior
-              </div>
-              <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
-                Hoy
-              </div>
-              <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false"
-                style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
-                Siguiente
-              </div>
-            </div>
-          </div>
-          <div class="col-md-2">
-          </div>
-        </div>
         <div class="row">
-          <div class="col-md-2">
-          </div>
-          <div class="col-md-8" style="text-align: center;">
-            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
-          </div>
-          <div class="col-md-2">
-          </div>
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <div class="btn-group ">
+                    <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                        (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                        Anterior
+                    </div>
+                    <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate" style="color: #fff; background-color: #17A185; border-color: #AEAEAE;">
+                        Hoy
+                    </div>
+                    <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                        (viewDateChange)="activeDayIsOpen = false" style="color: #fff; background-color: #AEAEAE; border-color: #AEAEAE;">
+                        Siguiente
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4" style="text-align: center;">
+                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
+            </div>
+            <div class="col-md-4">
+            </div>
         </div>
         <div [ngSwitch]="view">
-          <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-            [events]="events" (eventClicked)="handleEvent('Clicked', $event.event)" (dayClicked)="dayClicked($event.day)"
-            [excludeDays]="excludeDays">
-          </mwl-calendar-month-view>
+            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
+                [events]="events" (eventClicked)="handleEvent('Clicked', $event.event)"
+                (dayClicked)="dayClicked($event.day)" [excludeDays]="excludeDays">
+            </mwl-calendar-month-view>
+            <!--  (beforeViewRender)="beforeMonthViewRender($event)" -->
         </div>
-      </div>
+    </div>
     </div>
 
     <div class="col-6">
@@ -92,3 +94,123 @@
       </div>
     </div>
   </div>
+
+  <!-- <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 id="dialog-child-name" class="modal-title pull-left">Seleccione un turno disponible</h6>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                <form role="form" #contratoForm="ngForm" id="form" class="form-horizontal">
+                    <div class="row mb-3">
+                        <div class="form-group  col-md-6">
+                            <label>Transacción</label>
+                            <select (change)="changeTransaction($event)" class="form-control" id="trasaction" name="trasaction">
+                                <option [value]="0" selected>seleccione...</option>
+                                <option *ngFor="let list of transaction" [value]="list.id">{{list.nameForEmployee}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Tipo de cita</label>
+                            <select (change)="changeCita($event)" class="form-control" id="trasaction" name="trasaction">
+                                <option [value]="0" selected>seleccione...</option>
+                                <option *ngFor="let list of typeAppointments" [value]="list.id">{{list.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="form-group col-md-6">
+                            <label>Turno de la cita</label>
+                            <select (change)="changeTurno($event)" class="form-control" id="turno" name="turno">
+                                <option value='0' selected>seleccione...</option>
+                                <option value='AM'>Mañana</option>
+                                <option value='PM'>Tarde</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Observación</label>
+                            <textarea class="form-control" [(ngModel)]="cita.reason" name="observation" rows="5"></textarea>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-6" style="text-align: center; margin-top: 40px;">
+
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; padding-right: 18px;"
+                                (click)="save(cita)">Registrar</button>
+                            <button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white; margin-left: 20px;"
+                                (click)="clear()">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+<div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-nested-name1" class="modal-title pull-left"><strong>Detalle de la cita</strong></h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="hidePrentModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div *ngIf="viewData" class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Nombre y Apellido: </strong>{{data.Request.client.firstName}}
+                            {{data.Request.client.lastName}}
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Cedula de Identidad: </strong>{{data.Request.client.identification}}</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Motivo de la cita : </strong>{{data.reason}}
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Estatus de la cita: </strong> {{data.statusStr}}</label>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label *ngIf="data.turn=='PM'" class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                            <strong>Bloque de hora de cita: </strong> Tarde
+                        </label>
+                        <label *ngIf="data.turn=='AM'" class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                                <strong>Bloque de hora de cita: </strong> Mañana
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12" style="position: relative; right: 0.6rem;">
+                                <strong>Tipo de la cita: </strong> {{data.typeAppointment.name}}</label>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
