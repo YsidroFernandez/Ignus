@@ -13,13 +13,13 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 
 @Component({
-    selector: 'app-promedio',
-    templateUrl: './promedio.component.html',
-    styleUrls: ['./promedio.component.scss'],
+    selector: 'app-promocion',
+    templateUrl: './promocion.component.html',
+    styleUrls: ['./promocion.component.scss'],
     animations: [routerTransition()]
 
 })
-export class PromedioComponent implements OnInit {
+export class PromocionComponent implements OnInit {
     selectedValue: string = "";
    
     // defaultValue = this.values[0];
@@ -62,7 +62,7 @@ export class PromedioComponent implements OnInit {
         yAxis: {
             min: 0,
             title: {
-                text: 'Promedio por servicios'
+                text: 'Promocion por inmuebles'
             },
             stackLabels: {
                 enabled: true,
