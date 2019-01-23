@@ -10,7 +10,7 @@
         <div class="col-md-4 text-right">
           <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
             (click)="open(content, 'create', -1)">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
           </button>
         </div>
       </div>
@@ -55,17 +55,17 @@
               <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
-                    <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
+                    <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
                   </button>
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'edit', i)">
-                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
+                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
                   </button>
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
-                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
                   </button>
                   <a [href]="item.urlFileInspection" target="_blank" [download]="item.urlFileInspection">
                     <i class="fa fa-cloud-download" style="margin-left: 3px; font-size: 25px; color:#1AB394;"
-                      aria-hidden="true"></i></a>
+                      aria-hidden="true"data-toggle="tooltip" data-placement="top" title="Descargar"></i></a>
                 </div>
               </td>
             </tr>

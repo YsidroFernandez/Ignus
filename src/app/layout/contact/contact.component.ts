@@ -156,11 +156,17 @@ export class ContactComponent implements OnInit {
             });
     }
 
-    onEdit(index: number) {
-        this.submitType = 'Update';
-        this.selectedRow = index;
-        this.contact = Object.assign({}, this.contacts[this.selectedRow]);
-        this.showNew = true;
+    // onEdit(index: number) {
+    //     this.submitType = 'Update';
+    //     this.selectedRow = index;
+    //     this.contact = Object.assign({}, this.contacts[this.selectedRow]);
+    //     console.log(this.contact);
+    //     this.showNew = true;
+    // }
+
+    openForEdit(item) {
+        this.contact = item;       
+            console.log(this.contact);
     }
 
     // This method associate to Delete Button.

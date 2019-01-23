@@ -123,7 +123,7 @@
                 <!--
                 <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="open(modalTransacion)">
                   -->
-                <button type="button" style="background: #1AB394; border-radius: 20px;  color: white" (click)="onTransaction(i)">
+                <button type="button" data-toggle="tooltip" data-placement="top" title="Detalle" style="background: #1AB394; border-radius: 20px;  color: white" (click)="onTransaction(i)">
                   <fa-icon [icon]="faEye"></fa-icon>
                 </button>
               </td>
@@ -181,7 +181,7 @@
               <td>{{solicitud.status}}</td>
               <td>
                 <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(modalSolicitud)">
-                  <fa-icon [icon]="faEye"></fa-icon>
+                  <fa-icon [icon]="faEye"data-toggle="tooltip" data-placement="top" title="Detalle" ></fa-icon>
                 </button>
               </td>
             </tr>

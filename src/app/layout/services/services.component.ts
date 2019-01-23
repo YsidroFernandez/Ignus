@@ -93,8 +93,6 @@ export class ServicesComponent implements OnInit {
         if(this.selectedFile!=null){
         uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
         }
-        
-
         //declaracion que permite enviar el nuevo json ya sea para crear o editar
         this.nuevo = JSON.stringify({ name: this.service.name, description: this.service.description, requirements: this.ngxRequirements, activities: this.ngxActivities });
         uploadData.append("service", this.nuevo);
@@ -108,7 +106,6 @@ export class ServicesComponent implements OnInit {
                         //Para que actualice la lista una vez que es creado el service
                         this.getServicios();
                     }
-
                 }, (err) => {
                     console.log(err);
                 });

@@ -359,10 +359,10 @@ export class RegistroSolicitudComponent implements OnInit {
             PropertyId: Number.parseInt(this.solicitud.propertyId),
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
-            typeProperty: Number.parseInt(this.solicitud.typeProperty),
+            TypePropertyId: Number.parseInt(this.solicitud.typeProperty),
             TypeServiceId: Number.parseInt(this.solicitud.TypeServiceId),
             TypeRequestId: this.solicitud.TypeRequestId,
-            parish: Number.parseInt(this.solicitud.parish),
+            ParishId: Number.parseInt(this.solicitud.parish),
             direction: this.solicitud.direction,
             typeSpecifications: this.solicitud.typeSpecifications,
             buildDate: this.solicitud.buildDate
@@ -556,11 +556,14 @@ export class RegistroSolicitudComponent implements OnInit {
     }
 
     selectAgente($event) {
-        console.log($event.target.value);
+       
         if ($event.target.value != '') {
+            console.log("error");
             this.id_employee = $event.target.value;
             this.allAppointmentSchedule ();
             this.viewCalendar = true;
+        }else{
+            this.viewCalendar = false; 
         }
     }
 }

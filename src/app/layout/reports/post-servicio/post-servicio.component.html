@@ -127,7 +127,7 @@
                                 </a>
                             </li>
     
-                            <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item pagination-number"
                                 [ngClass]="{'active' : p.getCurrent() === page.value}">
                                 <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
                                     {{ page.label }} </a>
