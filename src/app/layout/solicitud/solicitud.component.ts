@@ -26,8 +26,6 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarView, Calend
 
 })
 
-// subDays('2019-01-08', -1) extrael el dia y disminuye o incrementa el evento
-// addDays('2019-01-10', 1), agrega un dia al evento
 export class SolicitudComponent implements OnInit {
 
     view: CalendarView = CalendarView.Month;  
@@ -38,41 +36,6 @@ export class SolicitudComponent implements OnInit {
     locale: string = 'es';
     modalData: any;
     activeDayIsOpen: boolean = true;
-    // events: CalendarEvent[] = [
-    //     {
-    //         title: 'Editable event',
-    //         color: colors.yellow,
-    //         start: new Date(),
-    //         actions: [
-    //             {
-    //                 label: '<i class="fa fa-fw fa-pencil"></i>',
-    //                 onClick: ({ event }: { event: CalendarEvent }): void => {
-    //                     console.log('Edit event', event);
-    //                 }
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         title: 'Deletable event',
-    //         color: colors.blue,
-    //         start: new Date(),
-    //         actions: [
-    //             {
-    //                 label: '<i class="fa fa-fw fa-times"></i>',
-    //                 onClick: ({ event }: { event: CalendarEvent }): void => {
-    //                     this.events = this.events.filter(iEvent => iEvent !== event);
-    //                     console.log('Event deleted', event);
-    //                 }
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         title: 'Non editable and deletable event',
-    //         color: colors.red,
-    //         start: new Date()
-    //     }
-    // ];
-
 
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public numPage: number;
@@ -229,16 +192,13 @@ export class SolicitudComponent implements OnInit {
     }
 
     openForEdit(solicitud) {
-        this.solicitud = solicitud;
-        if (this.solicitud.typeService.name == 'Venta' || this.solicitud.typeService.name == 'Alquiler') {
-            this.buy = false;
-            console.log(this.buy);
-        } else if (this.solicitud.typeService.name == 'Compra' || this.solicitud.typeService.name == 'Arrendamiento') {
-            this.buy = true;
-            console.log(this.buy);
+        console.log(solicitud.typeService.offeringProperty);
+       if (solicitud.typeService.offeringProperty) {
+          
+        } else { 
         }
 
-    }
+    }  
 
     open(content) {
         this.modalService.open(content).result.then((result) => {
