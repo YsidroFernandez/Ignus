@@ -18,7 +18,7 @@ export class ReclamoComponent implements OnInit {
     selectedValue: string = "";
    
     // defaultValue = this.values[0];
-    tipos = [ { value: "3", name: "Torta" }];
+    tipos = [ { value: "1", name: "Torta" }];
 // { value: "1", name: "Circular" },
     public view = false;
     public chart: any;

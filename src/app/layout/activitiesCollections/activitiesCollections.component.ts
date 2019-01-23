@@ -80,8 +80,9 @@ export class ActivitiesCollectionsComponent implements OnInit {
   // }
 
   allTransaction() {
-    this.globalService.getModel_Id(this.user, '/api/client/transaction')
+    this.globalService.getModel('/api/transaction?userId='+this.user)
       .then((result) => {
+        console.log(result);
         this.transactions = [];
         this.transactions = result['data'];
         console.log(this.transactions);
@@ -90,7 +91,6 @@ export class ActivitiesCollectionsComponent implements OnInit {
         // this.loader.dismiss();
       });
   }
-
 
   //this method associate to reload states
   dataChanged($event) {
@@ -107,8 +107,6 @@ export class ActivitiesCollectionsComponent implements OnInit {
         console.log(err);
       });
     }
-   
-
   }
 
   onFileChangeRecaudo(files: FileList, requirementId) {
@@ -130,6 +128,5 @@ export class ActivitiesCollectionsComponent implements OnInit {
         }
       );
   }
-
 
 }

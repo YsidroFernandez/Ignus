@@ -23,40 +23,22 @@
                         </tr>
                     </thead>
                     <thead>
-                            <tr>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Descripción..."
-                                aria-label="Search"
-                                [(ngModel)]="contDescripcion"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Tema..."
-                                aria-label="Search"
-                                [(ngModel)]="contTema"
-                                />
-                              </th>
-                              <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Estatus..."
-                                aria-label="Search"
-                                [(ngModel)]="contEstatus"
-                                />
-                              </th>
-                            </tr>
-                          </thead>
-
-                    <!-- <tr *ngFor="let item of contact ; let i= index" (click)="onEdit(i)"> -->
-
-                    <tr *ngFor="let item of contacts | searchfilter: contDescripcion:contTema:contEstatus" (click)="onEdit(i)">
+                        <tr>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Descripción..." aria-label="Search"
+                                    [(ngModel)]="contDescripcion" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Tema..." aria-label="Search"
+                                    [(ngModel)]="contTema" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Estatus..." aria-label="Search"
+                                    [(ngModel)]="contEstatus" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr *ngFor="let item of contacts | searchfilter: contDescripcion:contTema:contEstatus" (click)="openForEdit(item)">
                         <td>{{item.name}}</td>
                         <td>{{item.description}}</td>
                         <td>{{item.status}}</td>
@@ -84,58 +66,119 @@
             </div>
         </div>
     </div>
-    <!--Contenido -->
-    <ng-template #content let-c="close" let-d="dismiss">
-        <div class="modal-header">
-            <h4 class="modal-title ">Crear Contacto</h4>
-            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="card mb-3">
-            <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="tipos">Titulo:</label>
-                            <input type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
-                        </div>
+</div>
+<!-- ver   -->
+<ng-template #ver let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Crear Contacto</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tipos de Contacto:</label>
+                        <select disabled class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID"
+                            #typecontact="ngModel">
+                            <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
+                        </select>
                     </div>
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="typeContact">Tipos de Contacto:</label>
-                            <select class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID"
-                                #typecontact="ngModel">
-                                <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
-                            </select>
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                            <label for="subject">Tema:</label>
-                            <select class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
-                                <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
-                            </select>
-                        </div>
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tema:</label>
+                        <select disabled class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
+                            <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
+                        </select>
                     </div>
-
-                    <div class="col col-sm-12">
-                        <div class="form-group">
-                            <label class="ng-tns-c12-9" for="descripcion">Descripción</label>
-                            <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
-                                required style="width: 700px; height: 300px; "></textarea>
-                            <!--<input type="text" [(ngModel)]="contact.description" class="form-control" />-->
-                        </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Titulo:</label>
+                        <input disabled type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Descripción</label>
+                        <textarea disabled class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
+                            rows="5" required>
+                        </textarea>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="modal-footer">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                    style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </div>
+</ng-template>
+
+<!-- content   -->
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title ">Crear Contacto</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="card mb-3">
+        <div class="modal-body">
+            <div class="row mb-3">
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tipos de Contacto:</label>
+                        <select class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID"
+                            #typecontact="ngModel">
+                            <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col col-sm-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tema:</label>
+                        <select class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
+                            <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Titulo:</label>
+                        <input type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Descripción</label>
+                        <textarea class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
+                            rows="5" required>
+                        </textarea>
+                    </div>
+                </div>
+            </div>
         </div>
-    </ng-template>
+    </div>
 
-</div>
+    <div class="modal-footer">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+    </div>
+</ng-template>
