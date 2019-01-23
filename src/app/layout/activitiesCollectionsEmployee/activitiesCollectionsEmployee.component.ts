@@ -104,7 +104,7 @@ export class ActivitiesCollectionsEmployeeComponent implements OnInit {
 
   allTransaction() {//todas las transacciones se ejecuta siempre y cuando no se solicite que las transaccion sea por id
 
-    this.globalService.getModel_Id(this.user, '/api/transaction?userId='+this.user)
+    this.globalService.getModel('/api/transaction?userId='+this.user)
       .then((result) => {
         this.transactions = [];
         this.transactions = result['data'];
