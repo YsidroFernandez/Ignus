@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../router.animations';
-import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
@@ -11,64 +11,120 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
   styleUrls: ['./publications.component.scss']
 })
 export class PublicationsComponent implements OnInit {
-  publications: any;
+  publications: any; //catalogue
   publication: any;
+  transactions: any;
+  transaction: any;
+  transPublished: any;
+  tranPublished: any;
+  user: any;
   new: any;
   modalName: any;
   modalTemplate: any;
+  selectedFile: File;
+  url: string;
   closeResult: string;
   modalTitle: string = "Publicaciones";
   modalIcon: string = "fa fa-plus";
   submitType: string = "Save";
   disabled: boolean;
+  showView:Boolean = false;
   // It maintains publications form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
   selectedRow: number;
   faEdit = faEdit;
+  faEye = faEye;
+  faTrash = faTrash;
 
   constructor(
     private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
-      this.publications = [];
+     // this.transactions = [];
+      //this.transaction = [];
+      //this.transPublished =[];
+      //this.new = [];
       this.publication = [];
-      this.new = [];
    }
 
   ngOnInit() {
-    this.getListPublications();
+    this.getUser();
+    this.getListTransactionPublished();
+    this.getListTransactionToPublish();
   }
 
-   getListPublications() {
-    let obj = JSON.parse(localStorage.getItem('user'));
-    this.globalService.getModel('/api/transaction?status=D&offeringProperty=true&userId='+obj.id).then(
+   getUser(){
+     let obj = JSON.parse(localStorage.getItem('user'));
+     this.user = obj.id;
+     console.log("GetUSer "+this.user)
+   }
+
+   getListTransactionPublished() {
+    this.globalService.getModel('/api/transaction?status=D&offeringProperty=true&userId='+this.user).then(
       result => {
-        console.log(result);
-        this.publications = result["data"];
-        console.log(this.publications);
+        console.log("Result transPublished"+result);
+        this.transPublished = result["data"];
+        console.log("local transPublished: "+this.transPublished);
       },
       err => {
-        console.log(err);
+        console.log("Else error: "+err);
       }
     );
   }
 
+  getListTransactionToPublish(){
+    this.globalService.getModel('/api/transaction?status=D&offeringProperty=false&userId='+this.user).then(
+      result =>{
+        console.log("Result transactions= "+result);
+        this.transactions = result["data"];
+        console.log("Local transactions: "+this.transactions);
+      }),
+      err => {
+        console.log("Else error= "+err);
+      }
+  }
+
+  /*getPublish(index: number){
+    this.publications = [];
+    this.publication = {};
+    //buscar la publicación asociada a la transacción a la que le hice click
+    this.globalService.getModel('/api/property/catalogue').then(
+      result =>{
+        this.publications = result["data"];
+      }),err =>{
+        console.log("Else Error Publish: "+err);
+    }
+    this.publication = this.publications[2].Publication;
+  }*/
+
   apiAction() {
     //metodo para realizar una accion ya sea crear, editar
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
-    this.new = JSON.stringify({
-      name: this.publication.name,
-      description: this.publication.description
+    console.log("publicación "+this.publication);
+    this.new = JSON.stringify({title: this.publication.title,
+      description: this.publication.description,
+      price: this.publication.price,
+      //campos que necesito: title,description,price,images
     });
+
     if (this.submitType === "create") {
       console.log(this.new);
-      //metodo que perimite enviar por post un nuevo publicacion
-      let obj = this.publication.id;
-      this.globalService.addModel(this.new,"/api/property/"+obj).then(//dy: modificar aqui la dirección
+      //metodo que permite enviar por post un nuevo publicacion
+      let obj = this.transaction.id;
+      console.log("Transaction en api "+obj);
+      const uploadData = new FormData();
+      if(this.selectedFile!=null){
+        console.log("selectedfile")
+        uploadData.append("myFile",this.selectedFile,this.selectedFile.name);}
+        uploadData.append("publication", this.new);
+      this.globalService.updateModel(obj, uploadData, "/api/property/publication", this.globalService.getHeaderClear())
+      .then(
         result => {
           console.log(result);
-          if (result["status"]) {
+          console.log(this.publication)
+          if (result["status"]){
             //Para que actualice la lista una vez que es creada la publicacion
-            this.getListPublications();
+            this.getListTransactionPublished();
+            this.getListTransactionToPublish();
           }
         },
         err => {
@@ -77,13 +133,13 @@ export class PublicationsComponent implements OnInit {
       );
     } else {
       //metodo que perimite enviar por put una actualización de un servicio
-      this.globalService
-        .updateModel(this.publication.id, this.new, "/api/")//dy:cambiar adress
+      this.globalService.updateModel(
+        this.transaction.id, this.new, "/api/property/publication")
         .then(
           result => {
             if (result["status"]) {
               //Para que actualice la lista una vez que es editado el service
-              this.getListPublications();
+              this.getListTransactionToPublish();
             }
           },
           err => {
@@ -113,22 +169,53 @@ export class PublicationsComponent implements OnInit {
     this.modalName = action;
     this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
     this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
-    this.publication = Object.assign({}, this.publications[this.selectedRow]); //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    this.transaction = Object.assign({}, this.transactions[this.selectedRow]); 
+    this.tranPublished = Object.assign({}, this.transPublished[this.selectedRow]);
+    
+    console.log("Nueva Publication: "+this.publication);
+    console.log("transcation id"+this.transaction.id);
 
     if (action == "show") {
       //si la accion es ver, desabilita los campos del modal
       this.disabled = true;
+      //this.showView = false;
       this.modalIcon = "fa fa-close";
     } else if (action == "create") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
+      //this.showView = true;
       this.modalIcon = "fa fa-plus";
     } else if (action == "edit") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
+      //this.showView = false;
       this.modalIcon = "fa fa-edit";
     }
-  }
+  }//fin del open
+
+/*editAgency() {
+    console.log(this.agency);
+    if (this.btnEdit == "Editar") {
+      this.disabled = false;
+      this.btnEdit = "Guardar";
+      console.log(this.disabled);
+    } else if (this.btnEdit == "Guardar") {
+      console.log(this.agency);
+      
+
+
+            this.disabled = true;
+            this.btnEdit = "Editar";
+          },
+          err => {
+            console.log(err);
+            //this.loader.dismiss();
+          }
+        );
+      
+      
+    }*/
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -140,14 +227,13 @@ export class PublicationsComponent implements OnInit {
     }
   }
 
- 
 // This method associate to Delete Button.
 onDelete(index: number) {
     console.log('eliminando');
     this.selectedRow = index;
     this.publication = Object.assign({}, this.publications[this.selectedRow]);
-    this.showNew = true;    
-    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+    this.showNew = true;
+    this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componente para dialogos simples solo establecemos un titulo lo demas viene por defecto 
         .subscribe(res => {
             if (res) {
                 console.log(res);
@@ -156,7 +242,7 @@ onDelete(index: number) {
                         console.log(result);
                         if (result['status']) {
                             //Para que actualice la lista una vez que es eliminado el service
-                            this.getListPublications();
+                            this.getListTransactionPublished();
                         }
 
                     }, (err) => {
@@ -166,11 +252,44 @@ onDelete(index: number) {
                 console.log('You clicked Cancel. You smart.');
             }
         });
-}
+}//fin del onDelete
 
   // This method associate toCancel Button.
   onCancel() {
     // Hide Usuario entry section.
     this.showNew = false;
   }
+
+   onEdit(index: number) {
+        //this.publication = {};  
+        //this.transaction = {};
+        this.submitType = 'Update';
+        this.selectedRow = index;
+        console.log("en OnEdit: "+this.selectedRow );
+        //this.publication = Object.assign({}, this.publications[this.selectedRow]);
+        this.transactions = Object.assign({},this.transactions[this.selectedRow]);
+        //console.log(this.publication);
+        console.log(this.transaction);
+        this.showNew = true;
+    }
+
+        onSelectFile(event) {
+        console.log(event); // called each time file input changes
+        if (event.target.files && event.target.files[0]) {
+          var reader = new FileReader();
+          this.selectedFile = event.target.files[0];
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = event => {
+            let target: any = event.target; //<-- This (any) will tell compiler to shut up!
+            this.url = target.result;
+            console.log(event); // called once readAsDataURL is completed
+          };
+        }
+      }
+
+      onFileChanged(event) {
+        console.log(event);
+        this.selectedFile = event.target.files[0];
+      }
+
 }

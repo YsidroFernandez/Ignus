@@ -11,19 +11,24 @@ import html2canvas from 'html2canvas';
 import * as querystring from 'querystring';
 
 @Component({
-    selector: 'app-solicitudes',
-    templateUrl: './solicitudes.component.html',
-    styleUrls: ['./solicitudes.component.scss'],
+    selector: 'app-rincidencias',
+    templateUrl: './rincidencias.component.html',
+    styleUrls: ['./rincidencias.component.scss'],
     animations: [routerTransition()]
 
 })
-export class SolicitudesComponent implements OnInit {
+export class RincidenciasComponent implements OnInit {
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
     agencia: any;
+    tipoincidencias: any= [];
+    tipoincidencia: any= {
+        id: 1,
+        status: ''
+    };;
     agencias: any;
     servicio: any= {
         id: 1,
@@ -38,40 +43,76 @@ export class SolicitudesComponent implements OnInit {
     logoURL: string = ""
     chartDefaultConfiguration: any = {
         chart: {
-            renderTo: 'graficaCircular',
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
+            type: 'column'
         },
         title: {
             text: ''
         },               
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+        xAxis: {
+            categories: [],
+            
+        },
+        yAxis: {
+            title: {
+                text: 'Porcentaje de servicio solicitado'
             }
+    
+        },
+        legend: {
+            enabled: false
         },
         plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: true
-            },
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
+            series: {
+                // borderWidth: 0,
                 dataLabels: {
                     enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    formatter: function () {
-                        return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
-                    },
-                }, showInLegend: true
+                    format: '{point.y:.1f}%'
+                }
             }
         },
+    
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+    
+        // "series": [
+        //     {
+        //         "name": "Servicio",
+        //         // "colorByPoint": true,
+        //         "data": [
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 62.74,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 10.57,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 7.23,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 5.58,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 4.02,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 1.92,
+        //             },
+        //             {
+        //                 "name": "Venta ",
+        //                 "y": 7.62,
+        //             }
+        //         ]
+        //     }
+        // ],
+
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
@@ -140,6 +181,16 @@ export class SolicitudesComponent implements OnInit {
             });
         }
 
+        getIncidencias() {
+    this.globalService.getModel("/api/incidence")
+    .then((result) => {
+        this.tipoincidencias = result['data'];
+    }, (err) => {
+        console.log(err);
+    });
+
+}
+
 
         allReporte(){
             const stringified = querystring.stringify({start: moment(this.servicio.fechaI).format('YYYY/MM/DD'), end: moment(this.servicio.fechaF).format('YYYY/MM/DD'), typeS: this.servicio.id })
@@ -178,11 +229,20 @@ export class SolicitudesComponent implements OnInit {
         this.allAgency();
         this.allService();
         this.getLogo(); 
+        this.getIncidencias();
+        
     }
 
     getTypeServiceNameById(){
         if(this.query.typeS)
             return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
+        else
+            return ""
+    }
+
+    getTypeIncidenceNameById(){
+        if(this.query.typeS)
+            return this.tipoincidencias.filter(item=>item.id==this.query.status)[0].status
         else
             return ""
     }
@@ -196,6 +256,7 @@ export class SolicitudesComponent implements OnInit {
         
         this.view = true;
         this.query = {
+           // status: this.tipoincidencia.id,
             typeS: this.servicio.id,
             start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
             end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
@@ -203,7 +264,7 @@ export class SolicitudesComponent implements OnInit {
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/incidence?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}

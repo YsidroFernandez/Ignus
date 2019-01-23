@@ -27,6 +27,7 @@ const routes: Routes = [
             { path: 'atencionincidencias', loadChildren: './listincidences/listincidences.module#ListIncidencesModule' },
             { path: 'tipoespecificacion', loadChildren: './typespecification/typespecification.module#TypeSpecificationModule' },
             { path: 'especificacion', loadChildren: './specification/specification.module#SpecificationModule' },
+            { path: 'reporteincidencia', loadChildren: './reports/rincidencias/rincidencias.module#RincidenciasModule' },
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },
