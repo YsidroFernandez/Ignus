@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col col-xl-12">
             <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Servicio mas solicitado
+                Inmuebles mas solicitado
             </div>
 
             <div class="row mb-3">
@@ -11,8 +11,8 @@
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Inicio </label>
                         <div class="input-group">
-                            <input name="fecha_inicio" formControlName="fecha_inicio" [bsConfig]="datePickerConfig"
-                                type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
+                            <input name="fecha_inicio" [bsConfig]="datePickerConfig"
+                                type="text" class="form-control" [(ngModel)]="fechaI" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
                                 required>
                         </div>
                     </div>
@@ -21,29 +21,68 @@
                     <div class="form-group text-center">
                         <label for="descripcion">Fecha Fin</label>
                         <div class="input-group">
-                            <input name="fecha_fin" formControlName="fecha_fin" [bsConfig]="datePickerConfig" type="text"
-                                class="form-control" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required> 
+                            <input name="fecha_fin"  [bsConfig]="datePickerConfig" type="text"
+                                class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required> 
                         </div>
                     </div>
                 </div>
 
                 <div class="col col-sm-3 text-center">
-                    <label>Grafica</label>
-                    <div class="form-group input-group">
-                        <select class="form-control" [(ngModel)]="selectedValue">
-                            <option value="0" selected="">Seleccionar</option>
-                            <option *ngFor="let list of tipos" [value]="list.value">{{list.name}}</option>
+                    <div class="form-group text-center">
+                        <label for="tipos">Estado</label>
+                        <select class="form-control" name="state" id="state" [disabled]="lock" [(ngModel)]="solicitud.state"
+                            #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
+                            <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col col-sm-3 text-center">
-                    <span class="input-group-btn">
-                        <button class="btn btn-success" type="button" (click)="buscar(selectedValue)" style="position: relative; top: 30px;  background: #1AB394;">
-                            Generar
-                        </button>
-                    </span>
+                    <div class="form-group text-center">
+                        <label for="municipality">Municipio</label>
+                        <select class="form-control" name="municipality" id="municipality"
+                            [(ngModel)]="solicitud.municipality" [disabled]="lock" #municipality="ngModel"
+                            (change)="loadparish(solicitud.municipality)">
+                            <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                        </select>
+                    </div>
                 </div>
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
+                        <select class="form-control" name="parish" id="parish" [disabled]="lock" [(ngModel)]="solicitud.parish"
+                            required>
+                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Tipos de Propiedades</label>
+                      <select class="form-control" name="tipospropiedad" [(ngModel)]="propiedad.id">
+                        <option *ngFor="let item3 of propiedades" [ngValue]="item3.id">
+                          {{ item3.name }}
+                        </option>
+                      </select>
+                    </div> 
+                  </div>
+
+                <div class="col col-sm-3 text-center">
+                    </div>
+
+                 <div class="col col-sm-3 text-center">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                                Generar
+                            </button>
+                        </span>
+                        <span class="input-group-btn" *ngIf="view" >
+                                <button class="btn btn-success" type="button" value="Exportar" (click)="downloadImagePDF()" style="position: relative; top: 30px;  background: #1AB394; margin-left: 8px;">
+                                    Imprimir
+                                </button>
+                            </span>
+                    </div>
+                            
                 <head>
                         <meta charset="UTF-8">
                         <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
@@ -61,31 +100,76 @@
                         </style>
                 </head>
                 <body *ngIf="view">
-                        <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
-                                <div class="card-body">
-                                        <div class="col col-sm-12">
-                                                <div class="card border-primary">
-                                                    <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
-                                                    <div class="card-body text-primary">
-                                                        <h5 class="card-title" style="position: relative; text-align: -webkit-center"><b>Reportes por Ordenes de Servicio</b></h5>
-                                                        <p class="card-text">...</p>
+                            <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                                    <div class="card-body">
+                                            <div class="col col-sm-12">
+                                                    <div style="position: relative; text-align: -webkit-center">
+                                                            <h1><b> Reportes por Solicitudes de Servicio</b></h1>
+                                                        </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center">
+                                                            <b> CRITERIOS DE BUSQUEDA</b>
+                                                        </div>
+                                                        <br>
+                                                    <div class="row">
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black; margin-left: 15px"><b>Fecha Inicio:</b> {{query.start}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Fecha Fin:</b> {{query.end}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Estado:</b> {{getStateNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black; margin-left: 15px"><b>Municipio:</b> {{getMunicipalityNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Parroquia:</b> {{getParishNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                             <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Tipo de Inmuebles:</b> {{getTypePropertyNameById()}}</label>
+                                                                </div>
+                                                            </div>
                                                     </div>
                                                 </div>
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <div class="card-body">
-                                                <div [chart]="chart" id="graficaLineal" class="chart"></div>
                                             </div>
-                                        
-                                </div>                
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <div>  
-                                <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>  
-                            </div>  
-                      </div>
-                </body>
+                                            <div class="col col-sm-12">
+                                                    <div class="card-body">
+                                                            <div [chart]="chart" id="column" class="chart"></div>
+                                                    </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                                        <div class="card-body text-primary">
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+
+                                    </div>
+
+                            </div>
+                    </body>
             </div>
         </div>
     </div>
