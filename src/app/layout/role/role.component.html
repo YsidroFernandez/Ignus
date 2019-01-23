@@ -126,7 +126,7 @@
                         <div class="form-group">
                             <label for="nombre">Funciones</label>
                             <ngx-select [multiple]="true" [items]="functions" [keepSelectedItems]=true
-                                optionValueField="id" optionTextField='name' [disabled]="ngxDisabled"
+                                optionValueField="id" optionTextField='description' [disabled]="ngxDisabled"
                                 [(ngModel)]="ngxValue" placeholder="Seleccione las Funciones"
                                 (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
                             </ngx-select>

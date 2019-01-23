@@ -5,7 +5,7 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class SolicitudFilterPipe implements PipeTransform {
-    transform(items: any[], solicName: string, solicApellido: string, solicTelefono: string, solicTipo: string, solicFecha: string, solicHora: string, solicEstatus: string) {
+    transform(items: any[], solicName: string, solicApellido: string, solicIdent: string, solicTipo: string, solicFecha: string, solicHora: string, solicEstatus: string) {
       if (items && items.length){
         return items.filter(item =>{
             if (solicName && item.client.firstName.toLowerCase().indexOf(solicName.toLowerCase()) === -1){
@@ -14,7 +14,7 @@ import { PipeTransform, Pipe } from "@angular/core";
             if (solicApellido && item.client.lastName.toLowerCase().indexOf(solicApellido.toLowerCase()) === -1){
                 return false;
             }
-            if (solicTelefono && item.client.identification.toLowerCase().indexOf(solicTelefono.toLowerCase()) === -1){
+            if (solicIdent && item.client.identification.toLowerCase().indexOf(solicIdent.toLowerCase()) === -1){
                 return false;
             }
             if (solicTipo && item.typeService.name.toLowerCase().indexOf(solicTipo.toLowerCase()) === -1){
