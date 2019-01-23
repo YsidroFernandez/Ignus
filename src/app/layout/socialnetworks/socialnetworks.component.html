@@ -1,13 +1,13 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Redes Sociales'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
-        <div style="padding-bottom: 4%">
-                <div style="text-align: end; padding-top: 2%; padding-bottom: 2%">
-                        <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true"  data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
-                </div>
-        
-
-    
+            <div class="card mb-3">
+                    <div class="row mb-3">
+                        <div class="col col-sm-12 text-right">
+                              <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                              (click)="open(content)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar" ></i></button>
+                          </div>
+                      </div>
 
         <div class="card mb-3" >
             <div class="row">
@@ -36,6 +36,7 @@
                     </div>
             </div>
          </div>
+    </div>
     </div>
     <ng-template #content let-c="close" let-d="dismiss">
             <div class="modal-header">

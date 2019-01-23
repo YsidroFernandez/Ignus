@@ -45,14 +45,10 @@
                                 <input class="form-control mr-sm-2" type="text" placeholder="Agente..." aria-label="Search"
                                     [(ngModel)]="conAgente" />
                             </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Garantia..." aria-label="Search"
-                                    [(ngModel)]="conGarantia" />
-                            </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of contracts | searchfilter: emplIdentificacion:emplName:emplLastName:emplSex; let i = index">
+                        <tr *ngFor="let item of contracts | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente; let i = index">
                           <td>{{ item.folioNumber }}</td>
                           <td>{{ item.elaborationDate }}</td>
                           <td>{{ item.firmDate }}</td>

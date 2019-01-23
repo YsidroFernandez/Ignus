@@ -24,7 +24,7 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Apellido</th>
-                            <th>Telefono</th>
+                            <th>Identificación</th>
                             <th> Tipo de Solicitud </th>
                             <th> Fecha</th>
                             <th> Hora</th>
@@ -43,8 +43,8 @@
                                     [(ngModel)]="solicApellido" />
                             </th>
                             <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Telefono..." aria-label="Search"
-                                    [(ngModel)]="solicTelefono" />
+                                <input class="form-control mr-sm-2" type="text" placeholder="identificación..." aria-label="Search"
+                                    [(ngModel)]="solicIdent" />
                             </th>
                             <th style="background-color:transparent">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Tipo..." aria-label="Search"
@@ -65,9 +65,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicTelefono:solicTipo:solicFecha:solicHora:solicEstatus| paginate: { itemsPerPage: numPage, currentPage: pages }"
-                            (click)=openForEdit(solicitud)>
-                            <!--(click)=openForEdit(solicitud) -->
+                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicIdent:solicTipo:solicFecha:solicHora:solicEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }" (click)=openForEdit(solicitud)>
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
