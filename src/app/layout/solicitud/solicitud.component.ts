@@ -185,8 +185,13 @@ export class SolicitudComponent implements OnInit {
 
 
     allSolicitud() {
-        this.globalService.getModel("/api/request/pending").then((result) => {
+        let user = localStorage.getItem("user");
+        console.log(user);
+   
+        let obj = JSON.parse(user);
+        this.globalService.getModel("/api/request/pending?status=S&userId="+obj.id.toString()).then((result) => {
             this.solicitudes = [];
+            console.log(result);
             this.solicitudes = result['data'];
             console.log(this.solicitudes);
         }, (err) => {

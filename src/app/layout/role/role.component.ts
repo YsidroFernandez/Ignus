@@ -54,7 +54,7 @@ export class RoleComponent implements OnInit {
     public doSelectOptions = (options) => console.log(this.ngxValue, options);
     
     getFunctions() {
-        this.globalService.getModel("/api/function")
+        this.globalService.getModel("/api/function/linkable")
         .then((result) => {
             console.log(result);
             this.functions = result['data'];
