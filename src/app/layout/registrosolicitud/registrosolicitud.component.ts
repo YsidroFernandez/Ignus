@@ -47,7 +47,7 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
 }
 @Component({
     selector: 'app-registrosolicitud',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
@@ -79,7 +79,8 @@ export class RegistroSolicitudComponent implements OnInit {
     public typeService = [];
     public typeProperties = [];
     public typeProperty: any;
-    public search: String
+    public search: String;
+    public bloq = false;
     colors: any = {
         red: {
             primary: '#ad2121',
@@ -102,7 +103,7 @@ export class RegistroSolicitudComponent implements OnInit {
     id_employee : any;
     prevBtnDisabled: boolean = false;
     nextBtnDisabled: boolean = false;
-
+    avatar: any;
     
     public viewCalendar = false;
     view: CalendarPeriod = 'month';
@@ -408,18 +409,22 @@ export class RegistroSolicitudComponent implements OnInit {
     dayClicked({ date, events }: { date: Date; events: any[] }): void {
         this.dispAM = false;
         this.dispPM = false;
-        this.test.fecha = date;
-        if (events.length < 2) {
-            for (var i = 0; i < events.length; i++) {
-                if (events[i].turno == 'AM') {
-                    this.dispAM = true;
-                } else
-                    if (events[i].turno == 'PM') {
-                        this.dispPM = true;
-                    }
+        if(this.bloq){
+            console.log("esta bloqueado");
+        }else{
+            this.test.fecha = date;
+            if (events.length < 2) {
+                for (var i = 0; i < events.length; i++) {
+                    if (events[i].turno == 'AM') {
+                        this.dispAM = true;
+                    } else
+                        if (events[i].turno == 'PM') {
+                            this.dispPM = true;
+                        }
+                }
+                this.showChildModal();
             }
-            this.showChildModal();
-        }
+        }       
     }
 
     turnoAsignadoAM($event) {
@@ -438,11 +443,13 @@ export class RegistroSolicitudComponent implements OnInit {
                         });
                         this.hideChildModal();
                         this.refresh.next();
+                        this.bloq = true;
                     } else {
                         this.dispPM = false;
                         $event.target.checked = false;
                         this.hideChildModal();
                         this.refresh.next();
+                        
                     }
                 });
         } else
@@ -469,6 +476,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         });
                         this.hideChildModal();
                         this.refresh.next();
+                        this.bloq = true;
                     } else {
                         this.dispAM = false;
                         $event.target.checked = false;
@@ -548,14 +556,22 @@ export class RegistroSolicitudComponent implements OnInit {
     }
 
     selectAgente($event) {
-       
+        console.log($event);
+        console.log($event.target.value);
+        this.avatar = {};
         if ($event.target.value != '') {
-            console.log("error");
+          
             this.id_employee = $event.target.value;
             this.allAppointmentSchedule ();
             this.viewCalendar = true;
+            for(var i=0;i<this.employes.length;i++){
+                if(this.employes[i].person.id ==  this.id_employee){
+                    this.avatar = this.employes[i].user.urlAvatar;
+                }
+            }
+            console.log(this.avatar);
         }else{
             this.viewCalendar = false; 
-        }
+        }       
     }
 }
