@@ -159,6 +159,7 @@
                         <label class="ng-tns-c12-9" for="employe">Empleados</label>
                         <select (change)="selectAgente($event)" class="form-control" name="employee" id="employee"
                             required [(ngModel)]="solicitud.employeeId">
+                            <option selected="true" value="">Seleccione...</option>
                             <option *ngFor="let emp of employes" [value]="emp.person.id">{{emp.person.firstName}}
                                 {{emp.person.lastName}}
                             </option>
@@ -166,7 +167,6 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-                    <!-- aqu va-->
                 </div>
 
                 <div class="card-body" *ngIf="viewCalendar">

@@ -8,22 +8,22 @@ import { routerTransition } from "../../../router.animations";
   animations: [routerTransition()],
 })
 export class ValoracionComponent implements OnInit {
-  valorations: any;
+  valorations:  any;
+  qualification: any = [];
   
 
-  constructor(public globalService: GlobalService) {
-    this.valorations = [];
+  constructor(public globalService: GlobalService) { 
    }
 
   ngOnInit() {
     this.getListValoration();
+    this.allQualification();
   }
   getListValoration() {
     this.globalService.getModel("/api/typeCalification").then(
       result => {
-        console.log(result);
-        this.valorations = result["data"];
-        console.log(this.valorations);
+         this.valorations = [];
+        this.valorations = result["data"]; 
       },
       err => {
         console.log(err);
@@ -31,7 +31,23 @@ export class ValoracionComponent implements OnInit {
     );
   }
 
-  private newMethod(): String {
-    return "/api/typeCalification";
+  allQualification(){
+    this.globalService.getModel("/api/qualificationCriteria").then(
+      result => {
+        this.qualification = [];
+        this.qualification = result["data"];
+        console.log(this.qualification);
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
+
+
+  // /api/calification/ 
+
+  // private newMethod(): String {
+  //   return "/api/typeCalification";
+  // }
 }
