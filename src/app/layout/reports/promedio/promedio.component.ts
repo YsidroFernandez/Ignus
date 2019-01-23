@@ -46,7 +46,11 @@ export class PromedioComponent implements OnInit {
         description: '',
         typeSpecifications: [],
     };
+    state: any;
     fechaI: any;
+    states: any;
+    municipalities: any;
+    parishes: any;
     fechaF: any;
     query: any = {}
     chartDefaultConfiguration: any = {
