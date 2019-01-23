@@ -187,7 +187,7 @@ onDelete(index: number) {
     this.incidencia = Object.assign({}, this.incidencias[this.selectedRow]);
     this.showNew = true;
     //Pendiente
-    if(confirm('¿Estas seguro de eliminar esta promotion?')){
+    if(confirm('¿Estas seguro de eliminar esta incidencia?')){
         this.globalService.removeModel(this.incidencia.id, "/api/incidence")
                 .then((result) => {
                     console.log(result);
