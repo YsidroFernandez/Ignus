@@ -52,32 +52,6 @@
                         </tr>
                     </thead>
                     <tbody>
-<<<<<<< HEAD
-                        <tr *ngFor="let contrato of contratos | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente:conGarantia | paginate: { itemsPerPage: numPage, currentPage: pages }"
-                            >
-                            <td>{{contrato.folioNumber}}</td>
-                            <td>{{contrato.elaborationDate}}</td>
-                            <td>{{contrato.firmDate}}</td>
-                            <td>{{contrato.client.firstName}} {{contrato.client.lastName}} </td>
-                            <td>{{contrato.agent.firstName }} {{contrato.agent.lastName }}</td>
-                            <td>{{contrato.warranties.name }}</td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)" data-toggle="tooltip" data-placement="top" title="Detalle">
-                                        <fa-icon [icon]="faEye"></fa-icon>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(editar)" data-toggle="tooltip" data-placement="top" title="Editar">
-                                        <fa-icon [icon]="faEdit"></fa-icon>
-                                    </button>
-                                    <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="onDelete(i)" data-toggle="tooltip" data-placement="top" title="Eliminar">
-                                        <fa-icon [icon]="faTrash"></fa-icon>
-                                    </button>
-                                </div>
-                            </td>
-=======
                         <tr *ngFor="let item of contracts | searchfilter: emplIdentificacion:emplName:emplLastName:emplSex; let i = index">
                           <td>{{ item.folioNumber }}</td>
                           <td>{{ item.elaborationDate }}</td>
@@ -114,7 +88,6 @@
                                   aria-hidden="true"></i></a>
                             </div>
                           </td>
->>>>>>> 7eebe0079c3f4cd00e1c9bd2f5ec4b82f7a3478f
                         </tr>
                       </tbody>
                 </table>
