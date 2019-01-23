@@ -59,7 +59,7 @@ export class PublicationsComponent implements OnInit {
    }
 
    getListTransactionPublished() {
-    this.globalService.getModel('/api/transaction?status=D&offeringProperty=true&userId='+this.user).then(
+    this.globalService.getModel('/api/transaction?status=H&offeringProperty=false&userId='+this.user).then(
       result => {
         console.log("Result transPublished"+result);
         this.transPublished = result["data"];

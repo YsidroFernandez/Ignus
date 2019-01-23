@@ -189,7 +189,8 @@ export class SolicitudComponent implements OnInit {
         console.log(user);
    
         let obj = JSON.parse(user);
-        this.globalService.getModel("/api/request/pending?status=S&userId="+obj.id.toString()).then((result) => {
+         console.log(obj.id)
+        this.globalService.getModel("/api/request/?status=S&userId="+obj.id.toString()).then((result) => {
             this.solicitudes = [];
             console.log(result);
             this.solicitudes = result['data'];
