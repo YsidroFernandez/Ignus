@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+
 @NgModule({
     imports: [
         CommonModule,
