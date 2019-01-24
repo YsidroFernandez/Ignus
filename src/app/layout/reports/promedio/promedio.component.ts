@@ -66,10 +66,7 @@ export class PromedioComponent implements OnInit {
         title: {
             text: 'Servicios mas Solicitados por Mes '
         },
-             xAxis: {
-            categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', "Junio","Agosto","Septimbre","Octubre","Noviembre","Diciembre"]
-        },
-        
+                 
         
         legend: {
             align: 'right',
@@ -96,16 +93,7 @@ export class PromedioComponent implements OnInit {
             }
         },
 
-        series: [{
-            name: 'Compra',
-            data: [5, 3, 4, 7, 2]
-        }, {
-            name: 'Venta',
-            data: [2, 2, 3, 2, 1]
-        }, {
-            name: 'Alquiler',
-            data: [3, 4, 4, 2, 5]
-        }]
+       
   
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
@@ -265,8 +253,8 @@ export class PromedioComponent implements OnInit {
         this.globalService.getModel("/api/report/service?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
-            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}}
-            console.log(this.chartDefaultConfiguration)
+            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}
+            console.log(this.chartDefaultConfiguration),
             this.chart = new Chart(this.chartDefaultConfiguration);
         }, (err) => {
             console.log(err);
