@@ -1,218 +1,356 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Servicios'" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
-        <div class="card-header" style="text-align: -webkit-center;">Servicios registrados</div>
-
-
-        <div style="text-align: end; padding-top: 1%; padding-bottom: 1%">
-
-            <button style="background: #1AB394; border-radius: 20px; color: white; text-align: end" (click)="show1 = !show1">{{show1
-                ? 'Vista Card ' : 'Vista Tabla'}}</button>
-        </div>
-        <div *ngIf="show1" class="card mb-3">
-            <br>
-            <div class="row mb-3">
-                <div class="col col-sm-12 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                </div>
-            </div>
-            <div class="card-body  table-responsive">
-                <table class="card-body table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th colspan="4">Acciones</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Nombre..."
-                            aria-label="Search"
-                            [(ngModel)]="servName"
-                            />
-                          </th>
-                          <th style="background-color:transparent">
-                            <input
-                            class="form-control mr-sm-2"
-                            type="text"
-                            placeholder="Descripción..."
-                            aria-label="Search"
-                            [(ngModel)]="servDescription"
-                            />
-                          </th>
-                        </tr>
-                      </thead>
-                    <tbody>
-                        <tr *ngFor="let item of services | searchfilter: servName:servDescription; let i= index">
-                            <td>{{item.name}}</td>
-                            <td>
-                                <p>{{item.description}}</p>
-                            </td>
-                            <td>
-                                    <div class="row ">
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content,'show', i)">
-                                    <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content,'edit', i)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                                    </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="row mb-3">
-                <div class="col col-sm-8">
-                </div>
-                <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
-                    <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div *ngIf="!show1" class="card mb-3">
-                <div class="row mb-3">
-                        <div class="col col-sm-12 text-right">
-                            <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                                (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-                    <hr>
-                    
-                  
-            <div class="row">
-
-                <div *ngFor="let item of services ; let i= index" class="col-md-6">
-                    <div class="card flex-md-row mb-4 shadow ">
-                        <div class="card-body d-flex flex-column align-items-start">
-                            <strong class="d-inline-block mb-2 text-success">{{item.name}}</strong>
-
-                            <p class="card-text mb-auto">{{item.description}}</p>
-
-
-                        </div>
-                        <div class="card-body d-flex flex-column align-items-center">
-                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x350]" src="{{item.urlImage}}"
-                                style="width: 300px; height: 350px; border-radius: 10%;">
-                            <br>
-                            <div class="row ">
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content,'show',i)">
-                                    <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip"
-                                        data-placement="top" title="Detalle"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="open(content,'edit',i)">
-                                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
-                                        data-placement="top" title="Editar"></i>
-                                </button>
-                                <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                    (click)="onDelete(i)">
-                                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
-                                        data-placement="top" title="Eliminar"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <ng-template #content let-c="close" let-d="dismiss">
-            <div class="modal-header">
-                <h4 class="modal-title ">{{modalTitle}}</h4>
-                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <fieldset [disabled]='disabled'>
-                <div class="card mb-3">
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Nombre</label>
-                                    <input type="text" [(ngModel)]="service.name" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Descripción</label>
-                                    <textarea class="form-control" rows="2"  [(ngModel)]="service.description"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- selectores automaticos -->
-                        <!-- =============================================================== -->
-                        <div class="row mb-3">
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="tipos">Recaudos</label>
-                                    <ngx-select [multiple]="true" [items]="requirements" optionValueField="id" 
-                                        optionTextField='name' [disabled]="ngxDisabled" [(ngModel)]="ngxRequirements"
-                                        placeholder="Seleccione los recaudos" (selectionChanges)="doSelectOptions($event)"
-                                        >
-                                    </ngx-select>
-                                </div>
-                            </div>
-                            <div class="col col-sm-6">
-                                <div class="form-group">
-                                    <label for="nombre">Actividades</label>
-                                    <ngx-select [multiple]="true" [items]="activities" [keepSelectedItems]=true
-                                        optionValueField="id" optionTextField='name' [disabled]="ngxDisabled"
-                                        [(ngModel)]="ngxActivities" placeholder="Seleccione las actividades"
-                                        (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
-                                    </ngx-select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- =================================================================== -->
-                        <div class="col col-sm-12">
-                        <div class="form-group" style="text-align: center">
-                            <img *ngIf="url" style="border-radius: 20%"  width="200" height="200"  [src]="url">
-                            <br>
-                            <!-- <img width="100" height="100" [src]="url" height="200"> <br/> -->
-                            <input  data-classButton="btn btn-primary" type='file' (change)="onSelectFile($event)">
-                       </div>
-
-                    </div>
-                </div>
-                </div>
-            </fieldset>
-            <div class="modal-footer">
-                <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                        style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                        data-placement="top" title="Cancelar"></i></button>
-                <div *ngIf="submitType!='show'">
-                    <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                        (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
-                            data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
-                </div>
-            </div>
-        </ng-template>
-
+  <app-page-header [heading]="'Servicios'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center;">
+      Servicios registrados
     </div>
+
+    <div style="text-align: end; padding-top: 1%; padding-bottom: 1%">
+      <button
+        style="background: #1AB394; border-radius: 20px; color: white; text-align: end"
+        (click)="show1 = !show1"
+      >
+        {{ show1 ? "Vista Card " : "Vista Tabla" }}
+      </button>
+    </div>
+    <div *ngIf="show1" class="card mb-3">
+      <br />
+      <div class="row mb-3">
+        <div class="col col-sm-12 text-right">
+          <button
+            style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content, 'create', -1)"
+          >
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th colspan="4">Acciones</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Nombre..."
+                  aria-label="Search"
+                  [(ngModel)]="servName"
+                />
+              </th>
+              <th style="background-color:transparent">
+                <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Descripción..."
+                  aria-label="Search"
+                  [(ngModel)]="servDescription"
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let item of (services | searchfilter: servName:servDescription);
+                let i = index
+              "
+            >
+              <td>{{ item.name }}</td>
+              <td>
+                <p>{{ item.description }}</p>
+              </td>
+              <td>
+                <div class="row ">
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="open(content, 'show', i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-eye"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="open(content, 'edit', i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-edit"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                  <button
+                    type="button"
+                    style="background: #1AB394; border-radius: 20px; color: white"
+                    (click)="onDelete(i)"
+                  >
+                    <i
+                      style="color: white"
+                      class="fa fa-trash"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mb-3">
+        <div class="col col-sm-8"></div>
+        <div
+          class="col col-sm-4 text-right"
+          style="position: relative; top: 15px; "
+        >
+          <ngb-pagination
+            [collectionSize]="70"
+            [(page)]="defaultPagination"
+            style="position: relative; right: 100px;"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!show1" class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-12 text-right">
+          <button
+            style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content, 'create', -1)"
+          >
+            <i style="color: white" class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div *ngFor="let item of services; let i = index" class="col-md-6">
+          <div class="card flex-md-row mb-4 shadow ">
+            <div class="card-body d-flex flex-column align-items-start">
+              <strong class="d-inline-block mb-2 text-success">{{
+                item.name
+              }}</strong>
+
+              <p class="card-text mb-auto">{{ item.description }}</p>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+              <img
+                class="card-img-right flex-auto d-none d-lg-block"
+                alt="Thumbnail [300x350]"
+                src="{{ item.urlImage }}"
+                style="width: 300px; height: 350px; border-radius: 10%;"
+              />
+              <br />
+              <div class="row ">
+                <button
+                  type="button"
+                  style="background: #1AB394; border-radius: 20px; color: white"
+                  (click)="open(content, 'show', i)"
+                >
+                  <i
+                    style="color: white"
+                    class="fa fa-eye"
+                    aria-hidden="true"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Detalle"
+                  ></i>
+                </button>
+                <button
+                  type="button"
+                  style="background: #1AB394; border-radius: 20px; color: white"
+                  (click)="open(content, 'edit', i)"
+                >
+                  <i
+                    style="color: white"
+                    class="fa fa-edit"
+                    aria-hidden="true"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Editar"
+                  ></i>
+                </button>
+                <button
+                  type="button"
+                  style="background: #1AB394; border-radius: 20px; color: white"
+                  (click)="onDelete(i)"
+                >
+                  <i
+                    style="color: white"
+                    class="fa fa-trash"
+                    aria-hidden="true"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Eliminar"
+                  ></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title ">{{ modalTitle }}</h4>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="d('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <fieldset [disabled]="disabled">
+        <div class="card mb-3">
+          <div class="modal-body">
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="tipos">Nombre</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="service.name"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="nombre">Descripción</label>
+                  <textarea
+                    class="form-control"
+                    rows="2"
+                    [(ngModel)]="service.description"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <!-- selectores automaticos -->
+            <!-- =============================================================== -->
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="tipos">Recaudos</label>
+                  <ngx-select
+                    [multiple]="true"
+                    [items]="requirements"
+                    optionValueField="id"
+                    optionTextField="name"
+                    [disabled]="ngxDisabled"
+                    [(ngModel)]="ngxRequirements"
+                    placeholder="Seleccione los recaudos"
+                    (selectionChanges)="doSelectOptions($event)"
+                  >
+                  </ngx-select>
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="form-group">
+                  <label for="nombre">Actividades</label>
+                  <ngx-select
+                    [multiple]="true"
+                    [items]="activities"
+                    [keepSelectedItems]="true"
+                    optionValueField="id"
+                    optionTextField="name"
+                    [disabled]="ngxDisabled"
+                    [(ngModel)]="ngxActivities"
+                    placeholder="Seleccione las actividades"
+                    (selectionChanges)="doSelectOptions($event)"
+                    [keepSelectedItems]="true"
+                  >
+                  </ngx-select>
+                </div>
+              </div>
+            </div>
+            <!-- =================================================================== -->
+            <div class="row mb-3">
+              <div class="col col-sm-6">
+             <label class="form-check-label col-8"> Ofrecer Inmueble </label>
+                <label class="switch" [for]="item.id">
+                  <input
+                    type="checkbox"
+                    [id]="item.id"
+                    [value]="item.bin_status"
+                    [(ngModel)]="item.bin_status"
+                    (change)="changeStatus(item)"
+                    checked
+                  />
+                  <div class="slider round"></div>
+                </label>
+              </div>
+              <div class="col col-sm-6">
+                <div class="form-group" style="text-align: center">
+                  <img
+                    *ngIf="url"
+                    style="border-radius: 20%"
+                    width="200"
+                    height="200"
+                    [src]="url"
+                  />
+                  <br />
+                  <!-- <img width="100" height="100" [src]="url" height="200"> <br/> -->
+                  <input
+                    data-classButton="btn btn-primary"
+                    type="file"
+                    (change)="onSelectFile($event)"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div class="modal-footer">
+        <button
+          style="border-radius: 20px"
+          type="button"
+          class="btn btn-danger"
+          (click)="d('Cross click')"
+        >
+          <i
+            style="color: white"
+            class="fa fa-close"
+            aria-hidden="true"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Cancelar"
+          ></i>
+        </button>
+        <div *ngIf="submitType != 'show'">
+          <button
+            style="background: #1AB394; border-radius: 20px"
+            type="button"
+            class="btn btn-success"
+            (click)="c('Close click')"
+          >
+            <i
+              style="color: white"
+              class="{{ modalIcon }}"
+              aria-hidden="true"
+              data-toggle="tooltip"
+              data-placement="top"
+              title="Editar"
+            ></i>
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>
