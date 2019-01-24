@@ -544,25 +544,6 @@ export class RegistroSolicitudComponent implements OnInit {
         });
     }
 
-    transform_check(valor, tipo, indicador) {
-
-        for (var te in valor) {
-            if (valor[te].name == tipo) {
-                for (var esp in valor[te].specifications_checkbox) {
-                    if (valor[te].specifications_checkbox[esp].name == indicador) {
-                        if (valor[te].specifications_checkbox[esp].quantity == "true") {
-                            valor[te].specifications_checkbox[esp].quantity = false
-                        } else {
-                            valor[te].specifications_checkbox[esp].quantity = true
-                        }
-                        console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
-                    }
-                }
-            }
-        }
-
-    }
-
     selectAgente($event) {
         console.log($event);
         console.log($event.target.value);

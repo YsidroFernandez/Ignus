@@ -67,19 +67,20 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox"
-                                    [id]="esp.id">
-                                    <div class="form-group row">
-                                        <label class="form-check-label col-8">{{esp.name}} : </label>
-                                        <label class="switch" [for]="esp.name">
-                                            <input class="form-check-input" [disabled]="lock" [id]="esp.name" [type]="esp.typeInput"
-                                                [name]="esp.name" [value]="esp.quantity" [(ngModel)]="esp.quantity"
-                                                (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
-                                            <div class="slider round"></div>
-                                        </label>
+                                    <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox" >
+                                        <div class="form-group row">
+                                            
+                                            <label class="form-check-label col-8">{{esp.name}} : </label>
+                                            <label class="switch" for="exampleCheck-{{esp.id}}">
+                                                
+                                                <input id="exampleCheck-{{esp.id}}" type="checkbox"
+                                                 [value]="esp.quantity" [(ngModel)]="esp.quantity" disabled=true>
+                                                    
+                                                <div class="slider round"></div>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </tab>
                         <tab heading="Ubicacion" id="u">
                             <div class="row">
