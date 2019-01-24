@@ -14,11 +14,11 @@
         </div>
 
         <div class="card mb-3">
-                <div class="col col-sm-12 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                        (click)="open(content, 'create', -1); limpiar()"><i style="color: white" class="fa fa-plus"
-                            aria-hidden="true"></i></button>
-                </div>
+            <div class="col col-sm-12 text-right">
+                <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+                    (click)="open(content, 'create', -1); limpiar()"><i style="color: white" class="fa fa-plus"
+                        aria-hidden="true"></i></button>
+            </div>
             <br />
             <div class="card-body  table-responsive">
                 <table class="card-body table table-hover">
@@ -34,65 +34,36 @@
                         </tr>
                     </thead>
                     <thead>
-                            <tr>
-                                <th style="background-color:transparent">
-                                    <input
-                                    class="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Fecha..."
-                                    aria-label="Search"
-                                    [(ngModel)]="lisincFecha"
-                                    />
-                              </th>
-                              <th style="background-color:transparent">
-                                    <input
-                                    class="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Cliente..."
-                                    aria-label="Search"
-                                    [(ngModel)]="lisincCliente"
-                                    />
-                                </th>
+                        <tr>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Transacción..."
-                                aria-label="Search"
-                                [(ngModel)]="lisincTransaccion"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Fecha..." aria-label="Search"
+                                    [(ngModel)]="lisincFecha" />
                             </th>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Asunto..."
-                                aria-label="Search"
-                                [(ngModel)]="lisincAsunto"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
+                                    [(ngModel)]="lisincCliente" />
                             </th>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Decisión..."
-                                aria-label="Search"
-                                [(ngModel)]="lisincDecision"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Transacción..." aria-label="Search"
+                                    [(ngModel)]="lisincTransaccion" />
                             </th>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Estatus..."
-                                aria-label="Search"
-                                [(ngModel)]="lisincEstatus"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Asunto..." aria-label="Search"
+                                    [(ngModel)]="lisincAsunto" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Decisión..." aria-label="Search"
+                                    [(ngModel)]="lisincDecision" />
+                            </th>
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Estatus..." aria-label="Search"
+                                    [(ngModel)]="lisincEstatus" />
                             </th>
                         </tr>
-                        </thead>
+                    </thead>
                     <tbody>
-                        <tr *ngFor="let item of listincidences | searchfilter: lisincFecha:lisincCliente:lisincTransaccion:lisincAsunto:lisincDecision:lisincEstatus; let i= index" (click)="onEdit(i)">
+                        <tr *ngFor="let item of listincidences  | paginate: { itemsPerPage: numPage, currentPage: pages } | searchfilter: lisincFecha:lisincCliente:lisincTransaccion:lisincAsunto:lisincDecision:lisincEstatus; let i= index"
+                            (click)="onEdit(i)">
                             <td>{{item.date}}</td>
                             <td>{{item.transaction.client.firstName}}</td>
                             <td>{{item.transaction.nameForEmployee}}</td>
@@ -131,13 +102,34 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row mb-3">
+            <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                            </a>
+                        </li>
+
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                {{ page.label }} </a>
+                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination-template>
+            <!-- <div class="row mb-3">
                 <div class="col col-sm-8">
                 </div>
                 <div class="col col-sm-4 text-right" style="position: relative; top: 15px;">
                     <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 

@@ -145,7 +145,7 @@ export class ReservaComponent {
 
 
     //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear 
-    open(content, action, index: number) {
+    open(content, action, index: number,reserva) {
         //==============================================================================
         //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
         //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
@@ -162,8 +162,12 @@ export class ReservaComponent {
         this.modalName = action;
         this.submitType = action;// variable que nos permite saber que accion podemos ejecutar ejemplo editar
         this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
-        this.transaction = Object.assign({}, this.getListTransactions[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-
+        if(reserva){
+        this.transaction = Object.assign({}, this.listtransactions[this.selectedRow]);//se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
+    }else{
+        this.transaction = Object.assign({}, this.pendingtransactions[this.selectedRow]);
+    }
+        console.log( this.transaction);
         if (action == 'show') {//si la accion es ver, desabilita los campos del modal
             this.disabled = true;
             this.modalIcon = "fa fa-close"
