@@ -46,15 +46,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let i = index; let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } "
-              (click)="onEdit(i) ">
+            <tr *ngFor="let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } let i = index">
               <td>{{ item.observation }}</td>
               <td>{{ item.client.firstName }}</td>
               <td>{{ item.employee.firstName}}</td>
               <td>{{ item.request.status}}</td>
               <td>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
                     <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
                   </button>
                   <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'edit', i)">

@@ -1,210 +1,151 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Contratos'" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
+  <app-page-header [heading]="'Contratos'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
 
-        <div class="card-header" style="text-align: -webkit-center;">Contratos Registrados</div>
-        <div class="card mb-3">
-            <div class="row mb-3">
-                <div class="col col-sm-12 text-right">
-                    <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;  "
-                    (click)="open(content, 'create', -1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
-                            data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
-                </div>
-            </div>
-            <div class="card-body  table-responsive">
-                <table class="card-body table table-hover">
-                    <thead>
-                        <tr>
-                            <th>numero de folio</th>
-                            <th>Elaboracion</th>
-                            <th>Fecha de firma</th>
-                            <th>Cliente</th>
-                            <th>Agente</th>
-                            <th colspan="4">Acciones</th>
-                        </tr>
-                    </thead>
-                    <thead>
-                        <tr>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Folio..." aria-label="Search"
-                                    [(ngModel)]="conFolio" />
-                            </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Elaboracion..." aria-label="Search"
-                                    [(ngModel)]="conElaboracion" />
-                            </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Fecha..." aria-label="Search"
-                                    [(ngModel)]="conFecha" />
-                            </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
-                                    [(ngModel)]="conCliente" />
-                            </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Agente..." aria-label="Search"
-                                    [(ngModel)]="conAgente" />
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of contracts | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente; let i = index">
-                          <td>{{ item.folioNumber }}</td>
-                          <td>{{ item.elaborationDate }}</td>
-                          <td>{{ item.firmDate }}</td>
-                          <td>{{ item.client.firstName }}</td>
-                          <td>{{ item.agent.firstName }}</td>
-                          <td>
-                            <div class="row ">
-                              <button
-                                type="button"
-                                style="background: #1AB394; border-radius: 20px; color: white"
-                                (click)="open(content, 'show', i)"
-                              >
-                                <i
-                                  style="color: white"
-                                  class="fa fa-eye"
-                                  aria-hidden="true"
-                                  data-toggle="tooltip" data-placement="top" title="Detalle"></i>
-                              </button>
-                              <button
-                                type="button"
-                                style="background: #1AB394; border-radius: 20px; color: white"
-                                (click)="open(content, 'edit', i)"
-                              >
-                                <i
-                                  style="color: white"
-                                  class="fa fa-edit"
-                                  aria-hidden="true"
-                                  data-toggle="tooltip" data-placement="top" title="Editar" ></i>
-                              </button>
-                           
-                              <a [href]="item.urlFileContract" target="_blank" [download]="item.urlFileContract">
-                                <i class="fa fa-cloud-download" style="margin-left: 3px; font-size: 25px; color:#1AB394;"
-                                  aria-hidden="true"></i></a>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                </table>
-            </div>
+    <div class="card-header" style="text-align: -webkit-center;">Contratos Registrados</div>
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-12 text-right">
+          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px;  "
+            (click)="open(content, 'create', -1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
+              data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
         </div>
+      </div>
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th>numero de folio</th>
+              <th>Elaboracion</th>
+              <th>Fecha de firma</th>
+              <th>Cliente</th>
+              <th>Agente</th>
+              <th colspan="4">Acciones</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Folio..." aria-label="Search" [(ngModel)]="conFolio" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Elaboracion..." aria-label="Search"
+                  [(ngModel)]="conElaboracion" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Fecha..." aria-label="Search" [(ngModel)]="conFecha" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Cliente..." aria-label="Search"
+                  [(ngModel)]="conCliente" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Agente..." aria-label="Search" [(ngModel)]="conAgente" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of contracts | searchfilter: conFolio:conElaboracion:conFecha:conCliente:conAgente; let i = index">
+              <td>{{ item.folioNumber }}</td>
+              <td>{{ item.elaborationDate }}</td>
+              <td>{{ item.firmDate }}</td>
+              <td>{{ item.client.firstName }}</td>
+              <td>{{ item.agent.firstName }}</td>
+              <td>
+                <div class="row ">
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'show', i)">
+                    <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                      title="Detalle"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content, 'edit', i)">
+                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                      title="Editar"></i>
+                  </button>
+
+                  <a [href]="item.urlFileContract" target="_blank" [download]="item.urlFileContract">
+                    <i class="fa fa-cloud-download" style="margin-left: 3px; font-size: 25px; color:#1AB394;"
+                      aria-hidden="true"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
 
 
 
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title ">{{ modalTitle }}</h4>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="d('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <fieldset [disabled]="disabled">
-      <div class="card mb-3">
-        <div class="modal-body">
-          <div class="row mb-3">
-            <div class="col col-sm-6">
-              <div class="form-group">
-                <label for="tipos">Numero de Folio</label>
-                <input
-                  type="text"
-                  [(ngModel)]="contract.folioNumber"
-                  class="form-control"
-                />
-              </div>
+  <div class="modal-header">
+    <h4 class="modal-title ">{{ modalTitle }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <fieldset [disabled]="disabled">
+    <div class="card mb-3">
+      <div class="modal-body">
+        <div class="row mb-3">
+          <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Numero de Folio</label>
+              <input type="text" [(ngModel)]="contract.folioNumber" class="form-control" />
             </div>
-            <div class="col col-sm-6">
-                    <div class="form-group">
-                        <label for="tipos">Fecha de elaboración</label>
-                        <input name="firmDate" [(ngModel)]="contract.elaborationDate" name="elaborationDate" [bsConfig]="datePickerConfig"
-                          type="text" class="form-control" placeholder="Fecha del Contrato*" bsDatepicker autocomplete="off"
-                          required >
-                    </div>
-                </div>
           </div>
-          <div class="row mb-3">
-                <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Fecha de la Firma</label>
-                          <input name="firmDate" [(ngModel)]="contract.firmDate" name="firmDate" [bsConfig]="datePickerConfig"
-                          type="text" class="form-control" placeholder="Fecha de la Firma*" bsDatepicker autocomplete="off"
-                          required >
-                        </div>
-                </div>
-            
-            <div *ngIf="!showView" class="col col-sm-6">
-                <div class="form-group">
-                  <label for="tipos">Transaciones</label>
-                  <select
-                    class="form-control"
-                    name="gender"
-                    [(ngModel)]="contrato.transaction"
-                  >
-                    <option
-                      *ngFor="let item of transactions"
-                      [ngValue]="item.id"
-                      [selected]="contrato.transaction"
-                      >{{ item.nameForClient }}</option
-                    >
-                  </select>
-                </div>
-              </div> 
-          </div>
-          
-          <div  class="row mb-3">
-
-            <div class="col col-sm-12">
-                <div class="form-group" style="text-align: center">
-                  <input data-classButton="btn btn-primary" name="file[]" id="file" value="contract.urlFile" type='file'
-                    (change)="onSelectFile($event)" />
-                </div>
-
-              </div>
-            
+          <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Fecha de elaboración</label>
+              <input name="firmDate" [(ngModel)]="contract.elaborationDate" name="elaborationDate" [bsConfig]="datePickerConfig"
+                type="text" class="form-control" placeholder="Fecha del Contrato*" bsDatepicker autocomplete="off"
+                required>
+            </div>
           </div>
         </div>
-      </div>
-    </fieldset>
-    <div class="modal-footer">
-      <button
-        style="border-radius: 20px"
-        type="button"
-        class="btn btn-danger"
-        (click)="d('Cross click')"
-      >
-        <i
-          style="color: white"
-          class="fa fa-close"
-          aria-hidden="true"
-          data-toggle="tooltip"
-          data-placement="top"
-          title="Cancelar"
-        ></i>
-      </button>
-      <div *ngIf="submitType != 'show'">
-        <button
-          style="background: #1AB394; border-radius: 20px"
-          type="button"
-          class="btn btn-success"
-          (click)="c('Close click')"
-        >
-          <i
-            style="color: white"
-            class="{{ modalIcon }}"
-            aria-hidden="true"
-            data-toggle="tooltip"
-            data-placement="top"
-            title="Editar"
-          ></i>
-        </button>
+        <div class="row mb-3">
+          <div class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Fecha de la Firma</label>
+              <input name="firmDate" [(ngModel)]="contract.firmDate" name="firmDate" [bsConfig]="datePickerConfig" type="text"
+                class="form-control" placeholder="Fecha de la Firma*" bsDatepicker autocomplete="off" required>
+            </div>
+          </div>
+
+          <div *ngIf="!showView" class="col col-sm-6">
+            <div class="form-group">
+              <label for="tipos">Transaciones</label>
+              <select class="form-control" name="gender" [(ngModel)]="contrato.transaction">
+                <option *ngFor="let item of transactions" [ngValue]="item.id" [selected]="contrato.transaction">{{
+                  item.nameForClient }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+
+          <div class="col col-sm-12">
+            <div class="form-group" style="text-align: center">
+              <input data-classButton="btn btn-primary" name="file[]" id="file" value="contract.urlFile" type='file'
+                (change)="onSelectFile($event)" />
+            </div>
+
+          </div>
+
+        </div>
       </div>
     </div>
-  </ng-template>
-
+  </fieldset>
+  <div class="modal-footer">
+    <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')">
+      <i style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i>
+    </button>
+    <div *ngIf="submitType != 'show'">
+      <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
+        <i style="color: white" class="{{ modalIcon }}" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+          title="Editar"></i>
+      </button>
+    </div>
+  </div>
+</ng-template>
