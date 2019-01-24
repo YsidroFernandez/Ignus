@@ -1,138 +1,125 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Recaudos'" [icon]="'fa-edit'"></app-page-header>
-    <div class="container">
-      <div class="card-header" style="text-align: -webkit-center;">
-        Recaudos Registrados
+  <app-page-header [heading]="'Recaudos'" [icon]="'fa-edit'"></app-page-header>
+  <div class="container">
+    <div class="card-header" style="text-align: -webkit-center;">
+      Recaudos Registrados
+    </div>
+    <div class="card mb-3">
+      <div class="row mb-3">
+        <div class="col col-sm-12 text-right">
+          <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
+            (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true"
+              data-toggle="tooltip" data-placement="top" title="Agregar"></i></button>
+        </div>
       </div>
-      <div class="card mb-3">
-        <div class="row mb-3">
-          <div class="col col-sm-12 text-right">
-                <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
-                    (click)="open(content,'create',-1)"><i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar" ></i></button>
-          </div>
+      <div class="card-body  table-responsive">
+        <table class="card-body table table-hover">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th colspan="4">Acciones</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Nombre..." aria-label="Search" [(ngModel)]="collNombre" />
+              </th>
+              <th style="background-color:transparent">
+                <input class="form-control mr-sm-2" type="text" placeholder="Descripción..." aria-label="Search"
+                  [(ngModel)]="collDescripcion" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of collections | paginate: { itemsPerPage: numPage, currentPage: pages } | searchfilter: collNombre:collDescripcion; let i = index">
+              <td>{{ item.name }}</td>
+              <td>{{ item.description }}</td>
+              <td>
+                <div class="row ">
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
+                    <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                      title="Detalle"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'edit', i)">
+                    <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                      title="Editar"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
+                    <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                      title="Eliminar"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+        <nav class="text-left" style="position: relative; left: 1.1rem;">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="p.isFirstPage()">
+              <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+              </a>
+            </li>
+
+            <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+              [ngClass]="{'active' : p.getCurrent() === page.value}">
+              <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                {{ page.label }} </a>
+              <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+            </li>
+
+            <li class="page-item" [class.disabled]="p.isLastPage()">
+              <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+            </li>
+          </ul>
+        </nav>
+      </pagination-template>
+      <!-- <div class="row mb-3">
+        <div class="col col-sm-8"></div>
+        <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
         </div>
-        <div class="card-body  table-responsive">
-          <table class="card-body table table-hover">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th colspan="4">Acciones</th>
-              </tr>
-            </thead>
-            <thead>
-                <tr>
-                  <th style="background-color:transparent">
-                    <input
-                    class="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Nombre..."
-                    aria-label="Search"
-                    [(ngModel)]="collNombre"
-                    />
-                  </th>
-                  <th style="background-color:transparent">
-                    <input
-                    class="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Descripción..."
-                    aria-label="Search"
-                    [(ngModel)]="collDescripcion"
-                    />
-                  </th>
-                </tr>
-              </thead>
-            <tbody>
-              <tr
-                *ngFor="let item of collections | searchfilter: collNombre:collDescripcion; let i = index"
-              >
-                <td>{{ item.name }}</td>
-                <td>{{ item.description }}</td>
-                <td>
-                  <div class="row ">
-              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                  (click)="open(content,'show', i)">
-                  <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle" ></i>
-              </button>
-              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                  (click)="open(content,'edit', i)">
-                  <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" ></i>
-              </button>
-              <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                  (click)="onDelete(i)">
-                  <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-              </button>
+      </div> -->
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title ">{{modalTitle}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <fieldset [disabled]="disabled">
+          <div class="card mb-3">
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Nombre</label>
+                    <input type="text" [(ngModel)]="collection.name" class="form-control" />
                   </div>
-             </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="row mb-3">
-          <div class="col col-sm-8"></div>
-          <div
-            class="col col-sm-4 text-right"
-            style="position: relative; top: 15px; "
-          >
-            <ngb-pagination
-              [collectionSize]="70"
-              [(page)]="defaultPagination"
-              style="position: relative; right: 100px;"
-            ></ngb-pagination>
-          </div>
-        </div>
-        <ng-template #content let-c="close" let-d="dismiss">
-          <div class="modal-header">
-            <h4 class="modal-title ">{{modalTitle}}</h4>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="d('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <fieldset [disabled]="disabled">
-            <div class="card mb-3">
-              <div class="modal-body">
-                <div class="row mb-3">
-                  <div class="col col-sm-6">
-                    <div class="form-group">
-                      <label for="tipos">Nombre</label>
-                      <input
-                        type="text"
-                        [(ngModel)]="collection.name"
-                        class="form-control"
-                      />
-                    </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Descripción</label>
+                    <input type="text" [(ngModel)]="collection.description" class="form-control" />
                   </div>
-                  <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Descripción</label>
-                          <input
-                            type="text"
-                            [(ngModel)]="collection.description"
-                            class="form-control"
-                          />
-                        </div>
-                      </div>
                 </div>
               </div>
             </div>
-          </fieldset>
-          <div class="modal-footer">
-              <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                      style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                      data-placement="top" title="Cancelar"></i></button>
-              <div *ngIf="submitType!='show'">
-                  <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                      (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
-                          data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
-              </div>
           </div>
-        </ng-template>
-      </div>
+        </fieldset>
+        <div class="modal-footer">
+          <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
+              class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
+          <div *ngIf="submitType!='show'">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                title="Editar"></i></button>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </div>
-  
+</div>

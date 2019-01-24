@@ -26,57 +26,18 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarView, Calend
 
 })
 
-// subDays('2019-01-08', -1) extrael el dia y disminuye o incrementa el evento
-// addDays('2019-01-10', 1), agrega un dia al evento
 export class SolicitudComponent implements OnInit {
 
-    view: CalendarView = CalendarView.Month;  
-    CalendarView = CalendarView;
-    
     refresh: Subject<any> = new Subject();
     viewDate: Date = new Date();
     locale: string = 'es';
     modalData: any;
     activeDayIsOpen: boolean = true;
-    // events: CalendarEvent[] = [
-    //     {
-    //         title: 'Editable event',
-    //         color: colors.yellow,
-    //         start: new Date(),
-    //         actions: [
-    //             {
-    //                 label: '<i class="fa fa-fw fa-pencil"></i>',
-    //                 onClick: ({ event }: { event: CalendarEvent }): void => {
-    //                     console.log('Edit event', event);
-    //                 }
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         title: 'Deletable event',
-    //         color: colors.blue,
-    //         start: new Date(),
-    //         actions: [
-    //             {
-    //                 label: '<i class="fa fa-fw fa-times"></i>',
-    //                 onClick: ({ event }: { event: CalendarEvent }): void => {
-    //                     this.events = this.events.filter(iEvent => iEvent !== event);
-    //                     console.log('Event deleted', event);
-    //                 }
-    //             }
-    //         ]
-    //     },
-    //     {
-    //         title: 'Non editable and deletable event',
-    //         color: colors.red,
-    //         start: new Date()
-    //     }
-    // ];
-
 
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public numPage: number;
     public pages = 1;
+    view:  boolean;
     closeResult: string;
     solicitudes = [];
     empleados = [];
@@ -127,51 +88,10 @@ export class SolicitudComponent implements OnInit {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
 
-    dayClickeddayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-        if (isSameMonth(date, this.viewDate)) {
-            this.viewDate = date;
-            if (
-                (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-                events.length === 0
-            ) {
-                this.activeDayIsOpen = false;
-            } else {
-                this.activeDayIsOpen = true;
-            }
-        }
-    }
-
-    eventTimesChanged({
-        event,
-        newStart,
-        newEnd
-    }: CalendarEventTimesChangedEvent): void {
-        event.start = newStart;
-        event.end = newEnd;
-        this.handleEvent(event);
-        this.refresh.next();
-    }
-
-    handleEvent(event: CalendarEvent): void {
-        this.modalData = event;
-        console.log(this.modalData.title)
-        // this.selactores()
-
-        // console.log(inmueble[0])
-        this.modalService.open(this.modalContent, { size: 'lg' });
-    }
-
-    beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
-        body.forEach(day => {
-            if (day.date.getDate() % 2 === 1 && day.inMonth) {
-                day.cssClass = 'odd-cell';
-            }
-        });
-    }
-
-    clientChanged($event) {
-        console.log($event);
-    }
+    
+    // clientChanged($event) {
+    //     console.log($event);
+    // }
 
     allEmployee() {
         this.globalService.getModel("/api/employee").then((result) => {
@@ -189,7 +109,8 @@ export class SolicitudComponent implements OnInit {
         console.log(user);
    
         let obj = JSON.parse(user);
-        this.globalService.getModel("/api/request/pending?status=S&userId="+obj.id.toString()).then((result) => {
+         console.log(obj.id)
+        this.globalService.getModel("/api/request/?status=S&userId="+obj.id.toString()).then((result) => {
             this.solicitudes = [];
             console.log(result);
             this.solicitudes = result['data'];
@@ -234,16 +155,16 @@ export class SolicitudComponent implements OnInit {
     }
 
     openForEdit(solicitud) {
-        this.solicitud = solicitud;
-        if (this.solicitud.typeService.name == 'Venta' || this.solicitud.typeService.name == 'Alquiler') {
-            this.buy = false;
-            console.log(this.buy);
-        } else if (this.solicitud.typeService.name == 'Compra' || this.solicitud.typeService.name == 'Arrendamiento') {
-            this.buy = true;
-            console.log(this.buy);
+      if (solicitud.typeService.offeringProperty) {
+          this.view=true;
+          this.solicitud= solicitud;
+          console.log(solicitud);
+        } else { 
+            this.view=false;
+            this.solicitud= solicitud;
+            console.log(solicitud);
         }
-
-    }
+    }  
 
     open(content) {
         this.modalService.open(content).result.then((result) => {

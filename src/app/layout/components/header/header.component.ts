@@ -18,10 +18,10 @@ export class HeaderComponent implements OnInit {
     public router: Router,
     public globalService: GlobalService,
     public config: NgbDropdownConfig
-  ) {
+  ) {    
     config.placement = 'bottom-right';
     config.autoClose = false;
-    this.translate.addLangs([
+    this.translate.addLangs([    
       "en",
       "fr",
       "ur",
@@ -98,6 +98,12 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+openRoute(item){
+  console.log(item);
+  this.router.navigate([item]);
+}
+
+
   isToggled(): boolean {
     const dom: Element = document.querySelector("body");
     return dom.classList.contains(this.pushRightClass);

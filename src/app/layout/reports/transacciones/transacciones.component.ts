@@ -40,49 +40,49 @@ export class TransaccionesComponent implements OnInit {
         chart: {
             type: 'column'
         },
+  title: {
+        text: 'Monthly Average Rainfall'
+    },
+    subtitle: {
+        text: 'Source: WorldClimate.com'
+    },
+    xAxis: {
+        categories: [
+            'Jan',
+            'Feb',
+            'Mar',
+            'Apr',
+            'May',
+            'Jun',
+            'Jul',
+            'Aug',
+            'Sep',
+            'Oct',
+            'Nov',
+            'Dec'
+        ],
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
         title: {
-            text: 'Servicios mas Solicitados por Mes '
-        },
-        xAxis: {
-            categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', "Junio","Agosto","Septimbre","Octubre","Noviembre","Diciembre"]
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Promedio por servicios'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.Color && Highcharts.Color) || 'gray'
-                }
-            }
-        },
-        legend: {
-            align: 'right',
-            x: -30,
-            verticalAlign: 'top',
-            y: 25,
-            floating: true,
-            backgroundColor: (Highcharts.Color && Highcharts.Color) || 'white',
-            borderColor: '#CCC',
-            borderWidth: 1,
-            shadow: false
-        },               
+            text: 'Rainfall (mm)'
+        }
+    },               
         tooltip: {
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-        },
-        plotOptions: {
-            column: {
-                stacking: 'normal',
-                dataLabels: {
-                    enabled: true,
-                    color: (Highcharts.Color && Highcharts.Color) || 'white'
-                }
-            }
-        },
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+      plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
         series: [{
             name: 'Compra',
             data: [5, 3, 4, 7, 2]
@@ -218,13 +218,13 @@ export class TransaccionesComponent implements OnInit {
         this.view = true;
         this.query = {
             typeS: this.servicio.id,
-            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
-            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
+            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
+            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/service?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}

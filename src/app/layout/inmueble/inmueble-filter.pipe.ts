@@ -5,25 +5,19 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class InmuebleFilterPipe implements PipeTransform {
-    transform(items: any[], inmTransaccion: string, inmTipo: string, inmName: string, inmDescription: string, inmUbicacion: string, inmPrecio: string) {
+    transform(items: any[], inmPro: string, inmUbi: string, inmDes: string, inmFecha: string) {
       if (items && items.length){
         return items.filter(item =>{
-            if (inmTransaccion && item.transaccion.toLowerCase().indexOf(inmTransaccion.toLowerCase()) === -1){
+            if (inmPro && item.owner.firstName.toLowerCase().indexOf(inmPro.toLowerCase()) === -1){
                 return false;
             }
-            if (inmTipo && item.tipo.toLowerCase().indexOf(inmTipo.toLowerCase()) === -1){
+            if (inmUbi && item.ubication.toLowerCase().indexOf(inmUbi.toLowerCase()) === -1){
                 return false;
             }
-            if (inmName && item.nombre.toLowerCase().indexOf(inmName.toLowerCase()) === -1){
+            if (inmDes && item.nameDisplay.toLowerCase().indexOf(inmDes.toLowerCase()) === -1){
                 return false;
             }
-            if (inmDescription && item.descripcion.toLowerCase().indexOf(inmDescription.toLowerCase()) === -1){
-                return false;
-            }
-            if (inmUbicacion && item.ubicacion.toLowerCase().indexOf(inmUbicacion.toLowerCase()) === -1){
-                return false;
-            }
-            if (inmPrecio && item.precio.toLowerCase().indexOf(inmPrecio.toLowerCase()) === -1){
+            if (inmFecha && item.buildDate.toLowerCase().indexOf(inmFecha.toLowerCase()) === -1){
                 return false;
             }
             return true;

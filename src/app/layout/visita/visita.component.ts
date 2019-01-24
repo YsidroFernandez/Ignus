@@ -43,6 +43,7 @@ export class VisitaComponent implements OnInit {
   selectedFile: File;
   fileToUploadRecaudo:File;
   searchfilter: string;
+  contrato: any;
 
   constructor(
     private modalService: NgbModal,
@@ -69,10 +70,11 @@ export class VisitaComponent implements OnInit {
       }
     );
   }
-  onEdit(index: number) {
-    this.submitType = 'Update';
-    this.selectedRow = index;
-    // this.contrato = Object.assign({}, this.contratos[this.selectedRow]);
+  openForEdit(item) {
+    // this.submitType = 'Update';
+    // this.selectedRow = index;
+    this.contrato = item;
+    //  Object.assign({}, this.contratos[this.selectedRow]);
     this.showNew = true;
 }
   getRequest() {

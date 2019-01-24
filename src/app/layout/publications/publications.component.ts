@@ -13,9 +13,9 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 export class PublicationsComponent implements OnInit {
   publications: any; //catalogue
   publication: any;
-  transactions: any;
+  transactions: any = [];
   transaction: any;
-  transPublished: any;
+  transPublished: any = [];
   tranPublished: any;
   user: any;
   new: any;
@@ -36,7 +36,7 @@ export class PublicationsComponent implements OnInit {
   faEdit = faEdit;
   faEye = faEye;
   faTrash = faTrash;
-
+  view: boolean;
   constructor(
     private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
      // this.transactions = [];
@@ -59,7 +59,7 @@ export class PublicationsComponent implements OnInit {
    }
 
    getListTransactionPublished() {
-    this.globalService.getModel('/api/transaction?status=D&offeringProperty=true&userId='+this.user).then(
+    this.globalService.getModel('/api/transaction?status=H&offeringProperty=false&userId='+this.user).then(
       result => {
         console.log("Result transPublished"+result);
         this.transPublished = result["data"];
@@ -150,7 +150,7 @@ export class PublicationsComponent implements OnInit {
   }
 
   //solo para abrir el modal estableciendo una accion determinada sea ver, editar, crear
-  open(content, action, index: number) {
+  open(content, action, index: number, data) {
     //==============================================================================
     //promesa necesaria para abrir modal una vez ejecuada, espera la respuesta de algun boton para continuar con la operacion
     //por ejemplo en los botones del modal que  ejecutan la funcion C() cierra el modal y se termina de cumplir la promesa
@@ -170,11 +170,30 @@ export class PublicationsComponent implements OnInit {
     this.submitType = action; // variable que nos permite saber que accion podemos ejecutar ejemplo editar
     this.selectedRow = index; //aca se toma el indice de el servicio seleccionado
     //se coloca el indice en el arreglo general de servicios para obtener el servicio en especifico
-    this.transaction = Object.assign({}, this.transactions[this.selectedRow]); 
+   
+   if(data){
+    this.transaction = Object.assign({}, this.transactions[this.selectedRow]);
+    this.view = true;
+    // /api/property/catalogue?typeP=2&status=Barinas
+    this.globalService.getModel(`/api/property/publication/${this.transaction.id}`).then(
+      result =>{
+        console.log(result);
+        // this.transactions = result["data"];
+        // console.log("Local transactions: "+this.transactions);
+      }),
+      err => {
+        console.log("Else error= "+err);
+      }
+   
+   }else{   
     this.tranPublished = Object.assign({}, this.transPublished[this.selectedRow]);
+    this.view = false;
+   }
+   console.log(this.transaction);
+   console.log(this.tranPublished);
     
-    console.log("Nueva Publication: "+this.publication);
-    console.log("transcation id"+this.transaction.id);
+    // console.log("Nueva Publication: "+this.publication);
+    // console.log("transcation id"+this.transaction.id);
 
     if (action == "show") {
       //si la accion es ver, desabilita los campos del modal

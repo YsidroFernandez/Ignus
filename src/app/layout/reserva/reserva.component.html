@@ -8,7 +8,7 @@
 
             <div class="card-body mb-3">
                 <tabset #tabset>
-                    <tab heading="Reservadas" id="first" >
+                    <tab heading="Reservadas" id="first">
                         <div class="row">
                             <div class="card-body  table-responsive">
                                 <table class="card-body table table-hover">
@@ -22,16 +22,16 @@
                                             <th colspan="4">Acciones</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
-                                        <tr *ngFor="let i=index ; let item of listtransactions">
+                                        <tr *ngFor="let item of listtransactions; let i=index">
                                             <td>{{ item.nameForEmployee}}</td>
                                             <td>{{ item.property.nameDisplay}}</td>
                                             <td>{{ item.request.requestDate}}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <button style="background: #1AB394; border-radius: 20px; color: white"
-                                                        type="button" (click)="open(ver)">
+                                                        type="button" (click)="open(content,'show', i,true)">
                                                         <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top"
                                                             title="Detalle"></fa-icon>
                                                     </button>
@@ -50,45 +50,45 @@
                     </tab>
 
                     <tab tab2 heading=" Por Procesar" id="second">
-                            <div class="row">     
-                                    <div class="card-body  table-responsive">
-                                        <table class="card-body table table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <!--crear json -->
-                                                    <th>Transacción</th>
-                                                    <th>Inmueble</th>
-                                                    <!--tipo de inmueble-->
-                                                    <th>Fecha de Comienzo</th>
-                                                    <th colspan="2">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                            <tbody>
-                                                <tr *ngFor="let item of pendingtransactions; let i=index">
-                                                    <td>{{ item.nameForEmployee}}</td>
-                                                    <td>{{ item.property.nameDisplay}}</td>
-                                                    <td>{{ item.request.requestDate}}</td>
-                                                    <td>
-                                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                                            <button style="background: #1AB394; border-radius: 20px; color: white"
-                                                                type="button" (click)="open(ver)">
-                                                                <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top"
-                                                                    title="Detalle"></fa-icon>
-                                                            </button>
-        
-                                                            <button style="background: #1AB394; border-radius: 20px; color: white"
-                                                                (click)="aceptar(i)" type="button">
-                                                                <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top"
-                                                                    title="Aceptar"></fa-icon>
-                                                            </button>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="card-body  table-responsive">
+                                <table class="card-body table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <!--crear json -->
+                                            <th>Transacción</th>
+                                            <th>Inmueble</th>
+                                            <!--tipo de inmueble-->
+                                            <th>Fecha de Comienzo</th>
+                                            <th colspan="2">Acciones</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr *ngFor="let item of pendingtransactions; let i=index">
+                                            <td>{{ item.nameForEmployee}}</td>
+                                            <td>{{ item.property.nameDisplay}}</td>
+                                            <td>{{ item.request.requestDate}}</td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                        type="button" (click)="open(content,'show', i,false)">
+                                                        <fa-icon [icon]="faEye" data-toggle="tooltip" data-placement="top"
+                                                            title="Detalle"></fa-icon>
+                                                    </button>
+
+                                                    <button style="background: #1AB394; border-radius: 20px; color: white"
+                                                        (click)="aceptar(i)" type="button">
+                                                        <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top"
+                                                            title="Aceptar"></fa-icon>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </tab>
                 </tabset>
 
@@ -97,8 +97,8 @@
         </div>
     </div>
 
-    
-    <ng-template #ver let-c="close" let-d="dismiss">
+
+    <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
             <div class="col-4"></div>
             <h4 class="modal-title ">{{modalTitle}}</h4>
@@ -110,17 +110,55 @@
             <div class="card mb-3">
                 <div class="modal-body">
                     <div class="row mb-3">
-                        <div class="col col-sm-12 col-md-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="tipos">Nombre Cliente</label>
-                                <input type="text" [(ngModel)]="transaction.nameForEmployee" class="form-control" />
+                                <label for="tipos">Nombre del Cliente</label>
+                                <input type="text" [(ngModel)]="transaction.client.firstName" class="form-control" />
                             </div>
                         </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Apellido del Cliente</label>
+                                <input type="text" [(ngModel)]="transaction.client.lastName" class="form-control" />
                             </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Fecha de la solicitud</label>
+                                <input type="text" [(ngModel)]="transaction.request.wishDate" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">tipo del inmueble</label>
+                                <input type="text" [(ngModel)]="transaction.property.typeProperty.name" class="form-control" />
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Descripción del inmueble</label>
+                                <input type="text" [(ngModel)]="transaction.property.nameDisplay" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tipos">Ubicación del inmueble</label>
+                                <input type="text" [(ngModel)]="transaction.property.ubication" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-          
+
+            </div>
+
         </fieldset>
         <div class="modal-footer">
             <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i

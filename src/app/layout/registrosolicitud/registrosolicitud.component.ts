@@ -12,6 +12,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 
 type CalendarPeriod = 'month';
 
@@ -47,7 +48,7 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
 }
 @Component({
     selector: 'app-registrosolicitud',
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
@@ -59,6 +60,9 @@ export class RegistroSolicitudComponent implements OnInit {
     @ViewChild('childModal') childModal: ModalDirective;
     modalRef: BsModalRef;
     message: string;
+
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
+
     //para los disabled generales
     public lock = false;
     //para que aparezca el buscar
@@ -79,7 +83,8 @@ export class RegistroSolicitudComponent implements OnInit {
     public typeService = [];
     public typeProperties = [];
     public typeProperty: any;
-    public search: String
+    public search: String;
+    public bloq = false;
     colors: any = {
         red: {
             primary: '#ad2121',
@@ -102,7 +107,7 @@ export class RegistroSolicitudComponent implements OnInit {
     id_employee : any;
     prevBtnDisabled: boolean = false;
     nextBtnDisabled: boolean = false;
-
+    avatar: any;
     
     public viewCalendar = false;
     view: CalendarPeriod = 'month';
@@ -144,6 +149,7 @@ export class RegistroSolicitudComponent implements OnInit {
         ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
         employeeId: '',
         wishDate: '',
+        buildDate: '',
         turn: '',
         propertyId: '',
         typeProperty: '',
@@ -153,7 +159,6 @@ export class RegistroSolicitudComponent implements OnInit {
         municipality: '',
         parish: '',
         ubication: '',
-        description: '',
         typeSpecifications: [],
     };
 
@@ -173,6 +178,11 @@ export class RegistroSolicitudComponent implements OnInit {
             this.searchPropertyId()
             localStorage.removeItem('propertyId');
         }
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'DD/MM/YYYY' },
+            { locale: 'es' });
     }
 
     ngOnInit() {
@@ -316,7 +326,6 @@ export class RegistroSolicitudComponent implements OnInit {
             this.loadparish(property.municipality.id)
             this.solicitud.parish = property.parish.id;
             this.solicitud.ubication = property.ubication;
-            this.solicitud.description = property.description;
             this.solicitud.typeSpecifications = property.typeSpecifications;
             this.lock = true;
             this.activatespecifications = true;
@@ -356,8 +365,8 @@ export class RegistroSolicitudComponent implements OnInit {
             TypeRequestId: this.solicitud.TypeRequestId,
             ParishId: Number.parseInt(this.solicitud.parish),
             direction: this.solicitud.direction,
-            description: this.solicitud.description,
-            typeSpecifications: this.solicitud.typeSpecifications
+            typeSpecifications: this.solicitud.typeSpecifications,
+            buildDate: this.solicitud.buildDate
         };
         console.log("result", this.nuevo);
         this.globalService.addModel(this.nuevo, "/api/request/pending")
@@ -380,6 +389,7 @@ export class RegistroSolicitudComponent implements OnInit {
             employeeId: '',
             propertyId: '',
             wishDate: '',
+            buildDate: '',
             turn: '',
             typeProperty: '',
             TypeServiceId: '',
@@ -388,7 +398,6 @@ export class RegistroSolicitudComponent implements OnInit {
             municipality: '',
             parish: '',
             direction: '',
-            description: '',
         }
         this.lock = false;
         this.buscar = false;
@@ -408,18 +417,22 @@ export class RegistroSolicitudComponent implements OnInit {
     dayClicked({ date, events }: { date: Date; events: any[] }): void {
         this.dispAM = false;
         this.dispPM = false;
-        this.test.fecha = date;
-        if (events.length < 2) {
-            for (var i = 0; i < events.length; i++) {
-                if (events[i].turno == 'AM') {
-                    this.dispAM = true;
-                } else
-                    if (events[i].turno == 'PM') {
-                        this.dispPM = true;
-                    }
+        if(this.bloq){
+            console.log("esta bloqueado");
+        }else{
+            this.test.fecha = date;
+            if (events.length < 2) {
+                for (var i = 0; i < events.length; i++) {
+                    if (events[i].turno == 'AM') {
+                        this.dispAM = true;
+                    } else
+                        if (events[i].turno == 'PM') {
+                            this.dispPM = true;
+                        }
+                }
+                this.showChildModal();
             }
-            this.showChildModal();
-        }
+        }       
     }
 
     turnoAsignadoAM($event) {
@@ -438,11 +451,13 @@ export class RegistroSolicitudComponent implements OnInit {
                         });
                         this.hideChildModal();
                         this.refresh.next();
+                        this.bloq = true;
                     } else {
                         this.dispPM = false;
                         $event.target.checked = false;
                         this.hideChildModal();
                         this.refresh.next();
+                        
                     }
                 });
         } else
@@ -469,6 +484,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         });
                         this.hideChildModal();
                         this.refresh.next();
+                        this.bloq = true;
                     } else {
                         this.dispAM = false;
                         $event.target.checked = false;
@@ -528,34 +544,23 @@ export class RegistroSolicitudComponent implements OnInit {
         });
     }
 
-    transform_check(valor, tipo, indicador) {
-
-        for (var te in valor) {
-            if (valor[te].name == tipo) {
-                for (var esp in valor[te].specifications_checkbox) {
-                    if (valor[te].specifications_checkbox[esp].name == indicador) {
-                        if (valor[te].specifications_checkbox[esp].quantity == "true") {
-                            valor[te].specifications_checkbox[esp].quantity = false
-                        } else {
-                            valor[te].specifications_checkbox[esp].quantity = true
-                        }
-                        console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
-                    }
-                }
-            }
-        }
-
-    }
-
     selectAgente($event) {
-       
+        console.log($event);
+        console.log($event.target.value);
+        this.avatar = {};
         if ($event.target.value != '') {
-            console.log("error");
+          
             this.id_employee = $event.target.value;
             this.allAppointmentSchedule ();
             this.viewCalendar = true;
+            for(var i=0;i<this.employes.length;i++){
+                if(this.employes[i].person.id ==  this.id_employee){
+                    this.avatar = this.employes[i].user.urlAvatar;
+                }
+            }
+            console.log(this.avatar);
         }else{
             this.viewCalendar = false; 
-        }
+        }       
     }
 }

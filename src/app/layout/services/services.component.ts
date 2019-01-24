@@ -38,7 +38,7 @@ export class ServicesComponent implements OnInit {
     ngxActivities: any = [];
     ngxRequirements: any = [];
     searchfilter: string;
-
+    item: any=[];
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         
         this.services = [];
@@ -86,7 +86,9 @@ export class ServicesComponent implements OnInit {
                 console.log(err);
             });
     }
-
+    changeData(property) {   
+        console.log(property);
+    }
 
     apiAction() { //metodo para realizar una accion ya sea crear, editar
         const uploadData = new FormData();
