@@ -73,7 +73,7 @@
                                     <div class="card-body">
                                             <div class="col col-sm-12">
                                                     <div style="position: relative; text-align: -webkit-center">
-                                                            <h1><b> Reportes por Solicitudes de Servicio</b></h1>
+                                                            <h1><b> Reportes por trasacciones</b></h1>
                                                         </div>
                                             </div>
                                             <div class="col col-sm-12">
@@ -105,6 +105,19 @@
                                                     <div class="card-body">
                                                             <div [chart]="chart" id="column" class="chart"></div>
                                                     </div>
+                                                    <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                                        <div class="card-body text-primary">
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
                                             </div>
       
                                     </div>

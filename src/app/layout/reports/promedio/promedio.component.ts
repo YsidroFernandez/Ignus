@@ -25,12 +25,18 @@ export class PromedioComponent implements OnInit {
     // defaultValue = this.values[0];
     tipos = [ { value: "1", name: "Barra" }];
     values = ['circular', 'barra', 'lineal'];
+    tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     public view = false;
     public chart: any;
     propiedad: any = {
         id: '',
         name: ''
     };
+    servicio: any= {
+        id: 1,
+        name: ''
+    };
+    servicios: any = [];
     propiedades: any = [];
     public solicitud: any = {
         employeeId: '',
@@ -60,22 +66,11 @@ export class PromedioComponent implements OnInit {
         title: {
             text: 'Servicios mas Solicitados por Mes '
         },
-        xAxis: {
+             xAxis: {
             categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', "Junio","Agosto","Septimbre","Octubre","Noviembre","Diciembre"]
         },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Promedio por servicios'
-            },
-            stackLabels: {
-                enabled: true,
-                style: {
-                    fontWeight: 'bold',
-                    color: (Highcharts.Color && Highcharts.Color) || 'gray'
-                }
-            }
-        },
+        
+        
         legend: {
             align: 'right',
             x: -30,
@@ -100,6 +95,7 @@ export class PromedioComponent implements OnInit {
                 }
             }
         },
+
         series: [{
             name: 'Compra',
             data: [5, 3, 4, 7, 2]
@@ -110,6 +106,7 @@ export class PromedioComponent implements OnInit {
             name: 'Alquiler',
             data: [3, 4, 4, 2, 5]
         }]
+  
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         var doc = new jspdf('p', 'pt');
@@ -156,6 +153,17 @@ export class PromedioComponent implements OnInit {
             }
         }, (err) => {
             console.log(err);
+        });
+    }
+
+    llService(){
+      this.globalService.getModel("/api/typeService")
+        .then((result) => {
+          console.log(result);
+          this.servicios = result['data'];
+          console.log(this.servicios);
+        }, (err) => {
+          console.log(err);
         });
     }
 
@@ -249,15 +257,15 @@ export class PromedioComponent implements OnInit {
             municipality: this.solicitud.municipality,
             property: this.propiedad.id,
             parish: this.solicitud.parish,
-            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
-            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
+            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
+            end: this.fechaF ? moment(this.fechaF).format('dd/MM/YYYY') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/service?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
-            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration}
+            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}}
             console.log(this.chartDefaultConfiguration)
             this.chart = new Chart(this.chartDefaultConfiguration);
         }, (err) => {
