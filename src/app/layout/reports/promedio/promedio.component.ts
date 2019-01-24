@@ -25,7 +25,6 @@ export class PromedioComponent implements OnInit {
     // defaultValue = this.values[0];
     tipos = [ { value: "1", name: "Barra" }];
     values = ['circular', 'barra', 'lineal'];
-    tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     public view = false;
     public chart: any;
     propiedad: any = {
