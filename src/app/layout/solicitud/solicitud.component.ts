@@ -28,9 +28,6 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarView, Calend
 
 export class SolicitudComponent implements OnInit {
 
-    view: CalendarView = CalendarView.Month;  
-    CalendarView = CalendarView;
-    
     refresh: Subject<any> = new Subject();
     viewDate: Date = new Date();
     locale: string = 'es';
@@ -40,6 +37,7 @@ export class SolicitudComponent implements OnInit {
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public numPage: number;
     public pages = 1;
+    view:  boolean;
     closeResult: string;
     solicitudes = [];
     empleados = [];
@@ -90,51 +88,10 @@ export class SolicitudComponent implements OnInit {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
 
-    dayClickeddayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-        if (isSameMonth(date, this.viewDate)) {
-            this.viewDate = date;
-            if (
-                (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-                events.length === 0
-            ) {
-                this.activeDayIsOpen = false;
-            } else {
-                this.activeDayIsOpen = true;
-            }
-        }
-    }
-
-    eventTimesChanged({
-        event,
-        newStart,
-        newEnd
-    }: CalendarEventTimesChangedEvent): void {
-        event.start = newStart;
-        event.end = newEnd;
-        this.handleEvent(event);
-        this.refresh.next();
-    }
-
-    handleEvent(event: CalendarEvent): void {
-        this.modalData = event;
-        console.log(this.modalData.title)
-        // this.selactores()
-
-        // console.log(inmueble[0])
-        this.modalService.open(this.modalContent, { size: 'lg' });
-    }
-
-    beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
-        body.forEach(day => {
-            if (day.date.getDate() % 2 === 1 && day.inMonth) {
-                day.cssClass = 'odd-cell';
-            }
-        });
-    }
-
-    clientChanged($event) {
-        console.log($event);
-    }
+    
+    // clientChanged($event) {
+    //     console.log($event);
+    // }
 
     allEmployee() {
         this.globalService.getModel("/api/employee").then((result) => {
@@ -198,12 +155,15 @@ export class SolicitudComponent implements OnInit {
     }
 
     openForEdit(solicitud) {
-        console.log(solicitud.typeService.offeringProperty);
-       if (solicitud.typeService.offeringProperty) {
-          
+      if (solicitud.typeService.offeringProperty) {
+          this.view=true;
+          this.solicitud= solicitud;
+          console.log(solicitud);
         } else { 
+            this.view=false;
+            this.solicitud= solicitud;
+            console.log(solicitud);
         }
-
     }  
 
     open(content) {
