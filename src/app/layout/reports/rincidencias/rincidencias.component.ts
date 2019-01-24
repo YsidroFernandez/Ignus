@@ -24,11 +24,16 @@ export class RincidenciasComponent implements OnInit {
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
     agencia: any;
-    tipoincidencias: any= [];
     tipoincidencia: any= {
-        id: 1,
-        status: ''
-    };;
+        id: 'A'
+    };
+    tipoincidencias: any= [{
+        id: 'A',
+        status: 'Atendida'
+    },{
+        id: 'E',
+        status: 'Por responder'
+    }];
     agencias: any;
     servicio: any= {
         id: 1,
@@ -229,7 +234,7 @@ export class RincidenciasComponent implements OnInit {
         this.allAgency();
         this.allService();
         this.getLogo(); 
-        this.getIncidencias();
+        //this.getIncidencias();
         
     }
 
@@ -241,7 +246,7 @@ export class RincidenciasComponent implements OnInit {
     }
 
     getTypeIncidenceNameById(){
-        if(this.query.typeS)
+        if(this.query.status)
             return this.tipoincidencias.filter(item=>item.id==this.query.status)[0].status
         else
             return ""
@@ -256,7 +261,7 @@ export class RincidenciasComponent implements OnInit {
         
         this.view = true;
         this.query = {
-           // status: this.tipoincidencia.id,
+            status: this.tipoincidencia.id,
             typeS: this.servicio.id,
             start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
             end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""

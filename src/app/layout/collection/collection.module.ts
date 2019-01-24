@@ -9,10 +9,12 @@ import { CollectionComponent } from './collection.component';
 import { PageHeaderModule } from '../../shared';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CollectionFilterPipe } from './collection-filter.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
     CommonModule,
+    NgxPaginationModule,
     CollectionRoutingModule, NgbModule.forRoot(),
       FormsModule,PageHeaderModule, ReactiveFormsModule,
       FlatpickrModule.forRoot(),
