@@ -1,3 +1,4 @@
+
 import { Component, Input } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,16 @@ import { GlobalService } from '../../../providers/global.service';
 export class PerfilComponent {
 
     closeResult: string;
-    perfil: any = {user: {username:"",id:''},person: {firstName: ""}}
+    perfil: any = {person: {firstName: ""},
+                    TypePropertyId: 0,
+                    TypeServiceId: 0,
+                    ParishId: 0,
+                    buildDate:"19/08/1970",
+                    typeSpecifications: [],   
+                    state: 0,
+                    municipality: 0
+                    }
+    user: any;
     perfiles: any;
     nuevo: any;
     requirements:any;
@@ -36,13 +46,15 @@ export class PerfilComponent {
     selectedRow: number;
 
     typeservices: any;
-    typeservice: any
     typeproperties: any;
-    typeproperty: any;
     
-    
+    passwordactual: any;
+    passwordnew: any;
+    passwordnew2: any;
+
 
   constructor(public globalService: GlobalService) {
+      this.user = JSON.parse(localStorage.user)
 this.loadclient();
 this.show();
 this.loadtypeservices();
@@ -67,7 +79,6 @@ this.loadtypeproperties();
             //Para que actualice la lista
             
             this.typeservices = result['data'];
-            console.log(this.typeservices)
         }
     }, (err) => {
         console.log(err);
@@ -87,12 +98,29 @@ this.loadtypeproperties();
     
 }
 loadclient(){
-    const userId = JSON.parse(localStorage.user).id;
-  this.globalService.getModel_Id(userId, '/api/client')
+    
+  this.globalService.getModel_Id(this.user.id, '/api/client')
   .then((result) => {
+    console.log('cliente');
     console.log(result);
-     this.perfil = result['data'];
- //    this.state = result['data']['state'];
+
+    this.perfil.state = result['data'].state.id; 
+    this.loadmunicipality(this.perfil.state);
+    this.perfil.municipality = result['data'].municipality.id;
+    this.loadparish(this.perfil.municipality)
+    this.perfil.ParishId = result['data'].parish.id; 
+    
+    this.perfil.person = result['data'].person;
+    console.log(result['data'].specifications.lenght, " ", result['data'].specifications)
+    
+    if ( result['data'].specifications.lenght != 0 || result['data'].specifications!=undefined){
+        this.perfil.typeSpecifications = result['data'].specifications
+        this.activatespecifications = true;
+    
+    }else{
+        this.loadSpecifications()
+    }
+    
     
   }, (err) => {
     console.log(err);
@@ -119,7 +147,6 @@ loadmunicipality(state){
 
 loadparish(municipality){
 
-    console.log("muni ",municipality)
     this.globalService.getModel(`/api/municipality/parish/${municipality}`).then((result) => {
         if (result['status']) {
             //Para que actualice la lista una vez que es creado el recaudo
@@ -133,7 +160,7 @@ loadparish(municipality){
 }
 
 loadSpecifications() {
-    this.globalService.getModel(`/api/typeProperty/specification/${this.typeproperty}`).then((result) => {
+    this.globalService.getModel(`/api/typeProperty/specification/${this.perfil.TypePropertyId}`).then((result) => {
         if (result['status']) {
             this.perfil.specifications = result['data']
             this.activatespecifications = true;
@@ -145,27 +172,52 @@ loadSpecifications() {
 }
 
 
-limpiar(){
-  this.perfil = {
-    username: "",
-    identification: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    birthDate: "",
-    gender:1,
-    state: "",
-    parish: "",
-    municipality: "",
-    user: {}
-  }
-}
-
    show() {
-        console.log("aqui va el loaer");
-        console.log(this.perfil);
     }
     faEdit = faEdit;
 
-    
+newpassword(){
+    if (this.passwordnew==this.passwordnew2){
+        var password = {
+            "currentPassword": this.passwordactual, 
+            "newPassword": this.passwordnew 
+          }
+          
+        this.globalService.updateModel(this.user.id, password, "/api/user")
+            .then((result) => {
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es editado el service
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+    }
+    }
+
+
+loadpreferences(){
+console.log(this.perfil)
+
+}
+
+newpreferences(){
+               
+    this.globalService.updateModel(this.user.id,this.perfil, "/api/client/preference")
+            .then((result) => {
+                if (result['status']) {
+                    //Para que actualice la lista una vez que es editado el service
+                    console.log(result['data'])
+                }
+
+            }, (err) => {
+                console.log(err);
+            });
+    }
+                }
+            }
+        }
+
+    }
+
 }
