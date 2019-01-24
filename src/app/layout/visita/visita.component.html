@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } "
+            <tr *ngFor="let i = index; let item of inspections | searchfilter: visObservacion:visCliente:visEmpleado:visEstatus | paginate: { itemsPerPage: numPage, currentPage: pages } "
               (click)="onEdit(i) ">
               <td>{{ item.observation }}</td>
               <td>{{ item.client.firstName }}</td>
