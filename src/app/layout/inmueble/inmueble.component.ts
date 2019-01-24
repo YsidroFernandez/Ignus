@@ -116,7 +116,7 @@ export class InmuebleComponent implements OnInit {
     if (action == "show") {
       //si la accion es ver, desabilita los campos del modal
       this.disabled = true;
-    //   this.showView = false;
+      //this.showView = false;
       this.modalIcon = "fa fa-close";
     } else if (action == "create") {
       //si la accion es distinta de ver los campos del modal quedaran activados
@@ -154,7 +154,7 @@ export class InmuebleComponent implements OnInit {
         if (res) {
           console.log(res);
           this.globalService
-            .removeModel(this.property.id, "/api/employee")
+            .removeModel(this.property.id, "/api/property")
             .then(
               result => {
                 console.log(result);

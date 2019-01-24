@@ -5,16 +5,20 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import { VERSION } from '@angular/common';
+import { GlobalsProvider } from '../../shared';
 @Component({
   selector: 'app-listsugerencias',
   templateUrl: './listsugerencias.component.html',
   styleUrls: ['./listsugerencias.component.scss'],
-  animations: [routerTransition()]
+  animations: [routerTransition()],
+  providers: [GlobalsProvider]
 })
 export class ListSugerenciasComponent implements OnInit {
   closeResult: string;
   listsugerencias: any;
   listsugerencia: any;
+  public numPage: number;
+  public pages = 1;
   new: any;
   // It maintains activities form display status. By default it will be false.
   showNew: Boolean = false;
@@ -29,8 +33,12 @@ export class ListSugerenciasComponent implements OnInit {
 
   
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+    private modalService: NgbModal, 
+    private globals: GlobalsProvider,
+    public globalService: GlobalService,
+     private coolDialogs: NgxCoolDialogsService) {
       this.listsugerencias = [];
+      
       this.listsugerencia = [];
       this.new = [];
       this.disabled = true;
@@ -104,6 +112,7 @@ show() {
 }
 
 ngOnInit() {
+    this.numPage = this.globals.numPage;
     this.show();   
    this.allContact();
 }

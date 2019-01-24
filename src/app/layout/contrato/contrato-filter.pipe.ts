@@ -5,19 +5,22 @@ import { PipeTransform, Pipe } from "@angular/core";
   })
 
   export class ContratoFilterPipe implements PipeTransform {
-    transform(items: any[], emplIdentificacion: string, emplName: string, emplLastName: string, emplSex: string) {
+    transform(items: any[], conFolio: string, conElaboracion: string, conFecha: string, conCliente: string, conAgente: string) {
       if (items && items.length){
         return items.filter(item =>{
-            if (emplIdentificacion && item.person.identification.toLowerCase().indexOf(emplIdentificacion.toLowerCase()) === -1){
+            if (conFolio && item.folioNumber.toLowerCase().indexOf(conFolio.toLowerCase()) === -1){
                 return false;
             }
-            if (emplName && item.person.firstName.toLowerCase().indexOf(emplName.toLowerCase()) === -1){
+            if (conElaboracion && item.elaborationDate.toLowerCase().indexOf(conElaboracion.toLowerCase()) === -1){
                 return false;
             }
-            if (emplLastName && item.person.lastName.toLowerCase().indexOf(emplLastName.toLowerCase()) === -1){
+            if (conFecha && item.firmDate.toLowerCase().indexOf(conFecha.toLowerCase()) === -1){
                 return false;
             }
-            if (emplSex && item.person.gender.toLowerCase().indexOf(emplSex.toLowerCase()) === -1){
+            if (conCliente && item.client.firstName.toLowerCase().indexOf(conCliente.toLowerCase()) === -1){
+                return false;
+            }
+            if (conAgente && item.agent.firstName.toLowerCase().indexOf(conAgente.toLowerCase()) === -1){
                 return false;
             }
             return true;

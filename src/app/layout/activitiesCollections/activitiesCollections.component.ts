@@ -80,8 +80,9 @@ export class ActivitiesCollectionsComponent implements OnInit {
   // }
 
   allTransaction() {
-    this.globalService.getModel_Id(this.user, '/api/transaction?userId='+this.user)
+    this.globalService.getModel('/api/transaction?userId='+this.user)
       .then((result) => {
+        console.log(result);
         this.transactions = [];
         this.transactions = result['data'];
         console.log(this.transactions);

@@ -20,7 +20,7 @@
                             <th colspan="4">Acciones</th>
                         </tr>
                     </thead>
-                    <!-- <thead>
+                    <thead>
                         <tr>
                             <th style="background-color:transparent">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Nombre..." aria-label="Search"
@@ -30,14 +30,10 @@
                                 <input class="form-control mr-sm-2" type="text" placeholder="Descripción..." aria-label="Search"
                                     [(ngModel)]="assDescription" />
                             </th>
-                            <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Cantidad..." aria-label="Search"
-                                    [(ngModel)]="assCantidad" />
-                            </th>
                         </tr>
-                    </thead> -->
+                    </thead>
                     <tbody>
-                        <tr *ngFor="let item of promotionsFill | paginate: { itemsPerPage: numPage, currentPage: pages };  "
+                        <tr *ngFor="let i=index; let item of promotionsFill | searchfilter: assName:assDescription | paginate: { itemsPerPage: numPage, currentPage: pages };  "
                             (click)="onEdit(i)">
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>

@@ -1,172 +1,189 @@
 <div>
-  <app-page-header [heading]="'Publicacion'" [icon]="'fa-edit'">
+  <app-page-header [heading]="'Publicación'" [icon]="'fa-edit'">
   </app-page-header>
 
- <div class="container">
-        <div class="card">
-            <div class="card-header" style="text-align: center;">
-              Publicaciones
-            </div>
+  <div class="container">
+    <div class="card">
+      <div class="card-header" style="text-align: center;">
+        Publicaciones
+      </div>
 
-            <div class="card-body">
-                <tabset #tabset>
-                    <tab heading="Publicadas" id="first" >
-                        <div class="row">
-                            <div class="card-body  table-responsive">
-                                <table class="card-body table table-hover">
-                                    
-                                    <thead>
-                                        <tr>
-                                          <th>Cliente</th>
-                                          <th>Descripción</th>
-                                          <th colspan="4">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-                                      <tr *ngFor="let item of transPublished"   (click)="onEdit(i)">
-                                        <td>{{ item.client.firstName + " " +item.client.lastName}}</td>
-                                        <td>{{ item.property.nameDisplay }}</td>
-                                        <td>
-                                          <div class="row ">
-                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white">
-                                              <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
-                                            </button>
-                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white">
-                                              <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-                                            </button>
-                                            <button type="button" style="background: #1AB394; order-radius: 20px; color: white" >
-                                              <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-                                            </button>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    </tbody>
+      <div class="card-body">
+        <tabset #tabset>
+          <tab heading="Publicadas" id="first">
+            <div class="row">
+              <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
 
-                                </table>
-                            </div>
+                  <thead>
+                    <tr>
+                      <th>Cliente</th>
+                      <th>Descripción</th>
+                      <th colspan="4">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let item of transPublished; let i = index">
+                      <td>{{ item.client.firstName + " " +item.client.lastName}}</td>
+                      <td>{{ item.property.nameDisplay }}</td>
+                      <td>
+                        <div class="row ">
+                          <button type="button"  (click)="open(content,'show', i, false)" style="background: #1AB394; border-radius: 20px; color: white">
+                            <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip"
+                              data-placement="top" title="Detalle"></i>
+                          </button>
+                          <button type="button" style="background: #1AB394; border-radius: 20px; color: white;">
+                            <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                              data-placement="top" title="Editar"></i>
+                          </button>
+                          <button type="button" style="background: #1AB394; order-radius: 20px; color: white;">
+                            <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                              data-placement="top" title="Eliminar"></i>
+                          </button>
                         </div>
-                    </tab>
+                      </td>
+                    </tr>
+                  </tbody>
 
-                    <tab tab2 heading=" Por Publicar" id="second">
-                            <div class="row">   
-                                    <div class="card-body  table-responsive">
-                                        <table class="card-body table table-hover">
-                                            <thead>
-                                                <tr>
-                                                  <th>Nombre</th>
-                                                  <th>Descripción</th>
-                                                  <th colspan="4">Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                            <tbody>
-                                                <tr *ngFor="let item of transactions; let i = index">
-                                                  <td>{{ item.nameForEmployee }}</td>
-                                                  <td>{{ item.nameForClient }}</td>
-                                                  <td>
-                                                    <div class="row ">
-                                                      <!--<button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
+                </table>
+              </div>
+            </div>
+          </tab>
+
+          <tab tab2 heading=" Por Publicar" id="second">
+            <div class="row">
+              <div class="card-body  table-responsive">
+                <table class="card-body table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Descripción</th>
+                      <th colspan="4">Acciones</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let item of transactions; let i = index">
+                      <td>{{ item.nameForEmployee }}</td>
+                      <td>{{ item.nameForClient }}</td>
+                      <td>
+                        <div class="row ">
+                          <!--<button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
                                                         <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
                                                       </button>-->
-                                                      <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'create',i)">
-                                                        <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-                                                      </button>
-                                                      <!--<button type="button" style="background: #1AB394; order-radius: 20px; color: white" (click)="onDelete(i)">
+                          <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'create', i, true)">
+                            <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                              data-placement="top" title="Editar"></i>
+                          </button>
+                          <!--<button type="button" style="background: #1AB394; order-radius: 20px; color: white" (click)="onDelete(i)">
                                                         <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
                                                       </button>-->
-                                                    </div>
-                                                  </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                    </tab>
-                </tabset>
-
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-        </div>
+          </tab>
+        </tabset>
+
+      </div>
     </div>
+  </div>
 
-      <ng-template #content let-c="close" let-d="dismiss"><!--Modal-->
-        <div class="modal-header">
-          <h4 class="modal-title ">{{modalTitle}}</h4>
-          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <fieldset [disabled]="disabled">
-          <div class="card mb-3">
-            <div class="modal-body"><!--aca los campos internos-->
-
-             <!--  <div class="row mb-3" *ngIf="showView">
-              <div class="row" style="margin-top: 15px;">
-                <div class="col-12 col-lg-12">
-                  <div class="form-group">
-                    <div class="card-header" style="margin: 10px;">
-                      Transacciones por Publicar
-                    <select class="form-control" name="transaction" id="transaction" [(ngModel)]="transaction" transaction="ngModel">
-                    <option *ngFor="let t of transaction" [value]="t.id">{{t.nameForEmloyee}}</option>
-                    </select>
-                    </div>
-                  </div>
-                </div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <!--Modal-->
+    <div class="modal-header">
+      <h4 class="modal-title ">{{modalTitle}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <fieldset [disabled]="disabled" *ngIf="!view">
+      <div class="card mb-3">
+        <div class="modal-body">     
+          <div class="row mb-3">
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Título</label>
+                <!-- <input type="text" [(ngModel)]="publication.title" class="form-control" /> -->
               </div>
-              </div> -->
-
-              <div class="row mb-3">
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Título</label>
-                    <input type="text" [(ngModel)]="publication.title" class="form-control" />
-                  </div>
-                </div>
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Descripción</label>
-                    <input type="text" [(ngModel)]="publication.description" class="form-control" />
-                  </div>
-                </div>
+            </div>
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Descripción</label>
+                <!-- <input type="text" [(ngModel)]="publication.description" class="form-control" /> -->
               </div>
-
-              <div class="row mb-3">
-                  <div class="col col-sm-6">
-                    <div class="form-group">
-                      <label for="tipos">Precio</label>
-                      <input type="text"
-                             [(ngModel)]="publication.price"
-                             class="form-control"/>
-                    </div> 
-                  </div>
-                  <div class="col col-sm-6">
-                    <div class="form-group" style="text-align: center">
-                      <img
-                        style="border-radius: 20%"
-                        width="200"
-                        height="200"
-                        [src]="url"/>
-                      <br />
-                      <!-- <img width="100" height="100" [src]="url" height="200"> <br/> -->
-                      <input
-                        data-classButton="btn btn-primary"
-                        type="file"
-                        (change)="onSelectFile($event)"/>
-                    </div>
-                  </div>
-              </div>
-
             </div>
           </div>
-        </fieldset>
-        <div class="modal-footer">
-          <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
-              class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
-          <div *ngIf="submitType!='show'">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
-                style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
-                title="Editar"></i></button>
+
+          <div class="row mb-3">
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Precio</label>
+                <!-- <input type="text" [(ngModel)]="publication.price" class="form-control" /> -->
+              </div>
+            </div>
+            <div class="col col-sm-6">
+              <div class="form-group" style="text-align: center">
+                <!-- <img style="border-radius: 20%" width="200" height="200" [src]="url" />
+                <br />
+                <input data-classButton="btn btn-primary"  type="file" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectFile($event)" multiple/> -->
+              </div>
+            </div>
           </div>
+
         </div>
-      </ng-template>
+      </div>
+    </fieldset>
+
+    <fieldset [disabled]="disabled" *ngIf="view">
+      <div class="card mb-3">
+        <div class="modal-body">     
+          <div class="row mb-3">
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Título</label>
+                <input type="text" [(ngModel)]="publication.title" class="form-control" />
+              </div>
+            </div>
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Descripción</label>
+                <input type="text" [(ngModel)]="publication.description" class="form-control" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col col-sm-6">
+              <div class="form-group">
+                <label for="tipos">Precio</label>
+                <input type="text" [(ngModel)]="publication.price" class="form-control" />
+              </div>
+            </div>
+            <div class="col col-sm-6">
+              <div class="form-group" style="text-align: center">
+                <img style="border-radius: 20%" width="200" height="200" [src]="url" />
+                <br />
+                <input data-classButton="btn btn-primary"  type="file" accept="image/x-png,image/gif,image/jpeg" (change)="onSelectFile($event)" multiple/>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </fieldset>
+    <div class="modal-footer">
+      <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
+          class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
+      <div *ngIf="submitType!='show'">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+            style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
+            title="Editar"></i></button>
+      </div>
+    </div>
+  </ng-template>
 </div>
