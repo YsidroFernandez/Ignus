@@ -1,0 +1,41 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Reporte No estructurado'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <div class="row">
+        <div class="col col-xl-12">
+            <div class="card-header" style="position: relative; text-align: -webkit-center">
+                Reportes No estructurado
+            </div>
+
+            <div class="row mb-3"> 
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                        <label for="tipos">Entidad</label>
+                        <select class="form-control">
+                            <option>Seleccionar</option>
+                        </select>
+                        
+                    </div>
+                </div>
+
+                <div class="col col-sm-3 text-center">
+                    <div class="form-group">
+                        <label for="nombre">Atributos</label>
+                        <!--<ngx-select [multiple]="true" [items]="functions" [keepSelectedItems]=true
+                                optionValueField="id" optionTextField='description' [disabled]="ngxDisabled"
+                                [(ngModel)]="ngxValue" placeholder="Seleccione las Funciones"
+                                (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                            </ngx-select>-->
+                        
+                    </div>
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <span class="input-group-btn">                       
+                        <button class="btn btn-success" type="button" style="position: relative; top: 30px;  background: #1AB394;">
+                            Generar
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
