@@ -9,12 +9,14 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { GlobalService } from "../../providers/global.service";
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+import { GlobalsProvider } from '../../shared';
 
 @Component({
   selector: "app-collection",
   templateUrl: "./collection.component.html",
   animations: [routerTransition()],
-  styleUrls: ["./collection.component.scss"]
+  styleUrls: ["./collection.component.scss"],
+  providers: [GlobalsProvider]
 })
 export class CollectionComponent implements OnInit {
   closeResult: string;
@@ -29,6 +31,8 @@ export class CollectionComponent implements OnInit {
   modalTemplate: any;
   submitType: string = "Save";
   disabled: boolean;
+  public numPage: number;
+  public pages = 1;
   // It maintains collections form display status. By default it will be false.
   showNew: Boolean = false;
   // It will be either 'Save' or 'Update' based on operation.
@@ -37,7 +41,8 @@ export class CollectionComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public globalService: GlobalService,
-    private coolDialogs: NgxCoolDialogsService
+    private coolDialogs: NgxCoolDialogsService,
+    private globals: GlobalsProvider
   ) {
     this.collections = [];
     this.collection = [];
@@ -58,6 +63,7 @@ export class CollectionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.numPage = this.globals.numPage;
     this.getListCollections();
   }
 
