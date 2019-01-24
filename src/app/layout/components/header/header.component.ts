@@ -98,6 +98,12 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+openRoute(item){
+  console.log(item);
+  this.router.navigate([item]);
+}
+
+
   isToggled(): boolean {
     const dom: Element = document.querySelector("body");
     return dom.classList.contains(this.pushRightClass);
