@@ -1,7 +1,7 @@
 <div [@routerTransition]>
 
 	<app-page-header [heading]="'Valoración'" [icon]="'fa-edit'"></app-page-header>
-
+    
 
 	<div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
 
@@ -19,11 +19,25 @@
               </div>
           </div>
       </div>
+      <div class="col-12 col-lg-12">
+            <div class="form-group">
+              <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
+                Transacción
+              </div>
+              <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
+                (change)="dataChanged($event)">
+                <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
+              </select>
+            </div>
+          </div>
+
+
+
 <form [formGroup]="formValidation" (ngSubmit)="submit()">
 		<div class="row">
 			<div class="col-md-12">
 				<label > <strong> Descripción </strong></label>
-				<div  formControlName="validation"  class="row" *ngFor="let item of valorations" style="border:2px solid lightseagreen; margin:1px;">
+				<div   class="row" *ngFor="let item of valorations; let i = index" style="border:2px solid lightseagreen; margin:1px;">
 					<div class="col-md-12">
 						<div class="row col-md-12">
 					     <label style="margin-bottom: 1.5rem !important; margin-top: 1.5rem !important;">{{ item.name }}</label>
@@ -32,11 +46,16 @@
 					<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-8">
-                <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification" for="exampleCheck-{{itemQ.id}}">
-                    <input type="checkbox" [disabled]="!bloqueado"  id="exampleCheck-{{itemQ.id}}" (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="itemQ.id" >
+                 <!-- <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification; let j=index" >
+                    <input type="checkbox" [disabled]="!bloqueado" class="radio"  id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="i" >
                     <span class="checkbox-placeholder"></span>
                     {{itemQ.name}}
-                  </label>
+                  </label> -->
+                  <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification; let j=index" >
+                        <input type="checkbox" [disabled]="!bloqueado"    id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="i" >
+                        <span class="checkbox-placeholder"></span>
+                        {{itemQ.name}}
+                      </label>
 
 						</div>
 					</div>
