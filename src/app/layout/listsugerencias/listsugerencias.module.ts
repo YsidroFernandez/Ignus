@@ -9,9 +9,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PageHeaderModule } from './../../shared';
 import { LissegerenciasFilterPipe } from './listsugerencias-filter.pipe';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   imports: [
+    NgxPaginationModule,
     CommonModule, FontAwesomeModule, PageHeaderModule,
     ListSugerenciasRoutingModule, NgbModule.forRoot(),FormsModule, ReactiveFormsModule
   ],

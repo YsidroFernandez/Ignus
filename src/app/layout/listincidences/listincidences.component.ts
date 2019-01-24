@@ -5,13 +5,17 @@ import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormat
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import { VERSION } from '@angular/common';
+import { GlobalsProvider } from '../../shared';
 @Component({
   selector: 'app-listincidences',
   templateUrl: './listincidences.component.html',
   styleUrls: ['./listincidences.component.scss'],
-  animations: [routerTransition()]
+  animations: [routerTransition()],
+  providers: [GlobalsProvider]
 })
 export class ListIncidencesComponent implements OnInit {
+    public numPage: number;
+    public pages = 1;
   closeResult: string;
   searchfilter: string;
   listincidences: any;
@@ -37,7 +41,10 @@ export class ListIncidencesComponent implements OnInit {
 
   
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+    private modalService: NgbModal,
+    private globals: GlobalsProvider,
+     public globalService: GlobalService,
+      private coolDialogs: NgxCoolDialogsService) {
       this.listincidences = [];
       this.listincidence = {
         date: '',
@@ -187,6 +194,7 @@ show() {
 }
 
 ngOnInit() {
+    this.numPage = this.globals.numPage;
     this.show();   
    this.allIncidence();
    this.getTransacciones();

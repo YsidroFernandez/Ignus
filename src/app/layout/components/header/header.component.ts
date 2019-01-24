@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   ) {
     config.placement = 'bottom-right';
     config.autoClose = false;
-    this.translate.addLangs([
+    this.translate.addLangs([    
       "en",
       "fr",
       "ur",

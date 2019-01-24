@@ -45,7 +45,7 @@ type CalendarPeriod = 'month';
 
 export class DashboardComponent implements OnInit {
   @ViewChild('parentModal') parentModal: ModalDirective;
-  @ViewChild('childModal') childModal: ModalDirective;
+  // @ViewChild('childModal') childModal: ModalDirective;
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
   single: any[];
   single2: any[];
@@ -302,7 +302,7 @@ export class DashboardComponent implements OnInit {
 
     if (events.length < 2 && moment(date).format('DD/MM/YYYY') >= moment(new Date()).format('DD/MM/YYYY')) {
     this.cita.dateAppointment = moment(date).format('DD/MM/YYYY');
-    this.showChildModal();
+    // this.showChildModal();
     }
   }
 
@@ -357,7 +357,7 @@ export class DashboardComponent implements OnInit {
       this.globalService.addModel(this.cita, "/api/appointment").then((result) => {
         if (result['status']) {
           console.log(result['status']);
-          this.hideChildModal();
+          // this.hideChildModal();
           this.allAppointmentSchedule (); 
         }
       }, (err) => {
@@ -366,15 +366,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  showChildModal(): void {
-    this.childModal.show();
-  }
+  // showChildModal(): void {
+  //   this.childModal.show();
+  // }
  
-  hideChildModal(): void {
-    this.childModal.hide();
-  }
+  // hideChildModal(): void {
+  //   this.childModal.hide();
+  // }
 
-  clear() {
-    this.hideChildModal();
-  }
+  // clear() {
+  //   this.hideChildModal();
+  // }
 }

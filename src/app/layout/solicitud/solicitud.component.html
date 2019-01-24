@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Solicitudes'" [icon]="'fa-edit'"></app-page-header>
     <div class="container">
 
-        <div class="card-header" style="text-align: -webkit-center;">Solicitudes</div>
+        <div class="card-header" style="text-align: -webkit-center;">Solicitudes.</div>
         <div class="card mb-3">
             <div class="row mb-3">
                 <div *ngIf="solicitud.typeServiceId=='1' || solicitud.typeServiceId=='2'" class="col col-sm-4" style="position: relative; top: 15px;">
@@ -278,6 +278,7 @@
 
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
+        
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -472,7 +473,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; d('Cross click')">
             <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
         </button>
     </div>
