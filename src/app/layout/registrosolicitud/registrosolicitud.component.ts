@@ -48,7 +48,7 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
 }
 @Component({
     selector: 'app-registrosolicitud',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    //changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     templateUrl: './registrosolicitud.component.html',
     styleUrls: ['./registrosolicitud.component.scss'],
@@ -65,6 +65,7 @@ export class RegistroSolicitudComponent implements OnInit {
 
     //para los disabled generales
     public lock = false;
+    public lockcheck = false;
     //para que aparezca el buscar
     public buscar = false;
     //para el disabled de las especificaciones
@@ -117,26 +118,7 @@ export class RegistroSolicitudComponent implements OnInit {
     activeDayIsOpen: boolean = true;
     viewDate: Date = new Date();
     listspecification: any[]
-    events: any = [
-        {
-            start: startOfDay('2019/01/11'),
-            title: 'jajajaaj',
-            turno: 'AM',
-            color: '#FAE3E3'
-        },
-        {
-            start: startOfDay('2019/01/14'),
-            title: 'test2',
-            turno: 'PM',
-            color: '#FAE3E3'
-        },
-        {
-            start: startOfDay('2019/01/14'),
-            title: 'otros',
-            turno: 'AM',
-            color: '#FAE3E3'
-        }
-    ];
+    events: any = [  ];
 
     public test: any = {
         fecha: '',
@@ -303,7 +285,7 @@ export class RegistroSolicitudComponent implements OnInit {
     }
     
     searchPropertyId(){
-    
+       
     if(this.search!=""){
     this.globalService.getModel(`/api/property/`+this.search).then((result) => {
         if (result['status']) {
@@ -329,6 +311,7 @@ export class RegistroSolicitudComponent implements OnInit {
             this.solicitud.typeSpecifications = property.typeSpecifications;
             this.lock = true;
             this.activatespecifications = true;
+            this.lockcheck = true;
             }else{
                 this.limpiar()
                 this.toastr.info('El inmueble solicitado no existe', 'por favor intente nuevamente', {
@@ -400,9 +383,11 @@ export class RegistroSolicitudComponent implements OnInit {
             direction: '',
         }
         this.lock = false;
+        this.lockcheck = false;
         this.buscar = false;
         this.activatespecifications = false; 
         this.activatecalendar = false;
+        this.search = '';   
     }
     
     anterior(){
@@ -445,7 +430,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         this.solicitud.wishDate = moment(this.test.fecha).format('DD/MM/YYYY');
                         this.events.push({
                             start: startOfDay(this.test.fecha),
-                            title: 'jajajaaj',
+                            title: 'Solicitud de Cita',
                             turno: 'AM',
                             color: this.colors.red,
                         });
@@ -478,7 +463,7 @@ export class RegistroSolicitudComponent implements OnInit {
                         this.solicitud.wishDate = moment(this.test.fecha).format('DD/MM/YYYY');
                         this.events.push({
                             start: startOfDay(this.test.fecha),
-                            title: 'jajajaaj',
+                            title: 'Solicitud de Cita',
                             turno: 'PM',
                             color: this.colors.red,
                         });

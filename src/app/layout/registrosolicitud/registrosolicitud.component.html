@@ -28,11 +28,11 @@
                             <div class="row" *ngIf="buscar">
                                 <div class="col-12 col-md-6"></div>
                                 <div class="col col-md-4 col-sm-9">
-                                    <input class="form-control mr-sm-2" id="search" type="text" placeholder="Buscar..."
+                                    <input [disabled]="lock" class="form-control mr-sm-2" id="search" type="text" placeholder="Buscar..."
                                         aria-label="Search" [(ngModel)]="search">
                                 </div>
                                 <div class="col col-md-2 col-sm-3">
-                                    <button (click)="searchPropertyId()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
+                                    <button  [disabled]="lock" (click)="searchPropertyId()" style="background: #1AB394; border-radius: 100%;font-size:24px; height: 40px; width: 40px;">
                                         <i style="color: white" class="fa fa-search" aria-hidden="true" data-toggle="tooltip"
                                             data-placement="top" title="Buscar"></i>
                                     </button>
@@ -74,7 +74,7 @@
                                             <label class="switch" for="exampleCheck-{{esp.id}}">
                                                 
                                                 <input id="exampleCheck-{{esp.id}}" type="checkbox"
-                                                 [value]="esp.quantity" [(ngModel)]="esp.quantity" disabled=true>
+                                                 [value]="esp.quantity" [(ngModel)]="esp.quantity" [disabled]="lockcheck">
                                                     
                                                 <div class="slider round"></div>
                                             </label>
