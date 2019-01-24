@@ -41,7 +41,7 @@ export class TransaccionesComponent implements OnInit {
             type: 'column'
         },
         title: {
-            text: 'Servicios mas Solicitados por Mes '
+            text: 'Transacciones'
         },
         xAxis: {
             categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', "Junio","Agosto","Septimbre","Octubre","Noviembre","Diciembre"]
@@ -49,7 +49,7 @@ export class TransaccionesComponent implements OnInit {
         yAxis: {
             min: 0,
             title: {
-                text: 'Promedio por servicios'
+                text: 'Transacciones'
             },
             stackLabels: {
                 enabled: true,
@@ -218,13 +218,13 @@ export class TransaccionesComponent implements OnInit {
         this.view = true;
         this.query = {
             typeS: this.servicio.id,
-            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
-            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
+            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
+            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/service?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}
