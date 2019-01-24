@@ -43,8 +43,8 @@
                                     [(ngModel)]="solicApellido" />
                             </th>
                             <th style="background-color:transparent">
-                                <input class="form-control mr-sm-2" type="text" placeholder="identificación..." aria-label="Search"
-                                    [(ngModel)]="solicIdent" />
+                                <input class="form-control mr-sm-2" type="text" placeholder="identificación..."
+                                    aria-label="Search" [(ngModel)]="solicIdent" />
                             </th>
                             <th style="background-color:transparent">
                                 <input class="form-control mr-sm-2" type="text" placeholder="Tipo..." aria-label="Search"
@@ -65,7 +65,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicIdent:solicTipo:solicFecha:solicHora:solicEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }" (click)=openForEdit(solicitud)>
+                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicIdent:solicTipo:solicFecha:solicHora:solicEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }"
+                            (click)=openForEdit(solicitud)>
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
@@ -121,164 +122,10 @@
 <!-- Content -->
 <!-- aceptar solicitud buy-->
 <ng-template #content let-c="close" let-d="dismiss">
-    <!--
-    <div class="modal-header">
-        <h4 class="modal-title" *ngIf="buy"> Solicitud de {{solicitud.typeService.name}} </h4>
-        <h4 class="modal-title" *ngIf="!buy"> Solicitud {{solicitud.typeService.name}} </h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body" *ngIf="buy">
-
-        <div class="row md-3">
-            <div class="form-group col-md-6">
-                <label>Agente seleccionado</label>
-                <input class="form-control" name="title" id="title" type="text" [(ngModel)]="solicitud.employee.name"
-                    ng-model="title" autocomplete="off" disabled>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="date_start">Fecha de atención</label>
-                <div class="input-group">
-                    <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                        ng-model="date_start" bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off">
-                </div>
-            </div>
-        </div>
-
-        <div class="row md-3">
-            <div class="form-group col-md-6">
-                <label for="tipos">Estado</label>
-                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="tipos">Municipio</label>
-                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
-                    disabled>
-            </div>
-        </div>
-
-        <div class="row md-3">
-            <div class="form-group col-md-6">
-                <label for="tipos">Parroquia</label>
-                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
-                    disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-            </div>
-        </div>
-        <!- - <div class="row md-3 ">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4">
-                <div class="btn-group ">
-                    <div class="btn btn-ignusgris" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-                        (viewDateChange)="activeDayIsOpen = false">
-                        Anterior
-                    </div>
-                    <div class="btn btn-ignus" mwlCalendarToday [(viewDate)]="viewDate">
-                        Hoy
-                    </div>
-                    <div class="btn btn-ignusgris" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-                        (viewDateChange)="activeDayIsOpen = false">
-                        Siguiente
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div> -->
-    <!-- <div class="row md-3 ">
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4 align-items-center">
-                <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}</h3>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div> -->
-    <!-- <div [ngSwitch]="view">
-            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-                [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent($event.event)"
-                (eventTimesChanged)="eventTimesChanged($event)">
-            </mwl-calendar-month-view>
-            <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [locale]="locale" [locale]="locale"
-                [refresh]="refresh" (eventClicked)="handleEvent($event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-            </mwl-calendar-week-view>
-            <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [locale]="locale" [refresh]="refresh"
-                (eventClicked)="handleEvent($event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-            </mwl-calendar-day-view>
-        </div> - ->
-
-    </div>
-    <div class="modal-footer" *ngIf="buy">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
-            <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-                title="Agregar"></i>
-        </button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
-        </button>
-    </div>
-
-<div class="modal-body" *ngIf="!buy">
-            <div class="row md-3">
-                <div class="form-group col-md-6">
-                    <label>Agente seleccionado</label>
-                    <input class="form-control" name="title" id="title" type="text" [(ngModel)]="solicitud.employee.name"
-                        ng-model="title" autocomplete="off" disabled>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="date_start">Fecha de atención</label>
-                    <div class="input-group">
-                        <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                            ng-model="date_start" bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off">
-                    </div>
-                </div>
-            </div>
-    
-            <div class="row md-3">
-                <div class="form-group col-md-6">
-                    <label for="tipos">Estado</label>
-                    <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
-                </div>
-    
-                <div class="form-group col-md-6">
-                    <label for="tipos">Municipio</label>
-                    <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
-                        disabled>
-                </div>
-            </div>
-    
-            <div class="row md-3">
-                <div class="form-group col-md-6">
-                    <label for="tipos">Parroquia</label>
-                    <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
-                        disabled>
-                </div>
-    
-                <div class="form-group col-md-6">
-                </div>
-            </div>        
-    
-        </div>
-        <div class="modal-footer" *ngIf="!buy">
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')">
-                <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
-                    title="Agregar"></i>
-            </button>
-            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Cross click')">
-                <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
-            </button>
-        </div>
-
-    -->
 
     <div class="modal-header">
         <h4 class="modal-title"> Solicitud </h4>
-        
+
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -314,10 +161,6 @@
                 <div class="row md-3">
                     <div class="col-md-6">
                         <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="description">Descripcion</label>
-                            <textarea class="form-control" [(ngModel)]="solicitud.typeService.description" name="description"
-                                ng-model="description" type="text" rows="3" disabled>
-                                </textarea>
                         </div>
                         <div class="form-group col-md-12">
                             <label for="requestDate">Fecha de la solicitud</label>
@@ -336,8 +179,6 @@
                     <div class="col-md-6">
                         <div class="form-group col-md-12">
                             <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
-                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
-                                style="width: 350px; height: 200px; border-radius: 10%;" disabled>
                         </div>
                     </div>
                 </div>
@@ -388,7 +229,7 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="view">
         <div class="row md-3">
             <div class="form-group col-md-6">
                 <label class="ng-tns-c12-9" for="firstName">Nombre</label>
@@ -414,40 +255,106 @@
             </div>
         </div>
 
+
         <div class="row md-3">
-            <div class="col-md-12">
-                <div class="row md-3">
-                    <div class="col-md-6">
-                        <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="description">Descripcion</label>
-                            <textarea class="form-control" [(ngModel)]="solicitud.typeService.description" name="description"
-                                ng-model="description" type="text" rows="3" disabled>
-                            </textarea>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="requestDate">Fecha de la solicitud</label>
-                            <div class="input-group">
-                                <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                                    placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
-                                    autocomplete="off" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="status">Estado</label>
-                            <input class="form-control" [(ngModel)]="solicitud.status" name="status" ng-model="status"
-                                type="text" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
-                            <img class="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [300x400]" src="{{solicitud.typeService.urlImage}}"
-                                style="width: 350px; height: 200px; border-radius: 10%;" disabled>
-                        </div>
-                    </div>
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha de la solicitud</label>
+                <div class="input-group">
+                    <input name="fechaIni" id="fechaIni" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha deseada por el cliente</label>
+                <div class="input-group">
+                    <input name="fechaEnd" id="fechaEnd" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
                 </div>
             </div>
         </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="tipos">acomodar</label>
+                <!-- <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                    disabled> -->
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="tipos">Tipo de porpiedad</label>
+                <!-- <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled> -->
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="tipos">Estado</label>
+                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="tipos">Municipio</label>
+                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                    disabled>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="tipos">Parroquia</label>
+                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                    disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body" *ngIf="!view">
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="firstName">Nombre</label>
+                <input class="form-control" [(ngModel)]="solicitud.client.firstName" name="firstName" ng-model="firstName"
+                    type="text" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="lastName">Apellido</label>
+                <input class="form-control" [(ngModel)]="solicitud.client.lastName" name="lastName" ng-model="lastName"
+                    type="text" disabled>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="email">Telefono</label>
+                <input class="form-control" type="text" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="ng-tns-c12-9" for="name">Tipo de servicio</label>
+                <input class="form-control" [(ngModel)]="solicitud.typeService.name" name="name" ng-model="lastName"
+                    type="text" disabled>
+            </div>
+        </div>
+
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha de la solicitud</label>
+                <div class="input-group">
+                    <input name="fechaIni" id="fechaIni" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha deseada por el cliente</label>
+                <div class="input-group">
+                    <input name="fechaEnd" id="fechaEnd" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                </div>
+            </div>
+        </div>
+
         <div class="row md-3">
             <div class="form-group col-md-6">
                 <label for="tipos">Estado</label>
