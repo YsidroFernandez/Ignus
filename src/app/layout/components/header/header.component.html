@@ -18,7 +18,7 @@
                 </a>
 
                 <ul class="dropdown-menu messages" ngbDropdownMenu>
-                    <li *ngFor="let item of notifications" class="media">
+                    <li *ngFor="let item of notifications" class="media"  (click)="openRoute(item.urlRedirectIntranet)">
                         <img class="d-flex align-self-center mr-3" width="40px" height="40px" src="{{item.urlImage}}">
                         <div class="media-body">
                             <h5 class="mt-0 mb-1">{{item.type}}</h5>

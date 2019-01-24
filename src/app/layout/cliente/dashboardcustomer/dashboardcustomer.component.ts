@@ -3,12 +3,56 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../../providers/global.service';
 import { GlobalsProvider } from '../../../shared';
+import * as moment from 'moment';
+import { Subject } from 'rxjs';
+import { startOfDay, subMonths, addMonths, startOfWeek, subWeeks, startOfMonth, endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { routerTransition } from '../../../router.animations';
+import * as datepicker from 'ngx-bootstrap/datepicker';
+import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
+
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+
+type CalendarPeriod = 'month';
+
+function addPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: addDays,
+    week: addWeeks,
+    month: addMonths
+  }[period](date, amount);
+}
+function subPeriod(period: CalendarPeriod, date: Date, amount: number): Date {
+  return {
+    day: subDays,
+    week: subWeeks,
+    month: subMonths
+  }[period](date, amount);
+}
+
+function startOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: startOfDay,
+    week: startOfWeek,
+    month: startOfMonth
+  }[period](date);
+}
+
+function endOfPeriod(period: CalendarPeriod, date: Date): Date {
+  return {
+    day: endOfDay,
+    week: endOfWeek,
+    month: endOfMonth
+  }[period](date);
+}
 
 @Component({
   selector: 'app-dashboardcustomer',
   templateUrl: './dashboardcustomer.component.html',
   styleUrls: ['./dashboardcustomer.component.scss'],
+  animations: [routerTransition()],
   providers: [GlobalsProvider]
+  
 })
 export class DashboardcustomerComponent implements OnInit {
     public numbPage: number;
@@ -17,6 +61,21 @@ export class DashboardcustomerComponent implements OnInit {
     public transaccionSelect: any;
     public pages = 1;
     public usuario : any;
+    appointmentSchedule: any = {
+        appointments: [],
+        excludeDays: []
+      };
+      view: CalendarPeriod = 'month';
+  refresh: Subject<any> = new Subject();
+  locale: string = 'es';
+  activeDayIsOpen: boolean = true;
+  excludeDays: number[] = [];
+  viewDate: Date = new Date();
+  public minDate: Date;
+  prevBtnDisabled: boolean = false;
+  nextBtnDisabled: boolean = false;
+  modalRef: BsModalRef;
+
     closeResult: string;
     clientes: any;
     cliente: any;
@@ -31,20 +90,74 @@ export class DashboardcustomerComponent implements OnInit {
 
   public listTransacciones:any;
   public listSolicitudes:any;
+  public listScheduler: any = [];
 
 
+  actions: CalendarEventAction[] = [
+    {
+      label: '<i class="fa fa-fw fa-pencil"></i>',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        // this.handleEvent('Edited', event);
+      }
+    }
+  ];
+
+  events: any = [
+    {
+      start: '',
+      title: '',
+      turno: '',
+      color: '',
+      actions: [{}]
+    }
+  ];
+
+  data: any = {
+    
+  };
+
+  public viewData = false;
 
   constructor(
       private modalService: NgbModal, 
       private globals: GlobalsProvider, 
       public globalService: GlobalService) {
-
+    
+        this.minDate = subMonths(moment(new Date()).format('YYYY/MM/DD'), 0);
+        this.user = JSON.parse(localStorage.user);
     this.clientes = [];
     this.cliente = [];
     this.nuevo = [];
-    this.user = JSON.parse(localStorage.user);
-  } 
+    this.allAppointmentSchedule()
+    } 
 
+  allAppointmentSchedule () {
+    
+    this.globalService.getModel(`/api/appointment/schedule?userId=${this.user.id}`).then((result) => {
+      if (result['status']) {
+        this.appointmentSchedule = [];
+        this.appointmentSchedule = result['data'];
+        
+        this.excludeDays  = this.appointmentSchedule.excludeDays;
+        for(let appointment of this.appointmentSchedule.appointments){
+          appointment.start = startOfDay(appointment.dateAppointmentUS)
+          var x = new Date();
+          var y = new Date(appointment.dateAppointment)
+          console.log(y , " ", x)
+          if( y > x){
+              console.log(appointment)
+            this.listScheduler.push(appointment)
+          }
+        }
+        
+        this.events=this.appointmentSchedule.appointments
+       
+        this.refresh.next();
+      }
+    }, (err) => {
+      console.log(err);
+    });  
+  }
  open(content) {
     console.log("aqui");
     this.modalService.open(content).result.then((result) => {

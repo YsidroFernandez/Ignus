@@ -1,213 +1,216 @@
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">Cliente</li>
-    <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
-  </ol>
-</nav>
-
-<div class="form-control">
-<div style="margin-top: 15px;" class=" cardrow">
-  <div class="col-12 col-md-12 col-sm-12 mb-12">
-    <div class="form-group team-member mb-3">
-      <div align="center" *ngIf="usuario"><img class="mx-auto rounded-circle"
-          [routerLinkActive]="['router-link-active']" src="{{user.urlAvatar}}" title="Editar Perfil" width="150px" alt="">
-        <div class="clearfix" align="center">{{perfil.person.firstName}} {{perfil.person.lastName}} </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-<div class="form-control">
-  <div class=" card">
-    <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
-      Informacion de la Cuenta
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-12 col-md-12 col-lg-12">
-          <div class="form-group">
-            <label>Constraseña Actual</label>
-            <input type="email" class="form-control" placeholder="contraseña actual" name="email">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 col-md-6 col-lg-6">
-          <div class="form-group">
-            <label>Contraseña Nueva</label>
-            <input type="password" class="form-control" placeholder="constraseña nueva" name="identification">
-          </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-6">
-          <div class="form-group">
-            <label>Confirme su Contraseña</label>
-            <input type="password" class="form-control" placeholder="confirmar constraseña">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <button class="btn" style=" margin-left: 34%; background: #1AB394; border-radius: 100%;font-size:24px;">Guardar</button>
-      <br>
-    </div>
-  </div>
-  <br>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">Cliente</li>
+      <li class="breadcrumb-item active" aria-current="page">Mi Perfil</li>
+    </ol>
+  </nav>
+  
   <div class="form-control">
-    <div class="card">
-      <div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
-        Información Personal
+  <div style="margin-top: 15px;" class=" cardrow">
+    <div class="col-12 col-md-12 col-sm-12 mb-12">
+      <div class="form-group team-member mb-3">
+        <div align="center" *ngIf="usuario"><img class="mx-auto rounded-circle"
+            [routerLinkActive]="['router-link-active']" src="{{user.urlAvatar}}" title="Editar Perfil" width="150px" alt="">
+          <div class="clearfix" align="center">{{perfil.person.firstName}} {{perfil.person.lastName}} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+  <div class="form-control">
+    <div class=" card">
+      <div class="card-header" style="text-align: -webkit-center; background: #1AB394;">
+        Informacion de la Cuenta
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-md-6 col-lg-6 col-sm-12">
             <div class="form-group">
-              <label>Nombres Completos</label>
-              <input type="text" class="form-control" name="firstName" [(ngModel)]="perfil.person.firstName">
-            </div>
-          </div>
-          <div class="col-12 col-lg-6">
-            <div class="form-group">
-              <label>Apellidos Completos</label>
-              <input type="text" class="form-control" name="lastName" [(ngModel)]="perfil.person.lastName">
+              <label>Constraseña Actual</label>
+              <input type="password" class="form-control" placeholder="contraseña actual" name="passwordactual"  [(ngModel)]="passwordactual">
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-md-6 col-lg-6 col-sm-12">
             <div class="form-group">
-              <label>Genero</label>
-              <select class="form-control" name="gender" [(ngModel)]="perfil.person.gender">
-                <option>Femenino</option>
-                <option>Masculino</option>
-              </select>
+              <label>Contraseña Nueva</label>
+              <input type="password" class="form-control" placeholder="constraseña nueva" name="identification"  [(ngModel)]="passwordnew">
             </div>
           </div>
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-md-6 col-lg-6 col-sm-12">
             <div class="form-group">
-              <label>Fecha de Nacimiento</label>
-              <input type="text" class="form-control" [(ngModel)]="perfil.person.birthDate" name="birthDate">
+              <label>Confirme su Contraseña</label>
+              <input type="password" class="form-control" placeholder="confirmar constraseña" [(ngModel)]="passwordnew2">
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-6">
-            <div class="form-group">
-              <label>Número de Telefono</label>
-              <input type="text" class="form-control" [(ngModel)]="perfil.phoneNumber">
-            </div>
-          </div>
-          <!--<div class="col-12 col-lg-6">
-                  <div class="form-group">
-                    <label>Estado</label>
-                    <select class="form-control" [(ngModel)]="perfil.state" name="state">
-                      <option>{{state.name}}</option>
-                      <option *ngFor="let est of state">{{est.name}}</option>
-                    </select>
-                  </div>
-                 </div>-->
-
+          <label style="color: red"  *ngIf="passwordnew!=passwordnew2">Las contraseas no coinciden</label>
         </div>
       </div>
       <div class="row">
-        <button class="btn" style=" margin-left: 34%; background: #1AB394; border-radius: 100%;font-size:24px;">Guardar</button>
+          <button class="btn btn-outline-secondary" (click)="newpassword()" style=" margin-left: 34%; background: #1AB394; color: white">Guardar</button>
         <br>
       </div>
     </div>
-  </div>
-  <br>
-  <div class="form-control">
-    <div class="card">
-      <div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
-        Gustos y Preferencias
-      </div>
-      <div class="card-body">
-
-        <div class="row">
-          <div class="col-12 col-md-8 col-lg-7">
-            <div class="form-group">
-              <label>Tipo de Servicio: (*)</label>
-              <select class="form-control" name="typeservice" id="typeservice" required>
-                <option *ngFor="let type of typeservices" [value]="type.id">{{type.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-12 col-md-4 col-lg-5">
-            <div class="form-group">
-              <label class="" for="inmueble">Tipo de Inmueble:</label>
-              <select class="form-control" name="horas" id="tipoinmueble" (change)="loadSpecifications()" [(ngModel)]="typeproperty"
-                required>
-                <option *ngFor="let typeproperty of typeproperties" [value]="typeproperty.id">{{typeproperty.name}}</option>
-              </select>
-            </div>
-          </div>
+    <br>
+    <div class="form-control">
+      <div class="card">
+        <div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
+          Información Personal
         </div>
-        <div class="row">
-          <div class="col-12 col-lg-7">
-            <div class="form-group">
-              <label for="tipos">Estado</label>
-              <select class="form-control" name="state" id="state" [(ngModel)]="perfil.person.state" #estado="ngModel"
-                (change)="loadmunicipality(perfil.state.id)">
-                <option *ngFor="let sta of states" [value]="sta.id">{{sta.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-12 col-lg-5">
-            <div class="row">
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="form-group">
-                  <label for="municipality">Municipios</label>
-                  <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil.person.municipality"
-                    #municipality="ngModel" (change)="loadparish(perfil.municipality.id)">
-                    <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
-                  </select>
-                </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Nombres Completos</label>
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="perfil.person.firstName">
               </div>
-              <div class="col-12 col-md-4 col-lg-6">
-                <div class="form-group">
-                  <label class="" for="parish">Parroquia</label>
-                  <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil.person.parish" required>
-                    <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
-                  </select>
-                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Apellidos Completos</label>
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="perfil.person.lastName">
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-8 col-lg-7">
-            <h5>Otras Preferencias</h5>
-
-            <tabset id="tabspecification" *ngIf="activatespecifications==true">
-
-              <tab *ngFor="let te of perfil.specifications" [heading]="te.name" [id]="te.id">
-                <br>
-                <div class="row">
-                  <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number" [id]="esp.id">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Genero</label>
+                <select class="form-control" name="gender" [(ngModel)]="perfil.person.gender">
+                  <option>Femenino</option>
+                  <option>Masculino</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="form-group">
+                <label>Fecha de Nacimiento</label>
+                <input type="text" class="form-control" [(ngModel)]="perfil.person.birthDate" name="birthDate">
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label>Número de Telefono</label>
+                <input type="text" class="form-control" [(ngModel)]="perfil.person.phoneNumber">
+              </div>
+            </div>
+            <!--<div class="col-12 col-lg-6">
                     <div class="form-group">
-                      <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
-                      <input [type]="esp.typeInput" [disabled]="lock" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
+                      <label>Estado</label>
+                      <select class="form-control" [(ngModel)]="perfil.state" name="state">
+                        <option>{{state.name}}</option>
+                        <option *ngFor="let est of state">{{est.name}}</option>
+                      </select>
                     </div>
-
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox" [id]="esp.id">
-                    <div class="form-group row">
-                      <label class="form-check-label col-8">{{esp.name}} : </label>
-                      <label class="switch" [for]="esp.name">
-                        <input class="form-check-input" [disabled]="lock" [id]="esp.name" [type]="esp.typeInput" [name]="esp.name"
-                          [value]="esp.quantity" [(ngModel)]="esp.quantity" (change)="transform_check(this.solicitud.typeSpecifications,te.name,esp.name)">
-                        <div class="slider round"></div>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </tab>
-            </tabset>
+                   </div>-->
+  
           </div>
         </div>
         <div class="row">
-          <button class="btn" style=" margin-left: 34%; background: #1AB394; border-radius: 100%;font-size:24px;">Guardar</button>
+            <button class="btn btn-outline-secondary" style=" margin-left: 34%; background: #1AB394; color: white">Guardar</button>
           <br>
         </div>
       </div>
+    </div>
+    <br>
+    <div class="form-control">
+      <div class="card">
+        <div class="card-header" style="text-align: -webkit-center; background: #f7fff7;">
+          Gustos y Preferencias
+        </div>
+        <div class="card-body">
+  
+          <div class="row">
+            <div class="col-12 col-md-8 col-lg-7">
+              <div class="form-group">
+                <label>Tipo de Servicio: (*)</label>
+                <select class="form-control" name="typeservice" id="perfil.TypeServiceId" required>
+                  <option *ngFor="let type of typeservices" [value]="type.id">{{type.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-5">
+              <div class="form-group">
+                <label class="" for="inmueble">Tipo de Inmueble:</label>
+                <select class="form-control" name="horas" id="tipoinmueble" (change)="loadSpecifications()" [(ngModel)]="perfil.TypePropertyId"
+                  required>
+                  <option *ngFor="let typeproperty of typeproperties" [value]="typeproperty.id">{{typeproperty.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-7">
+              <div class="form-group">
+                <label for="tipos">Estado</label>
+                <select class="form-control" name="state" id="state" [(ngModel)]="perfil.state" #estado="ngModel"
+                  (change)="loadmunicipality(perfil.state)">
+                  <option *ngFor="let sta of states" [value]="sta.id">{{sta.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-lg-5">
+              <div class="row">
+                <div class="col-12 col-md-4 col-lg-6">
+                  <div class="form-group">
+                    <label for="municipality">Municipios</label>
+                    <select class="form-control" name="municipality" id="municipality" [(ngModel)]="perfil.municipality"
+                      #municipality="ngModel" (change)="loadparish(perfil.municipality)">
+                      <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-md-4 col-lg-6">
+                  <div class="form-group">
+                    <label class="" for="parish">Parroquia</label>
+                    <select class="form-control" name="parish" id="parish" [(ngModel)]="perfil.ParishId" required>
+                      <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+              <h5>Otras Preferencias</h5>
+  
+              <tabset id="tabspecification" *ngIf="activatespecifications==true">
+  
+                <tab *ngFor="let te of perfil.specifications" [heading]="te.name" [id]="te.id">
+                  <br>
+                  <div class="row">
+                      <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number"
+                          [id]="esp.id">
+                          <div class="form-group">
+                              <label class="ng-tns-c12-9 col-8" [for]="esp.name">{{esp.name}}: </label>
+                              <input [type]="esp.typeInput" [disabled]="lock" [name]="esp.name" min=0 [(ngModel)]="esp.quantity"><br>
+                          </div>
+  
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_checkbox" >
+                          <div class="form-group row">
+                              
+                              <label class="form-check-label col-8">{{esp.name}} : </label>
+                              <label class="switch" for="exampleCheck-{{esp.id}}">
+                                  
+                                  <input id="exampleCheck-{{esp.id}}" type="checkbox"
+                                   [value]="esp.quantity" [(ngModel)]="esp.quantity">
+                                      
+                                  <div class="slider round"></div>
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+                </tab>
+              </tabset>
+            </div>
+          </div>
+          <div class="row">
+              <button class="btn btn-outline-secondary" style=" margin-left: 34%; background: #1AB394; color: white" (click)="newpreferences()">Guardar</button>
+            <br>
+          
+        </div>

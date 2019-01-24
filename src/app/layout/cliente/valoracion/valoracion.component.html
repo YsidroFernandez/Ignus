@@ -1,54 +1,55 @@
 <div [@routerTransition]>
 
-	<app-page-header [heading]="'Valoracion'" [icon]="'fa-edit'"></app-page-header>
+	<app-page-header [heading]="'Valoración'" [icon]="'fa-edit'"></app-page-header>
+
 
 	<div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
 
-	<div class="card mb-3" style="padding: 20px;">
+  <div class="card mb-3" style="padding: 20px;">
+
+      <div class="row">
+          <div class="col-md-12">
+              <div class="alert alert-success" role="alert">
+                  <h4 class="alert-heading">Leyenda</h4>
+                  <p>Para nosotros es de suma importancia su opinión, por tan razón, puede indicarnos la calidad de servicio </p>
+                  <hr>
+                  <p class="mb-0">1) Seleccione una opción a cada pregunta</p>
+                  <p class="mb-0">2) Responda todas las preguntas</p>
+                  <p>Al enviar sus respuestas, no podrá modificarlas</p>
+              </div>
+          </div>
+      </div>
+<form [formGroup]="formValidation" (ngSubmit)="submit()">
 		<div class="row">
 			<div class="col-md-12">
 				<label > <strong> Descripción </strong></label>
-				<div class="row" *ngFor="let item of valorations">
+				<div  formControlName="validation"  class="row" *ngFor="let item of valorations" style="border:2px solid lightseagreen; margin:1px;">
 					<div class="col-md-12">
 						<div class="row col-md-12">
 					     <label style="margin-bottom: 1.5rem !important; margin-top: 1.5rem !important;">{{ item.name }}</label>
 					</div>
 					</div>
-					<div class="col-md-12"> 
+					<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-8">
-							<div class="form-check" *ngFor="let itemQ of qualification">
-								<input type="checkbox" [value]="itemQ.id">				
-									{{itemQ.name}}						
-							</div>
-						</div>
-						<div class="col-md-4">
+                <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification" for="exampleCheck-{{itemQ.id}}">
+                    <input type="checkbox" [disabled]="!bloqueado"  id="exampleCheck-{{itemQ.id}}" (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="itemQ.id" >
+                    <span class="checkbox-placeholder"></span>
+                    {{itemQ.name}}
+                  </label>
+
 						</div>
 					</div>
 				</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
 
-				</div>
-			</div>
-		</div>
+    </div></form>
+    <button  class="btn" style="background:lightseagreen" [disabled]="">Enviar</button>
 	</div>
+  <br>
+
 
 </div>
 
 
-<!-- <div class="row mb-3">
-		<div class="col col-sm-12">
-			<div>
-				<div class="row">
-					<div class="col-6">
-						<button type="button" class="btn btn-outline-secondary" style="background: #1AB394; color: white" (click)="enviar()">
-							Enviar Calificacion
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->

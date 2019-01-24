@@ -12,6 +12,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import * as datepicker from 'ngx-bootstrap/datepicker';
 
 type CalendarPeriod = 'month';
 
@@ -59,6 +60,9 @@ export class RegistroSolicitudComponent implements OnInit {
     @ViewChild('childModal') childModal: ModalDirective;
     modalRef: BsModalRef;
     message: string;
+
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
+
     //para los disabled generales
     public lock = false;
     //para que aparezca el buscar
@@ -145,6 +149,7 @@ export class RegistroSolicitudComponent implements OnInit {
         ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
         employeeId: '',
         wishDate: '',
+        buildDate: '',
         turn: '',
         propertyId: '',
         typeProperty: '',
@@ -154,7 +159,6 @@ export class RegistroSolicitudComponent implements OnInit {
         municipality: '',
         parish: '',
         ubication: '',
-        description: '',
         typeSpecifications: [],
     };
 
@@ -174,6 +178,11 @@ export class RegistroSolicitudComponent implements OnInit {
             this.searchPropertyId()
             localStorage.removeItem('propertyId');
         }
+        this.datePickerConfig = Object.assign({},
+            { containerClass: 'theme-dark-blue' },
+            { showWeekNumbers: false },
+            { dateInputFormat: 'DD/MM/YYYY' },
+            { locale: 'es' });
     }
 
     ngOnInit() {
@@ -317,7 +326,6 @@ export class RegistroSolicitudComponent implements OnInit {
             this.loadparish(property.municipality.id)
             this.solicitud.parish = property.parish.id;
             this.solicitud.ubication = property.ubication;
-            this.solicitud.description = property.description;
             this.solicitud.typeSpecifications = property.typeSpecifications;
             this.lock = true;
             this.activatespecifications = true;
@@ -357,8 +365,8 @@ export class RegistroSolicitudComponent implements OnInit {
             TypeRequestId: this.solicitud.TypeRequestId,
             ParishId: Number.parseInt(this.solicitud.parish),
             direction: this.solicitud.direction,
-            description: this.solicitud.description,
-            typeSpecifications: this.solicitud.typeSpecifications
+            typeSpecifications: this.solicitud.typeSpecifications,
+            buildDate: this.solicitud.buildDate
         };
         console.log("result", this.nuevo);
         this.globalService.addModel(this.nuevo, "/api/request/pending")
@@ -381,6 +389,7 @@ export class RegistroSolicitudComponent implements OnInit {
             employeeId: '',
             propertyId: '',
             wishDate: '',
+            buildDate: '',
             turn: '',
             typeProperty: '',
             TypeServiceId: '',
@@ -389,7 +398,6 @@ export class RegistroSolicitudComponent implements OnInit {
             municipality: '',
             parish: '',
             direction: '',
-            description: '',
         }
         this.lock = false;
         this.buscar = false;
@@ -534,25 +542,6 @@ export class RegistroSolicitudComponent implements OnInit {
                 day.cssClass = 'cal-disabled';
             }
         });
-    }
-
-    transform_check(valor, tipo, indicador) {
-
-        for (var te in valor) {
-            if (valor[te].name == tipo) {
-                for (var esp in valor[te].specifications_checkbox) {
-                    if (valor[te].specifications_checkbox[esp].name == indicador) {
-                        if (valor[te].specifications_checkbox[esp].quantity == "true") {
-                            valor[te].specifications_checkbox[esp].quantity = false
-                        } else {
-                            valor[te].specifications_checkbox[esp].quantity = true
-                        }
-                        console.log(this.solicitud.typeSpecifications[te].specifications_checkbox[esp])
-                    }
-                }
-            }
-        }
-
     }
 
     selectAgente($event) {
