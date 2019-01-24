@@ -12,6 +12,7 @@ const routes: Routes = [
             { path: 'transacciones', loadChildren: './reports/transacciones/transacciones.module#transaccionesModule' },
             { path: 'promedio', loadChildren: './reports/promedio/promedio.module#PromedioModule' },
             { path: 'post-servicio', loadChildren: './reports/post-servicio/post-servicio.module#PostServicioModule' },
+            { path: 'noestructurado', loadChildren: './reports/noestructurado/noestructurado.module#NoestructuradoModule' },
             { path: 'reclamo', loadChildren: './reports/reclamo/reclamo.module#ReclamoModule' },
             { path: 'calificacion', loadChildren: './reports/calificacion/calificacion.module#CalificacionModule' },
             { path: 'solicitudes', loadChildren: './reports/solicitudes/solicitudes.module#SolicitudesModule' },
