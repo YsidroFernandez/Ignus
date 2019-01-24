@@ -30,43 +30,43 @@
                 <input
                 class="form-control mr-sm-2"
                 type="text"
-                placeholder="Buscar por Transacción..."
+                placeholder="Propietario..."
                 aria-label="Search"
-                [(ngModel)]="inmTransaccion"
+                [(ngModel)]="inmPro"
                 />
               </th>
               <th style="background-color:transparent">
                 <input
                 class="form-control mr-sm-2"
                 type="text"
-                placeholder="Buscar por Tipo..."
+                placeholder="Ubicación..."
                 aria-label="Search"
-                [(ngModel)]="inmTipo"
+                [(ngModel)]="inmUbi"
                 />
               </th>
               <th style="background-color:transparent">
                 <input
                 class="form-control mr-sm-2"
                 type="text"
-                placeholder="Buscar por Nombre..."
+                placeholder="Descripcion..."
                 aria-label="Search"
-                [(ngModel)]="inmName"
+                [(ngModel)]="inmDes"
                 />
               </th>
               <th style="background-color:transparent">
                 <input
                 class="form-control mr-sm-2"
                 type="text"
-                placeholder="Buscar por Descripcion..."
+                placeholder="Fecha..."
                 aria-label="Search"
-                [(ngModel)]="inmDescription"
+                [(ngModel)]="inmFecha"
                 />
               </th>
              
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of immovables; let i = index">
+            <tr *ngFor="let item of immovables | searchfilter: inmPro:inmUbi:inmDes:inmFecha; let i = index">
               <td>{{ item.owner.firstName }}</td>
               <td>{{ item.ubication }}</td>
               <td>{{ item.nameDisplay }}</td>
@@ -76,10 +76,6 @@
             <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                 (click)="open(content,'show', i)">
                 <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
-            </button>
-            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                (click)="open(content,'edit', i)">
-                <i style="color: white" class="fa fa-edit" aria-hidden="true"></i>
             </button>
             <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                 (click)="onDelete(i)">
@@ -120,80 +116,145 @@
         <fieldset [disabled]="disabled">
           <div class="card mb-3">
             <div class="modal-body">
-              <div class="row mb-3">
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Ubicación</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="property.ubication"
-                      class="form-control"
-                    />
-                  </div>
+                <div class="row mb-3">
+                    <label for="tipos">Propietario del inmueble</label>
                 </div>
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Fecha de Construcción</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="property.buildDate"
-                      class="form-control"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-3">
+                <div class="row mb-3">
                 <div class="col col-sm-6">
                     <div class="form-group">
-                      <label for="tipos">Type Service</label>
-                      <select
+                      <label for="tipos">Nombre</label>
+                      <input
+                        type="text"
+                        [(ngModel)]="property.owner.firstName"
                         class="form-control"
-                        name="TypeService"
-                        [(ngModel)]="property.TypeService.id"                      
-                      >
-                        <option
-                          *ngFor="let item of typeService"
-                          [ngValue]="item.id"
-                          [selected]="property.TypeService.id"
-                          >{{ item.name }}</option
-                        >
-                      </select>
+                      />
                     </div>
-                </div>
-                <div class="col col-sm-6">
-                  <div class="form-group">
-                    <label for="tipos">Propietario</label>
-                    <input
-                      type="text"
-                      [(ngModel)]="property.owner[0].firstName"
-                      class="form-control"
-                    />
                   </div>
-                </div>
-              </div>
-              <div class="row mb-3" >
-                  <div class="col col-sm-6" *ngFor="let item of property.specifications_number">
+                  <div class="col col-sm-6">
                       <div class="form-group">
-                        <label for="tipos">{{item.name}}</label>
+                        <label for="tipos">Apellido</label>
                         <input
-                          type="item.typeIput"
-                          [(ngModel)]="item.quantity"
+                          type="text"
+                          [(ngModel)]="property.owner.lastName"
                           class="form-control"
                         />
                       </div>
                     </div>
                 </div>
-                <div class="row mb-3" >
-                    <div class="col-12 col-xs-12 col-sm-6 col-md-5" *ngFor="let item of property.specifications_checkbox">
-                            <label class="form-check-label col-8">{{item.name}} : </label>
-                            <label class="switch" [for]="item.name">
-                                <input class="form-check-input " [id]="item.name" [type]="item.typeInput"
-                                    [name]="item.name" [value]="item.bin_quantity" [(ngModel)]="item.bin_quantity"
-                                    (change)="transform_check(this.property,property.name,item.name)">
-                                <div class="slider round"></div>
-                            </label>
+                <div class="row mb-3">
+                    <div class="col col-sm-6">
+                        <div class="form-group">
+                          <label for="tipos">Identificación</label>
+                          <input
+                            type="text"
+                            [(ngModel)]="property.owner.identification"
+                            class="form-control"
+                          />
+                        </div>
                       </div>
-                  </div>
+                      <div class="col col-sm-6">
+                          <div class="form-group">
+                            <label for="tipos">Telefono</label>
+                            <input
+                              type="text"
+                              [(ngModel)]="property.owner.phoneNumber"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="tipos">Tipo de Inmuebles</label>
+                </div>
+              <div class="row mb-3">
+                      <div class="col col-sm-6">
+                        <div class="form-group">
+                          <label for="tipos">Tipo de Propiedad</label>
+                          <input
+                            type="text"
+                            [(ngModel)]="property.typeProperty.name"
+                            class="form-control"
+                          />
+                        </div>
+                      </div> 
+                      <div class="col col-sm-6">
+                          <div class="form-group">
+                            <label for="tipos">Fecha de Construcción</label>
+                            <input
+                              type="text"
+                              [(ngModel)]="property.buildDate"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>    
+              </div>
+              <div class="row mb-3">
+                      <div class="col col-sm-6">
+                        <div class="form-group">
+                          <label for="tipos">Tipo de servicio</label>
+                          <select
+                            class="form-control"
+                            name="TypeService"
+                            [(ngModel)]="property.TypeService.id"                      
+                          >
+                            <option
+                              *ngFor="let item of typeService"
+                              [ngValue]="item.id"
+                              [selected]="property.TypeService.id"
+                              >{{ item.name }}</option
+                            >
+                          </select>
+                        </div>
+                    </div>
+              </div>
+              <div class="row mb-3">
+                  <label for="tipos">Ubicación del Inmuebles</label>
+              </div>
+              <div class="row mb-3">
+                  <div class="col col-sm-6">
+                      <div class="form-group">
+                        <label for="tipos">Estado</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="property.state.name"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  <div class="col col-sm-6">
+                      <div class="form-group">
+                        <label for="tipos">Municipio</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="property.municipality.name"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>          
+              </div>              
+              <div class="row mb-3">
+                  <div class="col col-sm-6">
+                      <div class="form-group">
+                        <label for="tipos">Parroquia</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="property.parish.name"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  <div class="col col-sm-6">
+                      <div class="form-group">
+                        <label for="tipos">Ubicación</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="property.ubication"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>    
+
+              </div>
             </div>
           </div>
         </fieldset>
