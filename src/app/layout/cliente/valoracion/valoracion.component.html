@@ -1,7 +1,7 @@
 <div [@routerTransition]>
 
 	<app-page-header [heading]="'Valoración'" [icon]="'fa-edit'"></app-page-header>
-
+    
 
 	<div class="card-header" style="text-align: -webkit-center;">Calificacion del Servicio</div>
 
@@ -13,17 +13,32 @@
                   <h4 class="alert-heading">Leyenda</h4>
                   <p>Para nosotros es de suma importancia su opinión, por tan razón, puede indicarnos la calidad de servicio </p>
                   <hr>
-                  <p class="mb-0">1) Seleccione una opción a cada pregunta</p>
-                  <p class="mb-0">2) Responda todas las preguntas</p>
+                  <p class="mb-0">1) Seleccione la transacción</p>
+                  <p class="mb-0">2) Seleccione una opción a cada pregunta</p>
+                  <p class="mb-0">3) Responda todas las preguntas</p>
                   <p>Al enviar sus respuestas, no podrá modificarlas</p>
               </div>
           </div>
       </div>
-<form [formGroup]="formValidation" (ngSubmit)="submit()">
+      <div class="col-12 col-lg-12">
+            <div class="form-group">
+              <div class="card-header" style="text-align: -webkit-center; margin-block-end: 25px;">
+                Transacción
+              </div>
+              <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
+                (change)="dataChanged($event)">
+                <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
+              </select>
+            </div>
+          </div>
+
+
+
+<form *ngIf="activate" [formGroup]="formValidation" (ngSubmit)="submit()">
 		<div class="row">
 			<div class="col-md-12">
 				<label > <strong> Descripción </strong></label>
-				<div  formControlName="validation"  class="row" *ngFor="let item of valorations" style="border:2px solid lightseagreen; margin:1px;">
+				<div   class="row" *ngFor="let item of valorations; let i = index" style="border:2px solid lightseagreen; margin:1px;">
 					<div class="col-md-12">
 						<div class="row col-md-12">
 					     <label style="margin-bottom: 1.5rem !important; margin-top: 1.5rem !important;">{{ item.name }}</label>
@@ -32,20 +47,31 @@
 					<div class="col-md-12">
 					<div class="row">
 						<div class="col-md-8">
-                <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification" for="exampleCheck-{{itemQ.id}}">
-                    <input type="checkbox" [disabled]="!bloqueado"  id="exampleCheck-{{itemQ.id}}" (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="itemQ.id" >
+                 <!-- <label  class="checkbox-inline checkbox-bootstrap checkbox-lg" *ngFor="let itemQ of qualification; let j=index" >
+                    <input type="checkbox" [disabled]="!bloqueado" class="radio"  id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="i" >
                     <span class="checkbox-placeholder"></span>
                     {{itemQ.name}}
-                  </label>
+                  </label> -->
+                  <div class="form-check"  >
+                  <label *ngFor="let itemQ of qualification; let j=index"  class="checkbox-inline checkbox-bootstrap checkbox-lg" >
+                        <input type="checkbox" [disabled]="!bloqueado"    id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ.id, item.id) : quit(itemQ.id)" [value]="i" >
+                        <!-- <input class="form-check-input"  type="checkbox" [disabled]="!bloqueado"    id="item-{{itemQ.id}}"    [value]="i" >   -->
+                        
+                        <span class="checkbox-placeholder"></span>
+                        {{itemQ.name}}
+                      </label>
+                    </div>
 
 						</div>
 					</div>
 				</div>
 				</div>
 			</div>
-
-    </div></form>
-    <button  class="btn" style="background:lightseagreen" [disabled]="">Enviar</button>
+            
+    </div>
+    <button  class="btn center" style="background:lightseagreen" [disabled]="">Enviar</button>
+</form>
+    
 	</div>
   <br>
 
