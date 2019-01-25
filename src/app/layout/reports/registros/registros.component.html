@@ -1,0 +1,150 @@
+<div [@routerTransition]>
+        <app-page-header [heading]="'Registros'" [icon]="'fa-bar-chart-o'"></app-page-header>
+        <div class="row">
+            <div class="col col-xl-12">
+                <div class="card-header" style="position: relative; text-align: -webkit-center">
+                    Registros
+                </div>
+
+                <div class="row">
+                    <div class="col col-sm-4 text-center">
+                        <div class="form-group text-center">
+                            <label >Fecha Inicio</label>
+                            <div class="input-group">
+                                <input name="fecha_inicio"  [bsConfig]="datePickerConfig"
+                                type="text" class="form-control"  [(ngModel)]="fechaI" placeholder="Fecha inicio *"  bsDatepicker autocomplete="off"
+                                required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-sm-4 text-center">
+                        <div class="form-group text-center">
+                            <label >Fecha Fin</label>
+                            <div class="input-group">
+                                <input name="fecha_fin"  [bsConfig]="datePickerConfig" type="text"
+                                class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-sm-4 text-center">
+                        <div class="form-group text-center">
+                        <label for="tipos">Sexo</label>
+                        <select class="form-control" name="exo" [(ngModel)]="sexo.id">
+                            <option *ngFor="let item2 of sexos" [ngValue]="item2.id">
+                            {{ item2.genero }}
+                            </option>
+                        </select>
+                        </div> 
+                    </div>
+                    <div class="col col-sm-4 text-center">
+                        <div class="form-group text-center">
+                          <label for="tipos">Edad Inicial</label>
+                          <input type="number" min="18" max="90" [(ngModel)]="edadI" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col col-sm-4 text-center">
+                            <div class="form-group text-center">
+                              <label for="tipos">Edad Final</label>
+                              <input type="number" min="18" max="90" [(ngModel)]="edadF" class="form-control"/>
+                            </div>
+                    </div>
+                    <div class="col col-sm-4 text-center">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                                Generar
+                            </button>
+                        </span>
+                        <span class="input-group-btn" *ngIf="view" >
+                                <button class="btn btn-success" type="button" value="Exportar" (click)="downloadImagePDF()" style="position: relative; top: 30px;  background: #1AB394; margin-left: 8px;">
+                                    Imprimir
+                                </button>
+                            </span>
+                    </div>
+                    <head>
+                            <meta charset="UTF-8">
+                            <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
+                            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                            <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+                            <style>
+                                .wide-card.mdl-card {
+                                   width: auto;
+                                }
+
+                                .square-card.mdl-card {
+                                   width: auto;
+                                   height: auto;
+                                }
+                            </style>
+                    </head>
+                    <body *ngIf="view">
+                            <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                                    <div class="card-body">
+                                            <div class="col col-sm-12">
+                                                    <div style="position: relative; text-align: -webkit-center">
+                                                            <h1><b> Reportes por Solicitudes de Servicio</b></h1>
+                                                        </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center">
+                                                            <b> CRITERIOS DE BUSQUEDA</b>
+                                                        </div>
+                                                        <br>
+                                                    <div class="row">
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black; margin-left: 15px"><b>Fecha Inicio:</b> {{query.start}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Fecha Fin:</b> {{query.end}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Genero:</b> {{query.gender}}</label>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-4 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label style="color: black; margin-left: 15px"><b>Edad Inicial:</b> {{query.minage}}</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-md-4 col-sm-6">
+                                                            <div class="form-group">
+                                                                <label style="color: black"><b>Edad Final:</b> {{query.maxage}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card-body">
+                                                            <div [chart]="chart" id="graficaCircular" class="chart"></div>
+                                                    </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                                        <div class="card-body text-primary">
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+
+                                    </div>
+
+                            </div>
+                    </body>
+                </div>
+            </div>
+        </div>
+    </div>

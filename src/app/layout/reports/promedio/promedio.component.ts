@@ -63,11 +63,12 @@ export class PromedioComponent implements OnInit {
             type: 'column'
         },
         title: {
-            text: 'Servicios mas Solicitados por Mes '
+            text: ''
         },
-                 
-        
-        legend: {
+        xAxis: {
+            categories: []
+        },    
+            legend: {
             align: 'right',
             x: -30,
             verticalAlign: 'top',

@@ -1,120 +1,97 @@
 import { Component, OnInit, ElementRef ,ViewChild } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { Chart,Highcharts } from 'angular-highcharts';
+import { Chart } from 'angular-highcharts';
+import { GlobalService } from '../../../providers/global.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import * as moment from 'moment';
 import * as datepicker from 'ngx-bootstrap/datepicker';
-import * as jspdf from 'jspdf';  
+import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import { GlobalService } from '../../../providers/global.service';
 import * as querystring from 'querystring';
-import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
- 
-
 
 @Component({
-    selector: 'app-reclamo',
-    templateUrl: './reclamo.component.html',
-    styleUrls: ['./reclamo.component.scss'],
+    selector: 'app-registros',
+    templateUrl: './registros.component.html',
+    styleUrls: ['./registros.component.scss'],
     animations: [routerTransition()]
 
 })
-export class ReclamoComponent implements OnInit {
-    selectedValue: string = "";
-   
-    // defaultValue = this.values[0];
-    tipos = [ { value: "1", name: "Barra" }];
+export class RegistrosComponent implements OnInit {
+    datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
-    public view = false;
-    public chart: any;
-    logoURL: string = ""
-    agencia: any;
+    defaultValue = this.values[0];
+    tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
+    agencia: any;
     agencias: any;
-    contacto: any = {
-        id: 1,
+    sexo : any = {
+        id: 'Masculino'
     };
-    contactos: any = [
-        {
-            id: '',
-            name: ''
-        }
-    ];
-    asunto: any = {
-        id: '',
+    edadI: any;
+    edadF: any;
+    sexos: any = [{
+        id: 'Masculino',
+        genero: 'Masculino'
+    },{
+        id: 'Femenino',
+        genero: 'Femenino'
+    }];
+    servicio: any= {
+        id: 1,
         name: ''
     };
-    asuntos: any = [];
-    estatu: any = {
-        id: 'A'
-    };
-    estatus: any = [{
-        id: 'A',
-        status: 'Atendida'
-    },{
-        id: 'E',
-        status: 'Por responder'
-    },{
-        id: 'B',
-        status: 'Borrada'
-    }];
+    servicios: any = [];
+    public view = false;
+    public chart: any;
     fechaI: any;
     fechaF: any;
     query: any = {}
+    logoURL: string = ""
     chartDefaultConfiguration: any = {
         chart: {
-            type: 'column'
+            renderTo: 'graficaCircular',
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
         },
         title: {
             text: ''
-        },
-        xAxis: {
-            categories: []
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Porcentaje de Reclamos'
-            }
-        },
+        },               
         tooltip: {
-            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-            shared: true
+            formatter: function () {
+                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+            }
         },
         plotOptions: {
-            column: {
-                stacking: 'percent'
+            line: {
+                dataLabels: {
+                    enabled: true
+                },
+                enableMouseTracking: true
+            },
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    color: '#000000',
+                    connectorColor: '#000000',
+                    formatter: function () {
+                        return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+                    },
+                }, showInLegend: true
             }
         },
-        // series: [{
-        //     name: 'Respecto al Servicio',
-        //     data: [5, 3, 4, 7, 2],
-        //     quantity: [3, 3, 3, 3, 3]
-        // }, {
-        //     name: 'Atencion al cliente',
-        //     data: [2, 2, 3, 2, 1],
-        //     quantity: [5, 5, 5, 5, 5]
-        // },{
-        //     name: 'Graficas y Contenido',
-        //     data: [2, 2, 3, 2, 1],
-        //     quantity: [7, 7, 7, 7, 7]
-        // },{
-        //     name: 'Aplicacion Movil',
-        //     data: [2, 2, 3, 2, 1],
-        //     quantity: [9, 9, 9, 9, 9]
-        // },{
-        //     name: 'Promociones y Ofertas',
-        //     data: [3, 4, 4, 2, 5],
-        //     quantity: [11, 11, 11, 11, 11]
-        // }]
-
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
-        var doc = new jspdf('p', 'pt');
-        this.selectedValue = "0";
         let now = moment().format();
         console.log('hello world', this.tipos);
+
+        var doc = new jspdf('p', 'pt');
     }
+
     convertImgToBase64URL(url, callback){
         var img = new Image();
         img.crossOrigin = 'Anonymous';
@@ -130,6 +107,7 @@ export class ReclamoComponent implements OnInit {
         };
         img.src = url;
     }
+
 
     downloadImagePDF(){
         this.convertImgToBase64URL(this.logoURL, (base64Img) =>{
@@ -164,17 +142,6 @@ export class ReclamoComponent implements OnInit {
 
           }
 
-          allAgency(){
-            this.globalService.getModel("/api/agency")
-            .then((result) => {
-                console.log(result);
-                this.agencias = result['data'];
-                console.log(this.agencias);
-            }, (err) => {
-                console.log(err);
-            });
-        }
-
           getLogo(){
             this.globalService.getModel("/api/agency/logo")
             .then((result) => {
@@ -185,65 +152,72 @@ export class ReclamoComponent implements OnInit {
             });
         }
 
+
+        allReporte(){
+            const stringified = querystring.stringify({start: moment(this.servicio.fechaI).format('YYYY/MM/DD'), end: moment(this.servicio.fechaF).format('YYYY/MM/DD'), typeS: this.servicio.id })
+            console.log(stringified);
+            this.globalService.getModel("/api/report/request?")
+            .then((result) => {
+                this.agencias = result['data'];
+            }, (err) => {
+                console.log(err);
+            });
+        }
+
+    allAgency(){
+        this.globalService.getModel("/api/agency")
+        .then((result) => {
+            console.log(result);
+            this.agencias = result['data'];
+            console.log(this.agencias);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    allService(){
+      this.globalService.getModel("/api/typeService")
+        .then((result) => {
+          console.log(result);
+          this.servicios = result['data'];
+          console.log(this.servicios);
+        }, (err) => {
+          console.log(err);
+        });
+    }
+
     ngOnInit() {
-        this.getAllContact();
-        this.getAllSubject();
-        this.getLogo();
         this.allAgency();
+        this.allService();
+        this.getLogo(); 
     }
 
-   
-    getAllContact(){
-        this.globalService.getModel("/api/typeContact")
-          .then((result) => {
-            console.log(result);
-            this.contactos = result['data'];
-            console.log(this.contactos);
-          }, (err) => {
-            console.log(err);
-          });
-      }
-      getAllSubject(){
-        this.globalService.getModel("/api/subject")
-          .then((result) => {
-            console.log(result);
-            this.asuntos = result['data'];
-            console.log(this.asuntos);
-          }, (err) => {
-            console.log(err);
-          });
-      }
-
-      getTypeContactNameById(){
-        if(this.query.typeC)
-            return this.contactos.filter(item=>item.id==this.query.typeC)[0].name
+    getTypeServiceNameById(){
+        if(this.query.typeS)
+            return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
         else
             return ""
     }
 
-    getEstatusNameById(){
-        if(this.query.status)
-            return this.estatus.filter(item=>item.id==this.query.status)[0].status
-        else
-            return ""
-    }
 
     add() {
         this.chart.addPoint(Math.floor(Math.random() * 10));
     }
-
     buscar() {
 
+        
         this.view = true;
         this.query = {
-            typeC: this.contacto.id,
-            status: this.estatu.id,
+            gender: this.sexo.id,
+            minage: this.edadI,
+            maxage: this.edadF,
             start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
             end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
-        this.globalService.getModel("/api/report/contact?"+stringified)
+
+        this.globalService.getModel("/api/report/client?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}
@@ -254,5 +228,4 @@ export class ReclamoComponent implements OnInit {
         });
     }
 }
-
 
