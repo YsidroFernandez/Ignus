@@ -13,8 +13,9 @@
                   <h4 class="alert-heading">Leyenda</h4>
                   <p>Para nosotros es de suma importancia su opinión, por tan razón, puede indicarnos la calidad de servicio </p>
                   <hr>
-                  <p class="mb-0">1) Seleccione una opción a cada pregunta</p>
-                  <p class="mb-0">2) Responda todas las preguntas</p>
+                  <p class="mb-0">1) Seleccione la transacción</p>
+                  <p class="mb-0">2) Seleccione una opción a cada pregunta</p>
+                  <p class="mb-0">3) Responda todas las preguntas</p>
                   <p>Al enviar sus respuestas, no podrá modificarlas</p>
               </div>
           </div>
@@ -33,7 +34,7 @@
 
 
 
-<form [formGroup]="formValidation" (ngSubmit)="submit()">
+<form *ngIf="activate" [formGroup]="formValidation" (ngSubmit)="submit()">
 		<div class="row">
 			<div class="col-md-12">
 				<label > <strong> Descripción </strong></label>
@@ -51,10 +52,10 @@
                     <span class="checkbox-placeholder"></span>
                     {{itemQ.name}}
                   </label> -->
-                  <div class="row" *ngFor="let itemQ of qualification; let j=index" >
-                  <label for="item-{{itemQ.id}}"  class="checkbox-inline checkbox-bootstrap checkbox-lg" >
-                        <!-- <input type="checkbox" [disabled]="!bloqueado"    id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ) : quit(itemQ.id)" [value]="i" > -->
-                        <input  type="checkbox" [disabled]="!bloqueado"    id="item-{{itemQ.id}}"   [value]="i" >
+                  <div class="form-check"  >
+                  <label *ngFor="let itemQ of qualification; let j=index"  class="checkbox-inline checkbox-bootstrap checkbox-lg" >
+                        <input type="checkbox" [disabled]="!bloqueado"    id="{{itemQ.id}}"  (change)="$event.target.checked ? add(itemQ.id, item.id) : quit(itemQ.id)" [value]="i" >
+                        <!-- <input class="form-check-input"  type="checkbox" [disabled]="!bloqueado"    id="item-{{itemQ.id}}"    [value]="i" >   -->
                         
                         <span class="checkbox-placeholder"></span>
                         {{itemQ.name}}
@@ -66,9 +67,11 @@
 				</div>
 				</div>
 			</div>
-
-    </div></form>
-    <button  class="btn" style="background:lightseagreen" [disabled]="">Enviar</button>
+            
+    </div>
+    <button  class="btn center" style="background:lightseagreen" [disabled]="">Enviar</button>
+</form>
+    
 	</div>
   <br>
 

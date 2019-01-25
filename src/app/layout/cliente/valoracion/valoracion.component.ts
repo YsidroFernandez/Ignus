@@ -18,7 +18,7 @@ export class ValoracionComponent implements OnInit {
   transactions : any;
   transaction : any;
   transaction_id: any;
-  calendar: any;
+  activate: any;
   user:any;
   perfil:any;
   cal: any;
@@ -36,6 +36,7 @@ export class ValoracionComponent implements OnInit {
     this.qualification = [];
     this.transactions = [];
     this.cal=[];
+    this.activate=false;
   }
 
   ngOnInit() {
@@ -57,11 +58,38 @@ export class ValoracionComponent implements OnInit {
       });
   }
 
+  sentCalification(typeCal, cry,t_id){
+ let answer=[]
+ answer.push({"typeCalification":typeCal,"QualificationCriteriumId":cry })
+ console.log(answer);
+ let calification=[]
+ calification.push({"TransactionId": t_id,answer})
+
+    let calification1={
+      "TransactionId": 1,
+      "answers": [{
+          "TypeCalificationId": 4,
+          "QualificationCriteriumId": 2
+        },{
+
+          "TypeCalificationId": 5,
+          "QualificationCriteriumId": 2
+        },
+      ]
+    }
+
+
+
+    
+  }
+
+
+
   //this method associate to reload states
   dataChanged($event) {
     console.log($event.target.value);
     if($event.target.value!=''){
-      this.calendar = true;
+      this.activate = true;
       this.transaction_id = $event.target.value;
       this.globalService.getModel(`/api/transaction/${$event.target.value}`).then((result) => {
         if (result['status']) {
@@ -99,9 +127,9 @@ export class ValoracionComponent implements OnInit {
   }
 
 
-  add(data: any) {
-    console.log(this.cal)
-    console.log(data)
+  add(item1: any, item2) {
+    console.log(item1)
+    console.log(item2)
 
     // if (data.original_customer != this.qualification) {
     //    this.listSelect.push(data.id);
@@ -136,7 +164,7 @@ checkedState(event, item1, item2) {
             if(event.target.checked === true){
               if(this.counter < 1){
               this.counter++  
-              this.add(item1)
+              this.add(item1,item2)
               console.log(item2);
             }else{
                event.target.checked = false;
