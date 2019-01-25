@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PageHeaderModule } from '../../shared';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SpecificationRoutingModule } from './specification-routing.module';
 import { SpecificationComponent } from './specification.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -14,6 +14,7 @@ import { SpecificationFilterPipe } from './specification-filter.pipe';
 
 @NgModule({
   imports: [
+    NgxPaginationModule,
     CommonModule, FontAwesomeModule,
     PageHeaderModule,
     SpecificationRoutingModule,NgbModule.forRoot(), 

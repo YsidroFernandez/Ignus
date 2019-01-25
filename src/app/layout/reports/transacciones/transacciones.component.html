@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col col-sm-3 text-center">
+                    <div class="col col-sm-2 text-center">
                         <div class="form-group text-center">
                             <label >Fecha Inicio</label>
                             <div class="input-group">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-sm-3 text-center">
+                    <div class="col col-sm-2 text-center">
                         <div class="form-group text-center">
                             <label >Fecha Fin</label>
                             <div class="input-group">
@@ -26,21 +26,30 @@
                             </div>
                         </div>
                     </div>
-                  <div class="col col-sm-3 text-center">
+                  <div class="col col-sm-2 text-center">
                     <div class="form-group text-center">
-                      <label for="tipos">Tipos de Servicio</label>
-                      <select class="form-control" name="tiposervicio" [(ngModel)]="servicio.id">
-                            <!-- <option selected="true" value="">
-                                    Todos los servicios
-                                  </option> -->
-                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id">
+                      <label for="tipos">Tipos de Propiedad</label>
+                      <select class="form-control" name="tiposervicio" [(ngModel)]="property.id">
+                           
+                        <option *ngFor="let item2 of properties" [ngValue]="item2.id">
                           {{ item2.name }}
                         </option>
                       </select>
                     </div>
                   </div>
 
-                    <div class="col col-sm-3 text-center">
+                  <div class="col col-sm-2 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Empleado</label>
+                      <select class="form-control" name="tiposervicio" [(ngModel)]="employee.id">
+                        <option *ngFor="let item2 of employes" [ngValue]="item2.user.id">
+                          {{ item2.user.username }}
+                        </option>
+                      </select>
+                    </div> 
+                  </div>
+
+                    <div class="col col-sm-2 text-center">
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
                                 Generar
@@ -80,9 +89,15 @@
                                                             </div>
                                                             <div class="col-12 col-md-4 col-sm-6">
                                                                 <div class="form-group">
-                                                                    <label style="color: black"><b>Tipo de Servicio:</b> {{getTypeServiceNameById()}}</label>
+                                                                    <label style="color: black"><b>Tipo de Propiedad:</b> {{getTypePropertyNameById()}}</label>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Employee:</b> {{getTypeEmployeNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                            
                                                     </div>
                                                 </div>
                                             </div>
