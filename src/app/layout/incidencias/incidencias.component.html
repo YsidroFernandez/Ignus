@@ -9,7 +9,8 @@
                 <div class="col col-sm-12 text-right">
                     <button style="position: relative; top: 15px; right: 15px; height: 40px; width: 40px; background: #1AB394; border-radius: 100%;font-size:24px; "
                         (click)="open(content, 'create', -1)">
-                        <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"></i>
+                        <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip"
+                            data-placement="top" title="Agregar"></i>
                     </button>
                 </div>
             </div>
@@ -25,75 +26,56 @@
                         </tr>
                     </thead>
                     <thead>
-                            <tr>
-                                
-                              <th style="background-color:transparent">
-                                    <input
-                                    id="inputFecha"
-                                    class="form-control mr-sm-2"
-                                    type="text"
-                                    placeholder="Fecha..."
-                                    aria-label="Search"
-                                    [(ngModel)]="IncFecha"
-                                    />
-                              </th>
-                            
+                        <tr>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Transacción..."
-                                aria-label="Search"
-                                [(ngModel)]="IncTransaccion"
-                                />
+                                <input id="inputFecha" class="form-control mr-sm-2" type="text" placeholder="Fecha..."
+                                    aria-label="Search" [(ngModel)]="IncFecha" />
+                            </th>
+
+                            <th style="background-color:transparent">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Transacción..." aria-label="Search"
+                                    [(ngModel)]="IncTransaccion" />
                             </th>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Motivo..."
-                                aria-label="Search"
-                                [(ngModel)]="IncMotivo"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Motivo..." aria-label="Search"
+                                    [(ngModel)]="IncMotivo" />
                             </th>
                             <th style="background-color:transparent">
-                                <input
-                                class="form-control mr-sm-2"
-                                type="text"
-                                placeholder="Estatus..."
-                                aria-label="Search"
-                                [(ngModel)]="IncEstatus"
-                                />
+                                <input class="form-control mr-sm-2" type="text" placeholder="Estatus..." aria-label="Search"
+                                    [(ngModel)]="IncEstatus" />
                             </th>
                         </tr>
-                          </thead>
+                    </thead>
                     <tbody>
-                        <tr *ngFor="let item of incidencias | searchfilter: IncFecha:IncTransaccion:IncMotivo:IncEstatus; let i = index">
+                        <tr *ngFor="let item of incidencias | searchfilter: IncFecha:IncTransaccion:IncMotivo:IncEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }; let i = index">
                             <td>{{item.date}}</td>
                             <td>{{item.transaction.nameForClient}}</td>
                             <td>{{item.description}}</td>
                             <td>{{item.status}}</td>
                             <td>
                                 <div class="row ">
-                                    <div *ngIf="item.status=='Atendida';else other_content">
+                                    <div *ngIf="item.status=='Atendida' else other_content">
                                         <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
                                             (click)="open(content, 'show', i)">
-                                            <i style="color: white" class="fa fa-faEye" aria-hidden="true"></i>
+                                            <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </div>
                                     <ng-template #other_content>
-                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                                (click)="open(content, 'show', i)">
-                                                <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Detalle"></i>
-                                            </button>
-                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                                (click)="open(content, 'edit', i)">
-                                                <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"></i>
-                                            </button>
-                                            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                                (click)="onDelete(i)">
-                                                <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"></i>
-                                            </button>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(content, 'show', i)">
+                                            <i style="color: white" class="fa fa-eye" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Detalle"></i>
+                                        </button>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="open(content, 'edit', i)">
+                                            <i style="color: white" class="fa fa-edit" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Editar"></i>
+                                        </button>
+                                        <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
+                                            (click)="onDelete(i)">
+                                            <i style="color: white" class="fa fa-trash" aria-hidden="true" data-toggle="tooltip"
+                                                data-placement="top" title="Eliminar"></i>
+                                        </button>
                                     </ng-template>
                                 </div>
                             </td>
@@ -101,12 +83,34 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row mb-3">
+
+            <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+                <nav class="text-left" style="position: relative; left: 1.1rem;">
+                    <ul class="pagination">
+                        <li class="page-item" [class.disabled]="p.isFirstPage()">
+                            <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                            </a>
+                        </li>
+
+                        <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                            [ngClass]="{'active' : p.getCurrent() === page.value}">
+                            <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                {{ page.label }} </a>
+                            <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                        </li>
+
+                        <li class="page-item" [class.disabled]="p.isLastPage()">
+                            <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                        </li>
+                    </ul>
+                </nav>
+            </pagination-template>
+            <!-- <div class="row mb-3">
                 <div class="col col-sm-8"></div>
                 <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
                     <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
                 </div>
-            </div>
+            </div> -->
             <ng-template #content let-c="close" let-d="dismiss">
                 <div class="modal-header">
                     <h4 class="modal-title ">{{ modalTitle }}</h4>
@@ -193,20 +197,19 @@
                             </div>
 
                             <div class="row mb-3">
-                                    <div class="col col-sm-6" *ngIf="!showView">
-                                        <div class="form-group">
-                                            <label for="tipos">Decisión</label>
-                                            <input type="text" [(ngModel)]="incidencia.decision" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col col-sm-6" *ngIf="!showView">
-                                        <div class="form-group">
-                                            <label for="nombre">Conclusión</label>
-                                            <input disabled type="text" [(ngModel)]="incidencia.conclusion"
-                                                class="form-control" />
-                                        </div>
+                                <div class="col col-sm-6" *ngIf="!showView">
+                                    <div class="form-group">
+                                        <label for="tipos">Decisión</label>
+                                        <input type="text" [(ngModel)]="incidencia.decision" class="form-control" />
                                     </div>
                                 </div>
+                                <div class="col col-sm-6" *ngIf="!showView">
+                                    <div class="form-group">
+                                        <label for="nombre">Conclusión</label>
+                                        <input disabled type="text" [(ngModel)]="incidencia.conclusion" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </fieldset>

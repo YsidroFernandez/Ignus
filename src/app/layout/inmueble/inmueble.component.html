@@ -7,10 +7,10 @@
     <div class="card mb-3">
       <div class="row mb-3">
         <div class="col col-sm-4" style="position: relative; top: 15px;">
-         
+
         </div>
         <div class="col col-sm-4" style="position: relative; top: 15px;">
-         
+
         </div>
       </div>
       <div class="card-body  table-responsive">
@@ -27,246 +27,183 @@
           <thead>
             <tr>
               <th style="background-color:transparent">
-                <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Propietario..."
-                aria-label="Search"
-                [(ngModel)]="inmPro"
-                />
+                <input class="form-control mr-sm-2" type="text" placeholder="Propietario..." aria-label="Search"
+                  [(ngModel)]="inmPro" />
               </th>
               <th style="background-color:transparent">
-                <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Ubicación..."
-                aria-label="Search"
-                [(ngModel)]="inmUbi"
-                />
+                <input class="form-control mr-sm-2" type="text" placeholder="Ubicación..." aria-label="Search"
+                  [(ngModel)]="inmUbi" />
               </th>
               <th style="background-color:transparent">
-                <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Descripcion..."
-                aria-label="Search"
-                [(ngModel)]="inmDes"
-                />
+                <input class="form-control mr-sm-2" type="text" placeholder="Descripcion..." aria-label="Search"
+                  [(ngModel)]="inmDes" />
               </th>
               <th style="background-color:transparent">
-                <input
-                class="form-control mr-sm-2"
-                type="text"
-                placeholder="Fecha..."
-                aria-label="Search"
-                [(ngModel)]="inmFecha"
-                />
+                <input class="form-control mr-sm-2" type="text" placeholder="Fecha..." aria-label="Search" [(ngModel)]="inmFecha" />
               </th>
-             
+
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of immovables | searchfilter: inmPro:inmUbi:inmDes:inmFecha; let i = index">
+            <tr *ngFor="let item of immovables | searchfilter: inmPro:inmUbi:inmDes:inmFecha | paginate: { itemsPerPage: numPage, currentPage: pages }; let i = index">
               <td>{{ item.owner.firstName }}</td>
               <td>{{ item.ubication }}</td>
               <td>{{ item.nameDisplay }}</td>
               <td>{{ item.buildDate }}</td>
               <td>
                 <div class="row ">
-            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                (click)="open(content,'show', i)">
-                <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
-            </button>
-            <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                (click)="onDelete(i)">
-                <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
-            </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="open(content,'show', i)">
+                    <i style="color: white" class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" style="background: #1AB394; border-radius: 20px; color: white" (click)="onDelete(i)">
+                    <i style="color: white" class="fa fa-trash" aria-hidden="true"></i>
+                  </button>
                 </div>
-        </td>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="row mb-3">
-        <div class="col col-sm-8"></div>
-        <div
-          class="col col-sm-4 text-right"
-          style="position: relative; top: 15px; "
-        >
-          <ngb-pagination
-            [collectionSize]="70"
-            [(page)]="defaultPagination"
-            style="position: relative; right: 100px;"
-          ></ngb-pagination>
-        </div>
+          <pagination-template #p="paginationApi" (pageChange)="pages=$event">
+              <nav class="text-left" style="position: relative; left: 1.1rem;">
+                  <ul class="pagination">
+                      <li class="page-item" [class.disabled]="p.isFirstPage()">
+                          <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
+                          </a>
+                      </li>
+
+                      <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item"
+                          [ngClass]="{'active' : p.getCurrent() === page.value}">
+                          <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                              {{ page.label }} </a>
+                          <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
+                      </li>
+
+                      <li class="page-item" [class.disabled]="p.isLastPage()">
+                          <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
+                      </li>
+                  </ul>
+              </nav>
+          </pagination-template>
+        <!-- <div class="col col-sm-8"></div>
+        <div class="col col-sm-4 text-right" style="position: relative; top: 15px; ">
+          <ngb-pagination [collectionSize]="70" [(page)]="defaultPagination" style="position: relative; right: 100px;"></ngb-pagination>
+        </div> -->
       </div>
-        <!--Modal-->
+      <!--Modal-->
       <ng-template #content let-c="close" let-d="dismiss">
         <div class="modal-header">
           <h4 class="modal-title ">{{modalTitle}}</h4>
-          <button
-            type="button"
-            class="close"
-            aria-label="Close"
-            (click)="d('Cross click')"
-          >
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <fieldset [disabled]="disabled">
           <div class="card mb-3">
             <div class="modal-body">
-                <div class="row mb-3">
-                    <label for="tipos">Propietario del inmueble</label>
-                </div>
-                <div class="row mb-3">
+              <div class="row mb-3">
+                <label for="tipos">Propietario del inmueble</label>
+              </div>
+              <div class="row mb-3">
                 <div class="col col-sm-6">
-                    <div class="form-group">
-                      <label for="tipos">Nombre</label>
-                      <input
-                        type="text"
-                        [(ngModel)]="property.owner.firstName"
-                        class="form-control"
-                      />
-                    </div>
+                  <div class="form-group">
+                    <label for="tipos">Nombre</label>
+                    <input type="text" [(ngModel)]="property.owner.firstName" class="form-control" />
                   </div>
-                  <div class="col col-sm-6">
-                      <div class="form-group">
-                        <label for="tipos">Apellido</label>
-                        <input
-                          type="text"
-                          [(ngModel)]="property.owner.lastName"
-                          class="form-control"
-                        />
-                      </div>
-                    </div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Identificación</label>
-                          <input
-                            type="text"
-                            [(ngModel)]="property.owner.identification"
-                            class="form-control"
-                          />
-                        </div>
-                      </div>
-                      <div class="col col-sm-6">
-                          <div class="form-group">
-                            <label for="tipos">Telefono</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="property.owner.phoneNumber"
-                              class="form-control"
-                            />
-                          </div>
-                        </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Apellido</label>
+                    <input type="text" [(ngModel)]="property.owner.lastName" class="form-control" />
+                  </div>
                 </div>
-                <div class="row mb-3">
-                    <label for="tipos">Tipo de Inmuebles</label>
-                </div>
-              <div class="row mb-3">
-                      <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Tipo de Propiedad</label>
-                          <input
-                            type="text"
-                            [(ngModel)]="property.typeProperty.name"
-                            class="form-control"
-                          />
-                        </div>
-                      </div> 
-                      <div class="col col-sm-6">
-                          <div class="form-group">
-                            <label for="tipos">Fecha de Construcción</label>
-                            <input
-                              type="text"
-                              [(ngModel)]="property.buildDate"
-                              class="form-control"
-                            />
-                          </div>
-                        </div>    
               </div>
               <div class="row mb-3">
-                      <div class="col col-sm-6">
-                        <div class="form-group">
-                          <label for="tipos">Tipo de servicio</label>
-                          <select
-                            class="form-control"
-                            name="TypeService"
-                            [(ngModel)]="property.TypeService.id"                      
-                          >
-                            <option
-                              *ngFor="let item of typeService"
-                              [ngValue]="item.id"
-                              [selected]="property.TypeService.id"
-                              >{{ item.name }}</option
-                            >
-                          </select>
-                        </div>
-                    </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Identificación</label>
+                    <input type="text" [(ngModel)]="property.owner.identification" class="form-control" />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Telefono</label>
+                    <input type="text" [(ngModel)]="property.owner.phoneNumber" class="form-control" />
+                  </div>
+                </div>
               </div>
               <div class="row mb-3">
-                  <label for="tipos">Ubicación del Inmuebles</label>
+                <label for="tipos">Tipo de Inmuebles</label>
               </div>
               <div class="row mb-3">
-                  <div class="col col-sm-6">
-                      <div class="form-group">
-                        <label for="tipos">Estado</label>
-                        <input
-                          type="text"
-                          [(ngModel)]="property.state.name"
-                          class="form-control"
-                        />
-                      </div>
-                    </div>
-                  <div class="col col-sm-6">
-                      <div class="form-group">
-                        <label for="tipos">Municipio</label>
-                        <input
-                          type="text"
-                          [(ngModel)]="property.municipality.name"
-                          class="form-control"
-                        />
-                      </div>
-                    </div>          
-              </div>              
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Tipo de Propiedad</label>
+                    <input type="text" [(ngModel)]="property.typeProperty.name" class="form-control" />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Fecha de Construcción</label>
+                    <input type="text" [(ngModel)]="property.buildDate" class="form-control" />
+                  </div>
+                </div>
+              </div>
               <div class="row mb-3">
-                  <div class="col col-sm-6">
-                      <div class="form-group">
-                        <label for="tipos">Parroquia</label>
-                        <input
-                          type="text"
-                          [(ngModel)]="property.parish.name"
-                          class="form-control"
-                        />
-                      </div>
-                    </div>
-                  <div class="col col-sm-6">
-                      <div class="form-group">
-                        <label for="tipos">Ubicación</label>
-                        <input
-                          type="text"
-                          [(ngModel)]="property.ubication"
-                          class="form-control"
-                        />
-                      </div>
-                    </div>    
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Tipo de servicio</label>
+                    <select class="form-control" name="TypeService" [(ngModel)]="property.TypeService.id">
+                      <option *ngFor="let item of typeService" [ngValue]="item.id" [selected]="property.TypeService.id">{{
+                        item.name }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="tipos">Ubicación del Inmuebles</label>
+              </div>
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Estado</label>
+                    <input type="text" [(ngModel)]="property.state.name" class="form-control" />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Municipio</label>
+                    <input type="text" [(ngModel)]="property.municipality.name" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Parroquia</label>
+                    <input type="text" [(ngModel)]="property.parish.name" class="form-control" />
+                  </div>
+                </div>
+                <div class="col col-sm-6">
+                  <div class="form-group">
+                    <label for="tipos">Ubicación</label>
+                    <input type="text" [(ngModel)]="property.ubication" class="form-control" />
+                  </div>
+                </div>
 
               </div>
             </div>
           </div>
         </fieldset>
         <div class="modal-footer">
-            <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i
-                    style="color: white" class="fa fa-close" aria-hidden="true" data-toggle="tooltip"
-                    data-placement="top" title="Cancelar"></i></button>
-            <div *ngIf="submitType!='show'">
-                <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success"
-                    (click)="c('Close click')"><i style="color: white" class={{modalIcon}} aria-hidden="true"
-                        data-toggle="tooltip" data-placement="top" title="Editar"></i></button>
-            </div>
+          <button style="border-radius: 20px" type="button" class="btn btn-danger" (click)="d('Cross click')"><i style="color: white"
+              class="fa fa-close" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancelar"></i></button>
+          <div *ngIf="submitType!='show'">
+            <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
+                style="color: white" class={{modalIcon}} aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                title="Editar"></i></button>
+          </div>
         </div>
       </ng-template>
     </div>
