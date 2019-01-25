@@ -20,7 +20,7 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarView, Calend
     // changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './solicitud.component.html',
     styleUrls: ['./solicitud.component.scss'],
-    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider],
+    providers: [{ provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter }, GlobalsProvider, NgbModal],
     animations: [routerTransition()],
 
 
@@ -37,7 +37,7 @@ export class SolicitudComponent implements OnInit {
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     public numPage: number;
     public pages = 1;
-    view:  boolean;
+    view: boolean;
     closeResult: string;
     solicitudes = [];
     empleados = [];
@@ -47,6 +47,10 @@ export class SolicitudComponent implements OnInit {
     selectedRow: number;
     public buy: Boolean;
     searchfilter: string;
+    public rechazo: any = {
+        solicitudId: '',
+        description: ''
+    }
     solicitud: any = {
         id: '',
         client: {},
@@ -88,7 +92,7 @@ export class SolicitudComponent implements OnInit {
     @ViewChild('modalContent')
     modalContent: TemplateRef<any>;
 
-    
+
     // clientChanged($event) {
     //     console.log($event);
     // }
@@ -107,10 +111,10 @@ export class SolicitudComponent implements OnInit {
     allSolicitud() {
         let user = localStorage.getItem("user");
         console.log(user);
-   
+
         let obj = JSON.parse(user);
-         console.log(obj.id)
-        this.globalService.getModel("/api/request/?status=S&userId="+obj.id.toString()).then((result) => {
+        console.log(obj.id)
+        this.globalService.getModel("/api/request/?status=S&userId=" + obj.id.toString()).then((result) => {
             this.solicitudes = [];
             console.log(result);
             this.solicitudes = result['data'];
@@ -128,26 +132,14 @@ export class SolicitudComponent implements OnInit {
         this.showNew = true;
     }
 
-    onDelete(index: number) {
-        console.log('eliminando');
-        this.selectedRow = index;
-        this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
-        this.showNew = true;
-        console.log( this.solicitud);
-        //Pendiente
-        // if (confirm('¿Estas seguro de eliminar este usuario?')) {
-        //     this.globalService.updateModel(this.solicitud.id, { message: "no a guta" }, "/api/request/reject")
-        //         .then((result) => {
-        //             console.log(result);
-        //             if (result['status']) {
-        //                 this.solicitudes.splice(this.selectedRow, 1);                     
-        //             }
 
-        //         }, (err) => {
-        //             console.log(err);
-        //         });
-        // }
-        // this.solicitudes.splice(this.selectedRow, 1);
+    onDelete(index: number) {
+        console.log();
+        this.selectedRow = index;
+
+
+        this.modalService
+
     }
 
     onCancel() {
@@ -155,36 +147,33 @@ export class SolicitudComponent implements OnInit {
     }
 
     openForEdit(solicitud) {
-      if (solicitud.typeService.offeringProperty) {
-          this.view=true;
-          this.solicitud= solicitud;
-          console.log(solicitud);
-        } else { 
-            this.view=false;
-            this.solicitud= solicitud;
-            console.log(solicitud);
+        if (solicitud.typeService.offeringProperty) {
+            this.view = true;
+            this.solicitud = solicitud;
+            this.rechazo.solicitudId = solicitud.id;
+            console.log(this.rechazo);
+        } else {
+            this.view = false;
+            this.solicitud = solicitud;
+            this.rechazo.solicitudId = solicitud.id;
+            console.log(this.rechazo);
         }
-    }  
+    }
 
-    open(content) {
+    open(content, action, index: number) {
+
         this.modalService.open(content).result.then((result) => {
             this.closeResult = `Closed with: ${result}`;
-            console.log(this.closeResult);
+            this.apiAction();
 
-             if (this.submitType === 'Save') {
-              
-               console.log(this.solicitud.id);
-                
-                this.globalService.updateModel(this.solicitud.id, {},"/api/request/pending/approve").then((result) => {
-                    this.allSolicitud();
-                }, (err) => {
-                    console.log(err);
-                });
-            }
         }, (reason) => {
             this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
         });
 
+        this.submitType = action;
+        this.selectedRow = index;
+        this.solicitud = Object.assign({}, this.solicitudes[this.selectedRow]);
+ 
     }
 
     private getDismissReason(reason: any): string {
@@ -198,26 +187,6 @@ export class SolicitudComponent implements OnInit {
     }
 
 
-    aceptar(i) {
-        console.log(this.solicitudes[i])
-        this.globalService.updateModel(
-            this.solicitudes[i].id,
-            { EmployeeId: this.solicitudes[i].id},
-            "/api/request/pending/approve")
-            .then((result) => {
-                console.log(result);
-                if (result['status']) {
-                    //Para que actualice la lista una vez que es eliminado la solicitud
-                    console.log(result);
-                }
-            }, (err) => {
-                console.log(err);
-            });
-        this.solicitudes.splice(i, 1);
-        alert("aceptado y validada la cita")
-    }
-
-
     faEye = faEye;
     faEdit = faEdit;
     faTrash = faTrash;
@@ -226,5 +195,29 @@ export class SolicitudComponent implements OnInit {
     msg = '';
 
 
+    apiAction() {
+        var data = JSON.stringify({ description: this.rechazo.description });
+        if (this.submitType === "Save") {
+            console.log(this.solicitud.id);
+            this.globalService.updateModel(this.solicitud.id, {},"/api/request/pending/approve").then((result) => {
+                    console.log(result);
+                    if (result['status']) {
+                        this.allSolicitud();
+                    }
+                }, (err) => {
+                    console.log(err);
+                });
 
+        } else if (this.submitType === "delete") {
+
+            this.globalService.updateModel(this.solicitud.id, {},"/api/request/pending/reject").then((result) => {
+                    if (result['status']) {
+                        this.allSolicitud();
+                    }
+                }, (err) => {
+                    console.log(err);
+                });
+
+        }
+    }
 }

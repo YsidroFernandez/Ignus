@@ -75,7 +75,7 @@ export class PerfilComponent {
     }
 
     loadtypeservices() {
-        this.globalService.getModel("/api/typeService").then((result) => {
+        this.globalService.getModel("/api/typeService?offeringProperty=true").then((result) => {
             if (result['status']) {
                 //Para que actualice la lista
 
@@ -104,26 +104,29 @@ export class PerfilComponent {
             .then((result) => {
                 console.log('cliente');
                 console.log(result);
-
-                this.perfil.state = result['data'].state.id;
-                this.loadmunicipality(this.perfil.state);
-                this.perfil.municipality = result['data'].municipality.id;
-                this.loadparish(this.perfil.municipality)
-                this.perfil.ParishId = result['data'].parish.id;
-
                 this.perfil.person = result['data'].person;
 
             }, (err) => {
                 console.log(err);
                 // this.loader.dismiss();
             });
-
+            
             this.globalService.getModel_Id(this.user.id, '/api/property/client/preference')
                     .then((result) => {
-
-                        if (result['data']) {
+                        console.log(result)
+                        if (result['status']) {
+                            
                             this.perfil.typeSpecifications = result['data'].typeSpecifications
+                            
                             this.activatespecifications = true;
+                            this.perfil.TypePropertyId = result['data'].typeProperty.id
+                            this.perfil.TypeServiceId = result['data'].TypeService.id
+                this.perfil.state = result['data'].state.id;
+                this.loadmunicipality(this.perfil.state);
+                this.perfil.municipality = result['data'].municipality.id;
+                this.loadparish(this.perfil.municipality)
+                this.perfil.ParishId = result['data'].parish.id;
+                            console.log(this.perfil)
                         }
                     }, (err) => {
                         console.log(err);
@@ -164,7 +167,7 @@ export class PerfilComponent {
     loadSpecifications() {
         this.globalService.getModel(`/api/typeProperty/specification/${this.perfil.TypePropertyId}`).then((result) => {
             if (result['status']) {
-                this.perfil.specifications = result['data']
+                this.perfil.typeSpecifications = result['data']
                 this.activatespecifications = true;
             }
         }, (err) => {
@@ -205,11 +208,21 @@ export class PerfilComponent {
 
     newpreferences() {
 
-        this.globalService.updateModel(this.user.id, this.perfil, "/api/client/preference")
+
+ var nuevo = {
+    TypePropertyId: Number.parseInt(this.perfil.TypePropertyId),
+    TypeServiceId: Number.parseInt(this.perfil.TypeServiceId),
+    ParishId: Number.parseInt(this.perfil.ParishId),
+    buildDate: "19/08/1970",
+    typeSpecifications: this.perfil.typeSpecifications,
+    state: Number.parseInt(this.perfil.state),
+    municipality: Number.parseInt(this.perfil.municipality)
+}
+console.log(nuevo)
+        this.globalService.updateModel(this.user.id,nuevo, "/api/client/preference")
             .then((result) => {
                 if (result['status']) {
                     //Para que actualice la lista una vez que es editado el service
-                    console.log(result['data'])
                 }
 
             }, (err) => {

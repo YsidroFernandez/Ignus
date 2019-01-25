@@ -65,27 +65,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicIdent:solicTipo:solicFecha:solicHora:solicEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }"
+                        <tr *ngFor="let solicitud of solicitudes | searchfilter: solicName:solicApellido:solicIdent:solicTipo:solicFecha:solicHora:solicEstatus | paginate: { itemsPerPage: numPage, currentPage: pages }; let i = index"
                             (click)=openForEdit(solicitud)>
                             <td>{{solicitud.client.firstName}}</td>
                             <td>{{solicitud.client.lastName}}</td>
                             <td>{{solicitud.client.identification}}</td>
                             <td>{{solicitud.typeService.name}}</td>
-                            <td>{{solicitud.requestDate}}</td>
+                            <td>{{solicitud.wishDate}}</td>
                             <td>Opcional</td>
                             <td>Pendiente</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(ver)" data-toggle="tooltip" data-placement="top" title="Detalle">
+                                        (click)="open(ver, 'show', i)" data-toggle="tooltip" data-placement="top" title="Detalle">
                                         <fa-icon [icon]="faEye"></fa-icon>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(content)" data-toggle="tooltip" data-placement="top" title="Aceptar">
+                                        (click)="open(content,'Save', i)" data-toggle="tooltip" data-placement="top"
+                                        title="Aceptar">
                                         <fa-icon [icon]="faCheck"></fa-icon>
                                     </button>
                                     <button type="button" style="background: #1AB394; border-radius: 20px; color: white"
-                                        (click)="open(delete)" data-toggle="tooltip" data-placement="top" title="Rechazar">
+                                        (click)="open(delete, 'delete', i)" data-toggle="tooltip" data-placement="top"
+                                        title="Rechazar">
                                         <fa-icon [icon]="faCancel"></fa-icon>
                                     </button>
                                 </div>
@@ -209,15 +211,10 @@
         </div>
     </div>
     <div class="modal-footer">
-
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Save'; c('Close click');">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click');">
             <i style="color: white" class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top"
                 title="Agregar"></i>
         </button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
-            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
-        </button>
-
     </div>
 </ng-template>
 
@@ -268,41 +265,43 @@
                 <label for="requestDate">Fecha deseada por el cliente</label>
                 <div class="input-group">
                     <input name="fechaEnd" id="fechaEnd" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                        bsDatepicker [(ngModel)]="solicitud.wishDate" autocomplete="off" disabled>
                 </div>
             </div>
         </div>
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">acomodar</label>
-                <!-- <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
-                    disabled> -->
+                <label for="porpiedad">Tipo de porpiedad</label>
+                <input class="form-control" name="porpiedad" id="porpiedad" type="text" [(ngModel)]="solicitud.property.typeProperty.name"
+                    disabled>
             </div>
 
             <div class="form-group col-md-6">
-                <label for="tipos">Tipo de porpiedad</label>
-                <!-- <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled> -->
-            </div>
-        </div>
-
-        <div class="row md-3">
-            <div class="form-group col-md-6">
-                <label for="tipos">Estado</label>
-                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="tipos">Municipio</label>
-                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                <label for="ubicacion">Ubicanción</label>
+                <input class="form-control" name="ubicacion" id="ubicacion" type="text" [(ngModel)]="solicitud.property.ubication"
                     disabled>
             </div>
         </div>
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">Parroquia</label>
-                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                <label for="state">Estado</label>
+                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.property.state.name"
+                    disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="municipality">Municipio</label>
+                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.property.municipality.name"
+                    disabled>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="parish">Parroquia</label>
+                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.property.parish.name"
                     disabled>
             </div>
 
@@ -396,24 +395,17 @@
         </button>
     </div>
     <div class="modal-body">
-        <div class="form-group">
-            <div class="form-control">
-                <div class="row">
-                    <label class="col col-sm-12" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
-                </div>
-                <div class="row">
-                    <textarea name="razon" id="razon" style="width: 700px; height: 200px; "></textarea>
-                </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-8" for="razon">Por favor indique la razon por la que deroga la solicitud</label>
+                <textarea class="form-control" [(ngModel)]="rechazo.description" type="text" name="razon" id="razon"
+                    rows="6"></textarea>
             </div>
         </div>
     </div>
     <div class="modal-footer">
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="aceptar()">
+        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c(i)">
             <fa-icon [icon]="faCheck" data-toggle="tooltip" data-placement="top" title="Guardar"></fa-icon>
         </button>
-        <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; c('Cross click')">
-            <fa-icon [icon]="faCancel" data-toggle="tooltip" data-placement="top" title="Cancelar"></fa-icon>
-        </button>
-
     </div>
 </ng-template>
