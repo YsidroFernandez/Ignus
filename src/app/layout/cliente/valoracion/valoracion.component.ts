@@ -46,7 +46,7 @@ export class ValoracionComponent implements OnInit {
   }
 
   allTransaction() {
-    this.globalService.getModel('/api/transaction?userId='+this.user)
+    this.globalService.getModel(`/api/transaction?userId=${this.user}&status=F`)
       .then((result) => {
         console.log(result);
         

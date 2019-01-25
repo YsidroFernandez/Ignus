@@ -6,7 +6,7 @@
       </div>
       <select class="form-control" name="transaction" id="transaction" [(ngModel)]="perfil.transaction" transaction="ngModel"
         (change)="dataChanged($event)">
-        <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForClient}}</option>
+        <option *ngFor="let t of transactions" [value]="t.id">{{t.nameForEmployee}}</option>
       </select>
     </div>
   </div>

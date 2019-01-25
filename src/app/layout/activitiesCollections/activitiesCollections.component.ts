@@ -117,7 +117,7 @@ export class ActivitiesCollectionsComponent implements OnInit {
     uploadData.append("myFile", this.fileToUploadRecaudo, this.fileToUploadRecaudo.name);
     uploadData.append("requirementId", requirementId);
     // uploadData.append("agency", JSON.stringify(this.agency));    
-    this.globalService.updateModel(this.transaction_id, uploadData, "/api/inspection", this.globalService.getHeaderClear())
+    this.globalService.updateModel(this.transaction_id, uploadData, "/api/transaction/requirement/upload", this.globalService.getHeaderClear())
       .then(
         result => {
           console.log(result);

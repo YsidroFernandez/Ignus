@@ -66,7 +66,7 @@ export class IncidenciasComponent implements OnInit {
 }
 
  getIncidence(){
-    this.globalService.getModel("/api/incidence")
+    this.globalService.getModel("/api/incidence?userId="+this.user)
     .then((result) => {
         console.log(result);
         this.incidencias = result['data'];
