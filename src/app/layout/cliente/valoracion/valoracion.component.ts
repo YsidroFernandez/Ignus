@@ -132,12 +132,15 @@ export class ValoracionComponent implements OnInit {
 
    counter: number =0;
 
-checkedState(event, checkBox) {
+checkedState(event, item1, item2) {
             if(event.target.checked === true){
               if(this.counter < 1){
-              this.counter++
+              this.counter++  
+              this.add(item1)
+              console.log(item2);
             }else{
                event.target.checked = false;
+               console.log("por aqui")
             }
             }else if(this.counter>0){
               this.counter--;
