@@ -224,8 +224,8 @@ export class CitaComponent implements OnInit {
         this.query = {
             typeS: this.servicio.id,
             agente: this.empleado.person.id,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);

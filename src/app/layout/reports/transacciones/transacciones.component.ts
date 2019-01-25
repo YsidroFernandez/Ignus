@@ -270,8 +270,8 @@ export class TransaccionesComponent implements OnInit {
         this.query = {
             emp: this.empleado.person.id,
             typeP: this.property.id,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);

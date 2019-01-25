@@ -238,8 +238,8 @@ export class ReclamoComponent implements OnInit {
         this.query = {
             typeC: this.contacto.id,
             status: this.estatu.id,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);

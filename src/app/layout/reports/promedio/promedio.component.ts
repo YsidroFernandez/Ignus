@@ -298,8 +298,8 @@ export class PromedioComponent implements OnInit {
             municipality: this.solicitud.municipality,
             property: this.propiedad.id,
             parish: this.solicitud.parish,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('dd/MM/YYYY') : ""
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
