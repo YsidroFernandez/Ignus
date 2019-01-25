@@ -12,7 +12,7 @@
                         <div class="input-group">
                             <input name="fecha_inicio" [bsConfig]="datePickerConfig"
                             type="text" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
-                            required>  
+                            required>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             <option value="2">Maria</option>
                             <option value="3">Pepito</option>
                         </select>
-                    </div>                  
+                    </div>
                 </div>
 
             </div>
@@ -64,7 +64,7 @@
                             <option value="0" selected="">Seleccionar</option>
                             <option *ngFor="let list of tipos" [value]="list.value">{{list.name}}</option>
                         </select>
-                    </div>                
+                    </div>
                 </div>
 
                 <div class="col col-sm-3 text-center">
@@ -79,22 +79,7 @@
                 </div>
 
             </div>
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-                <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-                <style>
-                    .wide-card.mdl-card {
-                       width: auto;
-                    }
-                 
-                    .square-card.mdl-card {
-                       width: auto;
-                       height: auto;
-                    }
-                </style>
-            </head>
+
             <body *ngIf="view">
                 <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
                         <div class="card-body">
@@ -112,13 +97,13 @@
                                 <br>
                                 <br>
                                 <div [chart]="chart" class="chart"></div>
-                                
-                            </div>                
+
+                            </div>
                 </div>
                 <div class="mdl-card__actions mdl-card--border">
-                    <div>  
-                        <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>  
-                    </div>  
+                    <div>
+                        <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
+                    </div>
               </div>
             </body>
         </div>

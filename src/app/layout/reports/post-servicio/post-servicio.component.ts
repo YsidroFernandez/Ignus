@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../../../router.animations';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { Chart } from 'angular-highcharts';
 import * as moment from 'moment';
 import { GlobalService } from '../../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
@@ -21,10 +20,9 @@ import * as datepicker from 'ngx-bootstrap/datepicker';
 
 })
 export class PostServicioComponent implements OnInit {
+    
   datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
-  values = ['circular', 'barra', 'lineal'];
-  defaultValue = this.values[0];
-  tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
+  
   imagen: any;
 
   entity1: any={

@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ViewChild,
+  TemplateRef } from '@angular/core';
+  import { routerTransition } from '../../../router.animations';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../../providers/global.service';
@@ -6,11 +10,12 @@ import { GlobalsProvider } from '../../../shared';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { startOfDay, subMonths, addMonths, startOfWeek, subWeeks, startOfMonth, endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
-import { routerTransition } from '../../../router.animations';
+
 import * as datepicker from 'ngx-bootstrap/datepicker';
 import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 type CalendarPeriod = 'month';
@@ -55,9 +60,12 @@ function endOfPeriod(period: CalendarPeriod, date: Date): Date {
   
 })
 export class DashboardcustomerComponent implements OnInit {
+  @ViewChild('parentModal') parentModal: ModalDirective;
+  // @ViewChild('childModal') childModal: ModalDirective;
+  @ViewChild('modalContent') modalContent: TemplateRef<any>;
     public numbPage: number;
     public numPage: number;
-    public solicitudSelect: any;
+    public solicitudSelect: any = {wishDate: '',typeRequest: {name:'',description:''}};
     public transaccionSelect: any;
     public pages = 1;
     public usuario : any;
@@ -75,6 +83,15 @@ export class DashboardcustomerComponent implements OnInit {
   prevBtnDisabled: boolean = false;
   nextBtnDisabled: boolean = false;
   modalRef: BsModalRef;
+
+  public cita: any = {
+    dateAppointment: '',
+    RequestId: '',
+    turn: '',
+    TypeAppointmentId: '',
+    reason: '',
+
+  }
 
     closeResult: string;
     clientes: any;
@@ -119,7 +136,7 @@ export class DashboardcustomerComponent implements OnInit {
   public viewData = false;
 
   constructor(
-      private modalService: NgbModal, 
+      private modal: NgbModal, 
       private globals: GlobalsProvider, 
       public globalService: GlobalService) {
     
@@ -158,33 +175,10 @@ export class DashboardcustomerComponent implements OnInit {
       console.log(err);
     });  
   }
- open(content) {
-    console.log("aqui");
-    this.modalService.open(content).result.then((result) => {
-        this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-}
-
- private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
-    }
-
-    show() {
-        console.log("aqui va el loaer");
-    }
 
   ngOnInit() {
     this.numPage = this.globals.numPage;       
     this.numbPage = this.globals.numPage;       
-    this.show();
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
       let id=  this.usuario.person.id;
       this.globalService.getModel('/api/client/request/'+id)
@@ -216,6 +210,93 @@ export class DashboardcustomerComponent implements OnInit {
         console.log("Es este",this.transaccionSelect)
     }
 
+    open(content) {
+
+      this.modal.open(content).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+
+  private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
+    }
+
+    dayClicked({ date, events }: { date: Date; events: any[] }): void {
+
+      if (events.length < 2 && moment(date).format('DD/MM/YYYY') >= moment(new Date()).format('DD/MM/YYYY')) {
+      this.cita.dateAppointment = moment(date).format('DD/MM/YYYY');
+      // this.showChildModal();
+      }
+    }
+
+    handleEvent(action: string, event: CalendarEvent): void {
+      console.log(event);
+      console.log(action);
+      if(action=='Clicked'){
+        this.data = event;
+        this.viewData = true;
+        console.log(this.data);
+        this.showPrentModal();
+      }
+     
+      // this.modalData = { event, action };
+      // this.modal.open(this.modalContent, { size: 'lg' });
+    }
+  
+    showPrentModal(): void {
+      this.parentModal.show();
+    }
+  
+    hidePrentModal(): void {
+      this.parentModal.hide();
+    }
+  
+    today(): void {
+      this.changeDate(new Date());
+    }
+  
+    // dateIsValid(date: Date): boolean {
+    //   return date >= this.minDate;
+    // }
+  
+    changeDate(date: Date): void {
+      this.viewDate = date;
+      // this.dateOrViewChanged();
+    }
+  
+    changeView(view: CalendarPeriod): void {
+      this.view = view;
+      // this.dateOrViewChanged();
+    }
+
+   
+  save() {
+    console.log(this.cita);
+    if(this.cita.RequestId==''|| this.cita.TypeAppointmentId==''|| this.cita.dateAppointment==''
+    || this.cita.reason=='' || this.cita.turn==''){
+      return;
+    }else{
+      this.globalService.addModel(this.cita, "/api/appointment").then((result) => {
+        if (result['status']) {
+          console.log(result['status']);
+          // this.hideChildModal();
+          this.allAppointmentSchedule (); 
+        }
+      }, (err) => {
+        console.log(err);
+      });
+    }
+  }
+
+  
   faEye = faEye;
 
 }
