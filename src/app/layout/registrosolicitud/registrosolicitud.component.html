@@ -160,7 +160,7 @@
                         <select (change)="selectAgente($event)" class="form-control" name="employee" id="employee"
                             required [(ngModel)]="solicitud.employeeId">
                             <option selected="true" value="">Seleccione...</option>
-                            <option *ngFor="let emp of employes" [value]="emp.person.id">{{emp.person.firstName}}
+                            <option *ngFor="let emp of employes" [value]="emp.user.id">{{emp.person.firstName}}
                                 {{emp.person.lastName}}
                             </option>
                         </select>
