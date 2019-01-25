@@ -27,6 +27,7 @@ export class PromedioComponent implements OnInit {
     values = ['circular', 'barra', 'lineal'];
     public view = false;
     public chart: any;
+    logoURL: string = ""
     propiedad: any = {
         id: '',
         name: ''
@@ -44,9 +45,18 @@ export class PromedioComponent implements OnInit {
         typeProperty: '',
         TypeServiceId: '',
         TypeRequestId: 3,
-        state: '',
-        municipality: '',
-        parish: '',
+        state: {
+            id: '',
+            name: ''
+        },
+        municipality: {
+            id: '',
+            name: ''
+        },
+        parish: {
+            id: '',
+            name: ''
+        },
         ubication: '',
         description: '',
         typeSpecifications: [],
@@ -54,7 +64,10 @@ export class PromedioComponent implements OnInit {
     state: any;
     fechaI: any;
     states: any;
-    municipalities: any;
+    imagen: any;
+    agencia: any;
+    agencias: any;
+    municipalities: any 
     parishes: any;
     fechaF: any;
     query: any = {}
@@ -102,35 +115,70 @@ export class PromedioComponent implements OnInit {
         let now = moment().format();
         console.log('hello world', this.tipos);
     }
+    convertImgToBase64URL(url, callback){
+        var img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = function(){
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d'), dataURL;
+            canvas.height = img.height;
+            canvas.width = img.width;
+            ctx.drawImage(img, 0, 0);
+            dataURL = canvas.toDataURL("image/png");
+            callback(dataURL);
+            canvas = null;
+        };
+        img.src = url;
+    }
+
     downloadImagePDF(){
-        var doc = new jspdf()
-        var data = document.getElementById('content');  
-        html2canvas(data).then(canvas => {  
-          // Few necessary setting options  
-          var imgWidth = 208;   
-          var pageHeight = 295;    
-          var imgHeight = canvas.height * imgWidth / canvas.width;  
-          var heightLeft = imgHeight;  
-      
-          const contentDataURL = canvas.toDataURL('image/png')  
-          //let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
-          var position = 0;  
-          //pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-          doc.addImage(contentDataURL, 'PNG', 0, 40, imgWidth, imgHeight) 
-          doc.setFontSize(30)
-          doc.text(55, 25, 'Reportes Estadisticos')
-          var img = new Image();
-          img.src = "./../../assets/images/ignus3.png"
-          doc.addImage(img, 'PNG', 0,3,30,30)
-          doc.addImage(img, 'PNG', 180,3,30,30)
-          doc.save("Reporte.pdf")
-        });  
-    
+        this.convertImgToBase64URL(this.logoURL, (base64Img) =>{
+            this.imagen = base64Img; // myBase64 is the base64 string
+            var doc = new jspdf()
+        var data = document.getElementById('content');
+        html2canvas(data).then(canvas => {
+          // Few necessary setting options
+          var imgWidth = 185;
+          var pageHeight = 295;
+          var imgHeight = canvas.height * imgWidth / canvas.width;
+          var heightLeft = imgHeight;
+
+          const contentDataURL = canvas.toDataURL('image/png')
+          var position = 0;
+          doc.addImage(contentDataURL, 'PNG', 10, 55, imgWidth, imgHeight)
+          doc.setFontSize(10)
+          doc.text(78, 25, this.agencias.name+" "+this.agencias.rif)
+          doc.setFontSize(10)
+          let middleUbication = this.agencias.ubication.lastIndexOf(' ',this.agencias.ubication.length/2)
+          doc.text(70, 30, this.agencias.ubication.substr(0,middleUbication))
+          doc.text(71, 35, this.agencias.ubication.substr(middleUbication+1,this.agencias.ubication.length))
+          doc.setFontSize(10)
+          doc.text(84, 40, this.agencias.phoneNumber+ " / " +this.agencias.phoneNumber2)
+          doc.addImage(this.imagen, 'PNG', 10,8,20,20)
+          doc.addImage(this.imagen, 'PNG', 180,8,20,20)
+ 
+          doc.save("Reporte-Mas-Solicitados.pdf") 
+        });
+        });
+
+
           }
+
+          getLogo(){
+            this.globalService.getModel("/api/agency/logo")
+            .then((result) => {
+                console.log(result);
+                this.logoURL = result['data']['url'];
+            }, (err) => {
+                console.log(err);
+            });
+        }
 
     ngOnInit() {
       this.allStates();
         this.getTypeProperty();
+        this.getLogo();
+        this.allAgency();
     }
 
     allStates() {
@@ -144,7 +192,18 @@ export class PromedioComponent implements OnInit {
         });
     }
 
-    llService(){
+    allAgency(){
+        this.globalService.getModel("/api/agency")
+        .then((result) => {
+            console.log(result);
+            this.agencias = result['data'];
+            console.log(this.agencias);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    allService(){
       this.globalService.getModel("/api/typeService")
         .then((result) => {
           console.log(result);
@@ -201,24 +260,18 @@ export class PromedioComponent implements OnInit {
     }
 
         getStateNameById(){
-        if(this.query.state)
-            return this.states.filter(item=>item.id==this.query.state)[0].name
-        else
-            return ""
+        const value = this.states.filter(item=>item.id==this.query.state)[0]
+        return value ? value.name : ""
     }
 
         getMunicipalityNameById(){
-        if(this.query.municipality)
-            return this.municipalities.filter(item=>item.id==this.query.municipality)[0].name
-        else
-            return ""
+        const value = this.municipalities.filter(item=>item.id==this.query.municipality)[0]
+        return value ? value.name : ""
     }
 
         getParishNameById(){
-        if(this.query.parish)
-            return this.parishes.filter(item=>item.id==this.query.parish)[0].name
-        else
-            return ""
+        const value = this.parishes.filter(item=>item.id==this.query.parish)[0]
+        return value ? value.name : ""
     }
 
 

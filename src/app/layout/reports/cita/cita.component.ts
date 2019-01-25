@@ -29,12 +29,12 @@ export class CitaComponent implements OnInit {
     fechaI: any;
     fechaF: any;
     empleado: any = {
-        person: {id: '', firstName: ''}
+        person: {id: 1, firstName: ''}
     };
     employeeId: number;
     empleados: any = [];
     servicio: any= {
-        id: '',
+        id: 1,
         name: ''
     };
     selectedStatus: string

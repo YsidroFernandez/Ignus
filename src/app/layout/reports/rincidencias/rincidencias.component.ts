@@ -169,7 +169,7 @@ export class RincidenciasComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 10,8,20,20)
           doc.addImage(this.imagen, 'PNG', 180,8,20,20)
  
-          doc.save("Reporte-Solicitudes.pdf") 
+          doc.save("Reporte-Incidencias.pdf") 
         });
         });
 

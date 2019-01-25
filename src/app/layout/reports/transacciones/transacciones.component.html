@@ -112,12 +112,11 @@
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
                                                             <div class="row">
-                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
-                                                                    <div >  {{mes}} :: 
-                                                                        <p *ngFor="let estado of chartDefaultConfiguration.series; let j = index">
-                                                                                {{estado.name}} :  {{estado.data[i]}};
-                                                                        </p> 
-                                                                    </div>
+                                                            <div class="col-12 col-md-3 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
+                                                                     {{mes}} :: 
+                                                                        <div *ngFor="let estado of chartDefaultConfiguration.series; let j = index">
+                                                                                {{estado.name}} :  {{estado.data[i]}},
+                                                                        </div> 
 
                                                                 </div>
                                                         </div>
