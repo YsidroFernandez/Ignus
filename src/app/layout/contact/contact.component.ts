@@ -6,6 +6,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 import * as moment from 'moment';
 
 @Component({
@@ -37,7 +38,9 @@ export class ContactComponent implements OnInit {
         description: ''
     };
     constructor(
-        private modalService: NgbModal, public globalService: GlobalService) {
+        private modalService: NgbModal,
+        private coolDialogs: NgxCoolDialogsService,
+        public globalService: GlobalService) {
 
         let now = moment().format();
         this.new = [];
@@ -138,6 +141,14 @@ export class ContactComponent implements OnInit {
         console.log("aqui va el loader");
     }
 
+    onEdit(index: number) {
+        this.submitType = 'Update';
+        this.selectedRow = index;
+        this.contact = Object.assign({}, this.contacts[this.selectedRow]);
+
+        this.showNew = true;
+    }
+
     ngOnInit() {
 
         this.show();
@@ -165,8 +176,8 @@ export class ContactComponent implements OnInit {
     // }
 
     openForEdit(item) {
-        this.contact = item;       
-            console.log(this.contact);
+        this.contact = item;
+        console.log(this.contact);
     }
 
     // This method associate to Delete Button.
@@ -176,27 +187,23 @@ export class ContactComponent implements OnInit {
         this.contact = Object.assign({}, this.contacts[this.selectedRow]);
         this.showNew = true;
         //Pendiente
-        if (confirm('¿Estas seguro de eliminar?')) {
-            this.globalService.removeModel(this.contact.id, "/api/contact")
-                .then((result) => {
-                    console.log(result);
-                    if (result['status']) {
-                        //Para que actualice la lista una vez que es eliminado 
-                        this.globalService.getModel("/api/contact")
-                            .then((result) => {
-                                console.log(result);
-                                this.contacts = result['data'];
-                            }, (err) => {
-                                console.log(err);
-                            });
-                    }
-
-                }, (err) => {
-                    console.log(err);
-                });
-        }
-
-
+        this.coolDialogs.confirm('Esta seguro que desea eliminar?') //cooldialog es un componentes para dialogos simples solo establecemos un titulo lo demas viene por defecto 
+            .subscribe(res => {
+                if (res) {
+                    console.log(res);
+                    this.globalService.removeModel(this.contact.id, "/api/contact")
+                        .then((result) => {
+                            console.log(result);
+                            if (result['status']) {
+                               this.allContact();
+                            }
+                        }, (err) => {
+                            console.log(err);
+                        });
+                } else {
+                    console.log('You clicked Cancel. You smart.');
+                }
+            });
     }
 
 

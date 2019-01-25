@@ -25,11 +25,22 @@ export class TransaccionesComponent implements OnInit {
     imagen: any;
     agencia: any;
     agencias: any;
+    property:any= {
+        id: Number,
+        name: ''
+    };
     servicio: any= {
         id: 1,
         name: ''
     };
+    employes:any;
+
+    employee: any={
+        id: Number,
+        name: ''
+    }
     servicios: any = [];
+    properties:any ;
     public view = false;
     public chart: any;
     fechaI: any;
@@ -41,10 +52,10 @@ export class TransaccionesComponent implements OnInit {
             type: 'column'
         },
   title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Transacciones'
     },
     subtitle: {
-        text: 'Source: WorldClimate.com'
+        text: 'Estados'
     },
     xAxis: {
         categories: [
@@ -66,13 +77,13 @@ export class TransaccionesComponent implements OnInit {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'cantidad'
         }
     },               
         tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -173,6 +184,17 @@ export class TransaccionesComponent implements OnInit {
             });
         }
 
+    allProperty(){
+        this.globalService.getModel("/api/typeProperty")
+        .then((result) => {
+            console.log(result);
+            this.properties = result['data'];
+            console.log(this.properties);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
     allAgency(){
         this.globalService.getModel("/api/agency")
         .then((result) => {
@@ -183,6 +205,7 @@ export class TransaccionesComponent implements OnInit {
             console.log(err);
         });
     }
+
 
     allService(){
       this.globalService.getModel("/api/typeService")
@@ -195,15 +218,42 @@ export class TransaccionesComponent implements OnInit {
         });
     }
 
+    allemployee(){
+        this.globalService.getModel("/api/employee ")
+          .then((result) => {
+            console.log(result);
+            this.employes = result['data'];
+            console.log(this.employee);
+          }, (err) => {
+            console.log(err);
+          });
+      }
+
     ngOnInit() {
         this.allAgency();
         this.allService();
+        this.allProperty();
+        this.allemployee();
         this.getLogo(); 
     }
 
     getTypeServiceNameById(){
         if(this.query.typeS)
             return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
+        else
+            return ""
+    }
+
+    getTypePropertyNameById(){
+        if(this.query.typeS)
+            return this.property.filter(item=>item.id==this.query.typeS)[0].name
+        else
+            return ""
+    }
+
+    getTypeEmployeeNameById(){
+        if(this.query.typeS)
+            return this.employee.filter(item=>item.id==this.query.typeS)[0].user.username
         else
             return ""
     }
@@ -224,7 +274,7 @@ export class TransaccionesComponent implements OnInit {
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/service?"+stringified)
+        this.globalService.getModel("/api/report/transaction?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}
