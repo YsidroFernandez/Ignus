@@ -75,10 +75,16 @@ export class SolicitudesComponent implements OnInit {
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
-        console.log('hello world', this.tipos);
-
         var doc = new jspdf('p', 'pt');
+        
     }
+
+    ngOnInit() {
+        this.allAgency();
+        this.allService();
+        // this.getLogo(); 
+    }
+
 
     convertImgToBase64URL(url, callback){
         var img = new Image();
@@ -133,7 +139,6 @@ export class SolicitudesComponent implements OnInit {
           getLogo(){
             this.globalService.getModel("/api/agency/logo")
             .then((result) => {
-                console.log(result);
                 this.logoURL = result['data']['url'];
             }, (err) => {
                 console.log(err);
@@ -155,9 +160,7 @@ export class SolicitudesComponent implements OnInit {
     allAgency(){
         this.globalService.getModel("/api/agency")
         .then((result) => {
-            console.log(result);
             this.agencias = result['data'];
-            console.log(this.agencias);
         }, (err) => {
             console.log(err);
         });
@@ -166,20 +169,13 @@ export class SolicitudesComponent implements OnInit {
     allService(){
       this.globalService.getModel("/api/typeService")
         .then((result) => {
-          console.log(result);
           this.servicios = result['data'];
-          console.log(this.servicios);
         }, (err) => {
           console.log(err);
         });
     }
 
-    ngOnInit() {
-        this.allAgency();
-        this.allService();
-        this.getLogo(); 
-    }
-
+   
     getTypeServiceNameById(){
         if(this.query.typeS)
             return this.servicios.filter(item=>item.id==this.query.typeS)[0].name

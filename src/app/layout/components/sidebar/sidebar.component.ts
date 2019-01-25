@@ -30,7 +30,7 @@ export class SidebarComponent {
         this.translate.use(browserLang.match(/en|fr|ur|es|it|fa|de/) ? browserLang : 'en');
         this.user = JSON.parse(localStorage.user);
         this.person = JSON.parse(localStorage.person || "{}");
-        console.log( this.user);
+        // console.log( this.user);
         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&
@@ -315,9 +315,9 @@ export class SidebarComponent {
 
     ngOnInit(): void {
       let user =localStorage.getItem('user');
-      console.log(user);
+    //   console.log(user);
       let obj = JSON.parse(user)
-      console.log(obj.id);
+    //  console.log(obj.id);
       this.globalService.getModel_Id(obj.id.toString(),"/api/user/menu/intranet").then(
         result => {
         //   console.log(result);
@@ -369,10 +369,10 @@ export class SidebarComponent {
       addExpandClassSubAte(element: any) {
         if (element === this.showMenuSubAte) {
             this.showMenuSubAte = '0';
-            console.log('pagina actual')
+            // console.log('pagina actual')
         } else {
             this.showMenuSubAte = element;
-            console.log(element);
+            // console.log(element);
         }
     }
 

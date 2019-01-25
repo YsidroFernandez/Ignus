@@ -30,7 +30,7 @@ const routes: Routes = [
             { path: 'tipoespecificacion', loadChildren: './typespecification/typespecification.module#TypeSpecificationModule' },
             { path: 'especificacion', loadChildren: './specification/specification.module#SpecificationModule' },
             { path: 'reporteincidencia', loadChildren: './reports/rincidencias/rincidencias.module#RincidenciasModule' },
-            { path: 'suscripcion', loadChildren: './reports/subscriptions/subscriptions.module#SubscriptionsModule' },
+           
             //transacciones
             { path: 'recaudo', loadChildren: './collection/collection.module#CollectionModule' },
             { path: 'actividades', loadChildren: './activities/activities.module#ActivitiesModule' },

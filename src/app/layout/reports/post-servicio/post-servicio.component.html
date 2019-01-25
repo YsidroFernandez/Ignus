@@ -1,147 +1,208 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Post-Servicio'" [icon]="'fa-bar-chart-o'"></app-page-header>
-    <div class="row">
-        <div class="col col-xl-12">
-            <div class="card-header" style="position: relative; text-align: -webkit-center">
-                Reportes Post-Servicio
-            </div>
-
-            <div class="row">
-                <div class="col col-sm-4 text-center">
-                    <div class="form-group text-center">
-                        <label for="descripcion">Fecha Inicio</label>
-                        <div class="input-group">
-                            <input name="fecha_inicio" [bsConfig]="datePickerConfig"
-                            type="text" [(ngModel)]="fechaI" class="form-control" placeholder="Fecha inicio *" bsDatepicker autocomplete="off"
-                            required>
-                        </div>
-                    </div>
+        <app-page-header [heading]="'Reporte Estructurado'" [icon]="'fa-bar-chart-o'"></app-page-header>
+        <div class="row">
+            <div class="col col-xl-12">
+                <div class="card-header" style="position: relative; text-align: -webkit-center">
+                    Reporte Estructurado
                 </div>
-                <div class="col col-sm-4 text-center">
-                    <div class="form-group text-center">
-                        <label for="descripcion">Fecha Fin</label>
-                        <div class="input-group">
-                            <input name="fecha_fin" [bsConfig]="datePickerConfig" type="text"
-                                class="form-control" [(ngModel)]="fechaF" placeholder="Fecha fin *" bsDatepicker autocomplete="off" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col col-sm-4 text-center">
-                    <div class="form-group text-center">
-                        <label for="tipos">Estado</label>
-                        <select class="form-control" name="state" id="state" [disabled]="lock" [(ngModel)]="solicitud.state"
-                            #estado="ngModel" (change)="loadmunicipality(solicitud.state)">
-                            <option *ngFor="let est of states" [value]="est.id">{{est.name}}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col col-sm-4 text-center">
-                    <div class="form-group text-center">
-                        <label for="municipality">Municipio</label>
-                        <select class="form-control" name="municipality" id="municipality"
-                            [(ngModel)]="solicitud.municipality" [disabled]="lock" #municipality="ngModel"
-                            (change)="loadparish(solicitud.municipality)">
-                            <option *ngFor="let mun of municipalities" [value]="mun.id">{{mun.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col col-sm-4 text-center">
-                    <div class="form-group text-center"><label class="ng-tns-c12-9" for="parish">Parroquia</label>
-                        <select class="form-control" name="parish" id="parish" [disabled]="lock" [(ngModel)]="solicitud.parish"
-                            required>
-                            <option *ngFor="let parish of parishes" [value]="parish.id">{{parish.name}}</option>
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="col col-sm-4">
-                    <span class="input-group-btn">                       
-                        <button class="btn btn-success" type="button" (click)="prueba()" style="position: relative; top: 30px;  background: #1AB394;">
-                            Generar
-                        </button>
-                    </span>
-                </div>
-            </div>
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
-                <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-                <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-                <style>
-                    .wide-card.mdl-card {
-                       width: auto;
-                    }
-
-                    .square-card.mdl-card {
-                       width: auto;
-                       height: auto;
-                    }
-                </style>
-            </head>
-            <body *ngIf="view">
-                    <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
-                            <div class="card-body">
-                                <div class="card-body  table-responsive">
-                                    <table class="card-body table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombres</th>
-                                                <th>Apellidos</th>
-                                                <th>Sexo</th>
-                                                <th>Fecha de Registro</th>
-                                                                                    
-                                            </tr>
-                                        </thead>
-                                        <tbody >
-                                            <tr *ngFor="let hh of datos | paginate: { itemsPerPage: numPage, currentPage: pages }">
-                                                <td>{{hh.nombre}}</td>
-                                                <td>{{hh.apellido}}</td>
-                                                <td>{{hh.sexo}}</td>
-                                                <td>{{hh.fecha}}</td>                                       
-                                            </tr>
-
-         
-                                        </tbody>
-                                    </table>
+                <div class="row">
+                        <div class="col col-sm-3">
+                                <div class="form-group">
+                                  <label for="tipos">Entidad Nº1</label>
+                                  <select
+                                    class="form-control"
+                                    name="entities"
+                                    [(ngModel)]="entity1.id"
+                                    (change)="loadAtributes(entity1.id)"  
+                                    >
+                                    <option
+                                      *ngFor="let item of entities"
+                                      [ngValue]="item.id"
+                                      >{{ item.name }}</option>
+                                  </select>
                                 </div>
+                              </div>
+                              <div class="col col-sm-3">
+                                    <div class="form-group">
+                                      <label for="entity1">Atributos Nº1</label>
+                                      <select
+                                        class="form-control"
+                                        name="entities"
+                                        [(ngModel)]="entity2.id"                      
+                                      >
+                                        <option
+                                          *ngFor="let item of atributes"
+                                          [ngValue]="item.id"
+                                          >{{ item.name }}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col col-sm-3">
+                                        <div class="form-group">
+                                          <label for="atribute1">Entidad Nº2</label>
+                                          <select
+                                            class="form-control"
+                                            name="entities2"
+                                            [(ngModel)]="entity3.id"
+                                            (change)="loadAtributes2(entity3.id)"  
+                                            >
+                                            <option
+                                              *ngFor="let item of entities2"
+                                              [ngValue]="item.id"
+                                              >{{ item.name }}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col col-sm-3">
+                                            <div class="form-group">
+                                              <label for="entity1">Atributos Nº2</label>
+                                              <select
+                                                class="form-control"
+                                                name="entities2"
+                                                [(ngModel)]="entity4.id"                      
+                                              >
+                                                <option
+                                                  *ngFor="let item of atributes2"
+                                                  [ngValue]="item.id"
+                                                  >{{ item.name }}</option>
+                                              </select>
+                                            </div>
+                                        </div>
+                                  <div class="col col-sm-3">
+                                        <div class="form-group">
+                                          <label for="atributes2">Estatus</label>
+                                          <select
+                                            class="form-control"
+                                            name="entities"
+                                            [(ngModel)]="status.id">
+                                            <option
+                                              *ngFor="let item of status"
+                                              [ngValue]="item.id"
+                                              >{{ item.name }}</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <!-- <div class="col col-sm-3">
+                                            <div class="form-group">
+                                              <label for="tipos">Entidad Nº4</label>
+                                              <select
+                                                class="form-control"
+                                                name="entities"
+                                                [(ngModel)]="entity4.id">
+                                                <option
+                                                  *ngFor="let item of entities"
+                                                  [ngValue]="item.id"
+                                                  >{{ item.name }}</option>
+                                              </select>
+                                            </div>
+                                          </div> -->
+                    <!-- <div class="col col-sm-4">
+                        <div class="form-group">
+                            <label for="nombre">Entidades</label>
+                                <ngx-select [multiple]="true" [items]="agencias" [keepSelectedItems]=true
+                                optionValueField="id" optionTextField='name' 
+                                [(ngModel)]="ngxValue" placeholder="Seleccione las Entidades"
+                                (selectionChanges)="doSelectOptions($event)" [keepSelectedItems]=true>
+                                </ngx-select>
+                        </div>
+                    </div> -->
+                  <div class="col col-sm-3 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Tipos de Servicio</label>
+                      <select class="form-control" name="tiposervicio" [(ngModel)]="servicios.id">
+                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id" >
+                          {{ item2.name }}
+                        </option>
+                      </select>
+                    </div> 
+                  </div>
+                    <div class="col col-sm-3 text-center">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
+                                Generar
+                            </button>
+                        </span>
+                        <span class="input-group-btn" *ngIf="view" >
+                                <button class="btn btn-success" type="button" value="Exportar" (click)="downloadImagePDF()" style="position: relative; top: 30px;  background: #1AB394; margin-left: 8px;">
+                                    Imprimir
+                                </button>
+                        </span>
+                    </div>
+                    <head>
+                            <meta charset="UTF-8">
+                            <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
+                            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+                            <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+                            <style>
+                                .wide-card.mdl-card {
+                                   width: auto;
+                                }
+      
+                                .square-card.mdl-card {
+                                   width: auto;
+                                   height: auto;
+                                }
+                            </style>
+                    </head>
+                    <body *ngIf="view">
+                            <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
+                                    <div class="card-body">
+                                            <div class="col col-sm-12">
+                                                    <div style="position: relative; text-align: -webkit-center">
+                                                            <h1><b> Reportes Solicitados</b></h1>
+                                                        </div>
+                                            </div>
+                                            <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center">
+                                                            <b> CRITERIOS DE BUSQUEDA</b>
+                                                        </div>
+                                                        <br>
+                                                    <div class="row">
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black; margin-left: 15px"><b>Entidades Seleccionadas:</b> {{query.start}}</label>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Fecha Fin:</b> {{query.end}}</label>
+                                                                </div>
+                                                            </div> -->
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black"><b>Tipo de Servicio:</b> {{getTypeServiceNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col col-sm-12">
+                                                    <div class="card-body">
+                                                            <div [chart]="chart" id="graficaCircular" class="chart"></div>
+                                                    </div>
+                                            </div> -->
+                                            <!-- <div class="col col-sm-12">
+                                                    <div class="card border-primary">
+                                                        <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
+                                                        <div class="card-body text-primary">
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                                    
+                                                                </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                            </div> -->
+      
+                                    </div>
+      
                             </div>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                                <div>
-                                    <input type="button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" value="Exportar" (click)="downloadImagePDF()"/>
-                                </div>
-                          </div>
-                </body>
+                    </body>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row mb-3" *ngIf="view"> 
-            <div class="col-md-6"> 
-            <pagination-template #p="paginationApi" (pageChange)="pages=$event">
-                    <nav class="text-left" style="position: relative; left: 1.1rem;">
-                        <ul class="pagination">
-                            <li class="page-item" [class.disabled]="p.isFirstPage()">
-                                <a class="page-link" (click)="p.previous()"> <span class="fa fa-angle-double-left"></span>
-                                </a>
-                            </li>
-    
-                            <li *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value" class="page-item pagination-number"
-                                [ngClass]="{'active' : p.getCurrent() === page.value}">
-                                <a class="page-link" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
-                                    {{ page.label }} </a>
-                                <a class="page-link" *ngIf="p.getCurrent() === page.value"> {{ page.label }} </a>
-                            </li>
-    
-                            <li class="page-item" [class.disabled]="p.isLastPage()">
-                                <a class="page-link" (click)="p.next()"> <span class="fa fa-angle-double-right"></span> </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </pagination-template>   
-            </div> 
-            <div class="col-md-6"> 
-                </div>  
-    </div>   
-</div>
+      </div>
+      
+      
