@@ -77,6 +77,7 @@ export class RegistroSolicitudComponent implements OnInit {
     public dispPM = false;
     public solicitudes: any;
     public nuevo: any;
+    public id_employeeRegist: any;
     public employes = [];
     public states = [];
     public municipalities = [];
@@ -339,7 +340,7 @@ export class RegistroSolicitudComponent implements OnInit {
         this.nuevo = {};
         this.nuevo = {
             ClientId: Number.parseInt(JSON.parse(localStorage.person).id),
-            EmployeeId: Number.parseInt(this.solicitud.employeeId),
+            EmployeeId: Number.parseInt(this.id_employeeRegist),
             PropertyId: Number.parseInt(this.solicitud.propertyId),
             wishDate: this.solicitud.wishDate,
             turn: this.solicitud.turn,
@@ -529,13 +530,13 @@ export class RegistroSolicitudComponent implements OnInit {
         });
     }
 
-    selectAgente($event) {
-        console.log($event);
-        console.log($event.target.value);
-        this.avatar = {};
-        if ($event.target.value != '') {
+    selectAgente(data) {
+        console.log(data);
+         this.avatar = {};
+        if (data != '') {
           
-            this.id_employee = $event.target.value;
+            this.id_employee = data.user.id;
+            this.id_employeeRegist = data.person.id;
             this.allAppointmentSchedule ();
             this.viewCalendar = true;
             for(var i=0;i<this.employes.length;i++){
@@ -547,5 +548,9 @@ export class RegistroSolicitudComponent implements OnInit {
         }else{
             this.viewCalendar = false; 
         }       
+
+        console.log( this.id_employee);
+      
+        console.log(  this.id_employeeRegist );
     }
 }

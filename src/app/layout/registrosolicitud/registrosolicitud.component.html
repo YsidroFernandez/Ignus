@@ -157,10 +157,10 @@
                 <div class="row" style="margin-left: 15px;">
                     <div class="form-group col-md-4">
                         <label class="ng-tns-c12-9" for="employe">Empleados</label>
-                        <select (change)="selectAgente($event)" class="form-control" name="employee" id="employee"
+                        <select (ngModelChange)="selectAgente($event)" class="form-control" name="employee" id="employee"
                             required [(ngModel)]="solicitud.employeeId">
                             <option selected="true" value="">Seleccione...</option>
-                            <option *ngFor="let emp of employes" [value]="emp.user.id">{{emp.person.firstName}}
+                            <option *ngFor="let emp of employes" [ngValue]="emp">{{emp.person.firstName}}
                                 {{emp.person.lastName}}
                             </option>
                         </select>
