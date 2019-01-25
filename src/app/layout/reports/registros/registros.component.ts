@@ -11,13 +11,13 @@ import html2canvas from 'html2canvas';
 import * as querystring from 'querystring';
 
 @Component({
-    selector: 'app-solicitudes',
-    templateUrl: './solicitudes.component.html',
-    styleUrls: ['./solicitudes.component.scss'],
+    selector: 'app-registros',
+    templateUrl: './registros.component.html',
+    styleUrls: ['./registros.component.scss'],
     animations: [routerTransition()]
 
 })
-export class SolicitudesComponent implements OnInit {
+export class RegistrosComponent implements OnInit {
     datePickerConfig: Partial<datepicker.BsDatepickerConfig>;
     values = ['circular', 'barra', 'lineal'];
     defaultValue = this.values[0];
@@ -25,6 +25,18 @@ export class SolicitudesComponent implements OnInit {
     imagen: any;
     agencia: any;
     agencias: any;
+    sexo : any = {
+        id: 'Masculino'
+    };
+    edadI: any;
+    edadF: any;
+    sexos: any = [{
+        id: 'Masculino',
+        genero: 'Masculino'
+    },{
+        id: 'Femenino',
+        genero: 'Femenino'
+    }];
     servicio: any= {
         id: 1,
         name: ''
@@ -75,16 +87,10 @@ export class SolicitudesComponent implements OnInit {
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
+        console.log('hello world', this.tipos);
+
         var doc = new jspdf('p', 'pt');
-        
     }
-
-    ngOnInit() {
-        this.allAgency();
-        this.allService();
-        // this.getLogo(); 
-    }
-
 
     convertImgToBase64URL(url, callback){
         var img = new Image();
@@ -129,7 +135,7 @@ export class SolicitudesComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 10,8,20,20)
           doc.addImage(this.imagen, 'PNG', 180,8,20,20)
  
-          doc.save("Reporte-Solicitudes.pdf") 
+          doc.save("Reporte-Suscripcion.pdf") 
         });
         });
 
@@ -139,6 +145,7 @@ export class SolicitudesComponent implements OnInit {
           getLogo(){
             this.globalService.getModel("/api/agency/logo")
             .then((result) => {
+                console.log(result);
                 this.logoURL = result['data']['url'];
             }, (err) => {
                 console.log(err);
@@ -160,7 +167,9 @@ export class SolicitudesComponent implements OnInit {
     allAgency(){
         this.globalService.getModel("/api/agency")
         .then((result) => {
+            console.log(result);
             this.agencias = result['data'];
+            console.log(this.agencias);
         }, (err) => {
             console.log(err);
         });
@@ -169,13 +178,20 @@ export class SolicitudesComponent implements OnInit {
     allService(){
       this.globalService.getModel("/api/typeService")
         .then((result) => {
+          console.log(result);
           this.servicios = result['data'];
+          console.log(this.servicios);
         }, (err) => {
           console.log(err);
         });
     }
 
-   
+    ngOnInit() {
+        this.allAgency();
+        this.allService();
+        this.getLogo(); 
+    }
+
     getTypeServiceNameById(){
         if(this.query.typeS)
             return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
@@ -192,14 +208,16 @@ export class SolicitudesComponent implements OnInit {
         
         this.view = true;
         this.query = {
-            typeS: this.servicio.id,
+            gender: this.sexo.id,
+            minage: this.edadI,
+            maxage: this.edadF,
             start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
             end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/client?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}

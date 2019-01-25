@@ -24,12 +24,29 @@ export class TransaccionesComponent implements OnInit {
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
     agencia: any;
+    empleado: any = {
+        person: {id: 1, firstName: ''}
+    };
+    empleados: any = [
+
+    ];
     agencias: any;
+    property:any= {
+        id: 1,
+        name: ''
+    };
     servicio: any= {
         id: 1,
         name: ''
     };
+    employes:any;
+
+    employee: any={
+        id: Number,
+        name: ''
+    }
     servicios: any = [];
+    properties:any ;
     public view = false;
     public chart: any;
     fechaI: any;
@@ -41,38 +58,38 @@ export class TransaccionesComponent implements OnInit {
             type: 'column'
         },
   title: {
-        text: 'Monthly Average Rainfall'
+        text: ''
     },
     subtitle: {
-        text: 'Source: WorldClimate.com'
+        text: ''
     },
     xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
+        // categories: [
+        //     'Jan',
+        //     'Feb',
+        //     'Mar',
+        //     'Apr',
+        //     'May',
+        //     'Jun',
+        //     'Jul',
+        //     'Aug',
+        //     'Sep',
+        //     'Oct',
+        //     'Nov',
+        //     'Dec'
+        // ],
         crosshair: true
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'cantidad de días'
         }
     },               
         tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -83,16 +100,16 @@ export class TransaccionesComponent implements OnInit {
             borderWidth: 0
         }
     },
-        series: [{
-            name: 'Compra',
-            data: [5, 3, 4, 7, 2]
-        }, {
-            name: 'Venta',
-            data: [2, 2, 3, 2, 1]
-        }, {
-            name: 'Alquiler',
-            data: [3, 4, 4, 2, 5]
-        }]
+        // series: [{
+        //     name: 'Compra',
+        //     data: [5, 3, 4, 7, 2]
+        // }, {
+        //     name: 'Venta',
+        //     data: [2, 2, 3, 2, 1]
+        // }, {
+        //     name: 'Alquiler',
+        //     data: [3, 4, 4, 2, 5]
+        // }]
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
@@ -144,7 +161,7 @@ export class TransaccionesComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 10,8,20,20)
           doc.addImage(this.imagen, 'PNG', 180,8,20,20)
  
-          doc.save("Reporte-Solicitudes.pdf") 
+          doc.save("Reporte-Transacciones.pdf") 
         });
         });
 
@@ -173,6 +190,17 @@ export class TransaccionesComponent implements OnInit {
             });
         }
 
+    allProperty(){
+        this.globalService.getModel("/api/typeProperty")
+        .then((result) => {
+            console.log(result);
+            this.properties = result['data'];
+            console.log(this.properties);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
     allAgency(){
         this.globalService.getModel("/api/agency")
         .then((result) => {
@@ -183,6 +211,7 @@ export class TransaccionesComponent implements OnInit {
             console.log(err);
         });
     }
+
 
     allService(){
       this.globalService.getModel("/api/typeService")
@@ -195,15 +224,37 @@ export class TransaccionesComponent implements OnInit {
         });
     }
 
+    allemployee(){
+        this.globalService.getModel("/api/employee")
+          .then((result) => {
+            console.log(result);
+            this.empleados = result['data'];
+            console.log(this.empleados);
+          }, (err) => {
+            console.log(err);
+          });
+      }
+
     ngOnInit() {
         this.allAgency();
-        this.allService();
+        this.allProperty();
+        this.allemployee();
         this.getLogo(); 
     }
 
-    getTypeServiceNameById(){
-        if(this.query.typeS)
-            return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
+    getTypePropertyNameById(){
+        if(this.query.typeP)
+            return this.properties.filter(item=>item.id==this.query.typeP)[0].name
+        else
+            return ""
+    }
+
+    getTypeAgentNameById(){
+        if(this.query.emp){
+            let agent = this.empleados.filter(item=>item.person.id==this.query.emp)[0]
+            return agent.person.firstName + " " + agent.person.lastName
+        }
+            
         else
             return ""
     }
@@ -217,14 +268,15 @@ export class TransaccionesComponent implements OnInit {
         
         this.view = true;
         this.query = {
-            typeS: this.servicio.id,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
+            emp: this.empleado.person.id,
+            typeP: this.property.id,
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
 
-        this.globalService.getModel("/api/report/service?"+stringified)
+        this.globalService.getModel("/api/report/transaction?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
             this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}

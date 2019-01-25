@@ -6,7 +6,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { GlobalService } from '../../providers/global.service';
-
+import { GlobalsProvider } from '../../shared';
 
 
 @Component({
@@ -14,11 +14,13 @@ import { GlobalService } from '../../providers/global.service';
     templateUrl: './specification.component.html',
     styleUrls: ['./specification.component.scss'],
     animations: [routerTransition()],
-    //providers: [{provide: NgbDateParserFormatter, useClass: NgbDateFRParserFormatter}]
+    providers: [GlobalsProvider]
 })
 
 
 export class SpecificationComponent implements OnInit {
+    public numPage: number;
+    public pages = 1;
     faEdit = faEdit;
     closeResult: string;
     searchfilter: string;
@@ -40,7 +42,9 @@ export class SpecificationComponent implements OnInit {
     // It maintains specifications form display status. By default it will be false.
     showNew: Boolean = false;
     
-    constructor(private modalService: NgbModal, public globalService: GlobalService) {
+    constructor(private modalService: NgbModal, 
+        private globals: GlobalsProvider,
+        public globalService: GlobalService) {
         this.specifications = [];
         this.specification = {};
         this.new = [];
@@ -121,7 +125,7 @@ export class SpecificationComponent implements OnInit {
 
 
     ngOnInit() {
-    
+        this.numPage = this.globals.numPage;
         this.getListspecifications();
         this.getListtypespecifications();
     }

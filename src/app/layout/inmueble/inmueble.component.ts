@@ -6,12 +6,14 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { GlobalService } from "../../providers/global.service";
 import { NgxCoolDialogsService } from "ngx-cool-dialogs";
+import { GlobalsProvider } from '../../shared';
 
 @Component({
   selector: "app-inmueble",
   templateUrl: "./inmueble.component.html",
   styleUrls: ["./inmueble.component.scss"],
-  animations: [routerTransition()]
+  animations: [routerTransition()],
+  providers: [GlobalsProvider]
 })
 export class InmuebleComponent implements OnInit {
   closeResult: string;
@@ -34,9 +36,12 @@ export class InmuebleComponent implements OnInit {
   selectedRow: number;
   disabled: boolean
   searchfilter: string;
+  public numPage: number;
+    public pages = 1;
 
   constructor(
     private modalService: NgbModal,
+    private globals: GlobalsProvider,
     public globalService: GlobalService,
     private coolDialogs: NgxCoolDialogsService
   ) {}
@@ -64,6 +69,7 @@ export class InmuebleComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.numPage = this.globals.numPage;
     this.getListProperty();
     this.getTypesServices();
   }

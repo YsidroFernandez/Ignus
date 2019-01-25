@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     public config: NgbDropdownConfig
   ) {    
     config.placement = 'bottom-right';
-    config.autoClose = false;
+    config.autoClose = false; 
     this.translate.addLangs([    
       "en",
       "fr",

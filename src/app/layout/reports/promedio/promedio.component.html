@@ -140,10 +140,14 @@
                                                     <div class="card border-primary">
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
-                                                            <div class="row">
-                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
-                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p>
-
+                                                            <div class="row"> 
+                                                            <div class="col-12 col-md-3 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
+                                                                 {{mes}} ::  
+                                                                      <div *ngFor="let estado of chartDefaultConfiguration.series; let j = index"> 
+                                                                      {{estado.name}} :  {{estado.quantity[i]}}
+                                                                      </div>
+                                                                      <p></p>
+                                                                    
                                                                 </div>
                                                         </div>
                                                         </div>

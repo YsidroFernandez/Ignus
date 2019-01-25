@@ -32,10 +32,14 @@ export class ReclamoComponent implements OnInit {
     imagen: any;
     agencias: any;
     contacto: any = {
-        id: '',
-        name: ''
+        id: 1,
     };
-    contactos: any = [];
+    contactos: any = [
+        {
+            id: '',
+            name: ''
+        }
+    ];
     asunto: any = {
         id: '',
         name: ''
@@ -65,7 +69,7 @@ export class ReclamoComponent implements OnInit {
             text: ''
         },
         xAxis: {
-            categories: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', "Junio","Agosto","Septimbre","Octubre","Noviembre","Diciembre"]
+            categories: []
         },
         yAxis: {
             min: 0,
@@ -82,22 +86,27 @@ export class ReclamoComponent implements OnInit {
                 stacking: 'percent'
             }
         },
-        series: [{
-            name: 'Respecto al Servicio',
-            data: [5, 3, 4, 7, 2]
-        }, {
-            name: 'Atencion al cliente',
-            data: [2, 2, 3, 2, 1]
-        },{
-            name: 'Graficas y Contenido',
-            data: [2, 2, 3, 2, 1]
-        },{
-            name: 'Aplicacion Movil',
-            data: [2, 2, 3, 2, 1]
-        },{
-            name: 'Promociones y Ofertas',
-            data: [3, 4, 4, 2, 5]
-        }]
+        // series: [{
+        //     name: 'Respecto al Servicio',
+        //     data: [5, 3, 4, 7, 2],
+        //     quantity: [3, 3, 3, 3, 3]
+        // }, {
+        //     name: 'Atencion al cliente',
+        //     data: [2, 2, 3, 2, 1],
+        //     quantity: [5, 5, 5, 5, 5]
+        // },{
+        //     name: 'Graficas y Contenido',
+        //     data: [2, 2, 3, 2, 1],
+        //     quantity: [7, 7, 7, 7, 7]
+        // },{
+        //     name: 'Aplicacion Movil',
+        //     data: [2, 2, 3, 2, 1],
+        //     quantity: [9, 9, 9, 9, 9]
+        // },{
+        //     name: 'Promociones y Ofertas',
+        //     data: [3, 4, 4, 2, 5],
+        //     quantity: [11, 11, 11, 11, 11]
+        // }]
 
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
@@ -148,7 +157,7 @@ export class ReclamoComponent implements OnInit {
           doc.addImage(this.imagen, 'PNG', 10,8,20,20)
           doc.addImage(this.imagen, 'PNG', 180,8,20,20)
  
-          doc.save("Reporte-Solicitudes.pdf") 
+          doc.save("Reporte-Reclamos.pdf") 
         });
         });
 
@@ -206,8 +215,8 @@ export class ReclamoComponent implements OnInit {
       }
 
       getTypeContactNameById(){
-        if(this.query.typeContact)
-            return this.contactos.filter(item=>item.id==this.query.typeContact)[0].name
+        if(this.query.typeC)
+            return this.contactos.filter(item=>item.id==this.query.typeC)[0].name
         else
             return ""
     }
@@ -227,17 +236,17 @@ export class ReclamoComponent implements OnInit {
 
         this.view = true;
         this.query = {
-            typeContact: this.contacto.id,
+            typeC: this.contacto.id,
             status: this.estatu.id,
-            start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
-            end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
+            start: this.fechaI ? moment(this.fechaI).format('YYYY/MM/DD') : "",
+            end: this.fechaF ? moment(this.fechaF).format('YYYY/MM/DD') : ""
         }
         const stringified = querystring.stringify(this.query)
         console.log(stringified);
-        this.globalService.getModel("/api/report/request?"+stringified)
+        this.globalService.getModel("/api/report/contact?"+stringified)
         .then((result) => {
             let dataAPI = result['data'];
-            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration}
+            this.chartDefaultConfiguration = {...this.chartDefaultConfiguration, ...dataAPI}
             console.log(this.chartDefaultConfiguration)
             this.chart = new Chart(this.chartDefaultConfiguration);
         }, (err) => {

@@ -9,6 +9,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'estadistico', loadChildren: './reports/estadistico/estadistico.module#EstadisticoModule' },
+            { path: 'registros', loadChildren: './reports/registros/registros.module#RegistrosModule' },
             { path: 'transacciones', loadChildren: './reports/transacciones/transacciones.module#transaccionesModule' },
             { path: 'promedio', loadChildren: './reports/promedio/promedio.module#PromedioModule' },
             { path: 'post-servicio', loadChildren: './reports/post-servicio/post-servicio.module#PostServicioModule' },

@@ -4,12 +4,13 @@ import { faEdit, faEye } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal, ModalDismissReasons, NgbDatepickerConfig, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { GlobalService } from '../../providers/global.service';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
-
+import { GlobalsProvider } from '../../shared';
 @Component({
   selector: 'app-activities',
   templateUrl: './incidencias.component.html',
   styleUrls: ['./incidencias.component.scss'],
-  animations: [routerTransition()]
+  animations: [routerTransition()],
+  providers: [GlobalsProvider],
 })
 export class IncidenciasComponent implements OnInit {
   closeResult: string;
@@ -32,13 +33,16 @@ export class IncidenciasComponent implements OnInit {
   faEdit = faEdit;
   new: any;
   // It maintains activities form display status. By default it will be false.
-  showNew: Boolean = false;
- 
-
+  showNew: Boolean = false; 
+  public numPage: number;
+  public pages = 1;
   selectedRow: number;
   
   constructor(
-    private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
+    private modalService: NgbModal,
+     public globalService: GlobalService,
+     private globals: GlobalsProvider,
+      private coolDialogs: NgxCoolDialogsService) {
       this.incidencias = [];
       this.incidencia = {};
       this.tipoincidencias = [];
@@ -57,12 +61,12 @@ export class IncidenciasComponent implements OnInit {
         console.log(err);
         // this.loader.dismiss();
       });
-
+  
 
 }
 
  getIncidence(){
-    this.globalService.getModel("/api/incidence")
+    this.globalService.getModel("/api/incidence?userId="+this.user)
     .then((result) => {
         console.log(result);
         this.incidencias = result['data'];
@@ -83,6 +87,7 @@ getIncidencias() {
 
 
    ngOnInit() { 
+    this.numPage = this.globals.numPage;
     this.getIncidence();
     this.getIncidencias();
     this.getTransacciones();

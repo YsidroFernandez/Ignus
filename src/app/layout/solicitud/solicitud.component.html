@@ -158,51 +158,56 @@
             </div>
         </div>
 
+
         <div class="row md-3">
-            <div class="col-md-12">
-                <div class="row md-3">
-                    <div class="col-md-6">
-                        <div class="form-group col-md-12">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="requestDate">Fecha de la solicitud</label>
-                            <div class="input-group">
-                                <input name="fecha" id="fecha" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                                    placeholder="Fecha de la Firma*" bsDatepicker [(ngModel)]="solicitud.requestDate"
-                                    autocomplete="off" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="status">Estado</label>
-                            <input class="form-control" [(ngModel)]="solicitud.status" name="status" ng-model="status"
-                                type="text" disabled>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group col-md-12">
-                            <label class="ng-tns-c12-9" for="urlImage">Fotos</label>
-                        </div>
-                    </div>
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha de la solicitud</label>
+                <div class="input-group">
+                    <input name="fechaIni" id="fechaIni" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="requestDate">Fecha deseada por el cliente</label>
+                <div class="input-group">
+                    <input name="fechaEnd" id="fechaEnd" [bsConfig]="datePickerConfig" type="text" class="form-control"
+                        bsDatepicker [(ngModel)]="solicitud.wishDate" autocomplete="off" disabled>
                 </div>
             </div>
         </div>
+
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">Estado</label>
-                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
+                <label for="porpiedad">Tipo de porpiedad</label>
+                <input class="form-control" name="porpiedad" id="porpiedad" type="text" [(ngModel)]="solicitud.property.typeProperty.name"
+                    disabled>
             </div>
 
             <div class="form-group col-md-6">
-                <label for="tipos">Municipio</label>
-                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
+                <label for="ubicacion">Ubicanción</label>
+                <input class="form-control" name="ubicacion" id="ubicacion" type="text" [(ngModel)]="solicitud.property.ubication"
                     disabled>
             </div>
         </div>
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">Parroquia</label>
-                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                <label for="state">Estado</label>
+                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.property.state.name"
+                    disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="municipality">Municipio</label>
+                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.property.municipality.name"
+                    disabled>
+            </div>
+        </div>
+
+        <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="parish">Parroquia</label>
+                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.property.parish.name"
                     disabled>
             </div>
 
@@ -349,34 +354,49 @@
                 <label for="requestDate">Fecha deseada por el cliente</label>
                 <div class="input-group">
                     <input name="fechaEnd" id="fechaEnd" [bsConfig]="datePickerConfig" type="text" class="form-control"
-                        bsDatepicker [(ngModel)]="solicitud.requestDate" autocomplete="off" disabled>
+                        bsDatepicker [(ngModel)]="solicitud.wishDate" autocomplete="off" disabled>
                 </div>
             </div>
         </div>
 
         <div class="row md-3">
             <div class="form-group col-md-6">
-                <label for="tipos">Estado</label>
-                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.state" disabled>
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="tipos">Municipio</label>
-                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.municipality"
-                    disabled>
-            </div>
-        </div>
-
-        <div class="row md-3">
-            <div class="form-group col-md-6">
-                <label for="tipos">Parroquia</label>
-                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.parish"
+                <label for="porpiedad">Tipo de porpiedad</label>
+                <input class="form-control" name="porpiedad" id="porpiedad" type="text" [(ngModel)]="solicitud.property.typeProperty.name"
                     disabled>
             </div>
 
+            <!-- <div class="form-group col-md-6">
+                <label for="ubicacion">Ubicanción</label>
+                <input class="form-control" name="ubicacion" id="ubicacion" type="text" [(ngModel)]="solicitud.property.ubication"
+                    disabled>
+            </div> -->
+        </div>
+
+        <!-- <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="state">Estado</label>
+                <input class="form-control" name="state" id="state" type="text" [(ngModel)]="solicitud.property.state.name"
+                    disabled>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="municipality">Municipio</label>
+                <input class="form-control" name="municipality" id="municipality" type="text" [(ngModel)]="solicitud.property.municipality.name"
+                    disabled>
+            </div>
+        </div> -->
+
+        <!-- <div class="row md-3">
+            <div class="form-group col-md-6">
+                <label for="parish">Parroquia</label>
+                <input class="form-control" name="parish" id="parish" type="text" [(ngModel)]="solicitud.property.parish.name"
+                    disabled>
+            </div>
+
             <div class="form-group col-md-6">
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)=" this.submitType == 'Cancel'; d('Cross click')">

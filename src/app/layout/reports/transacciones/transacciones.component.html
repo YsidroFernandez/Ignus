@@ -7,7 +7,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col col-sm-3 text-center">
+                    <div class="col col-sm-4 text-center">
                         <div class="form-group text-center">
                             <label >Fecha Inicio</label>
                             <div class="input-group">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col col-sm-3 text-center">
+                    <div class="col col-sm-4 text-center">
                         <div class="form-group text-center">
                             <label >Fecha Fin</label>
                             <div class="input-group">
@@ -26,21 +26,32 @@
                             </div>
                         </div>
                     </div>
-                  <div class="col col-sm-3 text-center">
+                  <div class="col col-sm-4 text-center">
                     <div class="form-group text-center">
-                      <label for="tipos">Tipos de Servicio</label>
-                      <select class="form-control" name="tiposervicio" [(ngModel)]="servicio.id">
-                            <!-- <option selected="true" value="">
-                                    Todos los servicios
-                                  </option> -->
-                        <option *ngFor="let item2 of servicios" [ngValue]="item2.id">
+                      <label for="tipos">Tipos de Propiedad</label>
+                      <select class="form-control" name="tiposervicio" [(ngModel)]="property.id">
+                           
+                        <option *ngFor="let item2 of properties" [ngValue]="item2.id">
                           {{ item2.name }}
                         </option>
                       </select>
                     </div>
                   </div>
 
-                    <div class="col col-sm-3 text-center">
+                  <div class="col col-sm-4 text-center">
+                    <div class="form-group text-center">
+                      <label for="tipos">Nombre de Agentes</label>
+                      <select class="form-control" name="nombreagente" [(ngModel)]="empleado.person.id">
+                        <option *ngFor="let item2 of empleados" [ngValue]="item2.person.id">
+                          {{ item2.person.firstName }} {{ item2.person.lastName }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col col-sm-4 text-center">
+
+                  </div>
+                    <div class="col col-sm-4 text-center">
                         <span class="input-group-btn">
                             <button class="btn btn-success" type="button" (click)="buscar()" style="position: relative; top: 30px;  background: #1AB394;">
                                 Generar
@@ -80,9 +91,15 @@
                                                             </div>
                                                             <div class="col-12 col-md-4 col-sm-6">
                                                                 <div class="form-group">
-                                                                    <label style="color: black"><b>Tipo de Servicio:</b> {{getTypeServiceNameById()}}</label>
+                                                                    <label style="color: black"><b>Tipo de Propiedad:</b> {{getTypePropertyNameById()}}</label>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-12 col-md-4 col-sm-6">
+                                                                <div class="form-group">
+                                                                    <label style="color: black; margin-left: 15px"><b>Nombre del Agente:</b> {{getTypeAgentNameById()}}</label>
+                                                                </div>
+                                                            </div>
+                                                            
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,8 +112,11 @@
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
                                                             <div class="row">
-                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
-                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p>
+                                                            <div class="col-12 col-md-3 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
+                                                                     {{mes}} :: 
+                                                                        <div *ngFor="let estado of chartDefaultConfiguration.series; let j = index">
+                                                                                {{estado.name}} :  {{estado.data[i]}},
+                                                                        </div> 
 
                                                                 </div>
                                                         </div>
