@@ -157,8 +157,8 @@
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
                                                             <div class="row"> 
-                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
-                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
+                                                            <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.xAxis.categories; let i = index">
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.series[0].name}} :  {{chartDefaultConfiguration.series[0].quantity[i]}}, {{chartDefaultConfiguration.series[1].name}} :  {{chartDefaultConfiguration.series[1].quantity[i]}} </p> 
                                                                     
                                                                 </div>
                                                         </div>
