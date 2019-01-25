@@ -86,7 +86,13 @@ export class TypeSpecificationComponent implements OnInit {
 
         }
     }
-
+    onEdit(index: number) {
+        this.submitType = 'Update';
+        this.selectedRow = index;
+        this.typeSpecification = Object.assign({}, this.typeSpecifications[this.selectedRow]);
+    
+        this.showNew = true;
+    }
 
 
     private getDismissReason(reason: any): string {
@@ -100,8 +106,7 @@ export class TypeSpecificationComponent implements OnInit {
     }
 
 
-    ngOnInit() {
-    
+    ngOnInit() {    
         this.getListtypeSpecifications();
     }
     

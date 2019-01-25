@@ -17,7 +17,7 @@ import { EmployeeFilterPipe } from './employee-filter.pipe';
        NgxSelectModule,
        Ng4LoadingSpinnerModule.forRoot(),
        FontAwesomeModule, NgbModule.forRoot(),
-        FormsModule, ReactiveFormsModule],
+       FormsModule, ReactiveFormsModule],
     declarations: [EmployeeComponent,EmployeeFilterPipe],
     providers: [
     NgbActiveModal,

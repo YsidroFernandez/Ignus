@@ -38,7 +38,8 @@
                             </th>
                         </tr>
                     </thead>
-                    <tr *ngFor="let item of contacts; let i=index | searchfilter: contDescripcion:contTema:contEstatus" >
+                    <tr *ngFor="let item of contacts | searchfilter: contDescripcion:contTema:contEstatus; let i=index "
+                    (click)="onEdit(i)" >
                         <td>{{item.name}}</td>
                         <td>{{item.description}}</td>
                         <td>{{item.status}}</td>
@@ -77,52 +78,48 @@
     </div>
     <div class="card mb-3">
         <div class="modal-body">
+                <div class="row mb-3">
+                        <div class="col col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-12 col-md-4 col-xs-12">Nombre:</label>
+                                <input disabled type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-md-12 col-md-4 col-xs-12">Descripción:</label>
+                                <textarea disabled class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
+                                    rows="5" required>
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
             <div class="row mb-3">
                 <div class="col col-sm-6">
                     <div class="form-group">
-                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tipos de Contacto:</label>
-                        <select disabled class="form-control" name="typeContact" id="typeContact" [(ngModel)]="TypeContactID"
-                            #typecontact="ngModel">
-                            <option *ngFor="let con of typeContact" [value]="con.id">{{con.name}}</option>
-                        </select>
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tipo de contacto:</label>
+                        <input type="text" [(ngModel)]="contact.typeContact.name" class="form-control">
                     </div>
                 </div>
 
                 <div class="col col-sm-6">
                     <div class="form-group">
-                        <label class="control-label col-md-12 col-md-4 col-xs-12">Tema:</label>
-                        <select disabled class="form-control" name="subject" id="subject" [(ngModel)]="SubjectId" #subject="ngModel">
-                            <option *ngFor="let sub of subjectArray" [value]="sub.id">{{sub.name}}</option>
-                        </select>
+                        <label class="control-label col-md-12 col-md-4 col-xs-12">Descripcióndel tipo de contacto:</label>
+                        <input type="text" [(ngModel)]="contact.typeContact.description" class="form-control">
                     </div>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col col-sm-12">
-                    <div class="form-group">
-                        <label class="control-label col-md-12 col-md-4 col-xs-12">Titulo:</label>
-                        <input disabled type="text" name="name" [(ngModel)]="contact.name" class="form-control" />
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col col-sm-12">
-                    <div class="form-group">
-                        <label class="control-label col-md-12 col-md-4 col-xs-12">Descripción</label>
-                        <textarea disabled class="form-control ng-untouched ng-pristine ng-valid" type="text" [(ngModel)]="contact.description"
-                            rows="5" required>
-                        </textarea>
-                    </div>
-                </div>
-            </div>
+           
         </div>
     </div>
 
-    <div class="modal-footer">
+    <!-- <div class="modal-footer">
         <button style="background: #1AB394; border-radius: 20px" type="button" class="btn btn-success" (click)="c('Close click')"><i
                 style="color: white" class="fa fa-plus" aria-hidden="true"></i>
         </button>
-    </div>
+    </div> -->
 </ng-template>
 
 <!-- content   -->
