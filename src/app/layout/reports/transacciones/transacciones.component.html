@@ -30,10 +30,8 @@
                     <div class="form-group text-center">
                       <label for="tipos">Tipos de Propiedad</label>
                       <select class="form-control" name="tiposervicio" [(ngModel)]="property.id">
-                            <!-- <option selected="true" value="">
-                                    Todos los servicios
-                                  </option> -->
-                        <option *ngFor="let item2 of property" [ngValue]="item2.id">
+                           
+                        <option *ngFor="let item2 of properties" [ngValue]="item2.id">
                           {{ item2.name }}
                         </option>
                       </select>
@@ -44,10 +42,7 @@
                     <div class="form-group text-center">
                       <label for="tipos">Empleado</label>
                       <select class="form-control" name="tiposervicio" [(ngModel)]="employee.id">
-                            <!-- <option selected="true" value="">
-                                    Todos los servicios
-                                  </option> -->
-                        <option *ngFor="let item2 of employee" [ngValue]="item2.user.id">
+                        <option *ngFor="let item2 of employes" [ngValue]="item2.user.id">
                           {{ item2.user.username }}
                         </option>
                       </select>

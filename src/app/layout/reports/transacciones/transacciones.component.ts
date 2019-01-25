@@ -26,19 +26,21 @@ export class TransaccionesComponent implements OnInit {
     agencia: any;
     agencias: any;
     property:any= {
-        id: 1,
+        id: Number,
         name: ''
     };
     servicio: any= {
         id: 1,
         name: ''
     };
+    employes:any;
+
     employee: any={
-        id: 1,
+        id: Number,
         name: ''
     }
     servicios: any = [];
-    propertys:any = [];
+    properties:any ;
     public view = false;
     public chart: any;
     fechaI: any;
@@ -186,8 +188,8 @@ export class TransaccionesComponent implements OnInit {
         this.globalService.getModel("/api/typeProperty")
         .then((result) => {
             console.log(result);
-            this.property = result['data'];
-            console.log(this.property);
+            this.properties = result['data'];
+            console.log(this.properties);
         }, (err) => {
             console.log(err);
         });
@@ -220,7 +222,7 @@ export class TransaccionesComponent implements OnInit {
         this.globalService.getModel("/api/employee ")
           .then((result) => {
             console.log(result);
-            this.employee = result['data'];
+            this.employes = result['data'];
             console.log(this.employee);
           }, (err) => {
             console.log(err);
