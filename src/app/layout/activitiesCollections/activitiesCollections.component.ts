@@ -121,6 +121,14 @@ export class ActivitiesCollectionsComponent implements OnInit {
       .then(
         result => {
           console.log(result);
+          this.globalService.getModel(`/api/transaction/${ this.transaction_id}`).then((result) => {
+            if (result['status']) {
+              this.transaction = result['data'];
+              console.log(this.transaction);
+            }
+          }, (err) => {
+            console.log(err);
+          });
         },
         err => {
           console.log(err);

@@ -61,7 +61,7 @@ export class IncidenciasComponent implements OnInit {
         console.log(err);
         // this.loader.dismiss();
       });
-
+  
 
 }
 

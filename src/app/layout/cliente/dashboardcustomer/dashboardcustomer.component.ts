@@ -180,7 +180,7 @@ export class DashboardcustomerComponent implements OnInit {
     this.numPage = this.globals.numPage;       
     this.numbPage = this.globals.numPage;       
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
-      let id=  this.usuario.person.id;
+      let id=  this.usuario.user.id;
       this.globalService.getModel('/api/client/request/'+id)
       .then(res=>{
         this.listSolicitudes=res['data'];
