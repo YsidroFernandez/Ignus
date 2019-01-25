@@ -246,8 +246,9 @@ export class DashboardComponent implements OnInit {
       if (result['status']) {
         this.appointmentSchedule = [];
         this.appointmentSchedule = result['data'];
-        
+        console.log( this.appointmentSchedule );
         this.excludeDays  = this.appointmentSchedule.excludeDays;
+      
         for(let appointment of this.appointmentSchedule.appointments){
           appointment.start = startOfDay(appointment.dateAppointmentUS)
         }
