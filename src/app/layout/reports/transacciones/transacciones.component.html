@@ -37,7 +37,7 @@
                           {{ item2.name }}
                         </option>
                       </select>
-                    </div> 
+                    </div>
                   </div>
 
                     <div class="col col-sm-3 text-center">
@@ -52,22 +52,7 @@
                                 </button>
                             </span>
                     </div>
-                    <head>
-                            <meta charset="UTF-8">
-                            <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css" />
-                            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-                            <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-                            <style>
-                                .wide-card.mdl-card {
-                                   width: auto;
-                                }
 
-                                .square-card.mdl-card {
-                                   width: auto;
-                                   height: auto;
-                                }
-                            </style>
-                    </head>
                     <body *ngIf="view">
                             <div id="content" #content class="wide-card mdl-card mdl-shadow--2dp">
                                     <div class="card-body">
@@ -109,17 +94,17 @@
                                                     <div class="card border-primary">
                                                         <div class="card-header" style="position: relative; text-align: -webkit-center"><b>DETALLES DEL REPORTE</b></div>
                                                         <div class="card-body text-primary">
-                                                            <div class="row"> 
+                                                            <div class="row">
                                                             <div class="col-12 col-md-4 col-sm-6" *ngFor="let mes of chartDefaultConfiguration.categories; let i = index">
-                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p> 
-                                                                    
+                                                                    <p>  {{mes}} ::  {{chartDefaultConfiguration.values[0].name}} :  {{chartDefaultConfiguration.values[0].data[i]}}, {{chartDefaultConfiguration.values[1].name}} :  {{chartDefaultConfiguration.values[1].data[i]}} </p>
+
                                                                 </div>
                                                         </div>
                                                         </div>
                                                     </div>
                                             </div>
                                             </div>
-      
+
                                     </div>
 
                             </div>
