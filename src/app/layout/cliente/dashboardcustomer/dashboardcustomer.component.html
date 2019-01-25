@@ -203,6 +203,121 @@
   <!--Fin Solicitudes-->
 </div>
 
+<!--Modal de transacciones-->
+<ng-template #modalTransacion let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Detalles</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 text-xs-center">
+      <div class="card-body">
+        <div class="form-group">
+          <label>Tipo: {{transaccionSelect.typeService.name}}</label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-deck">
+    <div class="card bg-default">
+      <div class="card-body">
+        <h2 class="text-center">Actividades</h2>
+        <div class="row margen" *ngFor="let actividad of transaccionSelect.activities">
+          <div class="col-md-6 text-left">{{actividad.name}}</div>
+          <div class="col-md-6 text-right">
+            <input *ngIf="actividad.status!='Espera'" name="actividad" type="checkbox" disabled checked />
+            <input *ngIf="actividad.status=='Espera'" name="actividad" type="checkbox" disabled />
+          </div>
+          <br />
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+  <div class="card-deck">
+    <div class="card bg-default">
+      <div class="card-body ">
+        <h2 class="text-center">Recaudos</h2>
+        <div class="row margen" *ngFor="let recaudo of transaccionSelect.requirements">
+          <div class="col-md-6 text-left">{{recaudo.name}}</div>
+          <div class="col-md-6 text-right">
+            <input *ngIf="recaudo.status!='Espera'" name="recaudo" type="checkbox" disabled checked />
+            <input *ngIf="recaudo.status=='Espera'" name="recaudo" type="checkbox" disabled />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
+
+<!--Fin modal de transacciones-->
+
+<!--Modal solicitudes-->
+<ng-template #modalSolicitud let-c="close" let-d="dismiss">
+
+  <div class="modal-header">
+    <h4 class="modal-title">Detalles</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <div class="form-group">
+            <label>Fecha: </label>
+            <input disabled="" [(ngModel)]="solicitudSelect.wishDate" type="text" name="fecha" ng-model="fecha" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input disabled="" [(ngModel)]="solicitudSelect.typeRequest.name" type="text" name="nombre" ng-model="nombre"
+              class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <fieldset class="form-group">
+            <label>Descripcion</label>
+            <textarea disabled="" [(ngModel)]="solicitudSelect.typeRequest.description" class="form-control" name="descripcion"
+              ng-model="descripcion" rows="3"></textarea>
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="col-xl-6 text-xs-center">
+        <div class="card-body">
+          <fieldset class="form-group">
+            <label>Estatus</label>
+            <input disabled="" [(ngModel)]="solicitudSelect.status" type="text" name="status" ng-model="status" class="form-control" />
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</ng-template>
+
+<!--Fin Modal solicitudes-->
+
+
 <div class="modal fade" bsModal #parentModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
   <div class="modal-dialog modal-lg">
       <div class="modal-content">

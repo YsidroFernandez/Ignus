@@ -126,7 +126,7 @@
             <div class="col-12 col-md-8 col-lg-7">
               <div class="form-group">
                 <label>Tipo de Servicio: (*)</label>
-                <select class="form-control" name="typeservice" id="perfil.TypeServiceId" required>
+                <select class="form-control" name="typeservice" id="typeservice" [(ngModel)]="perfil.TypeServiceId" required>
                   <option *ngFor="let type of typeservices" [value]="type.id">{{type.name}}</option>
                 </select>
               </div>
@@ -178,7 +178,7 @@
   
               <tabset id="tabspecification" *ngIf="activatespecifications==true">
   
-                <tab *ngFor="let te of perfil.specifications" [heading]="te.name" [id]="te.id">
+                <tab *ngFor="let te of perfil.typeSpecifications" [heading]="te.name" [id]="te.id">
                   <br>
                   <div class="row">
                       <div class="col-12 col-xs-12 col-sm-6 col-md-4" *ngFor="let esp of te.specifications_number"

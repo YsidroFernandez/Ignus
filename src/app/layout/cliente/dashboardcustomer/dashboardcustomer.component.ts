@@ -16,7 +16,7 @@ import { CalendarEvent, CalendarMonthViewDay, DAYS_OF_WEEK, CalendarEventAction,
 
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
-import { startOfDay, subMonths, addMonths, startOfWeek, subWeeks, startOfMonth, endOfWeek, endOfDay, addWeeks, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+
 
 type CalendarPeriod = 'month';
 
@@ -65,7 +65,7 @@ export class DashboardcustomerComponent implements OnInit {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
     public numbPage: number;
     public numPage: number;
-    public solicitudSelect: any;
+    public solicitudSelect: any = {wishDate: '',typeRequest: {name:'',description:''}};
     public transaccionSelect: any;
     public pages = 1;
     public usuario : any;
@@ -92,7 +92,7 @@ export class DashboardcustomerComponent implements OnInit {
     reason: '',
 
   }
-  
+
     closeResult: string;
     clientes: any;
     cliente: any;
@@ -179,7 +179,6 @@ export class DashboardcustomerComponent implements OnInit {
   ngOnInit() {
     this.numPage = this.globals.numPage;       
     this.numbPage = this.globals.numPage;       
-    this.show();
     this.usuario = JSON.parse(localStorage.getItem('usuario'));
       let id=  this.usuario.person.id;
       this.globalService.getModel('/api/client/request/'+id)
@@ -209,6 +208,25 @@ export class DashboardcustomerComponent implements OnInit {
     detTransaccion(transaccion){
         this.transaccionSelect = transaccion;
         console.log("Es este",this.transaccionSelect)
+    }
+
+    open(content) {
+
+      this.modal.open(content).result.then((result) => {
+          this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      });
+  }
+
+  private getDismissReason(reason: any): string {
+        if (reason === ModalDismissReasons.ESC) {
+            return 'by pressing ESC';
+        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+            return 'by clicking on a backdrop';
+        } else {
+            return `with: ${reason}`;
+        }
     }
 
     dayClicked({ date, events }: { date: Date; events: any[] }): void {
