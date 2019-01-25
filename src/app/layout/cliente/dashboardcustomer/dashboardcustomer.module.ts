@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule,NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule,registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardcustomerRoutingModule } from './dashboardcustomer-routing.module';
@@ -21,6 +22,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
+    ModalModule.forRoot(),     
+    NgbModule.forRoot(),
     CommonModule,
     NgxPaginationModule,
     DashboardcustomerRoutingModule,
@@ -37,6 +40,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     })
   ],
   declarations: [DashboardcustomerComponent,DashboardCustomerFilterPipe],
-  providers: []
+  providers: [NgbActiveModal]
 })
 export class DashboardcustomerModule { }
