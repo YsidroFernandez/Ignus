@@ -24,9 +24,15 @@ export class TransaccionesComponent implements OnInit {
     tipos: any = [{ id: 1, name: "circular" }, { id: 2, name: "barra" }, { id: 3, name: "lineal" }];
     imagen: any;
     agencia: any;
+    empleado: any = {
+        person: {id: 1, firstName: ''}
+    };
+    empleados: any = [
+
+    ];
     agencias: any;
     property:any= {
-        id: Number,
+        id: 1,
         name: ''
     };
     servicio: any= {
@@ -52,32 +58,32 @@ export class TransaccionesComponent implements OnInit {
             type: 'column'
         },
   title: {
-        text: 'Transacciones'
+        text: ''
     },
     subtitle: {
-        text: 'Estados'
+        text: ''
     },
     xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
+        // categories: [
+        //     'Jan',
+        //     'Feb',
+        //     'Mar',
+        //     'Apr',
+        //     'May',
+        //     'Jun',
+        //     'Jul',
+        //     'Aug',
+        //     'Sep',
+        //     'Oct',
+        //     'Nov',
+        //     'Dec'
+        // ],
         crosshair: true
     },
     yAxis: {
         min: 0,
         title: {
-            text: 'cantidad'
+            text: 'cantidad de días'
         }
     },               
         tooltip: {
@@ -94,16 +100,16 @@ export class TransaccionesComponent implements OnInit {
             borderWidth: 0
         }
     },
-        series: [{
-            name: 'Compra',
-            data: [5, 3, 4, 7, 2]
-        }, {
-            name: 'Venta',
-            data: [2, 2, 3, 2, 1]
-        }, {
-            name: 'Alquiler',
-            data: [3, 4, 4, 2, 5]
-        }]
+        // series: [{
+        //     name: 'Compra',
+        //     data: [5, 3, 4, 7, 2]
+        // }, {
+        //     name: 'Venta',
+        //     data: [2, 2, 3, 2, 1]
+        // }, {
+        //     name: 'Alquiler',
+        //     data: [3, 4, 4, 2, 5]
+        // }]
     };
     constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
         let now = moment().format();
@@ -219,11 +225,11 @@ export class TransaccionesComponent implements OnInit {
     }
 
     allemployee(){
-        this.globalService.getModel("/api/employee ")
+        this.globalService.getModel("/api/employee")
           .then((result) => {
             console.log(result);
-            this.employes = result['data'];
-            console.log(this.employee);
+            this.empleados = result['data'];
+            console.log(this.empleados);
           }, (err) => {
             console.log(err);
           });
@@ -231,29 +237,24 @@ export class TransaccionesComponent implements OnInit {
 
     ngOnInit() {
         this.allAgency();
-        this.allService();
         this.allProperty();
         this.allemployee();
         this.getLogo(); 
     }
 
-    getTypeServiceNameById(){
-        if(this.query.typeS)
-            return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
-        else
-            return ""
-    }
-
     getTypePropertyNameById(){
-        if(this.query.typeS)
-            return this.property.filter(item=>item.id==this.query.typeS)[0].name
+        if(this.query.typeP)
+            return this.properties.filter(item=>item.id==this.query.typeP)[0].name
         else
             return ""
     }
 
-    getTypeEmployeeNameById(){
-        if(this.query.typeS)
-            return this.employee.filter(item=>item.id==this.query.typeS)[0].user.username
+    getTypeAgentNameById(){
+        if(this.query.emp){
+            let agent = this.empleados.filter(item=>item.person.id==this.query.emp)[0]
+            return agent.person.firstName + " " + agent.person.lastName
+        }
+            
         else
             return ""
     }
@@ -267,7 +268,8 @@ export class TransaccionesComponent implements OnInit {
         
         this.view = true;
         this.query = {
-            typeS: this.servicio.id,
+            emp: this.empleado.person.id,
+            typeP: this.property.id,
             start: this.fechaI ? moment(this.fechaI).format('DD/MM/YYYY') : "",
             end: this.fechaF ? moment(this.fechaF).format('DD/MM/YYYY') : ""
         }
