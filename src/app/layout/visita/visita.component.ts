@@ -31,6 +31,7 @@ export class VisitaComponent implements OnInit {
   inspection: any;
   role: any;
   new: any;
+  new1: any;
   showView: Boolean = false;
   // It maintains employes form display status. By default it will be false.
   showNew: Boolean = false;
@@ -122,6 +123,11 @@ export class VisitaComponent implements OnInit {
         }
       );
     } else {
+      this.new1 = JSON.stringify({
+        observation: this.inspection.observation,
+      });
+      uploadData.append("inspection", this.new1);
+      console.log(uploadData);
       //metodo que perimite enviar por put una actualizaciòn de un servicio
       this.globalService.updateModel(this.inspection.id, uploadData, "/api/inspection", this.globalService.getHeaderClear())
         .then(
@@ -164,7 +170,7 @@ export class VisitaComponent implements OnInit {
     if (index != -1) {
       //el caso index -1 es cuando se solicita crear, ver html
       // this.inspection = Object.assign({}, this.inspections[this.selectedRow]); 
-      this.inspection.request_id = Object.assign({}, this.inspections[this.selectedRow].request.id);
+      this.inspection.request_id = this.inspection.id;
       console.log(this.inspection.request_id);
     }
 

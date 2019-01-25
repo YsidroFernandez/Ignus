@@ -42,46 +42,37 @@ export class PostServicioComponent implements OnInit {
     name:''
   };
   
+  tablas:any;
+  tablas2:any;
+  atributo1:any;
+  atributo2:any;
+
+
+
   entities: any;
   atributes: any;
   entities2: any;
   atributes2: any;
-  servicio: any= {
-      id: Number,
-      name: ''
-  };
-
-  status: any= [
-      {
-          id:1,
-          name:'Aceptada'
-      },
-      {
-          id:2,
-          name:'Rechazada'
-      }
-  ];
-
- 
+  
   ngxValue: any = [];
-  servicios: any = [];
+  ngxValue2: any = [];
   public view = false;
-  public chart: any;
-  fechaI: any;
-  fechaF: any;
+
   query: any = {}
   logoURL: string = ""
 
   constructor(private modalService: NgbModal, public globalService: GlobalService, private coolDialogs: NgxCoolDialogsService) {
       let now = moment().format();
       var doc = new jspdf('p', 'pt');
+      this.atributo1=[];
+      this.atributo2=[];
+
       
   }
 
   ngOnInit() {
       this.loadEntities();
       this.loadEntities2();
-      this.allService();
       this.getLogo(); 
   }
   public doSelectOptions = (options) => console.log(this.ngxValue, options);
@@ -146,46 +137,62 @@ export class PostServicioComponent implements OnInit {
       }
 
 
-      allReporte(){
-          const stringified = querystring.stringify({start: moment(this.servicio.fechaI).format('YYYY/MM/DD'), end: moment(this.servicio.fechaF).format('YYYY/MM/DD'), typeS: this.servicio.id })
-          console.log(stringified);
-          this.globalService.getModel("/api/report/request?")
-          .then((result) => {
-              this.entities = result['data'];
-          }, (err) => {
-              console.log(err);
-          });
-      }
+      // allReporte(){
+      //     const stringified = querystring.stringify({start: moment(this.servicio.fechaI).format('YYYY/MM/DD'), end: moment(this.servicio.fechaF).format('YYYY/MM/DD'), typeS: this.servicio.id })
+      //     console.log(stringified);
+      //     this.globalService.getModel("/api/report/request?")
+      //     .then((result) => {
+      //         this.entities = result['data'];
+      //     }, (err) => {
+      //         console.log(err);
+      //     });
+      // }
 
 
-  allService(){
-    this.globalService.getModel("/api/typeService")
-      .then((result) => {
-        this.servicios = result['data'];
-      }, (err) => {
-        console.log(err);
-      });
-  }
+  
 
  
-  getTypeServiceNameById(){
-      if(this.query.typeS)
-          return this.servicios.filter(item=>item.id==this.query.typeS)[0].name
-      else
-          return ""
+  getEntity1Id(){
+    if(this.query.tabla1)
+        return this.entities.filter(item=>item.id==this.query.tabla1)[0].name 
+    else
+        return ""
   }
 
-
-  add() {
-      this.chart.addPoint(Math.floor(Math.random() * 10));
+  getEntityId2(){
+    if(this.query.tabla2)
+        return this.entities2.filter(item=>item.id==this.query.tabla2)[0].name 
+    else
+        return ""
   }
+  getPrimerAtributo(){
+    if(this.query.atributo1)
+        return this.atributes.filter(item=>item.id==this.query.atributo1)[0].name 
+    else
+        return ""
+  }
+  getSegundoAtributo(){
+    if(this.query.atributo2)
+        return this.atributes2.filter(item=>item.id==this.query.atributo2)[0].name 
+    else
+        return ""
+  }
+
+  
   buscar() {  
+
+  
       this.view = true;
       this.query = {
-          typeS: this.servicio.id,
+          tabla1:this.entity1.id ,
+          tabla2:this.entity3.id,
+          atributo1: this.ngxValue,
+          atributo2: this.ngxValue2   
       }
       const stringified = querystring.stringify(this.query)
       console.log(stringified);
+   
+
   }
 
 
@@ -208,7 +215,6 @@ export class PostServicioComponent implements OnInit {
       result => {
         if (result["status"]) {
           this.atributes = result["data"];
-          console.log(this.atributes);
         }
       },
       err => {
@@ -235,7 +241,6 @@ export class PostServicioComponent implements OnInit {
       result => {
         if (result["status"]) {
           this.atributes2 = result["data"];
-          console.log(this.atributes);
         }
       },
       err => {

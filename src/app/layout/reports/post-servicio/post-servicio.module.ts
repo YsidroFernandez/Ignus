@@ -12,7 +12,6 @@ import { esLocale } from 'ngx-bootstrap/locale';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSelectModule} from 'ngx-select-ex';
 
-
 @NgModule({
     imports: [
         NgxPaginationModule,

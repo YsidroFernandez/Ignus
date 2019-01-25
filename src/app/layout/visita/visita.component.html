@@ -115,9 +115,9 @@
             </div>
           </div>
           <div class="col col-sm-6">
-            <div class="form-group">
+            <div class="form-group" >
               <label for="tipos">Solicitud</label>
-              <select class="form-control" name="gender" [(ngModel)]="inspection.request_id">
+              <select class="form-control" name="gender" [(ngModel)]="inspection.request_id" disabled>
                 <option *ngFor="let res of requests" [ngValue]="res.id" [selected]="inspection.request_id">{{res.nameForClient}}</option>
               </select>
             </div>
