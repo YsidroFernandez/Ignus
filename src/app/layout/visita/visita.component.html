@@ -114,10 +114,10 @@
               <input type="text" [(ngModel)]="inspection.observation" class="form-control" />
             </div>
           </div>
-          <div class="col col-sm-6">
-            <div class="form-group" >
+          <div class="col col-sm-6" >
+            <div  class="form-group"  >
               <label for="tipos">Solicitud</label>
-              <select class="form-control" name="gender" [(ngModel)]="inspection.request_id" disabled>
+              <select [disabled]="!disabled1" class="form-control" name="gender" [(ngModel)]="inspection.request_id" >
                 <option *ngFor="let res of requests" [ngValue]="res.id" [selected]="inspection.request_id">{{res.nameForClient}}</option>
               </select>
             </div>
@@ -129,7 +129,7 @@
             <div class="form-group" style="text-align: center">
               <label for="tipos">Informe</label>
               <br>
-              <input data-classButton="btn btn-primary" name="file" id="file" value="inspection.urlFileInspection" type='file'
+              <input data-classButton="btn btn-primary"  type='file'
                 (change)="onSelectFile($event)" />
             </div>
 

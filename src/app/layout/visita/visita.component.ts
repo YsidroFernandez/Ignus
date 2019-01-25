@@ -38,6 +38,7 @@ export class VisitaComponent implements OnInit {
   // It will be either 'Save' or 'Update' based on operation.
   submitType: string = "Save";
   disabled: boolean;
+  disabled1: boolean;
   selectedRow: number;
   // public fileUpload: any;
   // public fileToUploadInspection: File = null;
@@ -45,6 +46,7 @@ export class VisitaComponent implements OnInit {
   fileToUploadRecaudo:File;
   searchfilter: string;
   contrato: any;
+  typeView:string=" ";
 
   constructor(
     private modalService: NgbModal,
@@ -95,10 +97,10 @@ export class VisitaComponent implements OnInit {
   }
 
   apiAction() {
-
     const uploadData = new FormData();
-    uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
-
+    if(this.selectedFile!=null){
+      uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
+      }
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
     this.new = JSON.stringify({
       observation: this.inspection.observation,
@@ -126,7 +128,7 @@ export class VisitaComponent implements OnInit {
       this.new1 = JSON.stringify({
         observation: this.inspection.observation,
       });
-      uploadData.append("inspection", this.new1);
+      uploadData.append("inspection1", this.new1);
       console.log(uploadData);
       //metodo que perimite enviar por put una actualizaciòn de un servicio
       this.globalService.updateModel(this.inspection.id, uploadData, "/api/inspection", this.globalService.getHeaderClear())
@@ -176,19 +178,25 @@ export class VisitaComponent implements OnInit {
 
     if (action == "show") {
       //si la accion es ver, desabilita los campos del modal
-      this.disabled = true;
+      // this.disabled = true;
       this.showView = false;
       this.modalIcon = "fa fa-close";
+      this.disabled1= false;
+      this.typeView="ver";
     } else if (action == "create") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
       this.showView = true;
+      this.disabled1=true;
       this.modalIcon = "fa fa-plus";
+      this.typeView="crear";
     } else if (action == "edit") {
       //si la accion es distinta de ver los campos del modal quedaran activados
       this.disabled = false;
       this.modalIcon = "fa fa-edit";
       this.showView = false;
+      this.typeView="editar";
+      this.disabled1=false;
     }
   }
 

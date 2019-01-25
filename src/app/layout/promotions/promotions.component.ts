@@ -42,8 +42,9 @@ export class PromotionsComponent implements OnInit {
 
    apiAction() {
     const uploadData = new FormData();
-    uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
-
+    if(this.selectedFile!=null){
+      uploadData.append("myFile", this.selectedFile, this.selectedFile.name);
+      }
     //declaracion que permite enviar el nuevo json ya sea para crear o editar
     this.new = JSON.stringify({
       name: this.promotion.name,
